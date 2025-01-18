@@ -9,11 +9,7 @@ def scrape_team_url(url: str):
 
     Args:
         url (str): site for this team's schedule of outcomes
-
-    Returns:
-        df (pd.DataFrame): team schedule data frame
     """
-
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
 
