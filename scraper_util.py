@@ -35,11 +35,13 @@ def scrape_team_schedule(url: str):
     return df
 
 
-def scrape_team_list(url: str):
+def scrape_team_list(url: str, debug: bool=False, grab_school_from_table: bool=False):
     """Scrape Sports-Reference site for list of all teams
 
     Args:
         url (str): site for all teams
+        debug (bool): flag to print debug statements
+        grab_school_from_table (bool): get school name from table string when pulling URL
 
     Returns:
         df (pd.DataFrame): team list data frame
@@ -58,7 +60,7 @@ def scrape_team_list(url: str):
 
     df = pd.read_html(html_io)[0]  # Convert the table to a DataFrame
 
-    # Need to skip School School
+    # Need to skip break in table (School School)
     drop_idxs = []
     for i in range(len(df["School"])):
         if df["School"][i] == "School":
@@ -78,21 +80,22 @@ def scrape_team_list(url: str):
         url = table_urls[i].split('">')[0]
         urls.append(url.strip())
 
-        # School Name near URL
-        school_by_url = table_urls[i].split('</a')[0].split('">')[1]
+        if grab_school_from_table:  # Not sure this is needed
+            # School Name near URL
+            school_by_url = table_urls[i].split('</a')[0].split('">')[1]
 
-        # Need to handle &amp; for School from URL
-        if AMP in school_by_url:
-            school_by_url = school_by_url.replace(AMP, "&")
+            # Need to handle &amp; for School from URL
+            if AMP in school_by_url:
+                school_by_url = school_by_url.replace(AMP, "&")
 
-        schools_by_url.append(school_by_url.strip())
+            schools_by_url.append(school_by_url.strip())
 
-    for i in range(len(df["School"])):
-        # URL
-        print("URL", i, df["School"][i], "==", schools_by_url[i], urls[i])
+    # Add URLs to data frame
+    df["URL"] = urls
 
-        if df["School"][i] != schools_by_url[i]:
-            print("MTMT  cat", i)
+    if debug:
+        for i in range(len(df["School"])):
+            print(i, df["School"][i], df["URL"][i])
 
     return df
 
