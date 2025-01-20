@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from io import StringIO
 import pandas as pd
 
+URL_PREFIX = "https://www.sports-reference.com"
 AMP = "&amp;"
 
 
@@ -26,11 +27,17 @@ def scrape_team_schedule(url: str):
     table = str(soup.find("table", {"id": "schedule"}))
     # Wrap the HTML string in StringIO
     html_io = StringIO(table)
-    df = pd.read_html(html_io)[0]  # Convert the table to a DataFrame
 
-    # Rename unnamed keys
-    df.rename(columns={'Unnamed: 4': 'Site'}, inplace=True)
-    df.rename(columns={'Unnamed: 8': 'Outcome'}, inplace=True)
+    df = None
+
+    try:
+        df = pd.read_html(html_io)[0]  # Convert the table to a DataFrame
+
+        # Rename unnamed keys
+        df.rename(columns={'Unnamed: 4': 'Site'}, inplace=True)
+        df.rename(columns={'Unnamed: 8': 'Outcome'}, inplace=True)
+    except ValueError as e:
+        print('Value Error')
 
     return df
 
@@ -77,7 +84,8 @@ def scrape_team_list(url: str, debug: bool=False, grab_school_from_table: bool=F
     for i in range(1, len(table_urls)):
 
         # URL
-        url = table_urls[i].split('">')[0]
+        url = URL_PREFIX + table_urls[i].split('">')[0]
+
         urls.append(url.strip())
 
         if grab_school_from_table:  # Not sure this is needed
@@ -98,4 +106,3 @@ def scrape_team_list(url: str, debug: bool=False, grab_school_from_table: bool=F
             print(i, df["School"][i], df["URL"][i])
 
     return df
-
