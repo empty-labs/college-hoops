@@ -1,4 +1,4 @@
-import scraper_util
+from Tools import scraper_util
 
 
 class Team:
