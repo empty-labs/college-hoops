@@ -1,7 +1,7 @@
 import scraper_util
 
 
-class TeamList():
+class TeamList:
 
     def __init__(self, url: str, debug: bool=False):
         """Scrape Sports-Reference site for list of all teams

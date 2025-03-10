@@ -1,7 +1,7 @@
 import scraper_util
 
 
-class Team():
+class Team:
 
     def __init__(self, url: str):
         """Scrape Sports-Reference site and apply correction for empty keys
