@@ -11,4 +11,5 @@ class TeamList:
             debug (bool): flag to print debug statements
         """
 
-        self.df = scraper_util.scrape_team_list(url=url, debug=debug)
+        self.df = scraper_util.scrape_team_list(url=url,
+                                                debug=debug)
