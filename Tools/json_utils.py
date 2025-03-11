@@ -29,14 +29,19 @@ def add_dictionary_to_json(dct: dict, filename: str):
             for t in new_teams:
                 if t not in existing_teams:
                     existing_data[t] = dct[t]
+                    print(f"Adding new data set for {t}.")
+                print(f"Data set already exists for {t}.")
+
         else:  # Add new team data if JSON is empty
             existing_data = {}
 
             for t in new_teams:
                 existing_data[t] = dct[t]
+                print(f"Adding new data set for {t}.")
 
         if existing_data:
             json.dump(existing_data, file, indent=4)  # `indent=4` makes it more readable
+            print("JSON updated")
 
 
 def print_team_win_loss(filename: str):
