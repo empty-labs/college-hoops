@@ -44,7 +44,7 @@ def add_dictionary_to_json(dct: dict, filename: str):
             print("JSON updated")
 
 
-def print_team_win_loss(filename: str):
+def print_season_end_team_win_loss(filename: str):
     """Print team win-loss records
 
     Args:
