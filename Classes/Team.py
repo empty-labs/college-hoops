@@ -9,4 +9,5 @@ class Team:
         Args:
             url (str): site for this team's schedule of outcomes
         """
+
         self.df = scraper_util.scrape_team_schedule(url=url)
