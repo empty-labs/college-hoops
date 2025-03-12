@@ -146,7 +146,7 @@ def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool=False):
     return massey_ratings
 
 
-def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool = False):
+def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool=False):
     """Calculates Colley rankings given a game results DataFrame.
 
     Args:
@@ -159,12 +159,12 @@ def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool = False):
 
     # Get unique teams and index them
     teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
-    n = len(teams)  # Number of teams
     team_index = {team: i for i, team in enumerate(teams)}  # Map teams to indices
+    N = len(teams)
 
     # Initialize Colley matrix (C) and RHS vector (b)
-    C = np.eye(n) * 2  # Start with 2 on the diagonal
-    b = np.ones(n)  # Initialize b with 1s
+    C = np.eye(N) * 2  # Start with 2 on the diagonal
+    b = np.ones(N)  # Initialize b with 1s
 
     # Populate matrix and vector using game results
     for _, row in score_df.iterrows():
