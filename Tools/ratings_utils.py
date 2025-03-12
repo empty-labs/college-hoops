@@ -86,7 +86,7 @@ def set_massey_rating_data_frame(filename: str):
     return score_df
 
 
-def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool = False):
+def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool=False):
     """Calculate Massey ratings for each team and sort in ranked order
 
     Args:
@@ -94,7 +94,7 @@ def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool = False):
         debug (bool): flag to print debug statements
 
     Returns:
-        massey_rankings (dict): dictionary of Massey ratings
+        massey_rantings (dict): dictionary of Massey ratings
     """
 
     # Get unique teams and index them

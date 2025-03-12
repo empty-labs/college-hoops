@@ -7,58 +7,58 @@
 1,East,6,Illinois,Morehead State,85,69
 1,East,7,Washington State,Drake,66,61
 1,East,8,Iowa State,South Dakota State,82,65
-1,West,1,North Carolina,Wagner,90,62
-1,West,2,Mississippi State,Michigan State,51,69
-1,West,3,Saint Mary's (CA),Grand Canyon,66,75
-1,West,4,Alabama,College of Charleston,109,96
-1,West,5,Clemson,New Mexico,77,56
-1,West,6,Baylor,Colgate,92,67
-1,West,7,Dayton,Nevada,63,60
-1,West,8,Arizona,Long Beach State,85,65
-1,South,1,Houston,Longwood,86,46
-1,South,2,Nebraska,Texas A&M,83,98
-1,South,3,Wisconsin,James Madison,61,72
-1,South,4,Duke,Vermont,64,47
-1,South,5,Texas Tech,NC State,67,80
-1,South,6,Kentucky,Oakland,76,80
-1,South,7,Florida,Colorado,100,102
-1,South,8,Marquette,Western Kentucky,87,69
-1,Midwest,1,Purdue,Grambling,78,50
-1,Midwest,2,Utah State,TCU,88,72
-1,Midwest,3,Gonzaga,McNeese State,86,65
-1,Midwest,4,Kansas,Samford,93,89
-1,Midwest,5,South Carolina,Oregon,73,87
-1,Midwest,6,Creighton,Akron,77,60
-1,Midwest,7,Texas,Colorado State,56,44
-1,Midwest,8,Tennessee,Saint Peter's,83,49
+1,West,9,North Carolina,Wagner,90,62
+1,West,10,Mississippi State,Michigan State,51,69
+1,West,11,Saint Mary's (CA),Grand Canyon,66,75
+1,West,12,Alabama,College of Charleston,109,96
+1,West,13,Clemson,New Mexico,77,56
+1,West,14,Baylor,Colgate,92,67
+1,West,15,Dayton,Nevada,63,60
+1,West,16,Arizona,Long Beach State,85,65
+1,South,17,Houston,Longwood,86,46
+1,South,18,Nebraska,Texas A&M,83,98
+1,South,19,Wisconsin,James Madison,61,72
+1,South,20,Duke,Vermont,64,47
+1,South,21,Texas Tech,NC State,67,80
+1,South,22,Kentucky,Oakland,76,80
+1,South,23,Florida,Colorado,100,102
+1,South,24,Marquette,Western Kentucky,87,69
+1,Midwest,25,Purdue,Grambling,78,50
+1,Midwest,26,Utah State,TCU,88,72
+1,Midwest,27,Gonzaga,McNeese State,86,65
+1,Midwest,28,Kansas,Samford,93,89
+1,Midwest,29,South Carolina,Oregon,73,87
+1,Midwest,30,Creighton,Akron,77,60
+1,Midwest,31,Texas,Colorado State,56,44
+1,Midwest,32,Tennessee,Saint Peter's,83,49
 2,East,1,Connecticut,Northwestern,75,58
 2,East,2,San Diego State,Yale,85,57
 2,East,3,Duquesne,Illinois,63,89
 2,East,4,Washington State,Iowa State,56,67
-2,West,1,North Carolina,Michigan State,85,69
-2,West,2,Grand Canyon,Alabama,61,72
-2,West,3,Clemson,Baylor,72,64
-2,West,4,Dayton,Arizona,68,78
-2,South,1,Houston,Texas A&M,100,95
-2,South,2,James Madison,Duke,55,93
-2,South,3,NC State,Oakland,79,73
-2,South,4,Colorado,Marquette,77,81
-2,Midwest,1,Purdue,Utah State,106,67
-2,Midwest,2,Gonzaga,Kansas,89,68
-2,Midwest,3,Oregon,Creighton,73,86
-2,Midwest,4,Texas,Tennessee,58,62
+2,West,5,North Carolina,Michigan State,85,69
+2,West,6,Grand Canyon,Alabama,61,72
+2,West,7,Clemson,Baylor,72,64
+2,West,8,Dayton,Arizona,68,78
+2,South,9,Houston,Texas A&M,100,95
+2,South,10,James Madison,Duke,55,93
+2,South,11,NC State,Oakland,79,73
+2,South,12,Colorado,Marquette,77,81
+2,Midwest,13,Purdue,Utah State,106,67
+2,Midwest,14,Gonzaga,Kansas,89,68
+2,Midwest,15,Oregon,Creighton,73,86
+2,Midwest,16,Texas,Tennessee,58,62
 3,East,1,Connecticut,San Diego State,82,52
 3,East,2,Illinois,Iowa State,72,69
-3,West,1,North Carolina,Alabama,87,89
-3,West,2,Clemson,Arizona,77,72
-3,South,1,Houston,Duke,51,54
-3,South,2,NC State,Marquette,67,58
-3,Midwest,1,Purdue,Gonzaga,80,68
-3,Midwest,2,Creighton,Tennessee,75,82
+3,West,3,North Carolina,Alabama,87,89
+3,West,4,Clemson,Arizona,77,72
+3,South,5,Houston,Duke,51,54
+3,South,6,NC State,Marquette,67,58
+3,Midwest,7,Purdue,Gonzaga,80,68
+3,Midwest,8,Creighton,Tennessee,75,82
 4,East,1,Connecticut,Illinois,77,52
-4,West,1,Alabama,Clemson,89,82
-4,South,1,Duke,NC State,64,76
-4,Midwest,1,Purdue,Tennessee,72,66
+4,West,2,Alabama,Clemson,89,82
+4,South,3,Duke,NC State,64,76
+4,Midwest,4,Purdue,Tennessee,72,66
 5,Final Four,1,Connecticut,Alabama,86,72
 5,Final Four,2,NC State,Purdue,50,63
 6,Championship,1,Connecticut,Purdue,75,60
