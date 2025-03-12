@@ -2,6 +2,8 @@
 import pandas as pd
 import numpy as np
 
+ROUND_NAMES = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8", "Final 4", "Championship"]
+
 
 def set_massey_score_entry(dct: dict, team: str, opponent: str, team_score: int, opponent_score: int):
     """Set Massey score entry
@@ -94,7 +96,7 @@ def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool=False):
         debug (bool): flag to print debug statements
 
     Returns:
-        massey_rantings (dict): dictionary of Massey ratings
+        massey_ratings (dict): dictionary of Massey ratings
     """
 
     # Get unique teams and index them
@@ -136,3 +138,157 @@ def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool=False):
             print(f"{rank}. {team}: {rating:.2f}")
 
     return massey_ratings
+
+
+def simulate_next_round(tourney_dict: dict, ratings: dict, rd: int):
+    """Simulate next round of tournament using current round of team matchups
+
+    Args:
+        tourney_dict (dict): tournament dictionary of current round matchups
+        ratings (dict): dictionary of ratings
+        rd (int): current round of tournament matchups
+
+    Returns:
+        tourney_dict (dict): tournament dictionary of current and next round matchups
+    """
+    game = 0
+
+    # Convert dictionary to DataFrame, find indices matching current round
+    df = pd.DataFrame(tourney_dict)
+    matching_indices = df[df["Round"] == rd].index.tolist()
+
+    for i in matching_indices:
+
+        team1 = tourney_dict["Team1"][i]
+        team2 = tourney_dict["Team2"][i]
+        rating1 = ratings[team1]
+        rating2 = ratings[team2]
+
+        # Add 2nd round teams
+        if tourney_dict["Rating1"][i] >= tourney_dict["Rating2"][i]:
+
+            if i % 2 == 0:
+                # Assign 1st team if even index
+                tourney_dict["Team1"].append(team1)
+                tourney_dict["Rating1"].append(rating1)
+            else:
+                # Assign 2nd team if odd index
+                tourney_dict["Team2"].append(team1)
+                tourney_dict["Rating2"].append(rating1)
+
+        else:
+
+            if i % 2 == 0:
+                # Assign 1st team if even index
+                tourney_dict["Team1"].append(team2)
+                tourney_dict["Rating1"].append(rating2)
+            else:
+                # Assign 2nd team if odd index
+                tourney_dict["Team2"].append(team2)
+                tourney_dict["Rating2"].append(rating2)
+
+        if i % 2 == 0:
+            game += 1
+
+            tourney_dict["Round"].append(rd + 1)
+            tourney_dict["Game"].append(game)
+
+    # Apply final round corrections
+    if rd == 6:
+
+        placeholder = "No Value"
+
+        if len(tourney_dict["Team1"]) > len(tourney_dict["Team2"]):
+            tourney_dict["Team2"].append(placeholder)
+            tourney_dict["Rating2"].append(placeholder)
+        else:
+            tourney_dict["Team1"].append(placeholder)
+            tourney_dict["Rating1"].append(placeholder)
+
+    return tourney_dict
+
+
+def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: int):
+    """Assess number of correct picks based on teams in next round
+
+    Args:
+        tourney_dict (dict): tournament dictionary of current round matchups
+        tourney_df (pd.DataFrame): tournament data frame
+        rd (int): current round of tournament matchups
+
+    Returns:
+        correct_picks (int): number of correct picks in this round of tournament
+        num_teams (int): number of teams in this round of tournament
+    """
+
+    # Need to add teams to correct pick checker
+    correct_picks = 0
+
+    # Convert dictionary to DataFrame, find indices matching current round
+    df = pd.DataFrame(tourney_dict)
+    matching_indices = df[df["Round"] == (rd + 1)].index.tolist()
+    num_teams = len(df[df["Round"] == rd].index.tolist())
+
+    for i in matching_indices:
+
+        # Compare 1st round scores by checking 2nd round participants
+        if tourney_df["Team1"][i] == tourney_dict["Team1"][i]:
+            correct_picks += 1
+        if tourney_df["Team2"][i] == tourney_dict["Team2"][i]:
+            correct_picks += 1
+
+    print(f"Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams}")
+
+    return correct_picks, num_teams
+
+
+def simulate_tournament(filename: str, ratings: dict):
+    """Simulate tournament outcomes based on given rating system
+
+    Args:
+        filename (str): Name of CSV tournament team file
+        ratings (dict): dictionary of ratings
+    """
+
+    # Load tournament CSV file into a DataFrame
+    tourney_df = pd.read_csv(filename)
+
+    tourney_dict = {
+        "Round": [],
+        "Game": [],
+        "Team1": [],
+        "Team2": [],
+        "Rating1": [],
+        "Rating2": []
+    }
+
+    # Add ratings to 1st round
+    for i in range(32):
+        team1 = tourney_df["Team1"][i]
+        team2 = tourney_df["Team2"][i]
+        rating1 = ratings[team1]
+        rating2 = ratings[team2]
+
+        tourney_dict["Round"].append(tourney_df["Round"][i])
+        tourney_dict["Game"].append(tourney_df["Game"][i])
+        tourney_dict["Team1"].append(team1)
+        tourney_dict["Team2"].append(team2)
+        tourney_dict["Rating1"].append(rating1)
+        tourney_dict["Rating2"].append(rating2)
+
+    total_correct_picks = 0
+    total_num_teams = 0
+
+    for rd in range(1, 7):
+        tourney_dict = simulate_next_round(tourney_dict=tourney_dict,
+                                           ratings=ratings,
+                                           rd=rd)
+
+        correct_picks, num_teams = calculate_correct_picks(tourney_dict=tourney_dict,
+                                                           tourney_df=tourney_df,
+                                                           rd=rd)
+
+        total_correct_picks += correct_picks
+        total_num_teams += num_teams
+
+    print(f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}")
