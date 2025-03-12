@@ -5,29 +5,34 @@ import numpy as np
 ROUND_NAMES = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8", "Final 4", "Championship"]
 
 
-def set_massey_score_entry(dct: dict, team: str, opponent: str, team_score: int, opponent_score: int):
+def set_score_entry(dct: dict, home_team: str, away_team: str, home_team_score: int, away_team_score: int):
     """Set Massey score entry
 
     Args:
         dct (dict): Massey score dictionary
-        team (str): current team name
-        opponent (str): opponent team name
-        team_score (int): current team score
-        opponent_score (int): opponent team score
+        home_team (str): home team name
+        away_team (str): away team name
+        home_team_score (int): home team score
+        away_team_score (int): away team score
 
     Returns:
         dct (dict): Massey score dictionary
     """
 
-    dct["Home"].append(team)
-    dct["Away"].append(opponent)
-    dct["Home_Score"].append(team_score)
-    dct["Away_Score"].append(opponent_score)
+    dct["Home"].append(home_team)
+    dct["Away"].append(away_team)
+    dct["Home_Score"].append(home_team_score)
+    dct["Away_Score"].append(away_team_score)
+
+    if dct["Home_Score"] > dct["Away_Score"]:
+        dct["Winner"].append(home_team)
+    else:
+        dct["Winner"].append(away_team)
 
     return dct
 
 
-def set_massey_rating_data_frame(filename: str):
+def set_rating_data_frame(filename: str):
     """Set Massey score data frame prior to Massey rating calculation
 
     Args:
@@ -42,7 +47,8 @@ def set_massey_rating_data_frame(filename: str):
         "Home": [],
         "Home_Score": [],
         "Away": [],
-        "Away_Score": []
+        "Away_Score": [],
+        "Winner": []
     }
 
     # Read Stats
@@ -62,25 +68,25 @@ def set_massey_rating_data_frame(filename: str):
                 # Find which team is home/away (None = home, @ = away, N = neutral/assign home to winner?)
                 if team_df["Site"][i] is None:
                     # Current team is home team
-                    score_dict = set_massey_score_entry(dct=score_dict, team=team, opponent=team_df["Opponent"][i],
-                                                        team_score=int(team_df["Tm"][i]),
-                                                        opponent_score=int(team_df["Opp"][i]))
+                    score_dict = set_score_entry(dct=score_dict, home_team=team, away_team=team_df["Opponent"][i],
+                                                 home_team_score=int(team_df["Tm"][i]),
+                                                 away_team_score=int(team_df["Opp"][i]))
                 elif team_df["Site"][i] == "@":
                     # Opponent team is away team
-                    score_dict = set_massey_score_entry(dct=score_dict, team=team_df["Opponent"][i], opponent=team,
-                                                        team_score=int(team_df["Opp"][i]),
-                                                        opponent_score=int(team_df["Tm"][i]))
-                else:
+                    score_dict = set_score_entry(dct=score_dict, home_team=team_df["Opponent"][i], away_team=team,
+                                                 home_team_score=int(team_df["Opp"][i]),
+                                                 away_team_score=int(team_df["Tm"][i]))
+                else:  # Neutral site home team advantage goes to winner
                     if team_df["Outcome"][i] == "W":
                         # Current team is home team
-                        score_dict = set_massey_score_entry(dct=score_dict, team=team, opponent=team_df["Opponent"][i],
-                                                            team_score=int(team_df["Tm"][i]),
-                                                            opponent_score=int(team_df["Opp"][i]))
+                        score_dict = set_score_entry(dct=score_dict, home_team=team, away_team=team_df["Opponent"][i],
+                                                     home_team_score=int(team_df["Tm"][i]),
+                                                     away_team_score=int(team_df["Opp"][i]))
                     else:
                         # Opponent team is away team
-                        score_dict = set_massey_score_entry(dct=score_dict, team=team_df["Opponent"][i], opponent=team,
-                                                            team_score=int(team_df["Opp"][i]),
-                                                            opponent_score=int(team_df["Tm"][i]))
+                        score_dict = set_score_entry(dct=score_dict, home_team=team_df["Opponent"][i], away_team=team,
+                                                     home_team_score=int(team_df["Opp"][i]),
+                                                     away_team_score=int(team_df["Tm"][i]))
 
     # Convert to data frame
     score_df = pd.DataFrame(score_dict)
@@ -138,6 +144,61 @@ def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool=False):
             print(f"{rank}. {team}: {rating:.2f}")
 
     return massey_ratings
+
+
+def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool = False):
+    """Calculates Colley rankings given a game results DataFrame.
+
+    Args:
+        score_df (pd.DataFrame): Massey score data frame
+        debug (bool): flag to print debug statements
+
+    Returns:
+        colley_ratings: Pandas Series with team rankings
+    """
+
+    # Get unique teams and index them
+    teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
+    n = len(teams)  # Number of teams
+    team_index = {team: i for i, team in enumerate(teams)}  # Map teams to indices
+
+    # Initialize Colley matrix (C) and RHS vector (b)
+    C = np.eye(n) * 2  # Start with 2 on the diagonal
+    b = np.ones(n)  # Initialize b with 1s
+
+    # Populate matrix and vector using game results
+    for _, row in score_df.iterrows():
+        t1, t2, winner = row["Home"], row["Away"], row["Winner"]
+        i, j = team_index[t1], team_index[t2]
+
+        # Update matrix
+        C[i, i] += 1  # Each team gets an additional game played
+        C[j, j] += 1
+        C[i, j] -= 1
+        C[j, i] -= 1
+
+        # Update b vector
+        if winner == t1:
+            b[i] += 0.5
+            b[j] -= 0.5
+        else:
+            b[i] -= 0.5
+            b[j] += 0.5
+
+    # Solve for ratings
+    ratings = np.linalg.solve(C, b)
+
+    # Convert ratings to a dictionary
+    colley_ratings = {team: rating for team, rating in zip(teams, ratings)}
+
+    # Sort and display rankings
+    colley_rankings = sorted(colley_ratings.items(), key=lambda x: x[1], reverse=True)
+
+    if debug:
+        for rank, (team, rating) in enumerate(colley_rankings, 1):
+            print(f"{rank}. {team}: {rating:.2f}")
+
+    return colley_ratings
 
 
 def simulate_next_round(tourney_dict: dict, ratings: dict, rd: int):
