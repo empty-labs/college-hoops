@@ -1,4 +1,4 @@
-from Tools import scraper_util
+from Tools import scraper_utils
 
 
 class Tournament:
@@ -11,5 +11,5 @@ class Tournament:
             debug (bool): flag to print debug statements
         """
 
-        self.df = scraper_util.scrape_tournament(url=url,
-                                                 debug=debug)
+        self.df = scraper_utils.scrape_tournament(url=url,
+                                                  debug=debug)
