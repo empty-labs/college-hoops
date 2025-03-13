@@ -211,7 +211,7 @@ def mov_multiplier(mov, blowout_factor=2.2):
     return np.log(abs(mov) + 1) * blowout_factor
 
 
-def update_elo(r1: float, r2: float, outcome: int, mov: int, K: int=40):
+def update_elo(r1: float, r2: float, outcome: int, mov: int, K: int=40, adjust_K: bool=True):
     """Update Elo ratings with MOV scaling
 
     Args:
@@ -220,6 +220,7 @@ def update_elo(r1: float, r2: float, outcome: int, mov: int, K: int=40):
         outcome (int): binary value for winner of matchup, 1: team 1 is winner, 0: team 2 is winner
         mov (int): margin of victory, ([team 1 score] - [team 2 score])
         K (int): rating adjustment factor (default 30)
+        adjust_K (bool): use adjusted K value based on MOV
 
     Returns:
         r1_new (float): updated Elo rating for team 1
@@ -230,7 +231,7 @@ def update_elo(r1: float, r2: float, outcome: int, mov: int, K: int=40):
     E2 = 1 - E1  # Expected for team 2
 
     # Scale adjustment by MOV
-    K_adj = K * mov_multiplier(mov)
+    K_adj = K * mov_multiplier(mov) if adjust_K else K
 
     # Adjust ratings
     r1_new = r1 + K_adj * (outcome - E1)
@@ -239,14 +240,16 @@ def update_elo(r1: float, r2: float, outcome: int, mov: int, K: int=40):
     return r1_new, r2_new
 
 
-def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: int=40, debug: bool=False):
+def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: int=40, debug: bool=False,
+                          adjust_K: bool=True):
     """Calculates Elo rankings given a game results DataFrame.
 
     Args:
         score_df (pd.DataFrame): matchup data frame
-        initial_rating (int): starting rating for all teams (default 1500)
+        initial_ratings (int): starting rating for all teams (default 1500)
         K (int): rating adjustment factor (default 30)
         debug (bool): flag to print debug statements
+        adjust_K (bool): use adjusted K value based on MOV
 
     Returns:
         elo_ratings (dict): dictionary of Elo ratings
@@ -263,7 +266,7 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
         outcome = 1 if winner == t1 else 0
 
         elo_ratings[t1], elo_ratings[t2] = update_elo(r1=elo_ratings[t1], r2=elo_ratings[t2],
-                                                      outcome=outcome, mov=mov, K=K)
+                                                      outcome=outcome, mov=mov, K=K, adjust_K=adjust_K)
 
     # Sort and display rankings
     elo_rankings = sorted(elo_ratings.items(), key=lambda x: x[1], reverse=True)
@@ -343,13 +346,14 @@ def simulate_next_round(tourney_dict: dict, ratings: dict, rd: int):
     return tourney_dict
 
 
-def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: int):
+def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: int, debug: bool=True):
     """Assess number of correct picks based on teams in next round
 
     Args:
         tourney_dict (dict): tournament dictionary of current round matchups
         tourney_df (pd.DataFrame): tournament data frame
         rd (int): current round of tournament matchups
+        debug (bool): flag to print debug statements
 
     Returns:
         correct_picks (int): number of correct picks in this round of tournament
@@ -372,17 +376,19 @@ def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: in
         if tourney_df["Team2"][i] == tourney_dict["Team2"][i]:
             correct_picks += 1
 
-    print(f"Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams}")
+    if debug:
+        print(f"Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams}")
 
     return correct_picks, num_teams
 
 
-def simulate_tournament(filename: str, ratings: dict):
+def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
     """Simulate tournament outcomes based on given rating system
 
     Args:
         filename (str): Name of CSV tournament team file
         ratings (dict): dictionary of ratings
+        debug (bool): flag to print debug statements
     """
 
     # Load tournament CSV file into a DataFrame
@@ -421,9 +427,12 @@ def simulate_tournament(filename: str, ratings: dict):
 
         correct_picks, num_teams = calculate_correct_picks(tourney_dict=tourney_dict,
                                                            tourney_df=tourney_df,
-                                                           rd=rd)
+                                                           rd=rd, debug=debug)
 
         total_correct_picks += correct_picks
         total_num_teams += num_teams
 
-    print(f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}")
+    if debug:
+        print(f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}")
+
+    return total_correct_picks
