@@ -211,7 +211,7 @@ def mov_multiplier(mov, blowout_factor=2.2):
     return np.log(abs(mov) + 1) * blowout_factor
 
 
-def update_elo(r1: float, r2: float, outcome: int, mov: int, K: int=40):
+def update_elo(r1: float, r2: float, outcome: int, mov: int, K: int=40, adjust_K: bool=True):
     """Update Elo ratings with MOV scaling
 
     Args:
@@ -220,6 +220,7 @@ def update_elo(r1: float, r2: float, outcome: int, mov: int, K: int=40):
         outcome (int): binary value for winner of matchup, 1: team 1 is winner, 0: team 2 is winner
         mov (int): margin of victory, ([team 1 score] - [team 2 score])
         K (int): rating adjustment factor (default 30)
+        adjust_K (bool): use adjusted K value based on MOV
 
     Returns:
         r1_new (float): updated Elo rating for team 1
@@ -230,7 +231,7 @@ def update_elo(r1: float, r2: float, outcome: int, mov: int, K: int=40):
     E2 = 1 - E1  # Expected for team 2
 
     # Scale adjustment by MOV
-    K_adj = K * mov_multiplier(mov)
+    K_adj = K * mov_multiplier(mov) if adjust_K else K
 
     # Adjust ratings
     r1_new = r1 + K_adj * (outcome - E1)
@@ -239,14 +240,16 @@ def update_elo(r1: float, r2: float, outcome: int, mov: int, K: int=40):
     return r1_new, r2_new
 
 
-def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: int=40, debug: bool=False):
+def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: int=40, debug: bool=False,
+                          adjust_K: bool=True):
     """Calculates Elo rankings given a game results DataFrame.
 
     Args:
         score_df (pd.DataFrame): matchup data frame
-        initial_rating (int): starting rating for all teams (default 1500)
+        initial_ratings (int): starting rating for all teams (default 1500)
         K (int): rating adjustment factor (default 30)
         debug (bool): flag to print debug statements
+        adjust_K (bool): use adjusted K value based on MOV
 
     Returns:
         elo_ratings (dict): dictionary of Elo ratings
@@ -263,7 +266,7 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
         outcome = 1 if winner == t1 else 0
 
         elo_ratings[t1], elo_ratings[t2] = update_elo(r1=elo_ratings[t1], r2=elo_ratings[t2],
-                                                      outcome=outcome, mov=mov, K=K)
+                                                      outcome=outcome, mov=mov, K=K, adjust_K=adjust_K)
 
     # Sort and display rankings
     elo_rankings = sorted(elo_ratings.items(), key=lambda x: x[1], reverse=True)
