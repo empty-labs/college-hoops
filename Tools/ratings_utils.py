@@ -343,13 +343,14 @@ def simulate_next_round(tourney_dict: dict, ratings: dict, rd: int):
     return tourney_dict
 
 
-def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: int):
+def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: int, debug: bool=True):
     """Assess number of correct picks based on teams in next round
 
     Args:
         tourney_dict (dict): tournament dictionary of current round matchups
         tourney_df (pd.DataFrame): tournament data frame
         rd (int): current round of tournament matchups
+        debug (bool): flag to print debug statements
 
     Returns:
         correct_picks (int): number of correct picks in this round of tournament
@@ -372,17 +373,19 @@ def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: in
         if tourney_df["Team2"][i] == tourney_dict["Team2"][i]:
             correct_picks += 1
 
-    print(f"Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams}")
+    if debug:
+        print(f"Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams}")
 
     return correct_picks, num_teams
 
 
-def simulate_tournament(filename: str, ratings: dict):
+def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
     """Simulate tournament outcomes based on given rating system
 
     Args:
         filename (str): Name of CSV tournament team file
         ratings (dict): dictionary of ratings
+        debug (bool): flag to print debug statements
     """
 
     # Load tournament CSV file into a DataFrame
@@ -421,9 +424,12 @@ def simulate_tournament(filename: str, ratings: dict):
 
         correct_picks, num_teams = calculate_correct_picks(tourney_dict=tourney_dict,
                                                            tourney_df=tourney_df,
-                                                           rd=rd)
+                                                           rd=rd, debug=debug)
 
         total_correct_picks += correct_picks
         total_num_teams += num_teams
 
-    print(f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}")
+    if debug:
+        print(f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}")
+
+    return total_correct_picks
