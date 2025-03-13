@@ -1,0 +1,65 @@
+﻿Round,Conference,Game,Team1,Team2,Score1,Score2
+1,West,1,Gonzaga,Norfolk State,98,55
+1,West,2,Oklahoma,Missouri,72,68
+1,West,3,Creighton,UC Santa Barbara,63,62
+1,West,4,Virginia,Ohio,58,62
+1,West,5,Southern California,Drake,72,56
+1,West,6,Kansas,Eastern Washington,93,84
+1,West,7,Oregon,Virginia Commonwealth,1,0
+1,West,8,Iowa,Grand Canyon,86,74
+1,East,9,Michigan,Texas Southern,82,66
+1,East,10,Louisiana State,St. Bonaventure,76,61
+1,East,11,Colorado,Georgetown,96,73
+1,East,12,Florida State,UNC Greensboro,64,54
+1,East,13,Brigham Young,UCLA,62,73
+1,East,14,Texas,Abilene Christian,52,53
+1,East,15,Connecticut,Maryland,54,63
+1,East,16,Alabama,Iona,68,55
+1,South,17,Baylor,Hartford,79,55
+1,South,18,North Carolina,Wisconsin,62,85
+1,South,19,Villanova,Winthrop,73,63
+1,South,20,Purdue,North Texas,69,78
+1,South,21,Texas Tech,Utah State,65,53
+1,South,22,Arkansas,Colgate,85,68
+1,South,23,Florida,Virginia Tech,75,70
+1,South,24,Ohio State,Oral Roberts,72,75
+1,Midwest,25,Illinois,Drexel,78,49
+1,Midwest,26,Loyola (IL),Georgia Tech,71,60
+1,Midwest,27,Tennessee,Oregon State,56,70
+1,Midwest,28,Oklahoma State,Liberty,69,60
+1,Midwest,29,San Diego State,Syracuse,62,78
+1,Midwest,30,West Virginia,Morehead State,84,67
+1,Midwest,31,Clemson,Rutgers,56,60
+1,Midwest,32,Houston,Cleveland State,87,56
+2,West,1,Gonzaga,Oklahoma,87,71
+2,West,2,Creighton,Ohio,72,58
+2,West,3,Southern California,Kansas,85,51
+2,West,4,Oregon,Iowa,95,80
+2,East,5,Michigan,Louisiana State,86,78
+2,East,6,Colorado,Florida State,53,71
+2,East,7,UCLA,Abilene Christian,67,47
+2,East,8,Maryland,Alabama,77,96
+2,South,9,Baylor,Wisconsin,76,63
+2,South,10,Villanova,North Texas,84,61
+2,South,11,Texas Tech,Arkansas,66,68
+2,South,12,Florida,Oral Roberts,78,81
+2,Midwest,13,Illinois,Loyola (IL),58,71
+2,Midwest,14,Oregon State,Oklahoma State,80,70
+2,Midwest,15,Syracuse,West Virginia,75,72
+2,Midwest,16,Rutgers,Houston,60,63
+3,West,1,Gonzaga,Creighton,83,65
+3,West,2,Southern California,Oregon,82,68
+3,East,3,Michigan,Florida State,76,58
+3,East,4,UCLA,Alabama,88,78
+3,South,5,Baylor,Villanova,62,51
+3,South,6,Arkansas,Oral Roberts,72,70
+3,Midwest,7,Loyola (IL),Oregon State,58,65
+3,Midwest,8,Syracuse,Houston,46,62
+4,West,1,Gonzaga,Southern California,85,66
+4,East,2,Michigan,UCLA,49,51
+4,South,3,Baylor,Arkansas,81,72
+4,Midwest,4,Oregon State,Houston,61,67
+5,Final Four,1,Gonzaga,UCLA,93,90
+5,Final Four,2,Baylor,Houston,78,59
+6,Championship,1,Gonzaga,Baylor,70,86
+7,Champion,1,Baylor,,,
