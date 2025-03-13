@@ -1,0 +1,65 @@
+﻿Round,Conference,Game,Team1,Team2,Score1,Score2
+1,South,1,Alabama,Texas A&M-Corpus Christi,96,75
+1,South,2,Maryland,West Virginia,67,65
+1,South,3,San Diego State,College of Charleston,63,57
+1,South,4,Virginia,Furman,67,68
+1,South,5,Creighton,NC State,72,63
+1,South,6,Baylor,UC Santa Barbara,74,56
+1,South,7,Missouri,Utah State,76,65
+1,South,8,Arizona,Princeton,55,59
+1,East,9,Purdue,Fairleigh Dickinson-Florham,58,63
+1,East,10,Memphis,Florida Atlantic,65,66
+1,East,11,Duke,Oral Roberts,74,51
+1,East,12,Tennessee,Louisiana,58,55
+1,East,13,Kentucky,Providence,61,53
+1,East,14,Kansas State,Montana State,77,65
+1,East,15,Michigan State,Southern California,72,62
+1,East,16,Marquette,Vermont,78,61
+1,Midwest,17,Houston,Northern Kentucky,63,52
+1,Midwest,18,Iowa,Auburn,75,83
+1,Midwest,19,Miami (FL),Drake,63,56
+1,Midwest,20,Indiana,Kent State,71,60
+1,Midwest,21,Iowa State,Pittsburgh,41,59
+1,Midwest,22,Xavier,Kennesaw State,72,67
+1,Midwest,23,Texas A&M,Penn State,59,76
+1,Midwest,24,Texas,Colgate,81,61
+1,West,25,Kansas,Howard,96,68
+1,West,26,Arkansas,Illinois,73,63
+1,West,27,Saint Mary's (CA),Virginia Commonwealth,63,51
+1,West,28,Connecticut,Iona,87,63
+1,West,29,TCU,Arizona State,72,70
+1,West,30,Gonzaga,Grand Canyon,82,70
+1,West,31,Northwestern,Boise State,75,67
+1,West,32,UCLA,UNC Asheville,86,53
+2,South,1,Alabama,Maryland,73,51
+2,South,2,San Diego State,Furman,75,52
+2,South,3,Creighton,Baylor,85,76
+2,South,4,Missouri,Princeton,63,78
+2,East,5,Fairleigh Dickinson-Florham,Florida Atlantic,70,78
+2,East,6,Duke,Tennessee,52,65
+2,East,7,Kentucky,Kansas State,69,75
+2,East,8,Michigan State,Marquette,69,60
+2,Midwest,9,Houston,Auburn,81,64
+2,Midwest,10,Miami (FL),Indiana,85,69
+2,Midwest,11,Pittsburgh,Xavier,73,84
+2,Midwest,12,Penn State,Texas,66,71
+2,West,13,Kansas,Arkansas,71,72
+2,West,14,Saint Mary's (CA),Connecticut,55,70
+2,West,15,TCU,Gonzaga,81,84
+2,West,16,Northwestern,UCLA,63,68
+3,South,1,Alabama,San Diego State,64,71
+3,South,2,Creighton,Princeton,86,75
+3,East,3,Florida Atlantic,Tennessee,62,55
+3,East,4,Kansas State,Michigan State,98,93
+3,Midwest,5,Houston,Miami (FL),75,89
+3,Midwest,6,Xavier,Texas,71,83
+3,West,7,Arkansas,Connecticut,65,88
+3,West,8,Gonzaga,UCLA,79,76
+4,West,1,San Diego State,Creighton,57,56
+4,South,2,Florida Atlantic,Kansas State,79,76
+4,Midwest,3,Miami (FL),Texas,88,81
+4,West,4,Connecticut,Gonzaga,82,54
+5,Final Four,1,San Diego State,Florida Atlantic,72,71
+5,Final Four,2,Miami (FL),Connecticut,59,72
+6,Championship,1,San Diego State,Connecticut,59,76
+7,Champion,1,Connecticut,,,
