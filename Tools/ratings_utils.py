@@ -24,7 +24,7 @@ def set_score_entry(dct: dict, home_team: str, away_team: str, home_team_score: 
     dct["Home_Score"].append(home_team_score)
     dct["Away_Score"].append(away_team_score)
 
-    if dct["Home_Score"] > dct["Away_Score"]:
+    if home_team_score > away_team_score:
         dct["Winner"].append(home_team)
     else:
         dct["Winner"].append(away_team)
@@ -98,7 +98,7 @@ def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool=False):
     """Calculate Massey ratings for each team and sort in ranked order
 
     Args:
-        score_df (pd.DataFrame): Massey score data frame
+        score_df (pd.DataFrame): matchup score data frame
         debug (bool): flag to print debug statements
 
     Returns:
@@ -150,11 +150,11 @@ def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool=False):
     """Calculates Colley rankings given a game results DataFrame.
 
     Args:
-        score_df (pd.DataFrame): Massey score data frame
+        score_df (pd.DataFrame): matchup score data frame
         debug (bool): flag to print debug statements
 
     Returns:
-        colley_ratings: Pandas Series with team rankings
+        colley_ratings (dict): dictionary of Massey ratings
     """
 
     # Get unique teams and index them
@@ -199,6 +199,80 @@ def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool=False):
             print(f"{rank}. {team}: {rating:.2f}")
 
     return colley_ratings
+
+
+def expected_outcome(r1, r2):
+    """Calculate expected probability of team 1 winning against team 2."""
+    return 1 / (1 + 10 ** ((r2 - r1) / 400))
+
+
+def mov_multiplier(mov, blowout_factor=2.2):
+    """Scale K-factor based on Margin of Victory (MOV)."""
+    return np.log(abs(mov) + 1) * blowout_factor
+
+
+def update_elo(r1: float, r2: float, outcome: int, mov: int, K: int=40):
+    """Update Elo ratings with MOV scaling
+
+    Args:
+        r1 (float): current Elo rating for team 1
+        r2 (float): current Elo rating for team 2
+        outcome (int): binary value for winner of matchup, 1: team 1 is winner, 0: team 2 is winner
+        mov (int): margin of victory, ([team 1 score] - [team 2 score])
+        K (int): rating adjustment factor (default 30)
+
+    Returns:
+        r1_new (float): updated Elo rating for team 1
+        r2_new (float): updated Elo rating for team 2
+    """
+
+    E1 = expected_outcome(r1, r2)
+    E2 = 1 - E1  # Expected for team 2
+
+    # Scale adjustment by MOV
+    K_adj = K * mov_multiplier(mov)
+
+    # Adjust ratings
+    r1_new = r1 + K_adj * (outcome - E1)
+    r2_new = r2 + K_adj * ((1 - outcome) - E2)
+
+    return r1_new, r2_new
+
+
+def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: int=40, debug: bool=False):
+    """Calculates Elo rankings given a game results DataFrame.
+
+    Args:
+        score_df (pd.DataFrame): matchup data frame
+        initial_rating (int): starting rating for all teams (default 1500)
+        K (int): rating adjustment factor (default 30)
+        debug (bool): flag to print debug statements
+
+    Returns:
+        elo_ratings (dict): dictionary of Elo ratings
+    """
+
+    # Get unique teams and index them
+    teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
+    elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
+
+    for _, row in score_df.iterrows():
+        t1, t2, winner, mov = row["Home"], row["Away"], row["Winner"], row["Home_Score"] - row["Away_Score"]
+
+        # Assign outcome (1 if t1 wins, 0 if t2 wins)
+        outcome = 1 if winner == t1 else 0
+
+        elo_ratings[t1], elo_ratings[t2] = update_elo(r1=elo_ratings[t1], r2=elo_ratings[t2],
+                                                      outcome=outcome, mov=mov, K=K)
+
+    # Sort and display rankings
+    elo_rankings = sorted(elo_ratings.items(), key=lambda x: x[1], reverse=True)
+
+    if debug:
+        for rank, (team, rating) in enumerate(elo_rankings, 1):
+            print(f"{rank}. {team}: {rating:.2f}")
+
+    return elo_ratings
 
 
 def simulate_next_round(tourney_dict: dict, ratings: dict, rd: int):
