@@ -43,6 +43,8 @@ def set_score_entry(dct: dict, home_team: str, away_team: str, home_team_score: 
         dct["Winner"].append(away_team)
 
     # Fix time format
+    if time is None:
+        time = "12:00p"  # Generic time if none provided
     time_str_fixed = fix_time_format(time)
 
     # Add date time
@@ -93,6 +95,7 @@ def set_rating_data_frame(filename: str):
             if team_df["Type"][i] != "NCAA" and team_df["Type"][i] != "CIT" and team_df["Tm"][i] is not None and \
                     team_df["Opp"][i] is not None:
 
+                print(i, team, team_df["Date"][i], team_df["Time"][i])
                 # Find which team is home/away (None = home, @ = away, N = neutral/assign home to winner?)
                 if team_df["Site"][i] is None:
                     # Current team is home team
