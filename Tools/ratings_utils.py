@@ -121,21 +121,25 @@ def set_rating_data_frame(filename: str):
                                                      date=team_df["Date"][i], time=team_df["Time"][i])
 
     # Zip all lists together and sort by date
-    sorted_data = sorted(zip(score_dict["Date"],
-                             score_dict["Home"],
-                             score_dict["Home_Score"],
-                             score_dict["Away"],
-                             score_dict["Away_Score"],
-                             score_dict["Winner"]), key=lambda x: x[0])
+    data_tuples = list(zip(score_dict["Date"],
+                           score_dict["Home"],
+                           score_dict["Home_Score"],
+                           score_dict["Away"],
+                           score_dict["Away_Score"],
+                           score_dict["Winner"]))
 
-    # Unzip the sorted data back into lists
+    # Remove duplicates using set() and convert back to list
+    unique_data = list(set(data_tuples))
+
+    # ✅ Sort the unique data by Date
+    unique_data_sorted = sorted(unique_data, key=lambda x: x[0])
+
+    # Unzip the sorted, unique data back into separate lists
     score_dict["Date"], score_dict["Home"], score_dict["Home_Score"], score_dict["Away"], score_dict["Away_Score"], \
-    score_dict["Winner"] = map(list, zip(*sorted_data))
+    score_dict["Winner"] = map(list, zip(*unique_data_sorted))
 
     # Convert to data frame
     score_df = pd.DataFrame(score_dict)
-
-    print(score_df.head())
 
     return score_df
 
