@@ -120,8 +120,22 @@ def set_rating_data_frame(filename: str):
                                                      away_team_score=int(team_df["Tm"][i]),
                                                      date=team_df["Date"][i], time=team_df["Time"][i])
 
+    # Zip all lists together and sort by date
+    sorted_data = sorted(zip(score_dict["Date"],
+                             score_dict["Home"],
+                             score_dict["Home_Score"],
+                             score_dict["Away"],
+                             score_dict["Away_Score"],
+                             score_dict["Winner"]), key=lambda x: x[0])
+
+    # Unzip the sorted data back into lists
+    score_dict["Date"], score_dict["Home"], score_dict["Home_Score"], score_dict["Away"], score_dict["Away_Score"], \
+    score_dict["Winner"] = map(list, zip(*sorted_data))
+
     # Convert to data frame
     score_df = pd.DataFrame(score_dict)
+
+    print(score_df.head())
 
     return score_df
 
