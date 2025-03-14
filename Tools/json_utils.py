@@ -51,10 +51,11 @@ def print_season_end_team_win_loss(filename: str):
         filename (str): Name of JSON team file
     """
 
-    # Read Stats
-    df = pd.read_json(filename)
+    if os.path.exists(filename):
+        # Read Stats
+        df = pd.read_json(filename)
 
-    for t in list(df.keys()):
-        win = df[t]["W"][-1]
-        loss = df[t]["L"][-1]
-        print(f"{t}: {win}-{loss}")
+        for t in list(df.keys()):
+            win = df[t]["W"][-1]
+            loss = df[t]["L"][-1]
+            print(f"{t}: {win}-{loss}")

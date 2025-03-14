@@ -1,0 +1,65 @@
+﻿Round,Conference,Game,Team1,Team2,Score1,Score2
+1,West,1,Gonzaga,Georgia State,93,72
+1,West,2,Boise State,Memphis,53,64
+1,West,3,Connecticut,New Mexico State,63,70
+1,West,4,Arkansas,Vermont,75,71
+1,West,5,Alabama,Notre Dame,64,78
+1,West,6,Texas Tech,Montana State,97,62
+1,West,7,Michigan State,Davidson,74,73
+1,West,8,Duke,Cal State Fullerton,78,61
+1,East,9,Baylor,Norfolk State,85,49
+1,East,10,North Carolina,Marquette,95,63
+1,East,11,Saint Mary's (CA),Indiana,82,53
+1,East,12,UCLA,Akron,57,53
+1,East,13,Texas,Virginia Tech,81,73
+1,East,14,Purdue,Yale,78,56
+1,East,15,Murray State,San Francisco,92,87
+1,East,16,Kentucky,Saint Peter's,79,85
+1,South,17,Arizona,Wright State,87,70
+1,South,18,Seton Hall,TCU,42,69
+1,South,19,Houston,UAB,82,68
+1,South,20,Illinois,Chattanooga,54,53
+1,South,21,Colorado State,Michigan,63,75
+1,South,22,Tennessee,Longwood,88,56
+1,South,23,Ohio State,Loyola (IL),54,41
+1,South,24,Villanova,Delaware,80,60
+1,Midwest,25,Kansas,Texas Southern,83,56
+1,Midwest,26,San Diego State,Creighton,69,72
+1,Midwest,27,Iowa,Richmond,63,67
+1,Midwest,28,Providence,South Dakota State,66,57
+1,Midwest,29,Louisiana State,Iowa State,54,59
+1,Midwest,30,Wisconsin,Colgate,67,60
+1,Midwest,31,Southern California,Miami (FL),66,68
+1,Midwest,32,Auburn,Jacksonville State,80,61
+2,West,1,Gonzaga,Memphis,82,78
+2,West,2,New Mexico State,Arkansas,48,53
+2,West,3,Notre Dame,Texas Tech,53,59
+2,West,4,Michigan State,Duke,76,85
+2,East,5,Baylor,North Carolina,86,93
+2,East,6,Saint Mary's (CA),UCLA,56,72
+2,East,7,Texas,Purdue,71,81
+2,East,8,Murray State,Saint Peter's,60,70
+2,South,9,Arizona,TCU,85,80
+2,South,10,Houston,Illinois,68,53
+2,South,11,Michigan,Tennessee,76,68
+2,South,12,Ohio State,Villanova,61,71
+2,Midwest,13,Kansas,Creighton,79,72
+2,Midwest,14,Richmond,Providence,51,79
+2,Midwest,15,Iowa State,Wisconsin,54,49
+2,Midwest,16,Miami (FL),Auburn,79,61
+3,West,1,Gonzaga,Arkansas,68,74
+3,West,2,Texas Tech,Duke,73,78
+3,East,3,North Carolina,UCLA,73,66
+3,East,4,Purdue,Saint Peter's,64,67
+3,South,5,Arizona,Houston,60,72
+3,South,6,Michigan,Villanova,55,63
+3,Midwest,7,Kansas,Providence,66,61
+3,Midwest,8,Iowa State,Miami (FL),56,70
+4,West,1,Arkansas,Duke,69,78
+4,East,2,North Carolina,Saint Peter's,69,49
+4,South,3,Houston,Villanova,44,50
+4,Midwest,4,Kansas,Miami (FL),76,50
+5,Final Four,1,Duke,North Carolina,77,81
+5,Final Four,2,Villanova,Kansas,65,81
+6,Championship,1,North Carolina,Kansas,69,72
+7,Champion,1,Kansas,,,
