@@ -131,6 +131,9 @@ def set_rating_data_frame(filename: str):
     # Remove duplicates using set() and convert back to list
     unique_data = list(set(data_tuples))
 
+    # Keep duplicates
+    # unique_data = data_tuples
+
     # ✅ Sort the unique data by Date
     unique_data_sorted = sorted(unique_data, key=lambda x: x[0])
 
