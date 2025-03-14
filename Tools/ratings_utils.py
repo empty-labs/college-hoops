@@ -1,19 +1,32 @@
 # Third party libraries
+from datetime import datetime as dt
 import pandas as pd
 import numpy as np
 
 ROUND_NAMES = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8", "Final 4", "Championship"]
 
 
-def set_score_entry(dct: dict, home_team: str, away_team: str, home_team_score: int, away_team_score: int):
-    """Set Massey score entry
+def fix_time_format(time_str: str):
+    """Function to fix "a"/"p" to "AM"/"PM"""
+    if time_str.endswith("a"):
+        return time_str.replace("a", "AM")
+    elif time_str.endswith("p"):
+        return time_str.replace("p", "PM")
+    return time_str  # If already correct
+
+
+def set_score_entry(dct: dict, home_team: str, away_team: str, home_team_score: int, away_team_score: int,
+                    date: str, time: str):
+    """Set score entry
 
     Args:
-        dct (dict): Massey score dictionary
+        dct (dict): score dictionary
         home_team (str): home team name
         away_team (str): away team name
         home_team_score (int): home team score
         away_team_score (int): away team score
+        date (str): date of matchup
+        time (str): time of matchup
 
     Returns:
         dct (dict): Massey score dictionary
@@ -29,17 +42,33 @@ def set_score_entry(dct: dict, home_team: str, away_team: str, home_team_score: 
     else:
         dct["Winner"].append(away_team)
 
+    # Fix time format
+    if time is None:
+        time = "12:00p"  # Generic time if none provided
+    time_str_fixed = fix_time_format(time)
+
+    # Add date time
+    # Convert date string to datetime object
+    date_obj = dt.strptime(date, "%a, %b %d, %Y")
+
+    # Convert time string to 24-hour format
+    time_obj = dt.strptime(time_str_fixed, "%I:%M%p").time()
+
+    # Combine date and time into one datetime object
+    datetime_obj = dt.combine(date_obj, time_obj)
+    dct["Date"].append(datetime_obj)
+
     return dct
 
 
 def set_rating_data_frame(filename: str):
-    """Set Massey score data frame prior to Massey rating calculation
+    """Set score data frame prior to rating calculation
 
     Args:
         filename (str): Name of JSON team file
 
     Returns:
-        score_df (pd.DataFrame): Massey score data frame
+        score_df (pd.DataFrame): score data frame
     """
 
     # Initialize score dictionary
@@ -48,7 +77,8 @@ def set_rating_data_frame(filename: str):
         "Home_Score": [],
         "Away": [],
         "Away_Score": [],
-        "Winner": []
+        "Winner": [],
+        "Date": []
     }
 
     # Read Stats
@@ -65,28 +95,54 @@ def set_rating_data_frame(filename: str):
             if team_df["Type"][i] != "NCAA" and team_df["Type"][i] != "CIT" and team_df["Tm"][i] is not None and \
                     team_df["Opp"][i] is not None:
 
+                print(i, team, team_df["Date"][i], team_df["Time"][i])
                 # Find which team is home/away (None = home, @ = away, N = neutral/assign home to winner?)
                 if team_df["Site"][i] is None:
                     # Current team is home team
                     score_dict = set_score_entry(dct=score_dict, home_team=team, away_team=team_df["Opponent"][i],
                                                  home_team_score=int(team_df["Tm"][i]),
-                                                 away_team_score=int(team_df["Opp"][i]))
+                                                 away_team_score=int(team_df["Opp"][i]),
+                                                 date=team_df["Date"][i], time=team_df["Time"][i])
                 elif team_df["Site"][i] == "@":
                     # Opponent team is away team
                     score_dict = set_score_entry(dct=score_dict, home_team=team_df["Opponent"][i], away_team=team,
                                                  home_team_score=int(team_df["Opp"][i]),
-                                                 away_team_score=int(team_df["Tm"][i]))
+                                                 away_team_score=int(team_df["Tm"][i]),
+                                                 date=team_df["Date"][i], time=team_df["Time"][i])
                 else:  # Neutral site home team advantage goes to winner
                     if team_df["Outcome"][i] == "W":
                         # Current team is home team
                         score_dict = set_score_entry(dct=score_dict, home_team=team, away_team=team_df["Opponent"][i],
                                                      home_team_score=int(team_df["Tm"][i]),
-                                                     away_team_score=int(team_df["Opp"][i]))
+                                                     away_team_score=int(team_df["Opp"][i]),
+                                                     date=team_df["Date"][i], time=team_df["Time"][i])
                     else:
                         # Opponent team is away team
                         score_dict = set_score_entry(dct=score_dict, home_team=team_df["Opponent"][i], away_team=team,
                                                      home_team_score=int(team_df["Opp"][i]),
-                                                     away_team_score=int(team_df["Tm"][i]))
+                                                     away_team_score=int(team_df["Tm"][i]),
+                                                     date=team_df["Date"][i], time=team_df["Time"][i])
+
+    # Zip all lists together and sort by date
+    data_tuples = list(zip(score_dict["Date"],
+                           score_dict["Home"],
+                           score_dict["Home_Score"],
+                           score_dict["Away"],
+                           score_dict["Away_Score"],
+                           score_dict["Winner"]))
+
+    # Remove duplicates using set() and convert back to list
+    unique_data = list(set(data_tuples))
+
+    # Keep duplicates
+    # unique_data = data_tuples
+
+    # ✅ Sort the unique data by Date
+    unique_data_sorted = sorted(unique_data, key=lambda x: x[0])
+
+    # Unzip the sorted, unique data back into separate lists
+    score_dict["Date"], score_dict["Home"], score_dict["Home_Score"], score_dict["Away"], score_dict["Away_Score"], \
+    score_dict["Winner"] = map(list, zip(*unique_data_sorted))
 
     # Convert to data frame
     score_df = pd.DataFrame(score_dict)
