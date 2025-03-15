@@ -256,6 +256,93 @@ def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool=False):
     return colley_ratings
 
 
+def compile_srs_ratings_old(score_df: pd.DataFrame, debug: bool=False):
+    """Calculates SRS rankings given a game results DataFrame.
+
+    Args:
+        score_df (pd.DataFrame): matchup score data frame
+        debug (bool): flag to print debug statements
+
+    Returns:
+        srs_ratings (dict): dictionary of Massey ratings
+    """
+
+    # Get unique teams and index them
+    teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
+    all_teams = list(score_df.keys())
+    print(all_teams)
+    ratings = []
+
+    for t in teams:
+        print(t, t in all_teams)
+        if t in all_teams:
+            if score_df[t]["SRS"][-1]:
+                ratings.append(score_df[t]["SRS"][-1])
+            else:
+                ratings.append(-999)
+        else:
+            ratings.append(-999)
+
+    # Convert ratings to a dictionary
+    srs_ratings = {team: rating for team, rating in zip(teams, ratings)}
+
+    # Sort and display rankings
+    srs_rankings = sorted(srs_ratings.items(), key=lambda x: x[1], reverse=True)
+
+    if debug:
+        for rank, (team, rating) in enumerate(srs_rankings, 1):
+            print(f"{rank}. {team}: {rating:.2f}")
+
+    return srs_ratings
+
+
+def compile_srs_ratings(filename: str, debug: bool=False):
+    """"""
+
+    # Initialize score dictionary
+    score_dict = {
+        "Home": [],
+        "Home_Score": [],
+        "Away": [],
+        "Away_Score": [],
+        "Winner": [],
+        "Date": []
+    }
+
+    # Read Stats
+    teams_df = pd.read_json(filename)
+    teams = list(teams_df.keys())
+
+    ratings = []
+
+    for team in teams:
+
+        team_df = teams_df[team]
+        final_srs = -999
+
+        for i in range(len(team_df["Type"])):
+
+            # Non Tournament games
+            if team_df["Type"][i] != "NCAA" and team_df["Type"][i] != "CIT" and team_df["Tm"][i] is not None and \
+                    team_df["Opp"][i] is not None:
+                final_srs = team_df["SRS"][i]
+
+        ratings.append(float(final_srs))
+
+    # Convert ratings to a dictionary
+    srs_ratings = {team: rating for team, rating in zip(teams, ratings)}
+
+    # Sort and display rankings
+    srs_rankings = sorted(srs_ratings.items(), key=lambda x: x[1], reverse=True)
+
+    if debug:
+        for rank, (team, rating) in enumerate(srs_rankings, 1):
+            print(f"{rank}. {team}: {rating:.2f}")
+
+    return srs_ratings
+
+
+
 def expected_outcome(r1, r2):
     """Calculate expected probability of team 1 winning against team 2."""
     return 1 / (1 + 10 ** ((r2 - r1) / 400))
@@ -462,6 +549,13 @@ def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
     for i in range(32):
         team1 = tourney_df["Team1"][i]
         team2 = tourney_df["Team2"][i]
+
+        if team1 not in list(ratings.keys()):
+            ratings[team1] = -999
+
+        if team2 not in list(ratings.keys()):
+            ratings[team2] = -999
+
         rating1 = ratings[team1]
         rating2 = ratings[team2]
 
