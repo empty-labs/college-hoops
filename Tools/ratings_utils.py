@@ -339,7 +339,7 @@ def compile_srs_ratings(filename: str, debug: bool=False):
         for rank, (team, rating) in enumerate(srs_rankings, 1):
             print(f"{rank}. {team}: {rating:.2f}")
 
-    return ratings
+    return srs_ratings
 
 
 
@@ -549,6 +549,13 @@ def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
     for i in range(32):
         team1 = tourney_df["Team1"][i]
         team2 = tourney_df["Team2"][i]
+
+        if team1 not in list(ratings.keys()):
+            ratings[team1] = -999
+
+        if team2 not in list(ratings.keys()):
+            ratings[team2] = -999
+
         rating1 = ratings[team1]
         rating2 = ratings[team2]
 
