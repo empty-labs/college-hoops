@@ -95,7 +95,6 @@ def set_rating_data_frame(filename: str):
             if team_df["Type"][i] != "NCAA" and team_df["Type"][i] != "CIT" and team_df["Tm"][i] is not None and \
                     team_df["Opp"][i] is not None:
 
-                print(i, team, team_df["Date"][i], team_df["Time"][i])
                 # Find which team is home/away (None = home, @ = away, N = neutral/assign home to winner?)
                 if team_df["Site"][i] is None:
                     # Current team is home team
@@ -492,3 +491,100 @@ def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
         print(f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}")
 
     return total_correct_picks
+
+
+def normalize_ratings(ratings: dict, weight: float = 1):
+    """Normalize rating values between 0 and 1
+
+    Args:
+        ratings (dict): dictionary of ratings
+        weight (float): scaled value applied to normalized rating systems
+
+    Returns:
+        normalized_dict (dict): dictionary of normalized ratings
+    """
+
+    # Min-Max Scaling
+    min_val = min(ratings.values())
+    max_val = max(ratings.values())
+
+    normalized_dict = {k: weight * (v - min_val) / (max_val - min_val) for k, v in ratings.items()}
+
+    return normalized_dict
+
+
+def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley_ratings: dict, adj_elo_ratings: dict,
+                                                    elo_ratings: dict, tournament_filename: str):
+    """Apply linear combination of ratings systems to maximize correct picks
+
+    Args:
+        massey_ratings (dict): Massey ratings dictionary
+        colley_ratings (dict): Colley ratings dictionary
+        adj_elo_ratings (dict): Adjusted Elo ratings dictionary
+        elo_ratings (dict): Elo ratings dictionary
+        tournament_filename (str): filepath for tournament results
+    """
+
+    # Iterate through all possible ratings weights
+    step = 0.2
+    iterations = int((1 / step) + 1)
+    total_iterations = 0
+
+    weight_dict = {'Massey': [], 'Colley': [], 'Adjusted Elo': [], 'Elo': [], 'Correct': []}
+
+    # Loop through all possible iterations for each rating system
+    # TODO: Make ratings loop more dynamic instead of hardcoded
+    for i in range(iterations):
+        for j in range(iterations):
+            for k in range(iterations):
+                for l in range(iterations):
+                    total_iterations += 1
+
+                    w1 = i * step
+                    w2 = j * step
+                    w3 = k * step
+                    w4 = l * step
+
+                    # Normalize ratings by weight
+                    normalized_massey_ratings = normalize_ratings(ratings=massey_ratings, weight=w1)
+                    normalized_colley_ratings = normalize_ratings(ratings=colley_ratings, weight=w2)
+                    normalized_adj_elo_ratings = normalize_ratings(ratings=adj_elo_ratings, weight=w3)
+                    normalized_elo_ratings = normalize_ratings(ratings=elo_ratings, weight=w4)
+
+                    # Add ratings togather
+                    combined_ratings = {}
+
+                    for key, v in normalized_massey_ratings.items():
+                        combined_ratings[key] = v
+                    for key, v in normalized_colley_ratings.items():
+                        combined_ratings[key] += v
+                    for key, v in normalized_adj_elo_ratings.items():
+                        combined_ratings[key] += v
+                    for key, v in normalized_elo_ratings.items():
+                        combined_ratings[key] += v
+
+                    total_correct_picks = simulate_tournament(filename=tournament_filename,
+                                                              ratings=combined_ratings,
+                                                              debug=False)
+
+                    # Store weights in dictionary
+                    weight_dict['Massey'].append(w1)
+                    weight_dict['Colley'].append(w2)
+                    weight_dict['Adjusted Elo'].append(w3)
+                    weight_dict['Elo'].append(w4)
+                    weight_dict['Correct'].append(total_correct_picks)
+
+    # Print max correct picks
+    max_correct = max(weight_dict['Correct'])
+    print(f"Max correct picks: {max_correct} in {total_iterations} iterations")
+
+    # Print which combinations result in max correct picks
+    num_max = 0
+
+    for i in range(len(weight_dict['Correct'])):
+
+        if weight_dict['Correct'][i] == max_correct:
+            num_max += 1
+            print(
+                f"{num_max}. Massey: {weight_dict['Massey'][i]:.3f}, Colley: {weight_dict['Colley'][i]:.3f}, Adjusted Elo: {weight_dict['Adjusted Elo'][i]:.3f}, Elo: {weight_dict['Elo'][i]:.3f}")
+
