@@ -608,7 +608,7 @@ def normalize_ratings(ratings: dict, weight: float = 1):
 
 
 def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley_ratings: dict, adj_elo_ratings: dict,
-                                                    elo_ratings: dict, tournament_filename: str):
+                                                    elo_ratings: dict, srs_ratings: dict, tournament_filename: str):
     """Apply linear combination of ratings systems to maximize correct picks
 
     Args:
@@ -616,15 +616,16 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
         colley_ratings (dict): Colley ratings dictionary
         adj_elo_ratings (dict): Adjusted Elo ratings dictionary
         elo_ratings (dict): Elo ratings dictionary
+        srs_ratings (dict): SRS ratings dictionary
         tournament_filename (str): filepath for tournament results
     """
 
     # Iterate through all possible ratings weights
-    step = 0.2
+    step = 0.333
     iterations = int((1 / step) + 1)
     total_iterations = 0
 
-    weight_dict = {'Massey': [], 'Colley': [], 'Adjusted Elo': [], 'Elo': [], 'Correct': []}
+    weight_dict = {'Massey': [], 'Colley': [], 'Adjusted Elo': [], 'Elo': [], 'SRS': [], 'Correct': []}
 
     # Loop through all possible iterations for each rating system
     # TODO: Make ratings loop more dynamic instead of hardcoded
@@ -632,41 +633,47 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
         for j in range(iterations):
             for k in range(iterations):
                 for l in range(iterations):
-                    total_iterations += 1
+                    for m in range(iterations):
+                        total_iterations += 1
 
-                    w1 = i * step
-                    w2 = j * step
-                    w3 = k * step
-                    w4 = l * step
+                        w1 = i * step
+                        w2 = j * step
+                        w3 = k * step
+                        w4 = l * step
+                        w5 = m * step
 
-                    # Normalize ratings by weight
-                    normalized_massey_ratings = normalize_ratings(ratings=massey_ratings, weight=w1)
-                    normalized_colley_ratings = normalize_ratings(ratings=colley_ratings, weight=w2)
-                    normalized_adj_elo_ratings = normalize_ratings(ratings=adj_elo_ratings, weight=w3)
-                    normalized_elo_ratings = normalize_ratings(ratings=elo_ratings, weight=w4)
+                        # Normalize ratings by weight
+                        normalized_massey_ratings = normalize_ratings(ratings=massey_ratings, weight=w1)
+                        normalized_colley_ratings = normalize_ratings(ratings=colley_ratings, weight=w2)
+                        normalized_adj_elo_ratings = normalize_ratings(ratings=adj_elo_ratings, weight=w3)
+                        normalized_elo_ratings = normalize_ratings(ratings=elo_ratings, weight=w4)
+                        normalized_srs_ratings = normalize_ratings(ratings=srs_ratings, weight=w5)
 
-                    # Add ratings togather
-                    combined_ratings = {}
+                        # Add ratings togather
+                        combined_ratings = {}
 
-                    for key, v in normalized_massey_ratings.items():
-                        combined_ratings[key] = v
-                    for key, v in normalized_colley_ratings.items():
-                        combined_ratings[key] += v
-                    for key, v in normalized_adj_elo_ratings.items():
-                        combined_ratings[key] += v
-                    for key, v in normalized_elo_ratings.items():
-                        combined_ratings[key] += v
+                        for key, v in normalized_massey_ratings.items():
+                            combined_ratings[key] = v
+                        for key, v in normalized_colley_ratings.items():
+                            combined_ratings[key] += v
+                        for key, v in normalized_adj_elo_ratings.items():
+                            combined_ratings[key] += v
+                        for key, v in normalized_elo_ratings.items():
+                            combined_ratings[key] += v
+                        for key, v in normalized_srs_ratings.items():
+                            combined_ratings[key] += v
 
-                    total_correct_picks = simulate_tournament(filename=tournament_filename,
-                                                              ratings=combined_ratings,
-                                                              debug=False)
+                        total_correct_picks = simulate_tournament(filename=tournament_filename,
+                                                                  ratings=combined_ratings,
+                                                                  debug=False)
 
-                    # Store weights in dictionary
-                    weight_dict['Massey'].append(w1)
-                    weight_dict['Colley'].append(w2)
-                    weight_dict['Adjusted Elo'].append(w3)
-                    weight_dict['Elo'].append(w4)
-                    weight_dict['Correct'].append(total_correct_picks)
+                        # Store weights in dictionary
+                        weight_dict['Massey'].append(w1)
+                        weight_dict['Colley'].append(w2)
+                        weight_dict['Adjusted Elo'].append(w3)
+                        weight_dict['Elo'].append(w4)
+                        weight_dict['SRS'].append(w5)
+                        weight_dict['Correct'].append(total_correct_picks)
 
     # Print max correct picks
     max_correct = max(weight_dict['Correct'])
@@ -680,5 +687,5 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
         if weight_dict['Correct'][i] == max_correct:
             num_max += 1
             print(
-                f"{num_max}. Massey: {weight_dict['Massey'][i]:.3f}, Colley: {weight_dict['Colley'][i]:.3f}, Adjusted Elo: {weight_dict['Adjusted Elo'][i]:.3f}, Elo: {weight_dict['Elo'][i]:.3f}")
+                f"{num_max}. Massey: {weight_dict['Massey'][i]:.3f}, Colley: {weight_dict['Colley'][i]:.3f}, Adjusted Elo: {weight_dict['Adjusted Elo'][i]:.3f}, Elo: {weight_dict['Elo'][i]:.3f}, SRS: {weight_dict['SRS'][i]:.3f}")
 
