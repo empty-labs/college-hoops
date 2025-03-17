@@ -1,12 +1,18 @@
+# Third party libraries
 from bs4 import BeautifulSoup
 from io import StringIO
+import json
+import os
 import pandas as pd
 import requests
 import time
 
+# Local libraries
+import Classes.Team as Team
+import Tools.json_utils as ju
+
 URL_PREFIX = "https://www.sports-reference.com"
 AMP = "&amp;"
-WAIT_TIME_SEC = 1
 WAIT_TIME_SEC = 5
 
 
@@ -163,3 +169,63 @@ def scrape_team_list(url: str, debug: bool=False):
             print(i, df["School"][i], df["URL"][i])
 
     return df
+
+
+def add_team_to_dictionary(team_url: str, school: str, filename: str):
+    """Add data if file doesn't exist already
+
+    Args:
+        team_url (str): URL for team matchup data
+        school (str): team involved in matchup
+        filename (str): Name of JSON team file
+    """
+
+    team = Team.Team(url=team_url)
+
+    if team.df is not None:
+        dct = {}
+        dct[school] = team.df.to_dict(orient="list")
+        ju.add_dictionary_to_json(dct=dct,
+                                  filename=filename)
+        print(f"{school} added to JSON successfully.")
+    else:
+        print(f"{school} has no records.")
+
+
+def add_teams_to_json(team_list, filename: str, url_suffix: str):
+    """Add all teams to the JSON file if they don't already exist
+
+    Args:
+        team_list: class holding data frame of all teams
+        filename (str): Name of JSON team file
+        url_suffix (str): suffix for URLs
+    """
+
+    for i in range(len(team_list.df["URL"])):
+        team_url = team_list.df["URL"][i] + url_suffix
+        school = team_list.df["School"][i]
+        print(f"{i}. {school}")
+
+        existing_data = None
+
+        # Check if file exists already
+        if os.path.exists(filename) and os.path.getsize(filename) > 0:
+            with open(filename, "r") as file:
+                existing_data = json.load(file)
+
+        if existing_data:
+
+            existing_teams = list(existing_data.keys())
+
+            # Add data if it doesn't exist already
+            if school not in existing_teams:
+                add_team_to_dictionary(team_url=team_url,
+                                       school=school,
+                                       filename=filename)
+            else:
+                print(f"{school} already exists in current JSON.")
+
+        else:
+            add_team_to_dictionary(team_url=team_url,
+                                   school=school,
+                                   filename=filename)
