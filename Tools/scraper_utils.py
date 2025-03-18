@@ -9,7 +9,7 @@ import time
 
 # Local libraries
 import Classes.Team as Team
-import Tools.json_utils as ju
+import Tools.system_utils as sys
 
 URL_PREFIX = "https://www.sports-reference.com"
 AMP = "&amp;"
@@ -185,8 +185,8 @@ def add_team_to_dictionary(team_url: str, school: str, filename: str):
     if team.df is not None:
         dct = {}
         dct[school] = team.df.to_dict(orient="list")
-        ju.add_dictionary_to_json(dct=dct,
-                                  filename=filename)
+        sys.add_dictionary_to_json(dct=dct,
+                                   filename=filename)
         print(f"{school} added to JSON successfully.")
     else:
         print(f"{school} has no records.")
