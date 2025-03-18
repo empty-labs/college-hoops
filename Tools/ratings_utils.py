@@ -659,29 +659,11 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
                         w4 = l * step
                         w5 = m * step
 
-                        # Normalize ratings by weight
-                        normalized_massey_ratings = normalize_ratings(ratings=massey_ratings, weight=w1)
-                        normalized_colley_ratings = normalize_ratings(ratings=colley_ratings, weight=w2)
-                        normalized_adj_elo_ratings = normalize_ratings(ratings=adj_elo_ratings, weight=w3)
-                        normalized_elo_ratings = normalize_ratings(ratings=elo_ratings, weight=w4)
-                        normalized_srs_ratings = normalize_ratings(ratings=srs_ratings, weight=w5)
-
-                        # Add ratings togather
-                        combined_ratings = {}
-
-                        for key, v in normalized_massey_ratings.items():
-                            combined_ratings[key] = v
-                        for key, v in normalized_colley_ratings.items():
-                            combined_ratings[key] += v
-                        for key, v in normalized_adj_elo_ratings.items():
-                            combined_ratings[key] += v
-                        for key, v in normalized_elo_ratings.items():
-                            combined_ratings[key] += v
-                        for key, v in normalized_srs_ratings.items():
-                            combined_ratings[key] += v
-
-                        total_correct_picks, total_points, tourney_dict = simulate_tournament(
-                            filename=tournament_filename, ratings=combined_ratings, debug=False)
+                        total_correct_picks, total_points, tourney_dict = apply_custom_weights(
+                            massey_ratings=massey_ratings, colley_ratings=colley_ratings,
+                            adj_elo_ratings=adj_elo_ratings, elo_ratings=elo_ratings, srs_ratings=srs_ratings,
+                            tournament_filename=tournament_filename, massey_weight=w1, colley_weight=w2,
+                            adj_elo_weight=w3, elo_weight=w4, srs_weight=w5, debug=False)
 
                         # Store weights in dictionary
                         weight_dict['Massey'].append(w1)
@@ -703,8 +685,7 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
 
         if weight_dict['Correct'][i] == max_correct:
             num_max += 1
-            print(
-                f"{num_max}. Massey: {weight_dict['Massey'][i]:.3f}, Colley: {weight_dict['Colley'][i]:.3f}, Adjusted Elo: {weight_dict['Adjusted Elo'][i]:.3f}, Elo: {weight_dict['Elo'][i]:.3f}, SRS: {weight_dict['SRS'][i]:.3f}")
+            print(f"{num_max}. Massey: {weight_dict['Massey'][i]:.3f}, Colley: {weight_dict['Colley'][i]:.3f}, Adjusted Elo: {weight_dict['Adjusted Elo'][i]:.3f}, Elo: {weight_dict['Elo'][i]:.3f}, SRS: {weight_dict['SRS'][i]:.3f}")
 
     # Print max points total
     max_points = max(weight_dict['Points'])
@@ -717,7 +698,58 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
 
         if weight_dict['Points'][i] == max_points:
             num_max += 1
-            print(
-                f"{num_max}. Massey: {weight_dict['Massey'][i]:.3f}, Colley: {weight_dict['Colley'][i]:.3f}, Adjusted Elo: {weight_dict['Adjusted Elo'][i]:.3f}, Elo: {weight_dict['Elo'][i]:.3f}, SRS: {weight_dict['SRS'][i]:.3f}")
+            print(f"{num_max}. Massey: {weight_dict['Massey'][i]:.3f}, Colley: {weight_dict['Colley'][i]:.3f}, Adjusted Elo: {weight_dict['Adjusted Elo'][i]:.3f}, Elo: {weight_dict['Elo'][i]:.3f}, SRS: {weight_dict['SRS'][i]:.3f}")
 
     return tourney_dict
+
+
+def apply_custom_weights(massey_ratings: dict, colley_ratings: dict, adj_elo_ratings: dict, elo_ratings: dict,
+                         srs_ratings: dict, tournament_filename: str, massey_weight: float, colley_weight: float,
+                         adj_elo_weight: float, elo_weight: float, srs_weight: float, debug: bool=True):
+    """Apply custom weights for all rating systems
+
+    Args:
+        massey_ratings (dict): Massey ratings dictionary
+        colley_ratings (dict): Colley ratings dictionary
+        adj_elo_ratings (dict): Adjusted Elo ratings dictionary
+        elo_ratings (dict): Elo ratings dictionary
+        srs_ratings (dict): SRS ratings dictionary
+        tournament_filename (str): filepath for tournament results
+        massey_weight (float): Massey ratings weight
+        colley_weight (float): Colley ratings weight
+        adj_elo_weight (float): Adjusted Elo ratings weight
+        elo_weight (float): Elo ratings weight
+        srs_weight (float): SRS ratings weight
+        debug (bool): flag to print debug statements
+
+    Returns:
+        total_correct_picks (int): number of correct picks
+        total_points (int): points based on round
+        tourney_dict (dict): tournament dictionary of all matchups
+    """
+
+    # Normalize ratings by weight
+    normalized_massey_ratings = normalize_ratings(ratings=massey_ratings, weight=massey_weight)
+    normalized_colley_ratings = normalize_ratings(ratings=colley_ratings, weight=colley_weight)
+    normalized_adj_elo_ratings = normalize_ratings(ratings=adj_elo_ratings, weight=adj_elo_weight)
+    normalized_elo_ratings = normalize_ratings(ratings=elo_ratings, weight=elo_weight)
+    normalized_srs_ratings = normalize_ratings(ratings=srs_ratings, weight=srs_weight)
+
+    # Add ratings togather
+    combined_ratings = {}
+
+    for key, v in normalized_massey_ratings.items():
+        combined_ratings[key] = v
+    for key, v in normalized_colley_ratings.items():
+        combined_ratings[key] += v
+    for key, v in normalized_adj_elo_ratings.items():
+        combined_ratings[key] += v
+    for key, v in normalized_elo_ratings.items():
+        combined_ratings[key] += v
+    for key, v in normalized_srs_ratings.items():
+        combined_ratings[key] += v
+
+    total_correct_picks, total_points, tourney_dict = simulate_tournament(
+        filename=tournament_filename, ratings=combined_ratings, debug=debug)
+
+    return total_correct_picks, total_points, tourney_dict
