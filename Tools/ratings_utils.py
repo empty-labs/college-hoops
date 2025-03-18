@@ -533,7 +533,7 @@ def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
         debug (bool): flag to print debug statements
 
     Returns:
-        total_correct_picks (int): number of correct guesses
+        total_correct_picks (int): number of correct picks
         tourney_dict (dict): tournament dictionary of all matchups
     """
 
@@ -622,10 +622,13 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
         elo_ratings (dict): Elo ratings dictionary
         srs_ratings (dict): SRS ratings dictionary
         tournament_filename (str): filepath for tournament results
+
+    Returns:
+        tourney_dict (dict): tournament dictionary of all matchups
     """
 
     # Iterate through all possible ratings weights
-    step = 0.333
+    step = 0.25
     iterations = int((1 / step) + 1)
     total_iterations = 0
 
@@ -667,9 +670,9 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
                         for key, v in normalized_srs_ratings.items():
                             combined_ratings[key] += v
 
-                        total_correct_picks = simulate_tournament(filename=tournament_filename,
-                                                                  ratings=combined_ratings,
-                                                                  debug=False)
+                        total_correct_picks, tourney_dict = simulate_tournament(filename=tournament_filename,
+                                                                                ratings=combined_ratings,
+                                                                                debug=False)
 
                         # Store weights in dictionary
                         weight_dict['Massey'].append(w1)
@@ -693,3 +696,4 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
             print(
                 f"{num_max}. Massey: {weight_dict['Massey'][i]:.3f}, Colley: {weight_dict['Colley'][i]:.3f}, Adjusted Elo: {weight_dict['Adjusted Elo'][i]:.3f}, Elo: {weight_dict['Elo'][i]:.3f}, SRS: {weight_dict['SRS'][i]:.3f}")
 
+    return tourney_dict
