@@ -531,6 +531,10 @@ def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
         filename (str): Name of CSV tournament team file
         ratings (dict): dictionary of ratings
         debug (bool): flag to print debug statements
+
+    Returns:
+        total_correct_picks (int): number of correct guesses
+        tourney_dict (dict): tournament dictionary of all matchups
     """
 
     # Load tournament CSV file into a DataFrame
@@ -584,7 +588,7 @@ def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
     if debug:
         print(f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}")
 
-    return total_correct_picks
+    return total_correct_picks, tourney_dict
 
 
 def normalize_ratings(ratings: dict, weight: float = 1):
