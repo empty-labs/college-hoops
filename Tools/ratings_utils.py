@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 
 ROUND_NAMES = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8", "Final 4", "Championship"]
+ROUND_POINTS = [10, 20, 40, 80, 160, 320]
 
 
 def fix_time_format(time_str: str):
@@ -499,6 +500,7 @@ def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: in
 
     Returns:
         correct_picks (int): number of correct picks in this round of tournament
+        total_points (int): points based on round
         num_teams (int): number of teams in this round of tournament
     """
 
@@ -518,10 +520,14 @@ def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: in
         if tourney_df["Team2"][i] == tourney_dict["Team2"][i]:
             correct_picks += 1
 
-    if debug:
-        print(f"Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams}")
+    # Map correct picks to total points
+    total_points = correct_picks * ROUND_POINTS[rd - 1]
+    total_possible_points = num_teams * ROUND_POINTS[rd - 1]
 
-    return correct_picks, num_teams
+    if debug:
+        print(f"Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams} - Total Points: {total_points} out of {total_possible_points}")
+
+    return correct_picks, total_points, num_teams
 
 
 def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
@@ -534,6 +540,7 @@ def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
 
     Returns:
         total_correct_picks (int): number of correct picks
+        total_points (int): points based on round
         tourney_dict (dict): tournament dictionary of all matchups
     """
 
@@ -571,6 +578,7 @@ def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
         tourney_dict["Rating2"].append(rating2)
 
     total_correct_picks = 0
+    total_points = 0
     total_num_teams = 0
 
     for rd in range(1, 7):
@@ -578,17 +586,19 @@ def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
                                            ratings=ratings,
                                            rd=rd)
 
-        correct_picks, num_teams = calculate_correct_picks(tourney_dict=tourney_dict,
+        correct_picks, points, num_teams = calculate_correct_picks(tourney_dict=tourney_dict,
                                                            tourney_df=tourney_df,
                                                            rd=rd, debug=debug)
 
         total_correct_picks += correct_picks
+        total_points += points
         total_num_teams += num_teams
 
     if debug:
         print(f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}")
+        print(f"\nTotal points in tournament: {total_points} out of 1920")
 
-    return total_correct_picks, tourney_dict
+    return total_correct_picks, total_points, tourney_dict
 
 
 def normalize_ratings(ratings: dict, weight: float = 1):
@@ -632,7 +642,7 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
     iterations = int((1 / step) + 1)
     total_iterations = 0
 
-    weight_dict = {'Massey': [], 'Colley': [], 'Adjusted Elo': [], 'Elo': [], 'SRS': [], 'Correct': []}
+    weight_dict = {'Massey': [], 'Colley': [], 'Adjusted Elo': [], 'Elo': [], 'SRS': [], 'Correct': [], 'Points': []}
 
     # Loop through all possible iterations for each rating system
     # TODO: Make ratings loop more dynamic instead of hardcoded
@@ -670,9 +680,8 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
                         for key, v in normalized_srs_ratings.items():
                             combined_ratings[key] += v
 
-                        total_correct_picks, tourney_dict = simulate_tournament(filename=tournament_filename,
-                                                                                ratings=combined_ratings,
-                                                                                debug=False)
+                        total_correct_picks, total_points, tourney_dict = simulate_tournament(
+                            filename=tournament_filename, ratings=combined_ratings, debug=False)
 
                         # Store weights in dictionary
                         weight_dict['Massey'].append(w1)
@@ -681,6 +690,7 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
                         weight_dict['Elo'].append(w4)
                         weight_dict['SRS'].append(w5)
                         weight_dict['Correct'].append(total_correct_picks)
+                        weight_dict['Points'].append(total_points)
 
     # Print max correct picks
     max_correct = max(weight_dict['Correct'])
@@ -692,6 +702,20 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
     for i in range(len(weight_dict['Correct'])):
 
         if weight_dict['Correct'][i] == max_correct:
+            num_max += 1
+            print(
+                f"{num_max}. Massey: {weight_dict['Massey'][i]:.3f}, Colley: {weight_dict['Colley'][i]:.3f}, Adjusted Elo: {weight_dict['Adjusted Elo'][i]:.3f}, Elo: {weight_dict['Elo'][i]:.3f}, SRS: {weight_dict['SRS'][i]:.3f}")
+
+    # Print max points total
+    max_points = max(weight_dict['Points'])
+    print(f"Max total points: {max_points} in {total_iterations} iterations")
+
+    # Print which combinations result in max points
+    num_max = 0
+
+    for i in range(len(weight_dict['Points'])):
+
+        if weight_dict['Points'][i] == max_points:
             num_max += 1
             print(
                 f"{num_max}. Massey: {weight_dict['Massey'][i]:.3f}, Colley: {weight_dict['Colley'][i]:.3f}, Adjusted Elo: {weight_dict['Adjusted Elo'][i]:.3f}, Elo: {weight_dict['Elo'][i]:.3f}, SRS: {weight_dict['SRS'][i]:.3f}")

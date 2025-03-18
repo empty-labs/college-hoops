@@ -1,0 +1,65 @@
+Round,Game,Team1,Team2,Rating1,Rating2
+1,1,Gonzaga,Georgia State,14.82,-2.71
+1,2,Boise State,Memphis,13.13,22.55
+1,3,Connecticut,New Mexico State,19.31,2.25
+1,4,Arkansas,Vermont,12.93,-6.06
+1,5,Alabama,Notre Dame,11.0,14.48
+1,6,Texas Tech,Montana State,22.28,-4.53
+1,7,Michigan State,Davidson,19.15,7.07
+1,8,Duke,Cal State Fullerton,14.48,-0.65
+1,9,Baylor,Norfolk State,14.12,-12.78
+1,10,North Carolina,Marquette,14.48,11.34
+1,11,Saint Mary's (CA),Indiana,25.46,18.9
+1,12,UCLA,Akron,22.75,-0.13
+1,13,Texas,Virginia Tech,13.72,19.55
+1,14,Purdue,Yale,18.9,2.65
+1,15,Murray State,San Francisco,0.79,25.46
+1,16,Kentucky,Saint Peter's,20.46,-0.39
+1,17,Arizona,Wright State,19.3,-3.19
+1,18,Seton Hall,TCU,16.4,22.28
+1,19,Houston,UAB,14.67,5.23
+1,20,Illinois,Chattanooga,12.71,6.2
+1,21,Colorado State,Michigan,13.13,12.71
+1,22,Tennessee,Longwood,12.93,-1.56
+1,23,Ohio State,Loyola (IL),8.72,7.34
+1,24,Villanova,Delaware,11.34,-0.66
+1,25,Kansas,Texas Southern,20.08,-8.68
+1,26,San Diego State,Creighton,11.93,19.31
+1,27,Iowa,Richmond,19.15,10.43
+1,28,Providence,South Dakota State,11.34,-1.6
+1,29,Louisiana State,Iowa State,16.27,20.08
+1,30,Wisconsin,Colgate,13.18,-2.94
+1,31,Southern California,Miami (FL),19.3,19.55
+1,32,Auburn,Jacksonville State,12.93,-2.06
+2,1,Gonzaga,Memphis,14.82,22.55
+2,2,Connecticut,Arkansas,19.31,12.93
+2,3,Notre Dame,Texas Tech,14.48,22.28
+2,4,Michigan State,Duke,19.15,14.48
+2,5,Baylor,North Carolina,14.12,14.48
+2,6,Saint Mary's (CA),UCLA,25.46,22.75
+2,7,Virginia Tech,Purdue,19.55,18.9
+2,8,San Francisco,Kentucky,25.46,20.46
+2,9,Arizona,TCU,19.3,22.28
+2,10,Houston,Illinois,14.67,12.71
+2,11,Colorado State,Tennessee,13.13,12.93
+2,12,Ohio State,Villanova,8.72,11.34
+2,13,Kansas,Creighton,20.08,19.31
+2,14,Iowa,Providence,19.15,11.34
+2,15,Iowa State,Wisconsin,20.08,13.18
+2,16,Miami (FL),Auburn,19.55,12.93
+3,1,Memphis,Connecticut,22.55,19.31
+3,2,Texas Tech,Michigan State,22.28,19.15
+3,3,North Carolina,Saint Mary's (CA),14.48,25.46
+3,4,Virginia Tech,San Francisco,19.55,25.46
+3,5,TCU,Houston,22.28,14.67
+3,6,Colorado State,Villanova,13.13,11.34
+3,7,Kansas,Iowa,20.08,19.15
+3,8,Iowa State,Miami (FL),20.08,19.55
+4,1,Memphis,Texas Tech,22.55,22.28
+4,2,Saint Mary's (CA),San Francisco,25.46,25.46
+4,3,TCU,Colorado State,22.28,13.13
+4,4,Kansas,Iowa State,20.08,20.08
+5,1,Memphis,Saint Mary's (CA),22.55,25.46
+5,2,TCU,Kansas,22.28,20.08
+6,1,Saint Mary's (CA),TCU,25.46,22.28
+7,1,Saint Mary's (CA),No Value,25.46,No Value
