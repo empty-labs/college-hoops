@@ -587,8 +587,8 @@ def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
                                            rd=rd)
 
         correct_picks, points, num_teams = calculate_correct_picks(tourney_dict=tourney_dict,
-                                                           tourney_df=tourney_df,
-                                                           rd=rd, debug=debug)
+                                                                   tourney_df=tourney_df,
+                                                                   rd=rd, debug=debug)
 
         total_correct_picks += correct_picks
         total_points += points
