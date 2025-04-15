@@ -638,26 +638,24 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
     """
 
     # Iterate through all possible ratings weights
-    step = 0.25
-    iterations = int((1 / step) + 1)
+    iterations = list(np.arange(-1, 1.25, 0.25))
     total_iterations = 0
 
     weight_dict = {'Massey': [], 'Colley': [], 'Adjusted Elo': [], 'Elo': [], 'SRS': [], 'Correct': [], 'Points': []}
 
     # Loop through all possible iterations for each rating system
     # TODO: Make ratings loop more dynamic instead of hardcoded
-    for i in range(iterations):
-        for j in range(iterations):
-            for k in range(iterations):
-                for l in range(iterations):
-                    for m in range(iterations):
-                        total_iterations += 1
 
-                        w1 = i * step
-                        w2 = j * step
-                        w3 = k * step
-                        w4 = l * step
-                        w5 = m * step
+    total = len(iterations) ** 5
+    passed_integer = 1
+    print(f"Total iterations: {total}")
+
+    for w1 in iterations:
+        for w2 in iterations:
+            for w3 in iterations:
+                for w4 in iterations:
+                    for w5 in iterations:
+                        total_iterations += 1
 
                         total_correct_picks, total_points, tourney_dict = apply_custom_weights(
                             massey_ratings=massey_ratings, colley_ratings=colley_ratings,
@@ -673,6 +671,10 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
                         weight_dict['SRS'].append(w5)
                         weight_dict['Correct'].append(total_correct_picks)
                         weight_dict['Points'].append(total_points)
+
+                        if (100 * total_iterations / total) > passed_integer:
+                            print(f"{passed_integer} percent complete")
+                            passed_integer += 1
 
     # Print max correct picks
     max_correct = max(weight_dict['Correct'])
