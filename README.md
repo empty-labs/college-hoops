@@ -18,13 +18,23 @@ The rating systems applied in the matchup prediction are as follows:
 5. SRS
 6. Combined (using numerical analysis)
 
-TODO: Difference between Elo and Adjusted Elo.
+#### Ratings Notes
+
+- Adjusted Elo rating system applies margin of victory (MOV) to rating value.
+- Combined rating normalizes all rating systems and uses numerical analysis to step through weights for each rating value (increments of 0.25 between -1 and 1)
 
 # Manually Creating Tournament CSV's
 
 The tournament data sets must be manually created if you choose to run the tool for seasons outside the orignal scope of this project (2021-2025 included here).
 
-TODO: Here's an idea of how to do so using the ESPN bracket:
+Here's an idea of how to do so using the [2025 ESPN bracket](https://www.espn.com/mens-college-basketball/bracket):
+- Start with upper left, add teams in order as they appear 
+![img.png](img.png)
+- Apply team names (and scores if tournament is completed) in the round order for each matchup
+- Start with upper left, continue to lower left region
+- Finish with upper right and lower right regions
+- Add winners in matchup order as rounds progress
+![img_1.png](img_1.png)
 
 ## Conda environment
 
