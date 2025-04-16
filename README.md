@@ -18,7 +18,7 @@ The rating systems applied in the matchup prediction are as follows:
 5. SRS
 6. Combined (using numerical analysis)
 
-#### Ratings Notes
+#### Rating Systems Notes
 
 - Adjusted Elo rating system applies margin of victory (MOV) to rating value.
 - Combined rating normalizes all rating systems and uses numerical analysis to step through weights for each rating value (increments of 0.25 between -1 and 1)
