@@ -29,16 +29,18 @@ The tournament data sets must be manually created if you choose to run the tool 
 
 Here's an idea of how to do so using the [2025 ESPN bracket](https://www.espn.com/mens-college-basketball/bracket):
 - Start with upper left, add teams in order as they appear 
-![img.png](img.png)
+![img.png](Data/Images/espn_bracket_example.png)
 - Apply team names (and scores if tournament is completed) in the round order for each matchup
 - Start with upper left, continue to lower left region
 - Finish with upper right and lower right regions
 - Add winners in matchup order as rounds progress
-![img_1.png](img_1.png)
+![img_1.png](Data/Images/tournament_example_csv.png)
 
 ## Conda environment
 
-1. Create new conda environment
+When setting up the project, consider using a conda environment to isolate the required packages.
+
+1. Create new conda environment (you can also use PyCharm's interpreter settings to create your conda environment instead of using command line here)
 ```
 conda env create --name college-hoops
 ```
