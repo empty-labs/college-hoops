@@ -2,7 +2,7 @@
 
 This is a bracketology project seeking to understand whether we can predict the winners for each March Madness matchup based on their season and conference tournament results.  Primarily, we're interested in just the team scores and home advantage to predict.  Future projects might include player stats and use injury status to create a more nuanced prediction tool.
 
-Enjoy!
+Enjoy the madness!
 
 # Scraping Input Data
 
