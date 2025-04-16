@@ -2,6 +2,8 @@
 
 This is a bracketology project seeking to understand whether we can predict the winners for each March Madness matchup based on their season and conference tournament results.  Primarily, we're interested in just the team scores and home advantage to predict.  Future projects might include player stats and use injury status to create a more nuanced prediction tool.
 
+Enjoy!
+
 # Scraping Input Data
 
 In order to create the input data sets for this project, I opted to scrape the data from "https://www.sports-reference.com" using the "BeautifulSoup" Python package (see Conda env section below for details on how to install).  For the original scope of this project I've included results for seasons 2021-2025 (2025 may not include NCAA tournament), however you can always use the "Team Scraper" notebook to grab more seasons as needed.

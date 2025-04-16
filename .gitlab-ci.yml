@@ -1,0 +1,12 @@
+stages:
+  - sync
+
+sync_to_github:
+  stage: sync
+  script:
+    - git remote remove github || true
+    - git remote add github https://$CI_PROJECT_NAMESPACE:$GITHUB_TOKEN@github.com/empty-labs/college-hoops.git
+    - git push github HEAD:$CI_COMMIT_REF_NAME
+    - git push github --tags
+  only:
+    - main
