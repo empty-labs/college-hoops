@@ -38,7 +38,9 @@ Here's an idea of how to do so using the [2025 ESPN bracket](https://www.espn.co
 
 ## Conda environment
 
-1. Create new conda environment
+When setting up the project, consider using a conda environment to isolate the required packages.
+
+1. Create new conda environment (you can also use PyCharm's interpreter settings to create your conda environment instead of using command line here)
 ```
 conda env create --name college-hoops
 ```
