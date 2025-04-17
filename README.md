@@ -1,4 +1,4 @@
-
+![](Data/Images/empty-labs-logo-wide.png)
 
 # College Hoops
 
