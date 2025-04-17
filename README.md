@@ -69,3 +69,5 @@ pip install jupyter ipykernel
 ```
 python -m ipykernel install --user --name college-hoops --display-name "college-hoops"
 ```
+
+![](Data/Images/empty-labs-logo.png)
