@@ -203,11 +203,12 @@ def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool=False):
     return massey_ratings
 
 
-def add_ratings_per_game(score_df: pd.DataFrame):
+def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
     """Calculate Massey, Colley ratings for each team for each game
 
     Args:
         score_df (pd.DataFrame): matchup score data frame
+        initial_ratings (int): starting rating for all teams (default 1500)
 
     Returns:
         rating_score_df (dict): score data frame with Massey ratings
@@ -216,7 +217,6 @@ def add_ratings_per_game(score_df: pd.DataFrame):
     # Get unique teams and index them
     teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
     team_index = {team: i for i, team in enumerate(teams)}
-    index_team = {i: team for team, i in team_index.items()}
     N = len(teams)
 
     # Initialize Massey matrix and score vector
@@ -227,11 +227,16 @@ def add_ratings_per_game(score_df: pd.DataFrame):
     C = np.eye(N) * 2  # Start with 2 on the diagonal
     cb = np.ones(N)  # Initialize b with 1s
 
+    # Initialize Elo
+    elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
+
     rating_scores = []
     curr = 0
 
     # Fill the matrix and score vector
     for _, row in score_df.iterrows():
+
+        # Team Prep
         h, a, winner = row["Home"], row["Away"], row["Winner"]
         i, j = team_index[h], team_index[a]
         hPts, aPts = row["Home_Score"], row["Away_Score"]
@@ -247,16 +252,13 @@ def add_ratings_per_game(score_df: pd.DataFrame):
         M_copy[-1, :] = 1
         mb_copy[-1] = 0
 
-        # Solve system
+        # Solve Massy, Colley systems
         try:
             massey_ratings = np.linalg.solve(M_copy, mb_copy)
             colley_ratings = np.linalg.solve(C_copy, cb_copy)
         except np.linalg.LinAlgError:
             massey_ratings = np.zeros(N)  # fallback at very start
             colley_ratings = np.zeros(N)
-
-        team_massey_ratings = {index_team[k]: massey_ratings[k] for k in range(N)}
-        team_colley_ratings = {index_team[k]: colley_ratings[k] for k in range(N)}
 
         # Append to current pregame rating data
         rating_scores.append({
@@ -266,10 +268,12 @@ def add_ratings_per_game(score_df: pd.DataFrame):
             "Away": a,
             "Away_Score": aPts,
             "Winner": winner,
-            "HomeMassey": team_massey_ratings[h],
-            "AwayMassey": team_massey_ratings[a],
-            "HomeColley": team_colley_ratings[h],
-            "AwayColley": team_colley_ratings[a]
+            "Home_Massey": massey_ratings[i],
+            "Away_Massey": massey_ratings[j],
+            "Home_Colley": colley_ratings[i],
+            "Away_Colley": colley_ratings[i],
+            "Home_Elo": elo_ratings[h],
+            "Away_Elo": elo_ratings[a]
         })
 
         # Update Massey matrix
@@ -295,6 +299,12 @@ def add_ratings_per_game(score_df: pd.DataFrame):
             cb[i] -= 0.5
             cb[j] += 0.5
 
+        # Assign Elo outcome (1 if h wins, 0 if a wins)
+        outcome = 1 if winner == h else 0
+
+        # TODO could add K, adjust_K as args
+        elo_ratings[h], elo_ratings[a] = update_elo(r1=elo_ratings[h], r2=elo_ratings[a],
+                                                    outcome=outcome, mov=home_margin, K=30, adjust_K=False)
         # Update status
         curr += 1
         print(f"Complete: {curr} / {len(score_df)} or {round(100 * (curr / len(score_df)), 3)}%")
@@ -495,13 +505,13 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
     elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
 
     for _, row in score_df.iterrows():
-        t1, t2, winner, mov = row["Home"], row["Away"], row["Winner"], row["Home_Score"] - row["Away_Score"]
+        h, a, winner, mov = row["Home"], row["Away"], row["Winner"], row["Home_Score"] - row["Away_Score"]
 
-        # Assign outcome (1 if t1 wins, 0 if t2 wins)
-        outcome = 1 if winner == t1 else 0
+        # Assign outcome (1 if h wins, 0 if a wins)
+        outcome = 1 if winner == h else 0
 
-        elo_ratings[t1], elo_ratings[t2] = update_elo(r1=elo_ratings[t1], r2=elo_ratings[t2],
-                                                      outcome=outcome, mov=mov, K=K, adjust_K=adjust_K)
+        elo_ratings[h], elo_ratings[a] = update_elo(r1=elo_ratings[h], r2=elo_ratings[a],
+                                                    outcome=outcome, mov=mov, K=K, adjust_K=adjust_K)
 
     # Sort and display rankings
     elo_rankings = sorted(elo_ratings.items(), key=lambda x: x[1], reverse=True)
