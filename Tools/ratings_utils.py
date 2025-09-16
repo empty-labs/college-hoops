@@ -444,6 +444,7 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
 
     rating_scores = []
     curr = 0
+    curr_pct = 1
 
     # Fill the matrix and score vector
     for _, row in score_df.iterrows():
@@ -513,7 +514,10 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
                                                     outcome=outcome, mov=home_margin, K=30, adjust_K=False)
         # Update status
         curr += 1
-        print(f"Complete: {curr} / {len(score_df)} or {round(100 * (curr / len(score_df)), 3)}%")
+        pct = round(100 * (curr / len(score_df)), 3)
+        if pct >= curr_pct:  # Print every % instead of every update
+            print(f"Complete: {curr} / {len(score_df)} or {pct}%")
+            curr_pct += 1
 
     # Convert to DataFrame
     rating_score_df = pd.DataFrame(rating_scores)
