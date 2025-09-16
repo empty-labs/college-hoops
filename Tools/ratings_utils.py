@@ -304,7 +304,7 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
 
         # TODO could add K, adjust_K as args
         elo_ratings[h], elo_ratings[a] = update_elo(r1=elo_ratings[h], r2=elo_ratings[a],
-                                                    outcome=outcome, mov=home_margin, K=30, adjust_K=True)
+                                                    outcome=outcome, mov=home_margin, K=30, adjust_K=False)
         # Update status
         curr += 1
         print(f"Complete: {curr} / {len(score_df)} or {round(100 * (curr / len(score_df)), 3)}%")
