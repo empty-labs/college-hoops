@@ -150,6 +150,16 @@ def set_rating_data_frame(filename: str):
     return score_df
 
 
+def update_rating_matrix(mtx, i: int, j: int):
+    """Update rating matrix"""
+    mtx[i, i] += 1
+    mtx[j, j] += 1
+    mtx[i, j] -= 1
+    mtx[j, i] -= 1
+
+    return mtx
+
+
 def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool=False):
     """Calculate Massey ratings for each team and sort in ranked order
 
@@ -176,10 +186,7 @@ def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool=False):
         i, j = team_index[h], team_index[a]
         home_margin = row["Home_Score"] - row["Away_Score"]
 
-        M[i, i] += 1
-        M[j, j] += 1
-        M[i, j] -= 1
-        M[j, i] -= 1
+        M = update_rating_matrix(mtx=M, i=i, j=j)
 
         b[i] += home_margin
         b[j] -= home_margin
@@ -229,10 +236,7 @@ def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool=False):
         i, j = team_index[h], team_index[a]
 
         # Update matrix
-        C[i, i] += 1  # Each team gets an additional game played
-        C[j, j] += 1
-        C[i, j] -= 1
-        C[j, i] -= 1
+        C = update_rating_matrix(mtx=C, i=i, j=j)
 
         # Update b vector
         if winner == h:
@@ -485,19 +489,13 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
         })
 
         # Update Massey matrix
-        M[i, i] += 1
-        M[j, j] += 1
-        M[i, j] -= 1
-        M[j, i] -= 1
+        M = update_rating_matrix(mtx=M, i=i, j=j)
 
         mb[i] += home_margin
         mb[j] -= home_margin
 
         # Update Colley matrix
-        C[i, i] += 1  # Each team gets an additional game played
-        C[j, j] += 1
-        C[i, j] -= 1
-        C[j, i] -= 1
+        C = update_rating_matrix(mtx=C, i=i, j=j)
 
         # Update cb vector
         if winner == h:
