@@ -785,10 +785,10 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
         }
 
         x1 = pd.DataFrame(x1_dict)
-        x2 = pd.DataFrame(x2_dict)
 
+        # Grab probability of team 1 win
         model_ratings[team1] = model.predict_proba(x1)[:, 1][0]
-        model_ratings[team2] = model.predict_proba(x2)[:, 1][0]
+        model_ratings[team2] = 1 - model_ratings[team1]
 
         tourney_dict["Round"].append(tourney_df["Round"][i])
         tourney_dict["Game"].append(tourney_df["Game"][i])
