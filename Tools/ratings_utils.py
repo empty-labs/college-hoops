@@ -203,8 +203,8 @@ def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool=False):
     return massey_ratings
 
 
-def add_massey_ratings_per_game(score_df: pd.DataFrame):
-    """Calculate Massey ratings for each team for each game
+def add_ratings_per_game(score_df: pd.DataFrame):
+    """Calculate Massey, Colley ratings for each team for each game
 
     Args:
         score_df (pd.DataFrame): matchup score data frame
@@ -221,72 +221,86 @@ def add_massey_ratings_per_game(score_df: pd.DataFrame):
 
     # Initialize Massey matrix and score vector
     M = np.zeros((N, N))
-    b = np.zeros(N)
+    mb = np.zeros(N)
+
+    # Initialize Colley matrix (C) and RHS vector (b)
+    C = np.eye(N) * 2  # Start with 2 on the diagonal
+    cb = np.ones(N)  # Initialize b with 1s
 
     rating_scores = []
+    curr = 0
 
     # Fill the matrix and score vector
     for _, row in score_df.iterrows():
-        h, a = row["Home"], row["Away"]
+        h, a, winner = row["Home"], row["Away"], row["Winner"]
         i, j = team_index[h], team_index[a]
         hPts, aPts = row["Home_Score"], row["Away_Score"]
         home_margin = hPts - aPts
 
-        # Copy current M, p
+        # Copy current M, mb, C, cb
         M_copy = M.copy()
-        b_copy = b.copy()
+        mb_copy = mb.copy()
+        C_copy = C.copy()
+        cb_copy = cb.copy()
 
         # Fix singularity: replace last row with ones
         M_copy[-1, :] = 1
-        b_copy[-1] = 0
+        mb_copy[-1] = 0
 
         # Solve system
         try:
-            ratings = np.linalg.solve(M_copy, b_copy)
+            massey_ratings = np.linalg.solve(M_copy, mb_copy)
+            colley_ratings = np.linalg.solve(C_copy, cb_copy)
         except np.linalg.LinAlgError:
-            ratings = np.zeros(N)  # fallback at very start
+            massey_ratings = np.zeros(N)  # fallback at very start
+            colley_ratings = np.zeros(N)
 
-        team_ratings = {index_team[k]: ratings[k] for k in range(N)}
+        team_massey_ratings = {index_team[k]: massey_ratings[k] for k in range(N)}
+        team_colley_ratings = {index_team[k]: colley_ratings[k] for k in range(N)}
 
+        # Append to current pregame rating data
         rating_scores.append({
             "Date": row["Date"],
             "Home": h,
             "Home_Score": hPts,
             "Away": a,
             "Away_Score": aPts,
-            "Winner": row["Winner"],
-            "HomeMassey": team_ratings[h],
-            "AwayMassey": team_ratings[a],
+            "Winner": winner,
+            "HomeMassey": team_massey_ratings[h],
+            "AwayMassey": team_massey_ratings[a],
+            "HomeColley": team_colley_ratings[h],
+            "AwayColley": team_colley_ratings[a]
         })
 
+        # Update Massey matrix
         M[i, i] += 1
         M[j, j] += 1
         M[i, j] -= 1
         M[j, i] -= 1
 
-        b[i] += home_margin
-        b[j] -= home_margin
+        mb[i] += home_margin
+        mb[j] -= home_margin
+
+        # Update Colley matrix
+        C[i, i] += 1  # Each team gets an additional game played
+        C[j, j] += 1
+        C[i, j] -= 1
+        C[j, i] -= 1
+
+        # Update cb vector
+        if winner == h:
+            cb[i] += 0.5
+            cb[j] -= 0.5
+        else:
+            cb[i] -= 0.5
+            cb[j] += 0.5
+
+        # Update status
+        curr += 1
+        print(f"Complete: {curr} / {len(score_df)} or {round(100 * (curr / len(score_df)), 3)}%")
 
     # Convert to DataFrame
     rating_score_df = pd.DataFrame(rating_scores)
-
-    # # Replace last row to enforce sum constraint (makes matrix invertible)
-    # M[-1, :] = 1
-    # b[-1] = 0
-    #
-    # ratings = np.linalg.solve(M, b)
-    #
-    # # Convert ratings to a dictionary
-    # massey_ratings = {team: rating for team, rating in zip(teams, ratings)}
-    #
-    # # Sort and display rankings
-    # massey_rankings = sorted(massey_ratings.items(), key=lambda x: x[1], reverse=True)
-    #
-    # if debug:
-    #     for rank, (team, rating) in enumerate(massey_rankings, 1):
-    #         print(f"{rank}. {team}: {rating:.2f}")
-    #
-    # return massey_ratings
 
     return rating_score_df
 
