@@ -709,6 +709,32 @@ def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
     return total_correct_picks, total_points, tourney_dict
 
 
+def compile_ratings_dict(score_df: pd.DataFrame):
+    """Compile all rating systems together into one dictionary"""
+
+    massey_ratings = calculate_massey_ratings(score_df=score_df,
+                                              debug=False)
+    colley_ratings = calculate_colley_ratings(score_df=score_df,
+                                              debug=False)
+    elo_ratings = calculate_elo_ratings(score_df=score_df,
+                                        K=30,
+                                        debug=False,
+                                        adjust_K=False)
+
+    ratings = {}
+
+    for k in massey_ratings.keys():
+        # Initialize dictionary entry
+        ratings[k] = {}
+
+        # Assign values to entry
+        ratings[k]['Massey'] = massey_ratings[k]
+        ratings[k]['Colley'] = colley_ratings[k]
+        ratings[k]['Elo'] = elo_ratings[k]
+
+    return ratings
+
+
 def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=None, debug: bool=True):
     """Simulate tournament outcomes based on given rating system
 
@@ -736,28 +762,40 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
         "Rating2": []
     }
 
+    model_ratings = {}
+
     # Add ratings to 1st round
     for i in range(32):
         team1 = tourney_df["Team1"][i]
         team2 = tourney_df["Team2"][i]
 
-        if team1 not in list(ratings.keys()):
-            ratings[team1] = -999
+        massey_diff = ratings[team1]['Massey'] - ratings[team2]['Massey']
+        colley_diff = ratings[team1]['Colley'] - ratings[team2]['Colley']
+        elo_diff = ratings[team1]['Elo'] - ratings[team2]['Elo']
 
-        if team2 not in list(ratings.keys()):
-            ratings[team2] = -999
+        x1_dict = {
+            'Massey_diff': [massey_diff],
+            'Colley_diff': [colley_diff],
+            'Elo_diff': [elo_diff]
+        }
+        x2_dict = {
+            'Massey_diff': [-massey_diff],
+            'Colley_diff': [-colley_diff],
+            'Elo_diff': [-elo_diff]
+        }
 
-        x1 = 0
-        x2 = 0
-        rating1 = model.predict_proba(x1)[:, 1]
-        rating2 = model.predict_proba(x2)[:, 1]
+        x1 = pd.DataFrame(x1_dict)
+        x2 = pd.DataFrame(x2_dict)
+
+        model_ratings[team1] = model.predict_proba(x1)[:, 1][0]
+        model_ratings[team2] = model.predict_proba(x2)[:, 1][0]
 
         tourney_dict["Round"].append(tourney_df["Round"][i])
         tourney_dict["Game"].append(tourney_df["Game"][i])
         tourney_dict["Team1"].append(team1)
         tourney_dict["Team2"].append(team2)
-        tourney_dict["Rating1"].append(rating1)
-        tourney_dict["Rating2"].append(rating2)
+        tourney_dict["Rating1"].append(model_ratings[team1])
+        tourney_dict["Rating2"].append(model_ratings[team2])
 
     total_correct_picks = 0
     total_points = 0
@@ -765,7 +803,7 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
 
     for rd in range(1, 7):
         tourney_dict = simulate_next_round(tourney_dict=tourney_dict,
-                                           ratings=ratings,
+                                           ratings=model_ratings,
                                            rd=rd)
 
         correct_picks, points, num_teams = calculate_correct_picks(tourney_dict=tourney_dict,
