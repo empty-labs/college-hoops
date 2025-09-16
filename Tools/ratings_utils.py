@@ -203,118 +203,6 @@ def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool=False):
     return massey_ratings
 
 
-def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
-    """Calculate Massey, Colley ratings for each team for each game
-
-    Args:
-        score_df (pd.DataFrame): matchup score data frame
-        initial_ratings (int): starting rating for all teams (default 1500)
-
-    Returns:
-        rating_score_df (dict): score data frame with Massey ratings
-    """
-
-    # Get unique teams and index them
-    teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
-    team_index = {team: i for i, team in enumerate(teams)}
-    N = len(teams)
-
-    # Initialize Massey matrix and score vector
-    M = np.zeros((N, N))
-    mb = np.zeros(N)
-
-    # Initialize Colley matrix (C) and RHS vector (b)
-    C = np.eye(N) * 2  # Start with 2 on the diagonal
-    cb = np.ones(N)  # Initialize b with 1s
-
-    # Initialize Elo
-    elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
-
-    rating_scores = []
-    curr = 0
-
-    # Fill the matrix and score vector
-    for _, row in score_df.iterrows():
-
-        # Team Prep
-        h, a, winner = row["Home"], row["Away"], row["Winner"]
-        i, j = team_index[h], team_index[a]
-        hPts, aPts = row["Home_Score"], row["Away_Score"]
-        home_margin = hPts - aPts
-
-        # Copy current M, mb, C, cb
-        M_copy = M.copy()
-        mb_copy = mb.copy()
-        C_copy = C.copy()
-        cb_copy = cb.copy()
-
-        # Fix singularity: replace last row with ones
-        M_copy[-1, :] = 1
-        mb_copy[-1] = 0
-
-        # Solve Massy, Colley systems
-        try:
-            massey_ratings = np.linalg.solve(M_copy, mb_copy)
-            colley_ratings = np.linalg.solve(C_copy, cb_copy)
-        except np.linalg.LinAlgError:
-            massey_ratings = np.zeros(N)  # fallback at very start
-            colley_ratings = np.zeros(N)
-
-        # Append to current pregame rating data
-        rating_scores.append({
-            "Date": row["Date"],
-            "Home": h,
-            "Home_Score": hPts,
-            "Away": a,
-            "Away_Score": aPts,
-            "Winner": winner,
-            "Home_Massey": massey_ratings[i],
-            "Away_Massey": massey_ratings[j],
-            "Home_Colley": colley_ratings[i],
-            "Away_Colley": colley_ratings[i],
-            "Home_Elo": elo_ratings[h],
-            "Away_Elo": elo_ratings[a]
-        })
-
-        # Update Massey matrix
-        M[i, i] += 1
-        M[j, j] += 1
-        M[i, j] -= 1
-        M[j, i] -= 1
-
-        mb[i] += home_margin
-        mb[j] -= home_margin
-
-        # Update Colley matrix
-        C[i, i] += 1  # Each team gets an additional game played
-        C[j, j] += 1
-        C[i, j] -= 1
-        C[j, i] -= 1
-
-        # Update cb vector
-        if winner == h:
-            cb[i] += 0.5
-            cb[j] -= 0.5
-        else:
-            cb[i] -= 0.5
-            cb[j] += 0.5
-
-        # Assign Elo outcome (1 if h wins, 0 if a wins)
-        outcome = 1 if winner == h else 0
-
-        # TODO could add K, adjust_K as args
-        elo_ratings[h], elo_ratings[a] = update_elo(r1=elo_ratings[h], r2=elo_ratings[a],
-                                                    outcome=outcome, mov=home_margin, K=30, adjust_K=False)
-        # Update status
-        curr += 1
-        print(f"Complete: {curr} / {len(score_df)} or {round(100 * (curr / len(score_df)), 3)}%")
-
-    # Convert to DataFrame
-    rating_score_df = pd.DataFrame(rating_scores)
-
-    return rating_score_df
-
-
 def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool=False):
     """Calculates Colley rankings given a game results DataFrame.
 
@@ -521,6 +409,118 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
             print(f"{rank}. {team}: {rating:.2f}")
 
     return elo_ratings
+
+
+def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
+    """Calculate Massey, Colley, Elo ratings for each team for each game
+
+    Args:
+        score_df (pd.DataFrame): matchup score data frame
+        initial_ratings (int): starting rating for all teams (default 1500)
+
+    Returns:
+        rating_score_df (dict): score data frame with Massey ratings
+    """
+
+    # Get unique teams and index them
+    teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
+    team_index = {team: i for i, team in enumerate(teams)}
+    N = len(teams)
+
+    # Initialize Massey matrix and score vector
+    M = np.zeros((N, N))
+    mb = np.zeros(N)
+
+    # Initialize Colley matrix (C) and RHS vector (b)
+    C = np.eye(N) * 2  # Start with 2 on the diagonal
+    cb = np.ones(N)  # Initialize b with 1s
+
+    # Initialize Elo
+    elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
+
+    rating_scores = []
+    curr = 0
+
+    # Fill the matrix and score vector
+    for _, row in score_df.iterrows():
+
+        # Team Prep
+        h, a, winner = row["Home"], row["Away"], row["Winner"]
+        i, j = team_index[h], team_index[a]
+        hPts, aPts = row["Home_Score"], row["Away_Score"]
+        home_margin = hPts - aPts
+
+        # Copy current M, mb, C, cb
+        M_copy = M.copy()
+        mb_copy = mb.copy()
+        C_copy = C.copy()
+        cb_copy = cb.copy()
+
+        # Fix singularity: replace last row with ones
+        M_copy[-1, :] = 1
+        mb_copy[-1] = 0
+
+        # Solve Massy, Colley systems
+        try:
+            massey_ratings = np.linalg.solve(M_copy, mb_copy)
+            colley_ratings = np.linalg.solve(C_copy, cb_copy)
+        except np.linalg.LinAlgError:
+            massey_ratings = np.zeros(N)  # fallback at very start
+            colley_ratings = np.zeros(N)
+
+        # Append to current pregame rating data
+        rating_scores.append({
+            "Date": row["Date"],
+            "Home": h,
+            "Home_Score": hPts,
+            "Away": a,
+            "Away_Score": aPts,
+            "Winner": winner,
+            "Home_Massey": massey_ratings[i],
+            "Away_Massey": massey_ratings[j],
+            "Home_Colley": colley_ratings[i],
+            "Away_Colley": colley_ratings[i],
+            "Home_Elo": elo_ratings[h],
+            "Away_Elo": elo_ratings[a]
+        })
+
+        # Update Massey matrix
+        M[i, i] += 1
+        M[j, j] += 1
+        M[i, j] -= 1
+        M[j, i] -= 1
+
+        mb[i] += home_margin
+        mb[j] -= home_margin
+
+        # Update Colley matrix
+        C[i, i] += 1  # Each team gets an additional game played
+        C[j, j] += 1
+        C[i, j] -= 1
+        C[j, i] -= 1
+
+        # Update cb vector
+        if winner == h:
+            cb[i] += 0.5
+            cb[j] -= 0.5
+        else:
+            cb[i] -= 0.5
+            cb[j] += 0.5
+
+        # Assign Elo outcome (1 if h wins, 0 if a wins)
+        outcome = 1 if winner == h else 0
+
+        # TODO could add K, adjust_K as args
+        elo_ratings[h], elo_ratings[a] = update_elo(r1=elo_ratings[h], r2=elo_ratings[a],
+                                                    outcome=outcome, mov=home_margin, K=30, adjust_K=False)
+        # Update status
+        curr += 1
+        print(f"Complete: {curr} / {len(score_df)} or {round(100 * (curr / len(score_df)), 3)}%")
+
+    # Convert to DataFrame
+    rating_score_df = pd.DataFrame(rating_scores)
+
+    return rating_score_df
 
 
 def simulate_next_round(tourney_dict: dict, ratings: dict, rd: int):
