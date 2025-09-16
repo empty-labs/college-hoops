@@ -74,12 +74,12 @@ def set_rating_data_frame(filename: str):
 
     # Initialize score dictionary
     score_dict = {
+        "Date": [],
         "Home": [],
         "Home_Score": [],
         "Away": [],
         "Away_Score": [],
-        "Winner": [],
-        "Date": []
+        "Winner": []
     }
 
     # Read Stats
@@ -172,16 +172,17 @@ def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool=False):
 
     # Fill the matrix and score vector
     for _, row in score_df.iterrows():
-        h, a = team_index[row["Home"]], team_index[row["Away"]]
+        h, a = row["Home"], row["Away"]
+        i, j = team_index[h], team_index[a]
         home_margin = row["Home_Score"] - row["Away_Score"]
 
-        M[h, h] += 1
-        M[a, a] += 1
-        M[h, a] -= 1
-        M[a, h] -= 1
+        M[i, i] += 1
+        M[j, j] += 1
+        M[i, j] -= 1
+        M[j, i] -= 1
 
-        b[h] += home_margin
-        b[a] -= home_margin
+        b[i] += home_margin
+        b[j] -= home_margin
 
     # Replace last row to enforce sum constraint (makes matrix invertible)
     M[-1, :] = 1
@@ -200,6 +201,94 @@ def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool=False):
             print(f"{rank}. {team}: {rating:.2f}")
 
     return massey_ratings
+
+
+def add_massey_ratings_per_game(score_df: pd.DataFrame):
+    """Calculate Massey ratings for each team for each game
+
+    Args:
+        score_df (pd.DataFrame): matchup score data frame
+
+    Returns:
+        rating_score_df (dict): score data frame with Massey ratings
+    """
+
+    # Get unique teams and index them
+    teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
+    team_index = {team: i for i, team in enumerate(teams)}
+    index_team = {i: team for team, i in team_index.items()}
+    N = len(teams)
+
+    # Initialize Massey matrix and score vector
+    M = np.zeros((N, N))
+    b = np.zeros(N)
+
+    rating_scores = []
+
+    # Fill the matrix and score vector
+    for _, row in score_df.iterrows():
+        h, a = row["Home"], row["Away"]
+        i, j = team_index[h], team_index[a]
+        hPts, aPts = row["Home_Score"], row["Away_Score"]
+        home_margin = hPts - aPts
+
+        # Copy current M, p
+        M_copy = M.copy()
+        b_copy = b.copy()
+
+        # Fix singularity: replace last row with ones
+        M_copy[-1, :] = 1
+        b_copy[-1] = 0
+
+        # Solve system
+        try:
+            ratings = np.linalg.solve(M_copy, b_copy)
+        except np.linalg.LinAlgError:
+            ratings = np.zeros(N)  # fallback at very start
+
+        team_ratings = {index_team[k]: ratings[k] for k in range(N)}
+
+        rating_scores.append({
+            "Date": row["Date"],
+            "Home": h,
+            "Home_Score": hPts,
+            "Away": a,
+            "Away_Score": aPts,
+            "Winner": row["Winner"],
+            "HomeMassey": team_ratings[h],
+            "AwayMassey": team_ratings[a],
+        })
+
+        M[i, i] += 1
+        M[j, j] += 1
+        M[i, j] -= 1
+        M[j, i] -= 1
+
+        b[i] += home_margin
+        b[j] -= home_margin
+
+    # Convert to DataFrame
+    rating_score_df = pd.DataFrame(rating_scores)
+
+    # # Replace last row to enforce sum constraint (makes matrix invertible)
+    # M[-1, :] = 1
+    # b[-1] = 0
+    #
+    # ratings = np.linalg.solve(M, b)
+    #
+    # # Convert ratings to a dictionary
+    # massey_ratings = {team: rating for team, rating in zip(teams, ratings)}
+    #
+    # # Sort and display rankings
+    # massey_rankings = sorted(massey_ratings.items(), key=lambda x: x[1], reverse=True)
+    #
+    # if debug:
+    #     for rank, (team, rating) in enumerate(massey_rankings, 1):
+    #         print(f"{rank}. {team}: {rating:.2f}")
+    #
+    # return massey_ratings
+
+    return rating_score_df
 
 
 def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool=False):
@@ -224,8 +313,8 @@ def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool=False):
 
     # Populate matrix and vector using game results
     for _, row in score_df.iterrows():
-        t1, t2, winner = row["Home"], row["Away"], row["Winner"]
-        i, j = team_index[t1], team_index[t2]
+        h, a, winner = row["Home"], row["Away"], row["Winner"]
+        i, j = team_index[h], team_index[a]
 
         # Update matrix
         C[i, i] += 1  # Each team gets an additional game played
@@ -234,7 +323,7 @@ def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool=False):
         C[j, i] -= 1
 
         # Update b vector
-        if winner == t1:
+        if winner == h:
             b[i] += 0.5
             b[j] -= 0.5
         else:
@@ -300,16 +389,6 @@ def compile_srs_ratings_old(score_df: pd.DataFrame, debug: bool=False):
 def compile_srs_ratings(filename: str, debug: bool=False):
     """"""
 
-    # Initialize score dictionary
-    score_dict = {
-        "Home": [],
-        "Home_Score": [],
-        "Away": [],
-        "Away_Score": [],
-        "Winner": [],
-        "Date": []
-    }
-
     # Read Stats
     teams_df = pd.read_json(filename)
     teams = list(teams_df.keys())
@@ -341,7 +420,6 @@ def compile_srs_ratings(filename: str, debug: bool=False):
             print(f"{rank}. {team}: {rating:.2f}")
 
     return srs_ratings
-
 
 
 def expected_outcome(r1, r2):
