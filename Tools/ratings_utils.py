@@ -678,8 +678,79 @@ def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
         if team2 not in list(ratings.keys()):
             ratings[team2] = -999
 
-        rating1 = ratings[team1]
-        rating2 = ratings[team2]
+        tourney_dict["Round"].append(tourney_df["Round"][i])
+        tourney_dict["Game"].append(tourney_df["Game"][i])
+        tourney_dict["Team1"].append(team1)
+        tourney_dict["Team2"].append(team2)
+        tourney_dict["Rating1"].append(ratings[team1])
+        tourney_dict["Rating2"].append(ratings[team2])
+
+    total_correct_picks = 0
+    total_points = 0
+    total_num_teams = 0
+
+    for rd in range(1, 7):
+        tourney_dict = simulate_next_round(tourney_dict=tourney_dict,
+                                           ratings=ratings,
+                                           rd=rd)
+
+        correct_picks, points, num_teams = calculate_correct_picks(tourney_dict=tourney_dict,
+                                                                   tourney_df=tourney_df,
+                                                                   rd=rd, debug=debug)
+
+        total_correct_picks += correct_picks
+        total_points += points
+        total_num_teams += num_teams
+
+    if debug:
+        print(f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}")
+        print(f"\nTotal points in tournament: {total_points} out of 1920")
+
+    return total_correct_picks, total_points, tourney_dict
+
+
+def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=None, debug: bool=True):
+    """Simulate tournament outcomes based on given rating system
+
+    Args:
+        filename (str): Name of CSV tournament team file
+        ratings (dict): dictionary of ratings
+        model: classification model to predict results
+        debug (bool): flag to print debug statements
+
+    Returns:
+        total_correct_picks (int): number of correct picks
+        total_points (int): points based on round
+        tourney_dict (dict): tournament dictionary of all matchups
+    """
+
+    # Load tournament CSV file into a DataFrame
+    tourney_df = pd.read_csv(filename)
+
+    tourney_dict = {
+        "Round": [],
+        "Game": [],
+        "Team1": [],
+        "Team2": [],
+        "Rating1": [],
+        "Rating2": []
+    }
+
+    # Add ratings to 1st round
+    for i in range(32):
+        team1 = tourney_df["Team1"][i]
+        team2 = tourney_df["Team2"][i]
+
+        if team1 not in list(ratings.keys()):
+            ratings[team1] = -999
+
+        if team2 not in list(ratings.keys()):
+            ratings[team2] = -999
+
+        x1 = 0
+        x2 = 0
+        rating1 = model.predict_proba(x1)[:, 1]
+        rating2 = model.predict_proba(x2)[:, 1]
 
         tourney_dict["Round"].append(tourney_df["Round"][i])
         tourney_dict["Game"].append(tourney_df["Game"][i])
