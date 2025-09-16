@@ -16,6 +16,26 @@ def fix_time_format(time_str: str):
     return time_str  # If already correct
 
 
+def set_datetime_object(date: str, time: str):
+    """Clean up date and time into datetime format"""
+
+    # Fix time format
+    if time is None:
+        time = "12:00p"  # Generic time if none provided
+    time_str_fixed = fix_time_format(time)
+
+    # Add date time
+    # Convert date string to datetime object
+    date_obj = dt.strptime(date, "%a, %b %d, %Y")
+
+    # Convert time string to 24-hour format
+    time_obj = dt.strptime(time_str_fixed, "%I:%M%p").time()
+
+    # Combine date and time into one datetime object
+    datetime_obj = dt.combine(date_obj, time_obj)
+    return datetime_obj
+
+
 def set_score_entry(dct: dict, home_team: str, away_team: str, home_team_score: int, away_team_score: int,
                     date: str, time: str):
     """Set score entry
@@ -43,20 +63,7 @@ def set_score_entry(dct: dict, home_team: str, away_team: str, home_team_score: 
     else:
         dct["Winner"].append(away_team)
 
-    # Fix time format
-    if time is None:
-        time = "12:00p"  # Generic time if none provided
-    time_str_fixed = fix_time_format(time)
-
-    # Add date time
-    # Convert date string to datetime object
-    date_obj = dt.strptime(date, "%a, %b %d, %Y")
-
-    # Convert time string to 24-hour format
-    time_obj = dt.strptime(time_str_fixed, "%I:%M%p").time()
-
-    # Combine date and time into one datetime object
-    datetime_obj = dt.combine(date_obj, time_obj)
+    datetime_obj = set_datetime_object(date=date, time=time)
     dct["Date"].append(datetime_obj)
 
     return dct
