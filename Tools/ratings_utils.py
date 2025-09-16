@@ -300,16 +300,6 @@ def compile_srs_ratings_old(score_df: pd.DataFrame, debug: bool=False):
 def compile_srs_ratings(filename: str, debug: bool=False):
     """"""
 
-    # Initialize score dictionary
-    score_dict = {
-        "Home": [],
-        "Home_Score": [],
-        "Away": [],
-        "Away_Score": [],
-        "Winner": [],
-        "Date": []
-    }
-
     # Read Stats
     teams_df = pd.read_json(filename)
     teams = list(teams_df.keys())
@@ -341,7 +331,6 @@ def compile_srs_ratings(filename: str, debug: bool=False):
             print(f"{rank}. {team}: {rating:.2f}")
 
     return srs_ratings
-
 
 
 def expected_outcome(r1, r2):
