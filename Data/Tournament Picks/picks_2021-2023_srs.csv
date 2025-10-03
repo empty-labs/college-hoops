@@ -1,0 +1,65 @@
+Round,Game,Team1,Team2,Rating1,Rating2
+1,1,Alabama,Texas A&M-Corpus Christi,13.76,-4.72
+1,2,Maryland,West Virginia,14.94,19.2
+1,3,San Diego State,College of Charleston,14.23,-1.17
+1,4,Virginia,Furman,15.83,-2.34
+1,5,Creighton,NC State,16.03,10.53
+1,6,Baylor,UC Santa Barbara,15.36,1.73
+1,7,Missouri,Utah State,23.19,15.81
+1,8,Arizona,Princeton,22.11,7.81
+1,9,Purdue,Fairleigh Dickinson-Florham,13.04,-999
+1,10,Memphis,Florida Atlantic,22.2,10.96
+1,11,Duke,Oral Roberts,13.28,-4.56
+1,12,Tennessee,Louisiana,11.41,3.58
+1,13,Kentucky,Providence,8.98,22.95
+1,14,Kansas State,Montana State,15.61,-3.87
+1,15,Michigan State,Southern California,12.99,11.29
+1,16,Marquette,Vermont,16.03,0.63
+1,17,Houston,Northern Kentucky,14.5,-2.6
+1,18,Iowa,Auburn,12.99,15.99
+1,19,Miami (FL),Drake,15.83,6.51
+1,20,Indiana,Kent State,13.04,5.76
+1,21,Iowa State,Pittsburgh,19.2,15.83
+1,22,Xavier,Kennesaw State,17.07,8.36
+1,23,Texas A&M,Penn State,23.19,18.23
+1,24,Texas,Colgate,19.2,-7.83
+1,25,Kansas,Howard,20.56,-3.72
+1,26,Arkansas,Illinois,13.76,13.04
+1,27,Saint Mary's (CA),Virginia Commonwealth,18.99,8.71
+1,28,Connecticut,Iona,17.07,-8.44
+1,29,TCU,Arizona State,20.56,19.08
+1,30,Gonzaga,Grand Canyon,17.41,3.39
+1,31,Northwestern,Boise State,13.04,14.23
+1,32,UCLA,UNC Asheville,19.08,-5.23
+2,1,Alabama,West Virginia,13.76,19.2
+2,2,San Diego State,Virginia,14.23,15.83
+2,3,Creighton,Baylor,16.03,15.36
+2,4,Missouri,Arizona,23.19,22.11
+2,5,Purdue,Memphis,13.04,22.2
+2,6,Duke,Tennessee,13.28,11.41
+2,7,Providence,Kansas State,22.95,15.61
+2,8,Michigan State,Marquette,12.99,16.03
+2,9,Houston,Auburn,14.5,15.99
+2,10,Miami (FL),Indiana,15.83,13.04
+2,11,Iowa State,Xavier,19.2,17.07
+2,12,Texas A&M,Texas,23.19,19.2
+2,13,Kansas,Arkansas,20.56,13.76
+2,14,Saint Mary's (CA),Connecticut,18.99,17.07
+2,15,TCU,Gonzaga,20.56,17.41
+2,16,Boise State,UCLA,14.23,19.08
+3,1,West Virginia,Virginia,19.2,15.83
+3,2,Creighton,Missouri,16.03,23.19
+3,3,Memphis,Duke,22.2,13.28
+3,4,Providence,Marquette,22.95,16.03
+3,5,Auburn,Miami (FL),15.99,15.83
+3,6,Iowa State,Texas A&M,19.2,23.19
+3,7,Kansas,Saint Mary's (CA),20.56,18.99
+3,8,TCU,UCLA,20.56,19.08
+4,1,West Virginia,Missouri,19.2,23.19
+4,2,Memphis,Providence,22.2,22.95
+4,3,Auburn,Texas A&M,15.99,23.19
+4,4,Kansas,TCU,20.56,20.56
+5,1,Missouri,Providence,23.19,22.95
+5,2,Texas A&M,Kansas,23.19,20.56
+6,1,Missouri,Texas A&M,23.19,23.19
+7,1,Missouri,No Value,23.19,No Value
