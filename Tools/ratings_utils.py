@@ -492,7 +492,7 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
             "Home_Massey": massey_ratings[i],
             "Away_Massey": massey_ratings[j],
             "Home_Colley": colley_ratings[i],
-            "Away_Colley": colley_ratings[i],
+            "Away_Colley": colley_ratings[j],
             "Home_Elo": elo_ratings[h],
             "Away_Elo": elo_ratings[a],
             "Home_Adj_Elo": adj_elo_ratings[h],
@@ -727,6 +727,10 @@ def compile_ratings_dict(score_df: pd.DataFrame):
                                         K=30,
                                         debug=False,
                                         adjust_K=False)
+    adj_elo_ratings = calculate_elo_ratings(score_df=score_df,
+                                            K=30,
+                                            debug=False,
+                                            adjust_K=True)
 
     ratings = {}
 
@@ -738,6 +742,7 @@ def compile_ratings_dict(score_df: pd.DataFrame):
         ratings[k]['Massey'] = massey_ratings[k]
         ratings[k]['Colley'] = colley_ratings[k]
         ratings[k]['Elo'] = elo_ratings[k]
+        ratings[k]['Adj_Elo'] = adj_elo_ratings[k]
 
     return ratings
 
@@ -779,16 +784,13 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
         massey_diff = ratings[team1]['Massey'] - ratings[team2]['Massey']
         colley_diff = ratings[team1]['Colley'] - ratings[team2]['Colley']
         elo_diff = ratings[team1]['Elo'] - ratings[team2]['Elo']
+        adj_elo_diff = ratings[team1]['Adj_Elo'] - ratings[team2]['Adj_Elo']
 
         x1_dict = {
             'Massey_diff': [massey_diff],
             'Colley_diff': [colley_diff],
-            'Elo_diff': [elo_diff]
-        }
-        x2_dict = {
-            'Massey_diff': [-massey_diff],
-            'Colley_diff': [-colley_diff],
-            'Elo_diff': [-elo_diff]
+            'Elo_diff': [elo_diff],
+            'Adj_Elo_diff': [adj_elo_diff]
         }
 
         x1 = pd.DataFrame(x1_dict)
