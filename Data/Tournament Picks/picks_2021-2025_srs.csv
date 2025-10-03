@@ -1,0 +1,65 @@
+Round,Game,Team1,Team2,Rating1,Rating2
+1,1,Auburn,Alabama State,24.86,-9.15
+1,2,Louisville,Creighton,30.31,21.76
+1,3,Michigan,UC San Diego,20.94,8.06
+1,4,Texas A&M,Yale,16.18,1.13
+1,5,Mississippi,North Carolina,29.57,30.31
+1,6,Iowa State,Lipscomb,19.8,1.63
+1,7,Marquette,New Mexico,21.76,13.88
+1,8,Michigan State,Bryant,20.94,-6.28
+1,9,Florida,Norfolk State,24.86,-4.36
+1,10,Connecticut,Oklahoma,16.35,21.61
+1,11,Memphis,Colorado State,4.41,13.88
+1,12,Maryland,Grand Canyon,20.16,2.3
+1,13,Missouri,Drake,27.98,6.24
+1,14,Texas Tech,UNC Wilmington,23.12,-5.87
+1,15,Kansas,Arkansas,23.12,17.92
+1,16,St. John's (NY),Omaha,16.35,1.33
+1,17,Duke,Mount Saint Mary (NY),19.29,-999
+1,18,Mississippi State,Baylor,20.39,23.9
+1,19,Oregon,Liberty,22.46,1.39
+1,20,Arizona,Akron,28.44,-0.84
+1,21,Brigham Young,Virginia Commonwealth,28.44,7.71
+1,22,Wisconsin,Montana,20.16,1.6
+1,23,Saint Mary's (CA),Vanderbilt,23.62,16.18
+1,24,Alabama,Robert Morris,27.98,-3.88
+1,25,Houston,Southern Illinois-Edwardsville,23.12,-4.68
+1,26,Gonzaga,Georgia,17.74,15.42
+1,27,Clemson,McNeese State,19.29,-2.2
+1,28,Purdue,High Point,20.16,-1.45
+1,29,Illinois,Xavier,23.53,18.88
+1,30,Kentucky,Troy,25.96,5.22
+1,31,UCLA,Utah State,20.94,13.9
+1,32,Tennessee,Wofford,27.98,0.05
+2,1,Auburn,Louisville,24.86,30.31
+2,2,Michigan,Texas A&M,20.94,16.18
+2,3,North Carolina,Iowa State,30.31,19.8
+2,4,Marquette,Michigan State,21.76,20.94
+2,5,Florida,Oklahoma,24.86,21.61
+2,6,Colorado State,Maryland,13.88,20.16
+2,7,Missouri,Texas Tech,27.98,23.12
+2,8,Kansas,St. John's (NY),23.12,16.35
+2,9,Duke,Baylor,19.29,23.9
+2,10,Oregon,Arizona,22.46,28.44
+2,11,Brigham Young,Wisconsin,28.44,20.16
+2,12,Saint Mary's (CA),Alabama,23.62,27.98
+2,13,Houston,Gonzaga,23.12,17.74
+2,14,Clemson,Purdue,19.29,20.16
+2,15,Illinois,Kentucky,23.53,25.96
+2,16,UCLA,Tennessee,20.94,27.98
+3,1,Louisville,Michigan,30.31,20.94
+3,2,North Carolina,Marquette,30.31,21.76
+3,3,Florida,Maryland,24.86,20.16
+3,4,Missouri,Kansas,27.98,23.12
+3,5,Baylor,Arizona,23.9,28.44
+3,6,Brigham Young,Alabama,28.44,27.98
+3,7,Houston,Purdue,23.12,20.16
+3,8,Kentucky,Tennessee,25.96,27.98
+4,1,Louisville,North Carolina,30.31,30.31
+4,2,Florida,Missouri,24.86,27.98
+4,3,Arizona,Brigham Young,28.44,28.44
+4,4,Houston,Tennessee,23.12,27.98
+5,1,Louisville,Missouri,30.31,27.98
+5,2,Arizona,Tennessee,28.44,27.98
+6,1,Louisville,Arizona,30.31,28.44
+7,1,Louisville,No Value,30.31,No Value
