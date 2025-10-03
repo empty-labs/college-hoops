@@ -1,0 +1,65 @@
+Round,Game,Team1,Team2,Rating1,Rating2
+1,1,Connecticut,Stetson,19.27,-6.13
+1,2,Florida Atlantic,Northwestern,-1.26,16.01
+1,3,San Diego State,UAB,15.04,-1.26
+1,4,Auburn,Yale,15.17,-3.6
+1,5,Brigham Young,Duquesne,14.96,8.7
+1,6,Illinois,Morehead State,16.01,-3.42
+1,7,Washington State,Drake,15.95,13.44
+1,8,Iowa State,South Dakota State,25.69,-7.39
+1,9,North Carolina,Wagner,12.81,-5.24
+1,10,Mississippi State,Michigan State,22.46,24.93
+1,11,Saint Mary's (CA),Grand Canyon,17.93,2.38
+1,12,Alabama,College of Charleston,15.17,-2.59
+1,13,Clemson,New Mexico,9.48,14.68
+1,14,Baylor,Colgate,22.3,-7.47
+1,15,Dayton,Nevada,7.35,13.4
+1,16,Arizona,Long Beach State,12.22,-1.33
+1,17,Houston,Longwood,22.3,-1.92
+1,18,Nebraska,Texas A&M,19.56,15.17
+1,19,Wisconsin,James Madison,19.56,0.28
+1,20,Duke,Vermont,12.81,-1.28
+1,21,Texas Tech,NC State,25.69,21.36
+1,22,Kentucky,Oakland,13.35,-5.01
+1,23,Florida,Colorado,22.46,12.22
+1,24,Marquette,Western Kentucky,26.7,-1.49
+1,25,Purdue,Grambling,16.01,-9.09
+1,26,Utah State,TCU,14.68,25.69
+1,27,Gonzaga,McNeese State,16.31,-7.14
+1,28,Kansas,Samford,15.06,-3.11
+1,29,South Carolina,Oregon,22.46,15.95
+1,30,Creighton,Akron,12.56,-0.76
+1,31,Texas,Colorado State,11.06,15.04
+1,32,Tennessee,Saint Peter's,14.19,-3.17
+2,1,Connecticut,Northwestern,19.27,16.01
+2,2,San Diego State,Auburn,15.04,15.17
+2,3,Brigham Young,Illinois,14.96,16.01
+2,4,Washington State,Iowa State,15.95,25.69
+2,5,North Carolina,Michigan State,12.81,24.93
+2,6,Saint Mary's (CA),Alabama,17.93,15.17
+2,7,New Mexico,Baylor,14.68,22.3
+2,8,Nevada,Arizona,13.4,12.22
+2,9,Houston,Nebraska,22.3,19.56
+2,10,Wisconsin,Duke,19.56,12.81
+2,11,Texas Tech,Kentucky,25.69,13.35
+2,12,Florida,Marquette,22.46,26.7
+2,13,Purdue,TCU,16.01,25.69
+2,14,Gonzaga,Kansas,16.31,15.06
+2,15,South Carolina,Creighton,22.46,12.56
+2,16,Colorado State,Tennessee,15.04,14.19
+3,1,Connecticut,Auburn,19.27,15.17
+3,2,Illinois,Iowa State,16.01,25.69
+3,3,Michigan State,Saint Mary's (CA),24.93,17.93
+3,4,Baylor,Nevada,22.3,13.4
+3,5,Houston,Wisconsin,22.3,19.56
+3,6,Texas Tech,Marquette,25.69,26.7
+3,7,TCU,Gonzaga,25.69,16.31
+3,8,South Carolina,Colorado State,22.46,15.04
+4,1,Connecticut,Iowa State,19.27,25.69
+4,2,Michigan State,Baylor,24.93,22.3
+4,3,Houston,Marquette,22.3,26.7
+4,4,TCU,South Carolina,25.69,22.46
+5,1,Iowa State,Michigan State,25.69,24.93
+5,2,Marquette,TCU,26.7,25.69
+6,1,Iowa State,Marquette,25.69,26.7
+7,1,Marquette,No Value,26.7,No Value
