@@ -448,6 +448,7 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
 
     # Initialize Elo
     elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
+    adj_elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
 
     rating_scores = []
     curr = 0
@@ -472,7 +473,7 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
         M_copy[-1, :] = 1
         mb_copy[-1] = 0
 
-        # Solve Massy, Colley systems
+        # Solve Massey, Colley systems
         try:
             massey_ratings = np.linalg.solve(M_copy, mb_copy)
             colley_ratings = np.linalg.solve(C_copy, cb_copy)
@@ -491,9 +492,11 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
             "Home_Massey": massey_ratings[i],
             "Away_Massey": massey_ratings[j],
             "Home_Colley": colley_ratings[i],
-            "Away_Colley": colley_ratings[i],
+            "Away_Colley": colley_ratings[j],
             "Home_Elo": elo_ratings[h],
-            "Away_Elo": elo_ratings[a]
+            "Away_Elo": elo_ratings[a],
+            "Home_Adj_Elo": adj_elo_ratings[h],
+            "Away_Adj_Elo": adj_elo_ratings[a]
         })
 
         # Update Massey matrix
@@ -516,9 +519,13 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
         # Assign Elo outcome (1 if h wins, 0 if a wins)
         outcome = 1 if winner == h else 0
 
-        # TODO could add K, adjust_K as args
+        # Traditional Elo rating
         elo_ratings[h], elo_ratings[a] = update_elo(r1=elo_ratings[h], r2=elo_ratings[a],
                                                     outcome=outcome, mov=home_margin, K=30, adjust_K=False)
+
+        # Adjusted Elo rating
+        adj_elo_ratings[h], adj_elo_ratings[a] = update_elo(r1=adj_elo_ratings[h], r2=adj_elo_ratings[a],
+                                                    outcome=outcome, mov=home_margin, K=30, adjust_K=True)
         # Update status
         curr += 1
         pct = round(100 * (curr / len(score_df)), 3)
@@ -720,6 +727,10 @@ def compile_ratings_dict(score_df: pd.DataFrame):
                                         K=30,
                                         debug=False,
                                         adjust_K=False)
+    adj_elo_ratings = calculate_elo_ratings(score_df=score_df,
+                                            K=30,
+                                            debug=False,
+                                            adjust_K=True)
 
     ratings = {}
 
@@ -731,6 +742,7 @@ def compile_ratings_dict(score_df: pd.DataFrame):
         ratings[k]['Massey'] = massey_ratings[k]
         ratings[k]['Colley'] = colley_ratings[k]
         ratings[k]['Elo'] = elo_ratings[k]
+        ratings[k]['Adj_Elo'] = adj_elo_ratings[k]
 
     return ratings
 
@@ -772,16 +784,13 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
         massey_diff = ratings[team1]['Massey'] - ratings[team2]['Massey']
         colley_diff = ratings[team1]['Colley'] - ratings[team2]['Colley']
         elo_diff = ratings[team1]['Elo'] - ratings[team2]['Elo']
+        adj_elo_diff = ratings[team1]['Adj_Elo'] - ratings[team2]['Adj_Elo']
 
         x1_dict = {
             'Massey_diff': [massey_diff],
             'Colley_diff': [colley_diff],
-            'Elo_diff': [elo_diff]
-        }
-        x2_dict = {
-            'Massey_diff': [-massey_diff],
-            'Colley_diff': [-colley_diff],
-            'Elo_diff': [-elo_diff]
+            'Elo_diff': [elo_diff],
+            'Adj_Elo_diff': [adj_elo_diff]
         }
 
         x1 = pd.DataFrame(x1_dict)
