@@ -1,0 +1,65 @@
+Round,Game,Team1,Team2,Rating1,Rating2
+1,1,Alabama,Texas A&M-Corpus Christi,1,16
+1,2,Maryland,West Virginia,8,9
+1,3,San Diego State,College of Charleston,5,12
+1,4,Virginia,Furman,4,13
+1,5,Creighton,NC State,6,11
+1,6,Baylor,UC Santa Barbara,3,14
+1,7,Missouri,Utah State,7,10
+1,8,Arizona,Princeton,2,15
+1,9,Purdue,Fairleigh Dickinson-Florham,1,16
+1,10,Memphis,Florida Atlantic,8,9
+1,11,Duke,Oral Roberts,5,12
+1,12,Tennessee,Louisiana,4,13
+1,13,Kentucky,Providence,6,11
+1,14,Kansas State,Montana State,3,14
+1,15,Michigan State,Southern California,7,10
+1,16,Marquette,Vermont,2,15
+1,17,Houston,Northern Kentucky,1,16
+1,18,Iowa,Auburn,8,9
+1,19,Miami (FL),Drake,5,12
+1,20,Indiana,Kent State,4,13
+1,21,Iowa State,Pittsburgh,6,11
+1,22,Xavier,Kennesaw State,3,14
+1,23,Texas A&M,Penn State,7,10
+1,24,Texas,Colgate,2,15
+1,25,Kansas,Howard,1,16
+1,26,Arkansas,Illinois,8,9
+1,27,Saint Mary's (CA),Virginia Commonwealth,5,12
+1,28,Connecticut,Iona,4,13
+1,29,TCU,Arizona State,6,11
+1,30,Gonzaga,Grand Canyon,3,14
+1,31,Northwestern,Boise State,7,10
+1,32,UCLA,UNC Asheville,2,15
+2,1,Alabama,Maryland,1,8
+2,2,San Diego State,Virginia,5,4
+2,3,Creighton,Baylor,6,3
+2,4,Missouri,Arizona,7,2
+2,5,Purdue,Memphis,1,8
+2,6,Duke,Tennessee,5,4
+2,7,Kentucky,Kansas State,6,3
+2,8,Michigan State,Marquette,7,2
+2,9,Houston,Iowa,1,8
+2,10,Miami (FL),Indiana,5,4
+2,11,Iowa State,Xavier,6,3
+2,12,Texas A&M,Texas,7,2
+2,13,Kansas,Arkansas,1,8
+2,14,Saint Mary's (CA),Connecticut,5,4
+2,15,TCU,Gonzaga,6,3
+2,16,Northwestern,UCLA,7,2
+3,1,Alabama,Virginia,1,4
+3,2,Baylor,Arizona,3,2
+3,3,Purdue,Tennessee,1,4
+3,4,Kansas State,Marquette,3,2
+3,5,Houston,Indiana,1,4
+3,6,Xavier,Texas,3,2
+3,7,Kansas,Connecticut,1,4
+3,8,Gonzaga,UCLA,3,2
+4,1,Alabama,Arizona,1,2
+4,2,Purdue,Marquette,1,2
+4,3,Houston,Texas,1,2
+4,4,Kansas,UCLA,1,2
+5,1,Alabama,Purdue,1,1
+5,2,Houston,Kansas,1,1
+6,1,Alabama,Houston,1,1
+7,1,Alabama,No Value,1,No Value

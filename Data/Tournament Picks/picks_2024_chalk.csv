@@ -1,0 +1,65 @@
+Round,Game,Team1,Team2,Rating1,Rating2
+1,1,Connecticut,Stetson,1,16
+1,2,Florida Atlantic,Northwestern,8,9
+1,3,San Diego State,UAB,5,12
+1,4,Auburn,Yale,4,13
+1,5,Brigham Young,Duquesne,6,11
+1,6,Illinois,Morehead State,3,14
+1,7,Washington State,Drake,7,10
+1,8,Iowa State,South Dakota State,2,15
+1,9,North Carolina,Wagner,1,16
+1,10,Mississippi State,Michigan State,8,9
+1,11,Saint Mary's (CA),Grand Canyon,5,12
+1,12,Alabama,College of Charleston,4,13
+1,13,Clemson,New Mexico,6,11
+1,14,Baylor,Colgate,3,14
+1,15,Dayton,Nevada,7,10
+1,16,Arizona,Long Beach State,2,15
+1,17,Houston,Longwood,1,16
+1,18,Nebraska,Texas A&M,8,9
+1,19,Wisconsin,James Madison,5,12
+1,20,Duke,Vermont,4,13
+1,21,Texas Tech,NC State,6,11
+1,22,Kentucky,Oakland,3,14
+1,23,Florida,Colorado,7,10
+1,24,Marquette,Western Kentucky,2,15
+1,25,Purdue,Grambling,1,16
+1,26,Utah State,TCU,8,9
+1,27,Gonzaga,McNeese State,5,12
+1,28,Kansas,Samford,4,13
+1,29,South Carolina,Oregon,6,11
+1,30,Creighton,Akron,3,14
+1,31,Texas,Colorado State,7,10
+1,32,Tennessee,Saint Peter's,2,15
+2,1,Connecticut,Florida Atlantic,1,8
+2,2,San Diego State,Auburn,5,4
+2,3,Brigham Young,Illinois,6,3
+2,4,Washington State,Iowa State,7,2
+2,5,North Carolina,Mississippi State,1,8
+2,6,Saint Mary's (CA),Alabama,5,4
+2,7,Clemson,Baylor,6,3
+2,8,Dayton,Arizona,7,2
+2,9,Houston,Nebraska,1,8
+2,10,Wisconsin,Duke,5,4
+2,11,Texas Tech,Kentucky,6,3
+2,12,Florida,Marquette,7,2
+2,13,Purdue,Utah State,1,8
+2,14,Gonzaga,Kansas,5,4
+2,15,South Carolina,Creighton,6,3
+2,16,Texas,Tennessee,7,2
+3,1,Connecticut,Auburn,1,4
+3,2,Illinois,Iowa State,3,2
+3,3,North Carolina,Alabama,1,4
+3,4,Baylor,Arizona,3,2
+3,5,Houston,Duke,1,4
+3,6,Kentucky,Marquette,3,2
+3,7,Purdue,Kansas,1,4
+3,8,Creighton,Tennessee,3,2
+4,1,Connecticut,Iowa State,1,2
+4,2,North Carolina,Arizona,1,2
+4,3,Houston,Marquette,1,2
+4,4,Purdue,Tennessee,1,2
+5,1,Connecticut,North Carolina,1,1
+5,2,Houston,Purdue,1,1
+6,1,Connecticut,Houston,1,1
+7,1,Connecticut,No Value,1,No Value
