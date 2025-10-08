@@ -5,6 +5,7 @@ import pandas as pd
 
 ROUND_NAMES = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8", "Final 4", "Championship"]
 ROUND_POINTS = [10, 20, 40, 80, 160, 320]
+ROUND_1_SEEDING = [1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15]
 
 
 def fix_time_format(time_str: str):
@@ -539,13 +540,38 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
     return rating_score_df
 
 
-def simulate_next_round(tourney_dict: dict, ratings: dict, rd: int):
+def set_tournament_team_rating(i: int, tourney_dict: dict, team: str, rating: float):
+    """Helper function to assign team and rating to next round of tournament
+
+    Args:
+        i (int): current index
+        tourney_dict (dict): tournament dictionary of current and next round matchups
+        team (str): winning team
+        rating (float): team rating
+
+    Returns:
+        tourney_dict (dict): updated tournament dictionary of current and next round matchups
+    """
+
+    if i % 2 == 0:
+        # Assign 1st team if even index
+        tourney_dict["Team1"].append(team)
+        tourney_dict["Rating1"].append(rating)
+    else:
+        # Assign 2nd team if odd index
+        tourney_dict["Team2"].append(team)
+        tourney_dict["Rating2"].append(rating)
+
+    return tourney_dict
+
+
+def simulate_next_round(tourney_dict: dict, rd: int, ratings: dict=None):
     """Simulate next round of tournament using current round of team matchups
 
     Args:
         tourney_dict (dict): tournament dictionary of current round matchups
-        ratings (dict): dictionary of ratings
         rd (int): current round of tournament matchups
+        ratings (dict): dictionary of ratings (use chalk/seeding otherwise)
 
     Returns:
         tourney_dict (dict): tournament dictionary of current and next round matchups
@@ -560,32 +586,29 @@ def simulate_next_round(tourney_dict: dict, ratings: dict, rd: int):
 
         team1 = tourney_dict["Team1"][i]
         team2 = tourney_dict["Team2"][i]
-        rating1 = ratings[team1]
-        rating2 = ratings[team2]
+        rating1 = tourney_dict["Rating1"][i]
+        rating2 = tourney_dict["Rating2"][i]
 
-        # Add 2nd round teams
-        if tourney_dict["Rating1"][i] >= tourney_dict["Rating2"][i]:
+        # Rating system provided
+        if ratings is not None:
 
-            if i % 2 == 0:
-                # Assign 1st team if even index
-                tourney_dict["Team1"].append(team1)
-                tourney_dict["Rating1"].append(rating1)
+            # Add 2nd round teams
+            if rating1 >= rating2:
+                tourney_dict = set_tournament_team_rating(i=i, tourney_dict=tourney_dict, team=team1, rating=rating1)
+
             else:
-                # Assign 2nd team if odd index
-                tourney_dict["Team2"].append(team1)
-                tourney_dict["Rating2"].append(rating1)
+                tourney_dict = set_tournament_team_rating(i=i, tourney_dict=tourney_dict, team=team2, rating=rating2)
 
-        else:
+        else: # Chalk method
 
-            if i % 2 == 0:
-                # Assign 1st team if even index
-                tourney_dict["Team1"].append(team2)
-                tourney_dict["Rating1"].append(rating2)
+            # Add 2nd round teams
+            if rating1 <= rating2:
+                tourney_dict = set_tournament_team_rating(i=i, tourney_dict=tourney_dict, team=team1, rating=rating1)
+
             else:
-                # Assign 2nd team if odd index
-                tourney_dict["Team2"].append(team2)
-                tourney_dict["Rating2"].append(rating2)
+                tourney_dict = set_tournament_team_rating(i=i, tourney_dict=tourney_dict, team=team2, rating=rating2)
 
+        # Update round and game counters
         if i % 2 == 0:
             game += 1
 
@@ -648,12 +671,12 @@ def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: in
     return correct_picks, total_points, num_teams
 
 
-def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
+def simulate_tournament(filename: str, ratings: dict=None, debug: bool=True):
     """Simulate tournament outcomes based on given rating system
 
     Args:
         filename (str): Name of CSV tournament team file
-        ratings (dict): dictionary of ratings
+        ratings (dict): dictionary of ratings (use chalk/seeding otherwise)
         debug (bool): flag to print debug statements
 
     Returns:
@@ -679,18 +702,30 @@ def simulate_tournament(filename: str, ratings: dict, debug: bool=True):
         team1 = tourney_df["Team1"][i]
         team2 = tourney_df["Team2"][i]
 
-        if team1 not in list(ratings.keys()):
-            ratings[team1] = -999
+        # Rating system provided
+        if ratings is not None:
 
-        if team2 not in list(ratings.keys()):
-            ratings[team2] = -999
+            if team1 not in list(ratings.keys()):
+                ratings[team1] = -999
+
+            if team2 not in list(ratings.keys()):
+                ratings[team2] = -999
+
+            tourney_dict["Rating1"].append(ratings[team1])
+            tourney_dict["Rating2"].append(ratings[team2])
+
+        else:  # Chalk method
+
+            team1_seed = ROUND_1_SEEDING[(2*i) % 16]
+            team2_seed = ROUND_1_SEEDING[(2*i + 1) % 16]
+
+            tourney_dict["Rating1"].append(team1_seed)
+            tourney_dict["Rating2"].append(team2_seed)
 
         tourney_dict["Round"].append(tourney_df["Round"][i])
         tourney_dict["Game"].append(tourney_df["Game"][i])
         tourney_dict["Team1"].append(team1)
         tourney_dict["Team2"].append(team2)
-        tourney_dict["Rating1"].append(ratings[team1])
-        tourney_dict["Rating2"].append(ratings[team2])
 
     total_correct_picks = 0
     total_points = 0

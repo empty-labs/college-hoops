@@ -1,0 +1,65 @@
+Round,Game,Team1,Team2,Rating1,Rating2
+1,1,Gonzaga,Georgia State,1,16
+1,2,Boise State,Memphis,8,9
+1,3,Connecticut,New Mexico State,5,12
+1,4,Arkansas,Vermont,4,13
+1,5,Alabama,Notre Dame,6,11
+1,6,Texas Tech,Montana State,3,14
+1,7,Michigan State,Davidson,7,10
+1,8,Duke,Cal State Fullerton,2,15
+1,9,Baylor,Norfolk State,1,16
+1,10,North Carolina,Marquette,8,9
+1,11,Saint Mary's (CA),Indiana,5,12
+1,12,UCLA,Akron,4,13
+1,13,Texas,Virginia Tech,6,11
+1,14,Purdue,Yale,3,14
+1,15,Murray State,San Francisco,7,10
+1,16,Kentucky,Saint Peter's,2,15
+1,17,Arizona,Wright State,1,16
+1,18,Seton Hall,TCU,8,9
+1,19,Houston,UAB,5,12
+1,20,Illinois,Chattanooga,4,13
+1,21,Colorado State,Michigan,6,11
+1,22,Tennessee,Longwood,3,14
+1,23,Ohio State,Loyola (IL),7,10
+1,24,Villanova,Delaware,2,15
+1,25,Kansas,Texas Southern,1,16
+1,26,San Diego State,Creighton,8,9
+1,27,Iowa,Richmond,5,12
+1,28,Providence,South Dakota State,4,13
+1,29,Louisiana State,Iowa State,6,11
+1,30,Wisconsin,Colgate,3,14
+1,31,Southern California,Miami (FL),7,10
+1,32,Auburn,Jacksonville State,2,15
+2,1,Gonzaga,Boise State,1,8
+2,2,Connecticut,Arkansas,5,4
+2,3,Alabama,Texas Tech,6,3
+2,4,Michigan State,Duke,7,2
+2,5,Baylor,North Carolina,1,8
+2,6,Saint Mary's (CA),UCLA,5,4
+2,7,Texas,Purdue,6,3
+2,8,Murray State,Kentucky,7,2
+2,9,Arizona,Seton Hall,1,8
+2,10,Houston,Illinois,5,4
+2,11,Colorado State,Tennessee,6,3
+2,12,Ohio State,Villanova,7,2
+2,13,Kansas,San Diego State,1,8
+2,14,Iowa,Providence,5,4
+2,15,Louisiana State,Wisconsin,6,3
+2,16,Southern California,Auburn,7,2
+3,1,Gonzaga,Arkansas,1,4
+3,2,Texas Tech,Duke,3,2
+3,3,Baylor,UCLA,1,4
+3,4,Purdue,Kentucky,3,2
+3,5,Arizona,Illinois,1,4
+3,6,Tennessee,Villanova,3,2
+3,7,Kansas,Providence,1,4
+3,8,Wisconsin,Auburn,3,2
+4,1,Gonzaga,Duke,1,2
+4,2,Baylor,Kentucky,1,2
+4,3,Arizona,Villanova,1,2
+4,4,Kansas,Auburn,1,2
+5,1,Gonzaga,Baylor,1,1
+5,2,Arizona,Kansas,1,1
+6,1,Gonzaga,Arizona,1,1
+7,1,Gonzaga,No Value,1,No Value
