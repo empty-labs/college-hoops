@@ -284,7 +284,7 @@ def compile_srs_ratings_old(score_df: pd.DataFrame, debug: bool=False):
     # Get unique teams and index them
     teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
     all_teams = list(score_df.keys())
-    print(all_teams)
+
     ratings = []
 
     for t in teams:
