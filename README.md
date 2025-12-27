@@ -47,24 +47,24 @@ Here's an idea of how to do so using the [2025 ESPN bracket](https://www.espn.co
 When setting up the project, consider using a conda environment to isolate the required packages.
 
 1. Create new conda environment (you can also use PyCharm's interpreter settings to create your conda environment instead of using command line here)
-```
+```commandline
 conda env create --name college-hoops
 ```
 2. Add packages to conda
-```
-conda install anaconda::pandas
-conda install -c anaconda beautifulsoup4
-conda install anaconda::lxml
-conda install anaconda::html5lib
-conda install anaconda::scikit-learn
-conda install conda-forge::xgboost
-conda install conda-forge::matplotlib
+```commandline
+conda install anaconda::pandas -y
+conda install -c anaconda beautifulsoup4 -y
+conda install anaconda::lxml -y
+conda install anaconda::html5lib -y
+conda install anaconda::scikit-learn -y
+conda install conda-forge::xgboost -y
+conda install conda-forge::matplotlib -y
+conda install conda-forge::streamlit -y
 ```
 3. Set up jupyter for conda environment ([sauce](https://stackoverflow.com/questions/39604271/conda-environments-not-showing-up-in-jupyter-notebook))
-
-```
+```commandline
 pip install jupyter ipykernel
 ```
-```
+```commandline
 python -m ipykernel install --user --name college-hoops --display-name "college-hoops"
 ```
