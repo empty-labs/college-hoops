@@ -1,10 +1,18 @@
 # Local libraries
 import Tools.ratings_utils as ru
-import Tools.system_utils as sys
 
 # Third party packages
 import streamlit as st
 
+
+RATINGS_OPTIONS = [
+    "Seeding (Chalk)",
+    "Massey Ratings",
+    "Colley Ratings",
+    "Elo Ratings",
+    "Adj Elo Ratings",
+    "SRS Ratings"
+]
 
 # Page config
 st.set_page_config(
@@ -44,13 +52,15 @@ season_end = st.selectbox(
 # Simulation Method
 simulation_method = st.selectbox(
     "Simulation Method",
-    options=[
-        "Pure Ratings",
-        "Ratings + Seeding (Chalk)",
-        "Ratings + Upset Bias"
-    ],
+    options=RATINGS_OPTIONS,
     help="Choose how game outcomes are determined"
 )
+
+# TODO: Break into utility script for simulator by year
+year = season_start[:4]  # Get baseline of start year
+FILENAME = f"Data/Seasons/data_{year}.json"
+TOURNAMENT_FILENAME = f"Data/Tournaments/tournament_{year}.csv"
+PICKS_FILENAME = f"Data/Tournament Picks/picks_{year}.csv"
 
 # Run simulation
 run_button = st.button("Run Tournament Simulation")
@@ -59,30 +69,34 @@ if run_button:
     st.subheader("Simulation Results")
 
     with st.spinner("Simulating tournament..."):
-        # Placeholder for your real logic
-        # results = simulate_tournament(
-        #     method=simulation_method,
-        #     n_sims=num_sims,
-        #     seed=random_seed
-        # )
 
-        # Fake output for now
-        results = {
-            "Champion": "UConn",
-            "Final Four": ["UConn", "Houston", "Purdue", "Tennessee"],
-            "Avg Upsets per Bracket": 6.3
-        }
+        ratings = None
+
+        if simulation_method != "Seed (Chalk)":
+            # Create data frame for valid teams in the current season that can be used for tournament simulation
+            score_df = ru.set_rating_data_frame(filename=FILENAME)
+
+        if simulation_method == "Massey Ratings":
+            ratings = ru.calculate_massey_ratings(
+                score_df=score_df, debug=False)
+        elif simulation_method == "Colley Ratings":
+            ratings = ru.calculate_colley_ratings(
+                score_df=score_df, debug=False)
+        elif simulation_method == "Elo Ratings":
+            ratings = ru.calculate_elo_ratings(
+                score_df=score_df, K=30, debug=False, adjust_K=False)
+        elif simulation_method == "Adj Elo Ratings":
+            ratings = ru.calculate_elo_ratings(
+                score_df=score_df, K=30, debug=False, adjust_K=True)
+        elif simulation_method == "SRS Ratings":
+            ratings = ru.compile_srs_ratings(
+                filename=FILENAME, debug=False)
+
+        _, _, tourney_dict, results = ru.simulate_tournament(filename=TOURNAMENT_FILENAME,
+                                                             ratings=ratings,
+                                                             debug=False)
 
     st.success("Simulation complete!")
 
-    st.markdown("### 🏆 Champion")
-    st.write(results["Champion"])
-
-    st.markdown("### 🔥 Final Four")
-    st.write(results["Final Four"])
-
-    st.markdown("### 📊 Summary Stats")
-    st.metric(
-        label="Avg Upsets per Bracket",
-        value=results["Avg Upsets per Bracket"]
-    )
+    st.markdown("### Tournament Results")
+    st.markdown(results.replace("\n", "  \n"))  # Replace newlines with streamlit-friendly newlines
