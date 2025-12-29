@@ -52,6 +52,14 @@ simulation_method = st.selectbox(
     help="Choose how game outcomes are determined"
 )
 
+st.write(season_start)
+# TODO: Break into utility script for simulator by year
+year = season_start[:4]  # Get baseline of start year
+st.write(year)
+FILENAME = f"Data/Seasons/data_{year}.json"
+TOURNAMENT_FILENAME = f"Data/Tournaments/tournament_{year}.csv"
+PICKS_FILENAME = f"Data/Tournament Picks/picks_{year}.csv"
+
 # Run simulation
 run_button = st.button("Run Tournament Simulation")
 
@@ -60,11 +68,13 @@ if run_button:
 
     with st.spinner("Simulating tournament..."):
         # Placeholder for your real logic
-        # results = simulate_tournament(
-        #     method=simulation_method,
-        #     n_sims=num_sims,
-        #     seed=random_seed
-        # )
+
+        # Create data frame for valid teams in the current season that can be used for tournament simulation
+        score_df = ru.set_rating_data_frame(filename=FILENAME)
+
+        _, _, tourney_dict, results = ru.simulate_tournament(filename=TOURNAMENT_FILENAME,
+                                                             ratings=None,
+                                                             debug=True)
 
         # Fake output for now
         results = {

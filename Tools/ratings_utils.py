@@ -643,6 +643,7 @@ def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: in
         correct_picks (int): number of correct picks in this round of tournament
         total_points (int): points based on round
         num_teams (int): number of teams in this round of tournament
+        results (str): printed copy of tournament results
     """
 
     # Need to add teams to correct pick checker
@@ -665,10 +666,12 @@ def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: in
     total_points = correct_picks * ROUND_POINTS[rd - 1]
     total_possible_points = num_teams * ROUND_POINTS[rd - 1]
 
-    if debug:
-        print(f"Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams} - Total Points: {total_points} out of {total_possible_points}")
+    results = f"Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams} - Total Points: {total_points} out of {total_possible_points}"
 
-    return correct_picks, total_points, num_teams
+    if debug:
+        print(results)
+
+    return correct_picks, total_points, num_teams, results
 
 
 def simulate_tournament(filename: str, ratings: dict=None, debug: bool=True):
@@ -736,19 +739,22 @@ def simulate_tournament(filename: str, ratings: dict=None, debug: bool=True):
                                            ratings=ratings,
                                            rd=rd)
 
-        correct_picks, points, num_teams = calculate_correct_picks(tourney_dict=tourney_dict,
-                                                                   tourney_df=tourney_df,
-                                                                   rd=rd, debug=debug)
+        correct_picks, points, num_teams, results = calculate_correct_picks(
+            tourney_dict=tourney_dict,
+            tourney_df=tourney_df,
+            rd=rd, debug=debug)
 
         total_correct_picks += correct_picks
         total_points += points
         total_num_teams += num_teams
 
-    if debug:
-        print(f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}")
-        print(f"\nTotal points in tournament: {total_points} out of 1920")
+    tourney_results = f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}"
+    tourney_results += f"\nTotal points in tournament: {total_points} out of 1920"
 
-    return total_correct_picks, total_points, tourney_dict
+    if debug:
+        print(tourney_results)
+
+    return total_correct_picks, total_points, tourney_dict, tourney_results
 
 
 def compile_ratings_dict(score_df: pd.DataFrame):
