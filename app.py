@@ -94,7 +94,7 @@ if run_button:
 
         _, _, tourney_dict, results = ru.simulate_tournament(filename=TOURNAMENT_FILENAME,
                                                              ratings=ratings,
-                                                             debug=True)
+                                                             debug=False)
 
     st.success("Simulation complete!")
 
