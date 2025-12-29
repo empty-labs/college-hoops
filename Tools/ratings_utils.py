@@ -270,46 +270,6 @@ def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool=False):
     return colley_ratings
 
 
-def compile_srs_ratings_old(score_df: pd.DataFrame, debug: bool=False):
-    """Calculates SRS rankings given a game results DataFrame.
-
-    Args:
-        score_df (pd.DataFrame): matchup score data frame
-        debug (bool): flag to print debug statements
-
-    Returns:
-        srs_ratings (dict): dictionary of Massey ratings
-    """
-
-    # Get unique teams and index them
-    teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
-    all_teams = list(score_df.keys())
-
-    ratings = []
-
-    for t in teams:
-        print(t, t in all_teams)
-        if t in all_teams:
-            if score_df[t]["SRS"][-1]:
-                ratings.append(score_df[t]["SRS"][-1])
-            else:
-                ratings.append(-999)
-        else:
-            ratings.append(-999)
-
-    # Convert ratings to a dictionary
-    srs_ratings = {team: rating for team, rating in zip(teams, ratings)}
-
-    # Sort and display rankings
-    srs_rankings = sorted(srs_ratings.items(), key=lambda x: x[1], reverse=True)
-
-    if debug:
-        for rank, (team, rating) in enumerate(srs_rankings, 1):
-            print(f"{rank}. {team}: {rating:.2f}")
-
-    return srs_ratings
-
-
 def compile_srs_ratings(filename: str, debug: bool=False):
     """"""
 
