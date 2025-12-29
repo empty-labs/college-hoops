@@ -700,6 +700,8 @@ def simulate_tournament(filename: str, ratings: dict=None, debug: bool=True):
         "Rating2": []
     }
 
+    tourney_results = ""
+
     # Add ratings to 1st round
     for i in range(32):
         team1 = tourney_df["Team1"][i]
@@ -744,11 +746,13 @@ def simulate_tournament(filename: str, ratings: dict=None, debug: bool=True):
             tourney_df=tourney_df,
             rd=rd, debug=debug)
 
+        tourney_results += results + "\n"
+
         total_correct_picks += correct_picks
         total_points += points
         total_num_teams += num_teams
 
-    tourney_results = f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}"
+    tourney_results += f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}"
     tourney_results += f"\nTotal points in tournament: {total_points} out of 1920"
 
     if debug:

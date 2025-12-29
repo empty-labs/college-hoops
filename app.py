@@ -52,10 +52,8 @@ simulation_method = st.selectbox(
     help="Choose how game outcomes are determined"
 )
 
-st.write(season_start)
 # TODO: Break into utility script for simulator by year
 year = season_start[:4]  # Get baseline of start year
-st.write(year)
 FILENAME = f"Data/Seasons/data_{year}.json"
 TOURNAMENT_FILENAME = f"Data/Tournaments/tournament_{year}.csv"
 PICKS_FILENAME = f"Data/Tournament Picks/picks_{year}.csv"
@@ -76,23 +74,7 @@ if run_button:
                                                              ratings=None,
                                                              debug=True)
 
-        # Fake output for now
-        results = {
-            "Champion": "UConn",
-            "Final Four": ["UConn", "Houston", "Purdue", "Tennessee"],
-            "Avg Upsets per Bracket": 6.3
-        }
-
     st.success("Simulation complete!")
 
-    st.markdown("### 🏆 Champion")
-    st.write(results["Champion"])
-
-    st.markdown("### 🔥 Final Four")
-    st.write(results["Final Four"])
-
-    st.markdown("### 📊 Summary Stats")
-    st.metric(
-        label="Avg Upsets per Bracket",
-        value=results["Avg Upsets per Bracket"]
-    )
+    st.markdown("### Tournament Results")
+    st.write(results)
