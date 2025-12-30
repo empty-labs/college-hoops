@@ -1,3 +1,6 @@
+# Local libraries
+import Tools.season_utils as su
+
 # Third party libraries
 from datetime import datetime as dt
 import numpy as np
@@ -1000,6 +1003,7 @@ def create_score_df(years: list):
         score_df (pd.DataFrame): score dataframe
     """
     score_df = None
+    years = su.create_year_list(years)
 
     for year in years:
         filename = f"Data/Seasons/data_{year}.json"
