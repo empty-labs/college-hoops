@@ -54,8 +54,10 @@ simulation_method = st.selectbox(
 )
 
 # Convert season selections to data set filenames
-year = su.convert_season_start_to_year(season_start)
-filename, tournament_filename, _, _ = su.create_filenames(year)
+start_year = su.convert_season_to_year(season_start)
+end_year = su.convert_season_to_year(season_end)
+years = su.year_range(start_year, end_year)
+filename, tournament_filename, _, _ = su.create_filenames(years=years)
 
 # Run simulation
 run_button = st.button("Run Tournament Simulation")
@@ -69,7 +71,7 @@ if run_button:
 
         if simulation_method != "Seed (Chalk)":
             # Create data frame for valid teams in the current season that can be used for tournament simulation
-            score_df = ru.set_rating_data_frame(filename=filename)
+            score_df = ru.create_score_df(years=years)
 
         if simulation_method == "Massey Ratings":
             ratings = ru.calculate_massey_ratings(

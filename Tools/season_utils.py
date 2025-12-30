@@ -2,18 +2,27 @@ SEASONS = [2021, 2022, 2023, 2024, 2025]
 
 
 def convert_season_to_string(season: int):
-    """season (str): season string"""
-    return f"{season} - {season + 1}"
+    """Convert season number to string (data filenames are based on year of final season game, e.g. 2021 = 2020-2021)
+
+    Args:
+        season (str): season string
+    """
+    return f"{season - 1} - {season}"
 
 
-def convert_season_start_to_year(seasons: str):
+def convert_season_to_year(seasons: str):
     """seasons (str): seasons string"""
-    return int(seasons[:4])  # Get start year
+    return int(seasons[-4:]) # Get end year
 
 
-def convert_season_end_to_year(seasons: str):
-    """seasons (str): seasons string"""
-    return int(seasons[-4:]) - 1 # Get end year
+def year_range(start_year: int, end_year: int):
+    """Create list of years between start_year and end_year
+
+    Args:
+        start_year (int): start year
+        end_year (int): end year
+    """
+    return list(range(start_year, end_year + 1))
 
 
 def create_year_list(years):
