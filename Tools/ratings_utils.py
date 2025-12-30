@@ -593,20 +593,19 @@ def simulate_next_round(tourney_dict: dict, rd: int, ratings: dict=None):
     return tourney_dict
 
 
-def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: int, debug: bool=True):
+def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: int):
     """Assess number of correct picks based on teams in next round
 
     Args:
         tourney_dict (dict): tournament dictionary of current round matchups
         tourney_df (pd.DataFrame): tournament data frame
         rd (int): current round of tournament matchups
-        debug (bool): flag to print debug statements
 
     Returns:
         correct_picks (int): number of correct picks in this round of tournament
         total_points (int): points based on round
         num_teams (int): number of teams in this round of tournament
-        results (str): printed copy of tournament results
+        tourney_results (str): printed copy of tournament results
     """
 
     # Need to add teams to correct pick checker
@@ -629,26 +628,23 @@ def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: in
     total_points = correct_picks * ROUND_POINTS[rd - 1]
     total_possible_points = num_teams * ROUND_POINTS[rd - 1]
 
-    results = f"Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams} - Total Points: {total_points} out of {total_possible_points}"
+    tourney_results = f"Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams} - Total Points: {total_points} out of {total_possible_points}"
 
-    if debug:
-        print(results)
-
-    return correct_picks, total_points, num_teams, results
+    return correct_picks, total_points, num_teams, tourney_results
 
 
-def simulate_tournament(filename: str, ratings: dict=None, debug: bool=True):
+def simulate_tournament(filename: str, ratings: dict=None):
     """Simulate tournament outcomes based on given rating system
 
     Args:
         filename (str): Name of CSV tournament team file
         ratings (dict): dictionary of ratings (use chalk/seeding otherwise)
-        debug (bool): flag to print debug statements
 
     Returns:
         total_correct_picks (int): number of correct picks
         total_points (int): points based on round
         tourney_dict (dict): tournament dictionary of all matchups
+        tourney_results (str): printed copy of tournament results
     """
 
     # Load tournament CSV file into a DataFrame
@@ -707,7 +703,7 @@ def simulate_tournament(filename: str, ratings: dict=None, debug: bool=True):
         correct_picks, points, num_teams, results = calculate_correct_picks(
             tourney_dict=tourney_dict,
             tourney_df=tourney_df,
-            rd=rd, debug=debug)
+            rd=rd)
 
         tourney_results += results + "\n"
 
@@ -717,9 +713,6 @@ def simulate_tournament(filename: str, ratings: dict=None, debug: bool=True):
 
     tourney_results += f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}"
     tourney_results += f"\nTotal points in tournament: {total_points} out of 1920"
-
-    if debug:
-        print(tourney_results)
 
     return total_correct_picks, total_points, tourney_dict, tourney_results
 
@@ -755,19 +748,19 @@ def compile_ratings_dict(score_df: pd.DataFrame):
     return ratings
 
 
-def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=None, debug: bool=True):
+def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=None):
     """Simulate tournament outcomes based on given rating system
 
     Args:
         filename (str): Name of CSV tournament team file
         ratings (dict): dictionary of ratings
         model: classification model to predict results
-        debug (bool): flag to print debug statements
 
     Returns:
         total_correct_picks (int): number of correct picks
         total_points (int): points based on round
         tourney_dict (dict): tournament dictionary of all matchups
+        tourney_results (str): printed copy of tournament results
     """
 
     # Load tournament CSV file into a DataFrame
@@ -817,25 +810,28 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
     total_correct_picks = 0
     total_points = 0
     total_num_teams = 0
+    tourney_results = ""
 
     for rd in range(1, 7):
         tourney_dict = simulate_next_round(tourney_dict=tourney_dict,
                                            ratings=model_ratings,
                                            rd=rd)
 
-        correct_picks, points, num_teams = calculate_correct_picks(tourney_dict=tourney_dict,
-                                                                   tourney_df=tourney_df,
-                                                                   rd=rd, debug=debug)
+        correct_picks, points, num_teams, results = calculate_correct_picks(
+            tourney_dict=tourney_dict,
+            tourney_df=tourney_df,
+            rd=rd)
+
+        tourney_results += results + "\n"
 
         total_correct_picks += correct_picks
         total_points += points
         total_num_teams += num_teams
 
-    if debug:
-        print(f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}")
-        print(f"\nTotal points in tournament: {total_points} out of 1920")
+    tourney_results += f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}"
+    tourney_results += f"\nTotal points in tournament: {total_points} out of 1920"
 
-    return total_correct_picks, total_points, tourney_dict
+    return total_correct_picks, total_points, tourney_dict, tourney_results
 
 
 def normalize_ratings(ratings: dict, weight: float = 1):
@@ -859,7 +855,8 @@ def normalize_ratings(ratings: dict, weight: float = 1):
 
 
 def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley_ratings: dict, adj_elo_ratings: dict,
-                                                    elo_ratings: dict, srs_ratings: dict, tournament_filename: str):
+                                                    elo_ratings: dict, srs_ratings: dict, tournament_filename: str,
+                                                    num_weights: int):
     """Apply linear combination of ratings systems to maximize correct picks
 
     Args:
@@ -869,21 +866,21 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
         elo_ratings (dict): Elo ratings dictionary
         srs_ratings (dict): SRS ratings dictionary
         tournament_filename (str): filepath for tournament results
+        num_weights (int): number of weights to apply per rating system
 
     Returns:
         tourney_dict (dict): tournament dictionary of all matchups
+        tourney_results (str): printed copy of tournament results
     """
 
     # Iterate through all possible ratings weights
-    iterations = list(np.arange(-1, 1.25, 0.25))
+    iterations = list(np.linspace(-1, 1, num_weights))
     total_iterations = 0
 
     weight_dict = {'Massey': [], 'Colley': [], 'Adjusted Elo': [], 'Elo': [], 'SRS': [], 'Correct': [], 'Points': []}
 
     # Loop through all possible iterations for each rating system
-    # TODO: Make ratings loop more dynamic instead of hardcoded
-
-    total = len(iterations) ** 5
+    total = len(iterations) ** 5  # 5 represents all rating systems
     passed_integer = 1
     print(f"Total iterations: {total}")
 
@@ -894,7 +891,7 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
                     for w5 in iterations:
                         total_iterations += 1
 
-                        total_correct_picks, total_points, tourney_dict = apply_custom_weights(
+                        total_correct_picks, total_points, tourney_dict, tourney_results = apply_custom_weights(
                             massey_ratings=massey_ratings, colley_ratings=colley_ratings,
                             adj_elo_ratings=adj_elo_ratings, elo_ratings=elo_ratings, srs_ratings=srs_ratings,
                             tournament_filename=tournament_filename, massey_weight=w1, colley_weight=w2,
@@ -915,7 +912,7 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
 
     # Print max correct picks
     max_correct = max(weight_dict['Correct'])
-    print(f"Max correct picks: {max_correct} in {total_iterations} iterations")
+    tourney_results += f"\nMax correct picks: {max_correct} in {total_iterations} iterations"
 
     # Print which combinations result in max correct picks
     num_max = 0
@@ -924,11 +921,11 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
 
         if weight_dict['Correct'][i] == max_correct:
             num_max += 1
-            print(f"{num_max}. Massey: {weight_dict['Massey'][i]:.3f}, Colley: {weight_dict['Colley'][i]:.3f}, Adjusted Elo: {weight_dict['Adjusted Elo'][i]:.3f}, Elo: {weight_dict['Elo'][i]:.3f}, SRS: {weight_dict['SRS'][i]:.3f}")
+            tourney_results += f"\n{num_max}. Massey: {weight_dict['Massey'][i]:.3f}, Colley: {weight_dict['Colley'][i]:.3f}, Adjusted Elo: {weight_dict['Adjusted Elo'][i]:.3f}, Elo: {weight_dict['Elo'][i]:.3f}, SRS: {weight_dict['SRS'][i]:.3f}"
 
     # Print max points total
     max_points = max(weight_dict['Points'])
-    print(f"Max total points: {max_points} in {total_iterations} iterations")
+    tourney_results += f"\nMax total points: {max_points} in {total_iterations} iterations"
 
     # Print which combinations result in max points
     num_max = 0
@@ -937,9 +934,9 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
 
         if weight_dict['Points'][i] == max_points:
             num_max += 1
-            print(f"{num_max}. Massey: {weight_dict['Massey'][i]:.3f}, Colley: {weight_dict['Colley'][i]:.3f}, Adjusted Elo: {weight_dict['Adjusted Elo'][i]:.3f}, Elo: {weight_dict['Elo'][i]:.3f}, SRS: {weight_dict['SRS'][i]:.3f}")
+            tourney_results += f"\n{num_max}. Massey: {weight_dict['Massey'][i]:.3f}, Colley: {weight_dict['Colley'][i]:.3f}, Adjusted Elo: {weight_dict['Adjusted Elo'][i]:.3f}, Elo: {weight_dict['Elo'][i]:.3f}, SRS: {weight_dict['SRS'][i]:.3f}"
 
-    return tourney_dict
+    return tourney_dict, tourney_results
 
 
 def apply_custom_weights(massey_ratings: dict, colley_ratings: dict, adj_elo_ratings: dict, elo_ratings: dict,
@@ -965,6 +962,7 @@ def apply_custom_weights(massey_ratings: dict, colley_ratings: dict, adj_elo_rat
         total_correct_picks (int): number of correct picks
         total_points (int): points based on round
         tourney_dict (dict): tournament dictionary of all matchups
+        tourney_results (str): printed copy of tournament results
     """
 
     # Normalize ratings by weight
@@ -988,10 +986,10 @@ def apply_custom_weights(massey_ratings: dict, colley_ratings: dict, adj_elo_rat
     for key, v in normalized_srs_ratings.items():
         combined_ratings[key] += v
 
-    total_correct_picks, total_points, tourney_dict = simulate_tournament(
+    total_correct_picks, total_points, tourney_dict, tourney_results = simulate_tournament(
         filename=tournament_filename, ratings=combined_ratings, debug=debug)
 
-    return total_correct_picks, total_points, tourney_dict
+    return total_correct_picks, total_points, tourney_dict, tourney_results
 
 def create_score_df(years: list):
     """Create score data frame based on seasons of interest
