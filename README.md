@@ -6,6 +6,12 @@ This is a bracketology project seeking to understand whether we can predict the 
 
 Enjoy the madness!
 
+# Streamlit App Link
+
+[College Hoops Streamlit](https://college-hoops-bjkxnhdsnkr2n6vrs9bkxg.streamlit.app/)
+
+## March Madness
+
 ![](Data/Images/march-madness-logo.png)
 
 # Scraping Input Data
