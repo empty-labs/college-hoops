@@ -1,5 +1,6 @@
 # Local libraries
 import Tools.ratings_utils as ru
+import Tools.season_utils as su
 
 # Third party packages
 import streamlit as st
@@ -29,23 +30,17 @@ custom assumptions (chalk, upset bias, etc.).
 
 st.divider()
 
-# Seasons
-seasons = [2021, 2022, 2023, 2024, 2025]
-def convert_season_to_string(season: int):
-    return f"{season} - {season + 1}"
-
-seasons_str = [convert_season_to_string(season) for season in seasons]
-
 # Choose Season Start
 season_start = st.selectbox(
     "Season Start",
-    options=seasons_str,
+    options=su.SEASONS_STR,
     help="Choose what season to start simulation"
 )
+st.session_state.season_start= season_start
 # Choose Season End
 season_end = st.selectbox(
     "Season End",
-    options=seasons_str,
+    options=[y for y in su.SEASONS_STR if y >= st.session_state.season_start],
     help="Choose what season to end simulation"
 )
 
@@ -56,11 +51,11 @@ simulation_method = st.selectbox(
     help="Choose how game outcomes are determined"
 )
 
-# TODO: Break into utility script for simulator by year
-year = season_start[:4]  # Get baseline of start year
-FILENAME = f"Data/Seasons/data_{year}.json"
-TOURNAMENT_FILENAME = f"Data/Tournaments/tournament_{year}.csv"
-PICKS_FILENAME = f"Data/Tournament Picks/picks_{year}.csv"
+# Convert season selections to data set filenames
+start_year = su.convert_season_to_year(season_start)
+end_year = su.convert_season_to_year(season_end)
+years = su.year_range(start_year, end_year)
+filename, tournament_filename, _, _ = su.create_filenames(years=years)
 
 # Run simulation
 run_button = st.button("Run Tournament Simulation")
@@ -74,7 +69,7 @@ if run_button:
 
         if simulation_method != "Seed (Chalk)":
             # Create data frame for valid teams in the current season that can be used for tournament simulation
-            score_df = ru.set_rating_data_frame(filename=FILENAME)
+            score_df = ru.create_score_df(years=years)
 
         if simulation_method == "Massey Ratings":
             ratings = ru.calculate_massey_ratings(
@@ -90,13 +85,15 @@ if run_button:
                 score_df=score_df, K=30, debug=False, adjust_K=True)
         elif simulation_method == "SRS Ratings":
             ratings = ru.compile_srs_ratings(
-                filename=FILENAME, debug=False)
+                filename=filename, debug=False)
 
-        _, _, tourney_dict, results = ru.simulate_tournament(filename=TOURNAMENT_FILENAME,
+        _, _, tourney_dict, results = ru.simulate_tournament(filename=tournament_filename,
                                                              ratings=ratings,
                                                              debug=False)
 
     st.success("Simulation complete!")
 
     st.markdown("### Tournament Results")
+    st.markdown(f"#### Simulation Method: {simulation_method}")
+    st.markdown(f"#### Seasons: {years}")
     st.markdown(results.replace("\n", "  \n"))  # Replace newlines with streamlit-friendly newlines
