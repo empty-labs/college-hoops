@@ -880,8 +880,6 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
     weight_dict = {'Massey': [], 'Colley': [], 'Adjusted Elo': [], 'Elo': [], 'SRS': [], 'Correct': [], 'Points': []}
 
     # Loop through all possible iterations for each rating system
-    # TODO: Make ratings loop more dynamic instead of hardcoded
-
     total = len(iterations) ** 5  # 5 represents all rating systems
     passed_integer = 1
     print(f"Total iterations: {total}")
