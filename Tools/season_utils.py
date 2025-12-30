@@ -11,13 +11,16 @@ def convert_season_to_string(season: int):
     """season (str): season string"""
     return f"{season} - {season + 1}"
 
+
 def convert_season_start_to_year(seasons: str):
     """seasons (str): seasons string"""
     return int(seasons[:4])  # Get start year
 
+
 def convert_season_end_to_year(seasons: str):
     """seasons (str): seasons string"""
     return int(seasons[-4:]) - 1 # Get end year
+
 
 def create_filenames(years):
     """Create filenames based on chosen season/years
@@ -44,25 +47,3 @@ def create_filenames(years):
     ratings_filename = f"Data/Season Ratings/data_{filename_years}.json"
 
     return filename, tournament_filename, picks_filename, ratings_filename
-
-def create_score_df(years: list):
-    """Create score data frame based on seasons of interest
-
-    Args:
-        years (list): list of years
-
-    Returns:
-        score_df (pd.DataFrame): score dataframe
-    """
-    for year in years:
-        filename = f"Data/Seasons/data_{year}.json"
-
-        if year is years[0]:
-            # Create data frame for valid teams in the current season that can be used for tournament simulation
-            score_df = ru.set_rating_data_frame(filename=filename)
-        else:
-            # Concatenate
-            new_season_score_df = ru.set_rating_data_frame(filename=filename)
-            score_df = pd.concat([score_df, new_season_score_df], ignore_index=True)
-
-    return score_df

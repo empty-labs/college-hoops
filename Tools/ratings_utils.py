@@ -989,3 +989,25 @@ def apply_custom_weights(massey_ratings: dict, colley_ratings: dict, adj_elo_rat
         filename=tournament_filename, ratings=combined_ratings, debug=debug)
 
     return total_correct_picks, total_points, tourney_dict
+
+def create_score_df(years: list):
+    """Create score data frame based on seasons of interest
+
+    Args:
+        years (list): list of years
+
+    Returns:
+        score_df (pd.DataFrame): score dataframe
+    """
+    for year in years:
+        filename = f"Data/Seasons/data_{year}.json"
+
+        if year is years[0]:
+            # Create data frame for valid teams in the current season that can be used for tournament simulation
+            score_df = ru.set_rating_data_frame(filename=filename)
+        else:
+            # Concatenate
+            new_season_score_df = ru.set_rating_data_frame(filename=filename)
+            score_df = pd.concat([score_df, new_season_score_df], ignore_index=True)
+
+    return score_df
