@@ -593,20 +593,19 @@ def simulate_next_round(tourney_dict: dict, rd: int, ratings: dict=None):
     return tourney_dict
 
 
-def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: int, debug: bool=True):
+def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: int):
     """Assess number of correct picks based on teams in next round
 
     Args:
         tourney_dict (dict): tournament dictionary of current round matchups
         tourney_df (pd.DataFrame): tournament data frame
         rd (int): current round of tournament matchups
-        debug (bool): flag to print debug statements
 
     Returns:
         correct_picks (int): number of correct picks in this round of tournament
         total_points (int): points based on round
         num_teams (int): number of teams in this round of tournament
-        results (str): printed copy of tournament results
+        tourney_results (str): printed copy of tournament results
     """
 
     # Need to add teams to correct pick checker
@@ -629,21 +628,17 @@ def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: in
     total_points = correct_picks * ROUND_POINTS[rd - 1]
     total_possible_points = num_teams * ROUND_POINTS[rd - 1]
 
-    results = f"Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams} - Total Points: {total_points} out of {total_possible_points}"
+    tourney_results = f"Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams} - Total Points: {total_points} out of {total_possible_points}"
 
-    if debug:
-        print(results)
-
-    return correct_picks, total_points, num_teams, results
+    return correct_picks, total_points, num_teams, tourney_results
 
 
-def simulate_tournament(filename: str, ratings: dict=None, debug: bool=True):
+def simulate_tournament(filename: str, ratings: dict=None):
     """Simulate tournament outcomes based on given rating system
 
     Args:
         filename (str): Name of CSV tournament team file
         ratings (dict): dictionary of ratings (use chalk/seeding otherwise)
-        debug (bool): flag to print debug statements
 
     Returns:
         total_correct_picks (int): number of correct picks
@@ -708,7 +703,7 @@ def simulate_tournament(filename: str, ratings: dict=None, debug: bool=True):
         correct_picks, points, num_teams, results = calculate_correct_picks(
             tourney_dict=tourney_dict,
             tourney_df=tourney_df,
-            rd=rd, debug=debug)
+            rd=rd)
 
         tourney_results += results + "\n"
 
@@ -718,9 +713,6 @@ def simulate_tournament(filename: str, ratings: dict=None, debug: bool=True):
 
     tourney_results += f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}"
     tourney_results += f"\nTotal points in tournament: {total_points} out of 1920"
-
-    if debug:
-        print(tourney_results)
 
     return total_correct_picks, total_points, tourney_dict, tourney_results
 
@@ -756,19 +748,19 @@ def compile_ratings_dict(score_df: pd.DataFrame):
     return ratings
 
 
-def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=None, debug: bool=True):
+def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=None):
     """Simulate tournament outcomes based on given rating system
 
     Args:
         filename (str): Name of CSV tournament team file
         ratings (dict): dictionary of ratings
         model: classification model to predict results
-        debug (bool): flag to print debug statements
 
     Returns:
         total_correct_picks (int): number of correct picks
         total_points (int): points based on round
         tourney_dict (dict): tournament dictionary of all matchups
+        tourney_results (str): printed copy of tournament results
     """
 
     # Load tournament CSV file into a DataFrame
@@ -818,25 +810,28 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
     total_correct_picks = 0
     total_points = 0
     total_num_teams = 0
+    tourney_results = ""
 
     for rd in range(1, 7):
         tourney_dict = simulate_next_round(tourney_dict=tourney_dict,
                                            ratings=model_ratings,
                                            rd=rd)
 
-        correct_picks, points, num_teams = calculate_correct_picks(tourney_dict=tourney_dict,
-                                                                   tourney_df=tourney_df,
-                                                                   rd=rd, debug=debug)
+        correct_picks, points, num_teams, results = calculate_correct_picks(
+            tourney_dict=tourney_dict,
+            tourney_df=tourney_df,
+            rd=rd)
+
+        tourney_results += results + "\n"
 
         total_correct_picks += correct_picks
         total_points += points
         total_num_teams += num_teams
 
-    if debug:
-        print(f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}")
-        print(f"\nTotal points in tournament: {total_points} out of 1920")
+    tourney_results += f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}"
+    tourney_results += f"\nTotal points in tournament: {total_points} out of 1920"
 
-    return total_correct_picks, total_points, tourney_dict
+    return total_correct_picks, total_points, tourney_dict, tourney_results
 
 
 def normalize_ratings(ratings: dict, weight: float = 1):
