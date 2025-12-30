@@ -53,7 +53,7 @@ simulation_method = st.selectbox(
     help="Choose how game outcomes are determined"
 )
 
-# TODO: Break into utility script for simulator by year
+# Convert season selections to data set filenames
 year = su.convert_season_start_to_year(season_start)
 filename, tournament_filename, _, _ = su.create_filenames(year)
 

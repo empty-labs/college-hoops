@@ -1,9 +1,3 @@
-# Local libraries
-import Tools.ratings_utils as ru
-
-# Third party packages
-import pandas as pd
-
 SEASONS = [2021, 2022, 2023, 2024, 2025]
 
 
@@ -22,6 +16,21 @@ def convert_season_end_to_year(seasons: str):
     return int(seasons[-4:]) - 1 # Get end year
 
 
+def create_year_list(years):
+    """Create list of years if not already created
+
+    Args:
+        years: season years
+
+    Returns:
+        years (list): list of years
+    """
+    if type(years) != list:
+        years = [years]
+
+    return years
+
+
 def create_filenames(years):
     """Create filenames based on chosen season/years
 
@@ -35,8 +44,7 @@ def create_filenames(years):
         ratings_filename (str): ratings filename string
     """
 
-    if type(years) != list:
-        years = [years]
+    years = create_year_list(years)
 
     tournament_year = years[-1]
     filename_years = f"{years[0]}-{tournament_year}"

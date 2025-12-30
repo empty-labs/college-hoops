@@ -999,15 +999,17 @@ def create_score_df(years: list):
     Returns:
         score_df (pd.DataFrame): score dataframe
     """
+    score_df = None
+
     for year in years:
         filename = f"Data/Seasons/data_{year}.json"
 
         if year is years[0]:
             # Create data frame for valid teams in the current season that can be used for tournament simulation
-            score_df = ru.set_rating_data_frame(filename=filename)
+            score_df = set_rating_data_frame(filename=filename)
         else:
             # Concatenate
-            new_season_score_df = ru.set_rating_data_frame(filename=filename)
+            new_season_score_df = set_rating_data_frame(filename=filename)
             score_df = pd.concat([score_df, new_season_score_df], ignore_index=True)
 
     return score_df
