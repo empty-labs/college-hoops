@@ -68,3 +68,21 @@ pip install jupyter ipykernel
 ```commandline
 python -m ipykernel install --user --name college-hoops --display-name "college-hoops"
 ```
+
+## Streamlit Deployment
+1. Create requirements list.  Prune as needed.
+```commandline
+pip list --format=freeze > requirements.txt
+```
+2. Test minimal environment
+```commandline
+python -m venv test_env
+source test_env/bin/activate
+pip install -r requirements.txt
+streamlit run app.py
+```
+3. Delete test environment
+```commandline
+deactivate
+rm -rf test_env
+```
