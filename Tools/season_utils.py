@@ -56,11 +56,14 @@ def create_filenames(years):
     years = create_year_list(years)
 
     tournament_year = years[-1]
-    filename_years = f"{years[0]}-{tournament_year}"
+    if years[0] == tournament_year:
+        filename_years = years[0]
+    else:
+        filename_years = f"{years[0]}-{tournament_year}"
 
     filename = f"Data/Seasons/data_{tournament_year}.json"
     tournament_filename = f"Data/Tournaments/tournament_{tournament_year}.csv"
-    picks_filename = f"Data/Tournament Picks/picks_{tournament_year}.csv"
+    picks_filename = f"Data/Tournament Picks/picks_{filename_years}.csv"
     ratings_filename = f"Data/Season Ratings/data_{filename_years}.json"
 
     return filename, tournament_filename, picks_filename, ratings_filename
