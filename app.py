@@ -36,10 +36,11 @@ season_start = st.selectbox(
     options=su.SEASONS_STR,
     help="Choose what season to start simulation"
 )
+st.session_state.season_start= season_start
 # Choose Season End
 season_end = st.selectbox(
     "Season End",
-    options=su.SEASONS_STR,
+    options=[y for y in su.SEASONS_STR if y >= st.session_state.season_start],
     help="Choose what season to end simulation"
 )
 
@@ -49,9 +50,6 @@ simulation_method = st.selectbox(
     options=RATINGS_OPTIONS,
     help="Choose how game outcomes are determined"
 )
-
-# Clean up season selections
-season_start, season_end = su.clean_up_season_selections(season_start, season_end)
 
 # Convert season selections to data set filenames
 start_year = su.convert_season_to_year(season_start)
