@@ -1,6 +1,19 @@
 SEASONS = [2021, 2022, 2023, 2024, 2025]
 
 
+def clean_up_season_selections(season_start: int, season_end: int):
+    """Clean up season selections
+    Args/Returns:
+        season_start (int): Season start index
+        season_end (int): Season end index
+    """
+    if season_start > season_end:
+        season_end = season_start
+    if season_end < season_start:
+        season_start = season_end
+    return season_start, season_end
+
+
 def convert_season_to_string(season: int):
     """Convert season number to string (data filenames are based on year of final season game, e.g. 2021 = 2020-2021)
 
@@ -64,3 +77,6 @@ def create_filenames(years):
     ratings_filename = f"Data/Season Ratings/data_{filename_years}.json"
 
     return filename, tournament_filename, picks_filename, ratings_filename
+
+
+SEASONS_STR = [convert_season_to_string(season) for season in SEASONS]

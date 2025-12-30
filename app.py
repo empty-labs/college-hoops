@@ -30,19 +30,16 @@ custom assumptions (chalk, upset bias, etc.).
 
 st.divider()
 
-# Seasons
-seasons_str = [su.convert_season_to_string(season) for season in su.SEASONS]
-
 # Choose Season Start
 season_start = st.selectbox(
     "Season Start",
-    options=seasons_str,
+    options=su.SEASONS_STR,
     help="Choose what season to start simulation"
 )
 # Choose Season End
 season_end = st.selectbox(
     "Season End",
-    options=seasons_str,
+    options=su.SEASONS_STR,
     help="Choose what season to end simulation"
 )
 
@@ -52,6 +49,9 @@ simulation_method = st.selectbox(
     options=RATINGS_OPTIONS,
     help="Choose how game outcomes are determined"
 )
+
+# Clean up season selections
+season_start, season_end = su.clean_up_season_selections(season_start, season_end)
 
 # Convert season selections to data set filenames
 start_year = su.convert_season_to_year(season_start)
@@ -96,4 +96,6 @@ if run_button:
     st.success("Simulation complete!")
 
     st.markdown("### Tournament Results")
+    st.markdown(f"#### Simulation Method: {simulation_method}")
+    st.markdown(f"#### Seasons: {years}")
     st.markdown(results.replace("\n", "  \n"))  # Replace newlines with streamlit-friendly newlines
