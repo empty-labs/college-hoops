@@ -1,5 +1,6 @@
 # Local libraries
 import Tools.ratings_utils as ru
+import Tools.streamlit_utils as su
 
 # Third party packages
 import streamlit as st
@@ -57,7 +58,7 @@ simulation_method = st.selectbox(
 )
 
 # TODO: Break into utility script for simulator by year
-year = season_start[:4]  # Get baseline of start year
+year = su.convert_season_start_to_year(season_start)
 FILENAME = f"Data/Seasons/data_{year}.json"
 TOURNAMENT_FILENAME = f"Data/Tournaments/tournament_{year}.csv"
 PICKS_FILENAME = f"Data/Tournament Picks/picks_{year}.csv"
