@@ -4,6 +4,7 @@ import Tools.season_utils as su
 
 # Third party packages
 import streamlit as st
+import pandas as pd
 
 
 RATINGS_OPTIONS = [
@@ -100,3 +101,6 @@ if run_button:
     st.markdown(f"#### Simulation Method: {simulation_method}")
     st.markdown(f"#### Seasons: {years}")
     st.markdown(results.replace("\n", "  \n"))  # Replace newlines with streamlit-friendly newlines
+
+    st.markdown("### Tournament Dictionary")
+    st.dataframe(pd.DataFrame(tourney_dict))
