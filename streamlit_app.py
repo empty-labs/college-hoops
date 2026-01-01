@@ -29,20 +29,24 @@ custom assumptions (chalk, upset bias, etc.).
 """)
 
 st.divider()
+col1, col2 = st.columns(2)
 
 # Choose Season Start
-season_start = st.selectbox(
-    "Season Start",
-    options=su.SEASONS_STR,
-    help="Choose what season to start simulation"
-)
-st.session_state.season_start= season_start
+with col1:
+    season_start = st.selectbox(
+        "Season Start",
+        options=su.SEASONS_STR,
+        help="Choose what season to start simulation"
+    )
+    st.session_state.season_start = season_start
+
 # Choose Season End
-season_end = st.selectbox(
-    "Season End",
-    options=[y for y in su.SEASONS_STR if y >= st.session_state.season_start],
-    help="Choose what season to end simulation"
-)
+with col2:
+    season_end = st.selectbox(
+        "Season End",
+        options=[y for y in su.SEASONS_STR if y >= st.session_state.season_start],
+        help="Choose what season to end simulation"
+    )
 
 # Simulation Method
 simulation_method = st.selectbox(
