@@ -6,7 +6,7 @@ from datetime import datetime as dt
 import numpy as np
 import pandas as pd
 
-ROUND_NAMES = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8", "Final 4", "Championship"]
+ROUND_NAMES = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8", "Final 4", "Championship", "Champion"]
 ROUND_POINTS = [10, 20, 40, 80, 160, 320]
 ROUND_1_SEEDING = [1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15]
 
@@ -503,13 +503,14 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
     return rating_score_df
 
 
-def set_tournament_team_rating(i: int, tourney_dict: dict, team: str, rating: float):
+def set_tournament_team_rating(i: int, tourney_dict: dict, team: str, seed: int, rating: float):
     """Helper function to assign team and rating to next round of tournament
 
     Args:
         i (int): current index
         tourney_dict (dict): tournament dictionary of current and next round matchups
         team (str): winning team
+        seed (int): winning team seed
         rating (float): team rating
 
     Returns:
@@ -519,10 +520,12 @@ def set_tournament_team_rating(i: int, tourney_dict: dict, team: str, rating: fl
     if i % 2 == 0:
         # Assign 1st team if even index
         tourney_dict["Team1"].append(team)
+        tourney_dict["Seed1"].append(seed)
         tourney_dict["Rating1"].append(rating)
     else:
         # Assign 2nd team if odd index
         tourney_dict["Team2"].append(team)
+        tourney_dict["Seed2"].append(seed)
         tourney_dict["Rating2"].append(rating)
 
     return tourney_dict
@@ -549,6 +552,8 @@ def simulate_next_round(tourney_dict: dict, rd: int, ratings: dict=None):
 
         team1 = tourney_dict["Team1"][i]
         team2 = tourney_dict["Team2"][i]
+        seed1 = tourney_dict["Seed1"][i]
+        seed2 = tourney_dict["Seed2"][i]
         rating1 = tourney_dict["Rating1"][i]
         rating2 = tourney_dict["Rating2"][i]
 
@@ -557,37 +562,44 @@ def simulate_next_round(tourney_dict: dict, rd: int, ratings: dict=None):
 
             # Add 2nd round teams
             if rating1 >= rating2:
-                tourney_dict = set_tournament_team_rating(i=i, tourney_dict=tourney_dict, team=team1, rating=rating1)
+                tourney_dict = set_tournament_team_rating(
+                    i=i, tourney_dict=tourney_dict, team=team1, seed=seed1, rating=rating1)
 
             else:
-                tourney_dict = set_tournament_team_rating(i=i, tourney_dict=tourney_dict, team=team2, rating=rating2)
+                tourney_dict = set_tournament_team_rating(
+                    i=i, tourney_dict=tourney_dict, team=team2, seed=seed2, rating=rating2)
 
         else: # Chalk method
 
             # Add 2nd round teams
             if rating1 <= rating2:
-                tourney_dict = set_tournament_team_rating(i=i, tourney_dict=tourney_dict, team=team1, rating=rating1)
+                tourney_dict = set_tournament_team_rating(
+                    i=i, tourney_dict=tourney_dict, team=team1, seed=seed1, rating=rating1)
 
             else:
-                tourney_dict = set_tournament_team_rating(i=i, tourney_dict=tourney_dict, team=team2, rating=rating2)
+                tourney_dict = set_tournament_team_rating(
+                    i=i, tourney_dict=tourney_dict, team=team2, seed=seed2, rating=rating2)
 
         # Update round and game counters
         if i % 2 == 0:
             game += 1
 
+            tourney_dict["Round Name"].append(ROUND_NAMES[rd])
             tourney_dict["Round"].append(rd + 1)
             tourney_dict["Game"].append(game)
 
     # Apply final round corrections
     if rd == 6:
 
-        placeholder = "No Value"
+        placeholder = "---"
 
         if len(tourney_dict["Team1"]) > len(tourney_dict["Team2"]):
             tourney_dict["Team2"].append(placeholder)
+            tourney_dict["Seed2"].append(placeholder)
             tourney_dict["Rating2"].append(placeholder)
         else:
             tourney_dict["Team1"].append(placeholder)
+            tourney_dict["Seed1"].append(placeholder)
             tourney_dict["Rating1"].append(placeholder)
 
     return tourney_dict
@@ -651,9 +663,12 @@ def simulate_tournament(filename: str, ratings: dict=None):
     tourney_df = pd.read_csv(filename)
 
     tourney_dict = {
+        "Round Name": [],
         "Round": [],
         "Game": [],
+        "Seed1": [],
         "Team1": [],
+        "Seed2": [],
         "Team2": [],
         "Rating1": [],
         "Rating2": []
@@ -665,6 +680,9 @@ def simulate_tournament(filename: str, ratings: dict=None):
     for i in range(32):
         team1 = tourney_df["Team1"][i]
         team2 = tourney_df["Team2"][i]
+
+        team1_seed = ROUND_1_SEEDING[(2*i) % 16]
+        team2_seed = ROUND_1_SEEDING[(2*i + 1) % 16]
 
         # Rating system provided
         if ratings is not None:
@@ -680,16 +698,17 @@ def simulate_tournament(filename: str, ratings: dict=None):
 
         else:  # Chalk method
 
-            team1_seed = ROUND_1_SEEDING[(2*i) % 16]
-            team2_seed = ROUND_1_SEEDING[(2*i + 1) % 16]
-
             tourney_dict["Rating1"].append(team1_seed)
             tourney_dict["Rating2"].append(team2_seed)
 
-        tourney_dict["Round"].append(tourney_df["Round"][i])
+        rd = tourney_df["Round"][i]
+        tourney_dict["Round Name"].append(ROUND_NAMES[rd - 1])
+        tourney_dict["Round"].append(rd)
         tourney_dict["Game"].append(tourney_df["Game"][i])
         tourney_dict["Team1"].append(team1)
         tourney_dict["Team2"].append(team2)
+        tourney_dict["Seed1"].append(team1_seed)
+        tourney_dict["Seed2"].append(team2_seed)
 
     total_correct_picks = 0
     total_points = 0
