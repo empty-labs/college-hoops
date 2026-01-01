@@ -85,7 +85,7 @@ pip list --format=freeze > requirements.txt
 python -m venv test_env
 source test_env/bin/activate
 pip install -r requirements.txt
-streamlit run app.py
+streamlit run streamlit_app.py
 ```
 3. Delete test environment
 ```commandline
