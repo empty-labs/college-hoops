@@ -9,6 +9,7 @@ import pandas as pd
 ROUND_NAMES = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8", "Final 4", "Championship", "Champion"]
 ROUND_POINTS = [10, 20, 40, 80, 160, 320]
 ROUND_1_SEEDING = [1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15]
+ML_FEATURES = ["Massey_diff", "Colley_diff", "Elo_diff", "Adj_Elo_diff"]
 
 
 def fix_time_format(time_str: str):
@@ -767,6 +768,60 @@ def compile_ratings_dict(score_df: pd.DataFrame):
     return ratings
 
 
+def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: dict):
+    """Mimic ML model rating_score_df except for date, winner, score
+
+    Args:
+        tourney_df (pd.DataFrame): dataframe containing tournament data
+        ratings (dict): dictionary of ratings
+
+    Returns:
+        rating_score_df (pd.DataFrame): dataframe containing ratings in ML model format
+    """
+
+    rating_df = []
+
+    # Re-wire ratings dict based on tournament
+    for i in range(32):
+        team1 = tourney_df["Team1"][i]
+        team2 = tourney_df["Team2"][i]
+
+        rating_df.append({
+            "Home": team1,
+            "Away": team2,
+            "Home_Massey": ratings[team1]['Massey'],
+            "Away_Massey": ratings[team2]['Massey'],
+            "Home_Colley": ratings[team1]['Colley'],
+            "Away_Colley": ratings[team2]['Colley'],
+            "Home_Elo": ratings[team1]['Elo'],
+            "Away_Elo": ratings[team2]['Elo'],
+            "Home_Adj_Elo": ratings[team1]['Adj_Elo'],
+            "Away_Adj_Elo": ratings[team2]['Adj_Elo']
+        })
+
+    df = pd.DataFrame(rating_df)
+    return df
+
+
+def derive_features(df: pd.DataFrame):
+    """Derive ML model features from rating/score dataframe
+
+    Args:
+        df (pd.DataFrame): dataframe containing ratings in ML model format
+
+    Returns:
+        df (pd.DataFrame): dataframe containing ratings in ML model format with derived features
+    """
+
+    # Add feature columns
+    for feature in ML_FEATURES:
+        home_feature = "Home_" + feature.split("_diff")[0]
+        away_feature = "Away_" + feature.split("_diff")[0]
+        df[feature] = df[home_feature] - df[away_feature]
+
+    return df
+
+
 def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=None):
     """Simulate tournament outcomes based on given rating system
 
@@ -800,32 +855,8 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
 
     model_ratings = {}
 
-    rating_score_df = []
-
-    # Re-wire ratings dict based on tournament
-    for i in range(32):
-        team1 = tourney_df["Team1"][i]
-        team2 = tourney_df["Team2"][i]
-        rating_score_df.append({
-            "Home": team1,
-            "Away": team2,
-            "Home_Massey": ratings[team1]['Massey'],
-            "Away_Massey": ratings[team2]['Massey'],
-            "Home_Colley": ratings[team1]['Colley'],
-            "Away_Colley": ratings[team2]['Colley'],
-            "Home_Elo": ratings[team1]['Elo'],
-            "Away_Elo": ratings[team2]['Elo'],
-            "Home_Adj_Elo": ratings[team1]['Adj_Elo'],
-            "Away_Adj_Elo": ratings[team2]['Adj_Elo']
-        })
-
-    df = pd.DataFrame(rating_score_df)
-
-    # Add feature columns
-    df["Massey_diff"] = df["Home_Massey"] - df["Away_Massey"]
-    df["Colley_diff"] = df["Home_Colley"] - df["Away_Colley"]
-    df["Elo_diff"] = df["Home_Elo"] - df["Away_Elo"]
-    df["Adj_Elo_diff"] = df["Home_Adj_Elo"] - df["Away_Adj_Elo"]
+    df = mimic_tournament_rating_scores_df(tourney_df=tourney_df, ratings=ratings)
+    df = derive_features(df=df)
 
     # Add ratings to 1st round
     for i in range(32):
@@ -835,25 +866,10 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
         team1_seed = ROUND_1_SEEDING[(2*i) % 16]
         team2_seed = ROUND_1_SEEDING[(2*i + 1) % 16]
 
-        # massey_diff = ratings[team1]['Massey'] - ratings[team2]['Massey']
-        # colley_diff = ratings[team1]['Colley'] - ratings[team2]['Colley']
-        # elo_diff = ratings[team1]['Elo'] - ratings[team2]['Elo']
-        # adj_elo_diff = ratings[team1]['Adj_Elo'] - ratings[team2]['Adj_Elo']
-        #
-        # x1_dict = {
-        #     'Massey_diff': [massey_diff],
-        #     'Colley_diff': [colley_diff],
-        #     'Elo_diff': [elo_diff],
-        #     'Adj_Elo_diff': [adj_elo_diff]
-        # }
-
-        x1_dict = {
-            'Massey_diff': [df["Massey_diff"][i]],
-            'Colley_diff': [df["Colley_diff"][i]],
-            'Elo_diff': [df["Elo_diff"][i]],
-            'Adj_Elo_diff': [df["Adj_Elo_diff"][i]]
-        }
-
+        # Set up ML model dictionary
+        x1_dict = {}
+        for feature in ML_FEATURES:
+            x1_dict[feature] = [df[feature][i]]
         x1 = pd.DataFrame(x1_dict)
 
         # Grab probability of team 1 win
