@@ -646,6 +646,48 @@ def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: in
     return correct_picks, total_points, num_teams, tourney_results
 
 
+def setup_first_round_dictionary(tourney_df: pd.DataFrame):
+    """Fill out first round of tournament team ratings, seeds
+
+    Args:
+        tourney_df (pd.DataFrame): dataframe containing tournament data
+
+    Returns:
+        tourney_dict (dict): tournament dictionary of all matchups
+    """
+
+    tourney_dict = {
+        "Round Name": [],
+        "Round": [],
+        "Game": [],
+        "Team1": [],
+        "Team2": [],
+        "Seed1": [],
+        "Seed2": [],
+        "Rating1": [],
+        "Rating2": []
+    }
+
+    # Add ratings to 1st round
+    for i in range(32):
+        team1 = tourney_df["Team1"][i]
+        team2 = tourney_df["Team2"][i]
+
+        team1_seed = ROUND_1_SEEDING[(2 * i) % 16]
+        team2_seed = ROUND_1_SEEDING[(2 * i + 1) % 16]
+
+        rd = tourney_df["Round"][i]
+        tourney_dict["Round Name"].append(ROUND_NAMES[rd - 1])
+        tourney_dict["Round"].append(rd)
+        tourney_dict["Game"].append(tourney_df["Game"][i])
+        tourney_dict["Team1"].append(team1)
+        tourney_dict["Team2"].append(team2)
+        tourney_dict["Seed1"].append(team1_seed)
+        tourney_dict["Seed2"].append(team2_seed)
+
+    return tourney_dict
+
+
 def simulate_tournament(filename: str, ratings: dict=None):
     """Simulate tournament outcomes based on given rating system
 
@@ -663,17 +705,8 @@ def simulate_tournament(filename: str, ratings: dict=None):
     # Load tournament CSV file into a DataFrame
     tourney_df = pd.read_csv(filename)
 
-    tourney_dict = {
-        "Round Name": [],
-        "Round": [],
-        "Game": [],
-        "Team1": [],
-        "Team2": [],
-        "Seed1": [],
-        "Seed2": [],
-        "Rating1": [],
-        "Rating2": []
-    }
+    # Create 1st round tournament dictionary
+    tourney_dict = setup_first_round_dictionary(tourney_df=tourney_df)
 
     tourney_results = ""
 
@@ -681,9 +714,6 @@ def simulate_tournament(filename: str, ratings: dict=None):
     for i in range(32):
         team1 = tourney_df["Team1"][i]
         team2 = tourney_df["Team2"][i]
-
-        team1_seed = ROUND_1_SEEDING[(2*i) % 16]
-        team2_seed = ROUND_1_SEEDING[(2*i + 1) % 16]
 
         # Rating system provided
         if ratings is not None:
@@ -699,17 +729,8 @@ def simulate_tournament(filename: str, ratings: dict=None):
 
         else:  # Chalk method
 
-            tourney_dict["Rating1"].append(team1_seed)
-            tourney_dict["Rating2"].append(team2_seed)
-
-        rd = tourney_df["Round"][i]
-        tourney_dict["Round Name"].append(ROUND_NAMES[rd - 1])
-        tourney_dict["Round"].append(rd)
-        tourney_dict["Game"].append(tourney_df["Game"][i])
-        tourney_dict["Team1"].append(team1)
-        tourney_dict["Team2"].append(team2)
-        tourney_dict["Seed1"].append(team1_seed)
-        tourney_dict["Seed2"].append(team2_seed)
+            tourney_dict["Rating1"].append(tourney_dict["Seed1"][i])
+            tourney_dict["Rating2"].append(tourney_dict["Seed2"][i])
 
     total_correct_picks = 0
     total_points = 0
@@ -840,18 +861,8 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
     # Load tournament CSV file into a DataFrame
     tourney_df = pd.read_csv(filename)
 
-    # TODO Clean up using overlap with simulate_tournament except ratings
-    tourney_dict = {
-        "Round Name": [],
-        "Round": [],
-        "Game": [],
-        "Team1": [],
-        "Team2": [],
-        "Seed1": [],
-        "Seed2": [],
-        "Rating1": [],
-        "Rating2": []
-    }
+    # Create 1st round tournament dictionary
+    tourney_dict = setup_first_round_dictionary(tourney_df=tourney_df)
 
     model_ratings = {}
 
@@ -863,9 +874,6 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
         team1 = tourney_df["Team1"][i]
         team2 = tourney_df["Team2"][i]
 
-        team1_seed = ROUND_1_SEEDING[(2*i) % 16]
-        team2_seed = ROUND_1_SEEDING[(2*i + 1) % 16]
-
         # Set up ML model dictionary
         x1_dict = {}
         for feature in ML_FEATURES:
@@ -875,15 +883,6 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
         # Grab probability of team 1 win
         model_ratings[team1] = model.predict_proba(x1)[:, 1][0]
         model_ratings[team2] = 1 - model_ratings[team1]
-
-        rd = tourney_df["Round"][i]
-        tourney_dict["Round Name"].append(ROUND_NAMES[rd - 1])
-        tourney_dict["Round"].append(rd)
-        tourney_dict["Game"].append(tourney_df["Game"][i])
-        tourney_dict["Team1"].append(team1)
-        tourney_dict["Team2"].append(team2)
-        tourney_dict["Seed1"].append(team1_seed)
-        tourney_dict["Seed2"].append(team2_seed)
 
         tourney_dict["Rating1"].append(model_ratings[team1])
         tourney_dict["Rating2"].append(model_ratings[team2])
