@@ -9,7 +9,16 @@ import pandas as pd
 ROUND_NAMES = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8", "Final 4", "Championship", "Champion"]
 ROUND_POINTS = [10, 20, 40, 80, 160, 320]
 ROUND_1_SEEDING = [1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15]
-ML_FEATURES = ["Massey_diff", "Colley_diff", "Elo_diff", "Adj_Elo_diff"]
+ML_FEATURES = [
+    "Massey_diff",
+    "Colley_diff",
+    "Elo_diff",
+    "Adj_Elo_diff",
+    "Home_Avg_Pts_For_diff",
+    "Away_Avg_Pts_For_diff",
+    "Home_Avg_Pts_Against_diff",
+    "Away_Avg_Pts_Against_diff"
+]
 
 
 def fix_time_format(time_str: str):
@@ -387,6 +396,60 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
     return elo_ratings
 
 
+def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, debug: bool=False):
+    """Calculates Elo rankings given a game results DataFrame.
+
+    Args:
+        score_df (pd.DataFrame): matchup data frame
+        points_for (bool): whether to calculate points for (True) instead of points against (False)
+        debug (bool): flag to print debug statements
+
+    Returns:
+        avg_points (dict): dictionary of points features
+    """
+
+    # Get unique teams and index them
+    teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
+
+    default_points = 70
+    avg_points = {team: default_points for team in teams}
+
+    for team in teams:
+
+        team_rows = score_df[(score_df["Home"] == team) | (score_df["Away"] == team)]
+
+        team_home_scores = list(team_rows["Home_Score"])
+        team_away_scores = list(team_rows["Away_Score"])
+        home_teams = list(team_rows["Home"])
+        away_teams = list(team_rows["Away"])
+
+        team_pts = []
+
+        for i in range(len(team_rows)):
+
+            if points_for:
+                if home_teams[i] == team:
+                    team_pts.append(team_home_scores[i])
+                elif away_teams[i] == team:
+                    team_pts.append(team_away_scores[i])
+
+            else:
+                if home_teams[i] == team:
+                    team_pts.append(team_away_scores[i])
+                elif away_teams[i] == team:
+                    team_pts.append(team_home_scores[i])
+
+        avg_points[team] = np.mean(team_pts)
+
+    # Sort and display rankings
+    points_rankings = sorted(avg_points.items(), key=lambda x: x[1], reverse=True)
+
+    if debug:
+        for rank, (team, rating) in enumerate(points_rankings, 1):
+            print(f"{rank}. {team}: {rating:.2f}")
+
+    return avg_points
+
 def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
     """Calculate Massey, Colley, Elo ratings for each team for each game
 
@@ -741,18 +804,30 @@ def simulate_tournament(filename: str, ratings: dict=None):
 def compile_ratings_dict(score_df: pd.DataFrame):
     """Compile all rating systems together into one dictionary"""
 
-    massey_ratings = calculate_massey_ratings(score_df=score_df,
-                                              debug=False)
-    colley_ratings = calculate_colley_ratings(score_df=score_df,
-                                              debug=False)
-    elo_ratings = calculate_elo_ratings(score_df=score_df,
-                                        K=30,
-                                        debug=False,
-                                        adjust_K=False)
-    adj_elo_ratings = calculate_elo_ratings(score_df=score_df,
-                                            K=30,
-                                            debug=False,
-                                            adjust_K=True)
+    massey_ratings = calculate_massey_ratings(
+        score_df=score_df,
+        debug=False)
+    colley_ratings = calculate_colley_ratings(
+        score_df=score_df,
+        debug=False)
+    elo_ratings = calculate_elo_ratings(
+        score_df=score_df,
+        K=30,
+        debug=False,
+        adjust_K=False)
+    adj_elo_ratings = calculate_elo_ratings(
+        score_df=score_df,
+        K=30,
+        debug=False,
+        adjust_K=True)
+    avg_points_for = calculate_average_points(
+        score_df=score_df,
+        points_for=True,
+        debug=False)
+    avg_points_against = calculate_average_points(
+        score_df=score_df,
+        points_for=False,
+        debug=False)
 
     ratings = {}
 
@@ -765,6 +840,8 @@ def compile_ratings_dict(score_df: pd.DataFrame):
         ratings[k]['Colley'] = colley_ratings[k]
         ratings[k]['Elo'] = elo_ratings[k]
         ratings[k]['Adj_Elo'] = adj_elo_ratings[k]
+        ratings[k]['Avg_Pts_For'] = avg_points_for[k]
+        ratings[k]['Avg_Pts_Against'] = avg_points_against[k]
 
     return ratings
 
@@ -797,15 +874,19 @@ def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: dict):
             "Home_Elo": ratings[team1]['Elo'],
             "Away_Elo": ratings[team2]['Elo'],
             "Home_Adj_Elo": ratings[team1]['Adj_Elo'],
-            "Away_Adj_Elo": ratings[team2]['Adj_Elo']
+            "Away_Adj_Elo": ratings[team2]['Adj_Elo'],
+            "Home_Avg_Pts_For": ratings[team1]['Avg_Pts_For'],
+            "Away_Avg_Pts_For": ratings[team2]['Avg_Pts_For'],
+            "Home_Avg_Pts_Against": ratings[team1]['Avg_Pts_Against'],
+            "Away_Avg_Pts_Against": ratings[team2]['Avg_Pts_Against']
         })
 
     df = pd.DataFrame(rating_df)
     return df
 
 
-def derive_features(df: pd.DataFrame):
-    """Derive ML model features from rating/score dataframe
+def compute_score_features(df: pd.DataFrame):
+    """Compute score features
 
     Args:
         df (pd.DataFrame): dataframe containing ratings in ML model format
@@ -814,10 +895,78 @@ def derive_features(df: pd.DataFrame):
         df (pd.DataFrame): dataframe containing ratings in ML model format with derived features
     """
 
+    default_home_score = df["Home_Score"].mean()
+    default_away_score = df["Away_Score"].mean()
+
+    all_teams = list(df["Home"]) + list(df["Away"])
+    teams = list(set(all_teams))
+
+    for team in teams:
+
+        team_rows = df[(df["Home"] == team) | (df["Away"] == team)]
+
+        team_home_scores = list(team_rows["Home_Score"])
+        team_away_scores = list(team_rows["Away_Score"])
+        home_teams = list(team_rows["Home"])
+        away_teams = list(team_rows["Away"])
+
+        lagged_for = []
+        lagged_against = []
+
+        for i in range(len(team_rows)):
+
+            if home_teams[i] == team:
+                if i == 0:
+                    lagged_for.append(default_home_score)
+                    lagged_against.append(default_away_score)
+                else:
+                    lagged_for.append(np.mean(team_home_scores[1:i + 1]))
+                    lagged_against.append(np.mean(team_away_scores[1:i + 1]))
+            elif away_teams[i] == team:
+                if i == 0:
+                    lagged_for.append(default_away_score)
+                    lagged_against.append(default_home_score)
+                else:
+                    lagged_for.append(np.mean(team_away_scores[1:i + 1]))
+                    lagged_against.append(np.mean(team_home_scores[1:i + 1]))
+
+        is_home = team_rows["Home"] == team
+        is_away = team_rows["Away"] == team
+
+        lagged_for = np.asarray(lagged_for)
+        lagged_against = np.asarray(lagged_against)
+
+        df.loc[team_rows.index[is_home], "Home_Avg_Pts_For"] = lagged_for[is_home]
+        df.loc[team_rows.index[is_away], "Away_Avg_Pts_For"] = lagged_for[is_away]
+
+        df.loc[team_rows.index[is_home], "Home_Avg_Pts_Against"] = lagged_against[is_home]
+        df.loc[team_rows.index[is_away], "Away_Avg_Pts_Against"] = lagged_against[is_away]
+
+    return df
+
+
+def derive_features(df: pd.DataFrame, need_score_computation: bool=True):
+    """Derive ML model features from rating/score dataframe
+
+    Args:
+        df (pd.DataFrame): dataframe containing ratings in ML model format
+        need_score_computation (bool): whether to compute score features
+
+    Returns:
+        df (pd.DataFrame): dataframe containing ratings in ML model format with derived features
+    """
+
+    if need_score_computation:
+        df = compute_score_features(df=df)
+
     # Add feature columns
     for feature in ML_FEATURES:
-        home_feature = "Home_" + feature.split("_diff")[0]
-        away_feature = "Away_" + feature.split("_diff")[0]
+        if "Home" not in feature and "Away" not in feature:
+            home_feature = "Home_" + feature.split("_diff")[0]
+            away_feature = "Away_" + feature.split("_diff")[0]
+        else:
+            home_feature = feature.split("_diff")[0]
+            away_feature = feature.split("_diff")[0]
         df[feature] = df[home_feature] - df[away_feature]
 
     return df
@@ -889,7 +1038,7 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
     model_ratings = {}
 
     df = mimic_tournament_rating_scores_df(tourney_df=tourney_df, ratings=ratings)
-    df = derive_features(df=df)
+    df = derive_features(df=df, need_score_computation=False)
 
     # Add ratings to 1st round
     for i in range(32):
