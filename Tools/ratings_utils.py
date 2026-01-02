@@ -666,10 +666,10 @@ def simulate_tournament(filename: str, ratings: dict=None):
         "Round Name": [],
         "Round": [],
         "Game": [],
-        "Seed1": [],
         "Team1": [],
-        "Seed2": [],
         "Team2": [],
+        "Seed1": [],
+        "Seed2": [],
         "Rating1": [],
         "Rating2": []
     }
@@ -785,11 +785,15 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
     # Load tournament CSV file into a DataFrame
     tourney_df = pd.read_csv(filename)
 
+    # TODO Clean up using overlap with simulate_tournament except ratings
     tourney_dict = {
+        "Round Name": [],
         "Round": [],
         "Game": [],
         "Team1": [],
         "Team2": [],
+        "Seed1": [],
+        "Seed2": [],
         "Rating1": [],
         "Rating2": []
     }
@@ -800,6 +804,9 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
     for i in range(32):
         team1 = tourney_df["Team1"][i]
         team2 = tourney_df["Team2"][i]
+
+        team1_seed = ROUND_1_SEEDING[(2*i) % 16]
+        team2_seed = ROUND_1_SEEDING[(2*i + 1) % 16]
 
         massey_diff = ratings[team1]['Massey'] - ratings[team2]['Massey']
         colley_diff = ratings[team1]['Colley'] - ratings[team2]['Colley']
@@ -819,10 +826,15 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
         model_ratings[team1] = model.predict_proba(x1)[:, 1][0]
         model_ratings[team2] = 1 - model_ratings[team1]
 
-        tourney_dict["Round"].append(tourney_df["Round"][i])
+        rd = tourney_df["Round"][i]
+        tourney_dict["Round Name"].append(ROUND_NAMES[rd - 1])
+        tourney_dict["Round"].append(rd)
         tourney_dict["Game"].append(tourney_df["Game"][i])
         tourney_dict["Team1"].append(team1)
         tourney_dict["Team2"].append(team2)
+        tourney_dict["Seed1"].append(team1_seed)
+        tourney_dict["Seed2"].append(team2_seed)
+
         tourney_dict["Rating1"].append(model_ratings[team1])
         tourney_dict["Rating2"].append(model_ratings[team2])
 
