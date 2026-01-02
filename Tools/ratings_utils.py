@@ -9,6 +9,7 @@ import pandas as pd
 ROUND_NAMES = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8", "Final 4", "Championship", "Champion"]
 ROUND_POINTS = [10, 20, 40, 80, 160, 320]
 ROUND_1_SEEDING = [1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15]
+ML_FEATURES = ["Massey_diff", "Colley_diff", "Elo_diff", "Adj_Elo_diff"]
 
 
 def fix_time_format(time_str: str):
@@ -610,7 +611,7 @@ def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: in
 
     Args:
         tourney_dict (dict): tournament dictionary of current round matchups
-        tourney_df (pd.DataFrame): tournament data frame
+        tourney_df (pd.DataFrame): dataframe containing tournament data
         rd (int): current round of tournament matchups
 
     Returns:
@@ -645,6 +646,48 @@ def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: in
     return correct_picks, total_points, num_teams, tourney_results
 
 
+def setup_first_round_dictionary(tourney_df: pd.DataFrame):
+    """Fill out first round of tournament team ratings, seeds
+
+    Args:
+        tourney_df (pd.DataFrame): dataframe containing tournament data
+
+    Returns:
+        tourney_dict (dict): tournament dictionary of all matchups
+    """
+
+    tourney_dict = {
+        "Round Name": [],
+        "Round": [],
+        "Game": [],
+        "Team1": [],
+        "Team2": [],
+        "Seed1": [],
+        "Seed2": [],
+        "Rating1": [],
+        "Rating2": []
+    }
+
+    # Add ratings to 1st round
+    for i in range(32):
+        team1 = tourney_df["Team1"][i]
+        team2 = tourney_df["Team2"][i]
+
+        team1_seed = ROUND_1_SEEDING[(2 * i) % 16]
+        team2_seed = ROUND_1_SEEDING[(2 * i + 1) % 16]
+
+        rd = tourney_df["Round"][i]
+        tourney_dict["Round Name"].append(ROUND_NAMES[rd - 1])
+        tourney_dict["Round"].append(rd)
+        tourney_dict["Game"].append(tourney_df["Game"][i])
+        tourney_dict["Team1"].append(team1)
+        tourney_dict["Team2"].append(team2)
+        tourney_dict["Seed1"].append(team1_seed)
+        tourney_dict["Seed2"].append(team2_seed)
+
+    return tourney_dict
+
+
 def simulate_tournament(filename: str, ratings: dict=None):
     """Simulate tournament outcomes based on given rating system
 
@@ -662,27 +705,13 @@ def simulate_tournament(filename: str, ratings: dict=None):
     # Load tournament CSV file into a DataFrame
     tourney_df = pd.read_csv(filename)
 
-    tourney_dict = {
-        "Round Name": [],
-        "Round": [],
-        "Game": [],
-        "Seed1": [],
-        "Team1": [],
-        "Seed2": [],
-        "Team2": [],
-        "Rating1": [],
-        "Rating2": []
-    }
-
-    tourney_results = ""
+    # Create 1st round tournament dictionary
+    tourney_dict = setup_first_round_dictionary(tourney_df=tourney_df)
 
     # Add ratings to 1st round
     for i in range(32):
         team1 = tourney_df["Team1"][i]
         team2 = tourney_df["Team2"][i]
-
-        team1_seed = ROUND_1_SEEDING[(2*i) % 16]
-        team2_seed = ROUND_1_SEEDING[(2*i + 1) % 16]
 
         # Rating system provided
         if ratings is not None:
@@ -698,40 +727,13 @@ def simulate_tournament(filename: str, ratings: dict=None):
 
         else:  # Chalk method
 
-            tourney_dict["Rating1"].append(team1_seed)
-            tourney_dict["Rating2"].append(team2_seed)
+            tourney_dict["Rating1"].append(tourney_dict["Seed1"][i])
+            tourney_dict["Rating2"].append(tourney_dict["Seed2"][i])
 
-        rd = tourney_df["Round"][i]
-        tourney_dict["Round Name"].append(ROUND_NAMES[rd - 1])
-        tourney_dict["Round"].append(rd)
-        tourney_dict["Game"].append(tourney_df["Game"][i])
-        tourney_dict["Team1"].append(team1)
-        tourney_dict["Team2"].append(team2)
-        tourney_dict["Seed1"].append(team1_seed)
-        tourney_dict["Seed2"].append(team2_seed)
-
-    total_correct_picks = 0
-    total_points = 0
-    total_num_teams = 0
-
-    for rd in range(1, 7):
-        tourney_dict = simulate_next_round(tourney_dict=tourney_dict,
-                                           ratings=ratings,
-                                           rd=rd)
-
-        correct_picks, points, num_teams, results = calculate_correct_picks(
-            tourney_dict=tourney_dict,
-            tourney_df=tourney_df,
-            rd=rd)
-
-        tourney_results += results + "\n"
-
-        total_correct_picks += correct_picks
-        total_points += points
-        total_num_teams += num_teams
-
-    tourney_results += f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}"
-    tourney_results += f"\nTotal points in tournament: {total_points} out of 1920"
+    total_correct_picks, total_points, tourney_dict, tourney_results = calculate_tournament_results(
+        tourney_dict=tourney_dict,
+        tourney_df=tourney_df,
+        ratings=ratings)
 
     return total_correct_picks, total_points, tourney_dict, tourney_results
 
@@ -767,6 +769,102 @@ def compile_ratings_dict(score_df: pd.DataFrame):
     return ratings
 
 
+def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: dict):
+    """Mimic ML model rating_score_df except for date, winner, score
+
+    Args:
+        tourney_df (pd.DataFrame): dataframe containing tournament data
+        ratings (dict): dictionary of ratings
+
+    Returns:
+        rating_score_df (pd.DataFrame): dataframe containing ratings in ML model format
+    """
+
+    rating_df = []
+
+    # Re-wire ratings dict based on tournament
+    for i in range(32):
+        team1 = tourney_df["Team1"][i]
+        team2 = tourney_df["Team2"][i]
+
+        rating_df.append({
+            "Home": team1,
+            "Away": team2,
+            "Home_Massey": ratings[team1]['Massey'],
+            "Away_Massey": ratings[team2]['Massey'],
+            "Home_Colley": ratings[team1]['Colley'],
+            "Away_Colley": ratings[team2]['Colley'],
+            "Home_Elo": ratings[team1]['Elo'],
+            "Away_Elo": ratings[team2]['Elo'],
+            "Home_Adj_Elo": ratings[team1]['Adj_Elo'],
+            "Away_Adj_Elo": ratings[team2]['Adj_Elo']
+        })
+
+    df = pd.DataFrame(rating_df)
+    return df
+
+
+def derive_features(df: pd.DataFrame):
+    """Derive ML model features from rating/score dataframe
+
+    Args:
+        df (pd.DataFrame): dataframe containing ratings in ML model format
+
+    Returns:
+        df (pd.DataFrame): dataframe containing ratings in ML model format with derived features
+    """
+
+    # Add feature columns
+    for feature in ML_FEATURES:
+        home_feature = "Home_" + feature.split("_diff")[0]
+        away_feature = "Away_" + feature.split("_diff")[0]
+        df[feature] = df[home_feature] - df[away_feature]
+
+    return df
+
+
+def calculate_tournament_results(tourney_dict: dict, tourney_df: pd.DataFrame, ratings: dict):
+    """Calculate tournament results with ratings
+
+    Args:
+        tourney_dict (dict): tournament dictionary of all matchups
+        tourney_df (pd.DataFrame): dataframe containing tournament data
+        ratings (dict): dictionary of ratings
+
+    Returns:
+        total_correct_picks (int): number of correct picks
+        total_points (int): points based on round
+        tourney_dict (dict): tournament dictionary of all matchups
+        tourney_results (str): printed copy of tournament results
+    """
+
+    total_correct_picks = 0
+    total_points = 0
+    total_num_teams = 0
+    tourney_results = ""
+
+    for rd in range(1, 7):
+        tourney_dict = simulate_next_round(tourney_dict=tourney_dict,
+                                           ratings=ratings,
+                                           rd=rd)
+
+        correct_picks, points, num_teams, results = calculate_correct_picks(
+            tourney_dict=tourney_dict,
+            tourney_df=tourney_df,
+            rd=rd)
+
+        tourney_results += results + "\n"
+
+        total_correct_picks += correct_picks
+        total_points += points
+        total_num_teams += num_teams
+
+    tourney_results += f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}"
+    tourney_results += f"\nTotal points in tournament: {total_points} out of 1920"
+
+    return total_correct_picks, total_points, tourney_dict, tourney_results
+
+
 def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=None):
     """Simulate tournament outcomes based on given rating system
 
@@ -785,70 +883,36 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
     # Load tournament CSV file into a DataFrame
     tourney_df = pd.read_csv(filename)
 
-    tourney_dict = {
-        "Round": [],
-        "Game": [],
-        "Team1": [],
-        "Team2": [],
-        "Rating1": [],
-        "Rating2": []
-    }
+    # Create 1st round tournament dictionary
+    tourney_dict = setup_first_round_dictionary(tourney_df=tourney_df)
 
     model_ratings = {}
+
+    df = mimic_tournament_rating_scores_df(tourney_df=tourney_df, ratings=ratings)
+    df = derive_features(df=df)
 
     # Add ratings to 1st round
     for i in range(32):
         team1 = tourney_df["Team1"][i]
         team2 = tourney_df["Team2"][i]
 
-        massey_diff = ratings[team1]['Massey'] - ratings[team2]['Massey']
-        colley_diff = ratings[team1]['Colley'] - ratings[team2]['Colley']
-        elo_diff = ratings[team1]['Elo'] - ratings[team2]['Elo']
-        adj_elo_diff = ratings[team1]['Adj_Elo'] - ratings[team2]['Adj_Elo']
-
-        x1_dict = {
-            'Massey_diff': [massey_diff],
-            'Colley_diff': [colley_diff],
-            'Elo_diff': [elo_diff],
-            'Adj_Elo_diff': [adj_elo_diff]
-        }
-
+        # Set up ML model dictionary
+        x1_dict = {}
+        for feature in ML_FEATURES:
+            x1_dict[feature] = [df[feature][i]]
         x1 = pd.DataFrame(x1_dict)
 
         # Grab probability of team 1 win
         model_ratings[team1] = model.predict_proba(x1)[:, 1][0]
         model_ratings[team2] = 1 - model_ratings[team1]
 
-        tourney_dict["Round"].append(tourney_df["Round"][i])
-        tourney_dict["Game"].append(tourney_df["Game"][i])
-        tourney_dict["Team1"].append(team1)
-        tourney_dict["Team2"].append(team2)
         tourney_dict["Rating1"].append(model_ratings[team1])
         tourney_dict["Rating2"].append(model_ratings[team2])
 
-    total_correct_picks = 0
-    total_points = 0
-    total_num_teams = 0
-    tourney_results = ""
-
-    for rd in range(1, 7):
-        tourney_dict = simulate_next_round(tourney_dict=tourney_dict,
-                                           ratings=model_ratings,
-                                           rd=rd)
-
-        correct_picks, points, num_teams, results = calculate_correct_picks(
-            tourney_dict=tourney_dict,
-            tourney_df=tourney_df,
-            rd=rd)
-
-        tourney_results += results + "\n"
-
-        total_correct_picks += correct_picks
-        total_points += points
-        total_num_teams += num_teams
-
-    tourney_results += f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}"
-    tourney_results += f"\nTotal points in tournament: {total_points} out of 1920"
+    total_correct_picks, total_points, tourney_dict, tourney_results = calculate_tournament_results(
+        tourney_dict=tourney_dict,
+        tourney_df=tourney_df,
+        ratings=model_ratings)
 
     return total_correct_picks, total_points, tourney_dict, tourney_results
 
