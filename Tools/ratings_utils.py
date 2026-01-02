@@ -611,7 +611,7 @@ def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: in
 
     Args:
         tourney_dict (dict): tournament dictionary of current round matchups
-        tourney_df (pd.DataFrame): tournament data frame
+        tourney_df (pd.DataFrame): dataframe containing tournament data
         rd (int): current round of tournament matchups
 
     Returns:
@@ -824,14 +824,18 @@ def derive_features(df: pd.DataFrame):
 
 
 def calculate_tournament_results(tourney_dict: dict, tourney_df: pd.DataFrame, ratings: dict):
-    """
+    """Calculate tournament results with ratings
+
     Args:
-        tourney_dict (dict): dictionary containing tournament data
+        tourney_dict (dict): tournament dictionary of all matchups
         tourney_df (pd.DataFrame): dataframe containing tournament data
         ratings (dict): dictionary of ratings
 
     Returns:
-
+        total_correct_picks (int): number of correct picks
+        total_points (int): points based on round
+        tourney_dict (dict): tournament dictionary of all matchups
+        tourney_results (str): printed copy of tournament results
     """
 
     total_correct_picks = 0
