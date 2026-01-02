@@ -800,6 +800,33 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
 
     model_ratings = {}
 
+    rating_score_df = []
+
+    # Re-wire ratings dict based on tournament
+    for i in range(32):
+        team1 = tourney_df["Team1"][i]
+        team2 = tourney_df["Team2"][i]
+        rating_score_df.append({
+            "Home": team1,
+            "Away": team2,
+            "Home_Massey": ratings[team1]['Massey'],
+            "Away_Massey": ratings[team2]['Massey'],
+            "Home_Colley": ratings[team1]['Colley'],
+            "Away_Colley": ratings[team2]['Colley'],
+            "Home_Elo": ratings[team1]['Elo'],
+            "Away_Elo": ratings[team2]['Elo'],
+            "Home_Adj_Elo": ratings[team1]['Adj_Elo'],
+            "Away_Adj_Elo": ratings[team2]['Adj_Elo']
+        })
+
+    df = pd.DataFrame(rating_score_df)
+
+    # Add feature columns
+    df["Massey_diff"] = df["Home_Massey"] - df["Away_Massey"]
+    df["Colley_diff"] = df["Home_Colley"] - df["Away_Colley"]
+    df["Elo_diff"] = df["Home_Elo"] - df["Away_Elo"]
+    df["Adj_Elo_diff"] = df["Home_Adj_Elo"] - df["Away_Adj_Elo"]
+
     # Add ratings to 1st round
     for i in range(32):
         team1 = tourney_df["Team1"][i]
@@ -808,16 +835,23 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
         team1_seed = ROUND_1_SEEDING[(2*i) % 16]
         team2_seed = ROUND_1_SEEDING[(2*i + 1) % 16]
 
-        massey_diff = ratings[team1]['Massey'] - ratings[team2]['Massey']
-        colley_diff = ratings[team1]['Colley'] - ratings[team2]['Colley']
-        elo_diff = ratings[team1]['Elo'] - ratings[team2]['Elo']
-        adj_elo_diff = ratings[team1]['Adj_Elo'] - ratings[team2]['Adj_Elo']
+        # massey_diff = ratings[team1]['Massey'] - ratings[team2]['Massey']
+        # colley_diff = ratings[team1]['Colley'] - ratings[team2]['Colley']
+        # elo_diff = ratings[team1]['Elo'] - ratings[team2]['Elo']
+        # adj_elo_diff = ratings[team1]['Adj_Elo'] - ratings[team2]['Adj_Elo']
+        #
+        # x1_dict = {
+        #     'Massey_diff': [massey_diff],
+        #     'Colley_diff': [colley_diff],
+        #     'Elo_diff': [elo_diff],
+        #     'Adj_Elo_diff': [adj_elo_diff]
+        # }
 
         x1_dict = {
-            'Massey_diff': [massey_diff],
-            'Colley_diff': [colley_diff],
-            'Elo_diff': [elo_diff],
-            'Adj_Elo_diff': [adj_elo_diff]
+            'Massey_diff': [df["Massey_diff"][i]],
+            'Colley_diff': [df["Colley_diff"][i]],
+            'Elo_diff': [df["Elo_diff"][i]],
+            'Adj_Elo_diff': [df["Adj_Elo_diff"][i]]
         }
 
         x1 = pd.DataFrame(x1_dict)
