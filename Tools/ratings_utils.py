@@ -708,8 +708,6 @@ def simulate_tournament(filename: str, ratings: dict=None):
     # Create 1st round tournament dictionary
     tourney_dict = setup_first_round_dictionary(tourney_df=tourney_df)
 
-    tourney_results = ""
-
     # Add ratings to 1st round
     for i in range(32):
         team1 = tourney_df["Team1"][i]
@@ -732,28 +730,10 @@ def simulate_tournament(filename: str, ratings: dict=None):
             tourney_dict["Rating1"].append(tourney_dict["Seed1"][i])
             tourney_dict["Rating2"].append(tourney_dict["Seed2"][i])
 
-    total_correct_picks = 0
-    total_points = 0
-    total_num_teams = 0
-
-    for rd in range(1, 7):
-        tourney_dict = simulate_next_round(tourney_dict=tourney_dict,
-                                           ratings=ratings,
-                                           rd=rd)
-
-        correct_picks, points, num_teams, results = calculate_correct_picks(
-            tourney_dict=tourney_dict,
-            tourney_df=tourney_df,
-            rd=rd)
-
-        tourney_results += results + "\n"
-
-        total_correct_picks += correct_picks
-        total_points += points
-        total_num_teams += num_teams
-
-    tourney_results += f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}"
-    tourney_results += f"\nTotal points in tournament: {total_points} out of 1920"
+    total_correct_picks, total_points, tourney_dict, tourney_results = calculate_tournament_results(
+        tourney_dict=tourney_dict,
+        tourney_df=tourney_df,
+        ratings=ratings)
 
     return total_correct_picks, total_points, tourney_dict, tourney_results
 
@@ -843,6 +823,44 @@ def derive_features(df: pd.DataFrame):
     return df
 
 
+def calculate_tournament_results(tourney_dict: dict, tourney_df: pd.DataFrame, ratings: dict):
+    """
+    Args:
+        tourney_dict (dict): dictionary containing tournament data
+        tourney_df (pd.DataFrame): dataframe containing tournament data
+        ratings (dict): dictionary of ratings
+
+    Returns:
+
+    """
+
+    total_correct_picks = 0
+    total_points = 0
+    total_num_teams = 0
+    tourney_results = ""
+
+    for rd in range(1, 7):
+        tourney_dict = simulate_next_round(tourney_dict=tourney_dict,
+                                           ratings=ratings,
+                                           rd=rd)
+
+        correct_picks, points, num_teams, results = calculate_correct_picks(
+            tourney_dict=tourney_dict,
+            tourney_df=tourney_df,
+            rd=rd)
+
+        tourney_results += results + "\n"
+
+        total_correct_picks += correct_picks
+        total_points += points
+        total_num_teams += num_teams
+
+    tourney_results += f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}"
+    tourney_results += f"\nTotal points in tournament: {total_points} out of 1920"
+
+    return total_correct_picks, total_points, tourney_dict, tourney_results
+
+
 def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=None):
     """Simulate tournament outcomes based on given rating system
 
@@ -887,29 +905,10 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
         tourney_dict["Rating1"].append(model_ratings[team1])
         tourney_dict["Rating2"].append(model_ratings[team2])
 
-    total_correct_picks = 0
-    total_points = 0
-    total_num_teams = 0
-    tourney_results = ""
-
-    for rd in range(1, 7):
-        tourney_dict = simulate_next_round(tourney_dict=tourney_dict,
-                                           ratings=model_ratings,
-                                           rd=rd)
-
-        correct_picks, points, num_teams, results = calculate_correct_picks(
-            tourney_dict=tourney_dict,
-            tourney_df=tourney_df,
-            rd=rd)
-
-        tourney_results += results + "\n"
-
-        total_correct_picks += correct_picks
-        total_points += points
-        total_num_teams += num_teams
-
-    tourney_results += f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}"
-    tourney_results += f"\nTotal points in tournament: {total_points} out of 1920"
+    total_correct_picks, total_points, tourney_dict, tourney_results = calculate_tournament_results(
+        tourney_dict=tourney_dict,
+        tourney_df=tourney_df,
+        ratings=model_ratings)
 
     return total_correct_picks, total_points, tourney_dict, tourney_results
 
