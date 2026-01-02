@@ -14,10 +14,8 @@ ML_FEATURES = [
     "Colley_diff",
     "Elo_diff",
     "Adj_Elo_diff",
-    "Home_Avg_Pts_For_diff",
-    "Away_Avg_Pts_For_diff",
-    "Home_Avg_Pts_Against_diff",
-    "Away_Avg_Pts_Against_diff"
+    "Avg_Pts_For_diff",
+    "Avg_Pts_Against_diff"
 ]
 
 
