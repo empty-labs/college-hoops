@@ -102,5 +102,26 @@ if run_button:
     st.markdown(f"#### Seasons: {years}")
     st.markdown(results.replace("\n", "  \n"))  # Replace newlines with streamlit-friendly newlines
 
+    # Clean up tournament dictionary with fewer columns and revised output
+    revised_tourney_df = pd.DataFrame(tourney_dict)
+
+    revised_tourney_df['Team1'] = (
+            "(" + revised_tourney_df['Seed1'].astype(str) + ") " + revised_tourney_df['Team1']
+    )
+    revised_tourney_df['Team2'] = (
+            "(" + revised_tourney_df['Seed2'].astype(str) + ") " + revised_tourney_df['Team2']
+    )
+
+    revised_tourney_df['Rating1'] = (
+        pd.to_numeric(revised_tourney_df['Rating1'], errors='coerce')
+        .round(3)
+    )
+    revised_tourney_df['Rating2'] = (
+        pd.to_numeric(revised_tourney_df['Rating2'], errors='coerce')
+        .round(3)
+    )
+
+    revised_tourney_df = revised_tourney_df[['Round Name', 'Team1', 'Team2', 'Rating1', 'Rating2']]
+
     st.markdown("### Tournament Dictionary")
-    st.dataframe(pd.DataFrame(tourney_dict))
+    st.dataframe(revised_tourney_df)
