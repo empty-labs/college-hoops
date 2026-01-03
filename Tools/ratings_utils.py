@@ -15,7 +15,8 @@ ML_FEATURES = [
     "Elo_diff",
     "Adj_Elo_diff",
     "Avg_Pts_For_diff",
-    "Avg_Pts_Against_diff"
+    "Avg_Pts_Against_diff",
+    "Avg_Net_Pts_diff"
 ]
 
 
@@ -394,12 +395,13 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
     return elo_ratings
 
 
-def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, debug: bool=False):
-    """Calculates Elo rankings given a game results DataFrame.
+def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, net_points: bool=False, debug: bool=False):
+    """Calculates average points forced or against using total or net score for full season (not in during season)
 
     Args:
         score_df (pd.DataFrame): matchup data frame
         points_for (bool): whether to calculate points for (True) instead of points against (False)
+        net_points (bool): whether to calculate net points (True) instead of points total (False)
         debug (bool): flag to print debug statements
 
     Returns:
@@ -425,17 +427,27 @@ def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, debu
 
         for i in range(len(team_rows)):
 
-            if points_for:
-                if home_teams[i] == team:
-                    team_pts.append(team_home_scores[i])
-                elif away_teams[i] == team:
-                    team_pts.append(team_away_scores[i])
+            if net_points:  # Net points
 
-            else:
+                # Net Points (for) - (against)
                 if home_teams[i] == team:
-                    team_pts.append(team_away_scores[i])
+                    team_pts.append(team_home_scores[i] - team_away_scores[i])
                 elif away_teams[i] == team:
-                    team_pts.append(team_home_scores[i])
+                    team_pts.append(team_away_scores[i] - team_home_scores[i])
+
+            else:  # Total points
+
+                if points_for:  # Points for
+                    if home_teams[i] == team:
+                        team_pts.append(team_home_scores[i])
+                    elif away_teams[i] == team:
+                        team_pts.append(team_away_scores[i])
+
+                else:  # Points against
+                    if home_teams[i] == team:
+                        team_pts.append(team_away_scores[i])
+                    elif away_teams[i] == team:
+                        team_pts.append(team_home_scores[i])
 
         avg_points[team] = np.mean(team_pts)
 
@@ -447,6 +459,7 @@ def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, debu
             print(f"{rank}. {team}: {rating:.2f}")
 
     return avg_points
+
 
 def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
     """Calculate Massey, Colley, Elo ratings for each team for each game
@@ -821,14 +834,21 @@ def compile_ratings_dict(score_df: pd.DataFrame):
     avg_points_for = calculate_average_points(
         score_df=score_df,
         points_for=True,
+        net_points=False,
         debug=False)
     avg_points_against = calculate_average_points(
         score_df=score_df,
         points_for=False,
+        net_points=False,
+        debug=False)
+    avg_net_points = calculate_average_points(
+        score_df=score_df,
+        net_points=True,
         debug=False)
 
     ratings = {}
 
+    # TODO Audit these ratings and/or see if the last row of the mid-season ratings can be-used by refactor
     for k in massey_ratings.keys():
         # Initialize dictionary entry
         ratings[k] = {}
@@ -840,6 +860,7 @@ def compile_ratings_dict(score_df: pd.DataFrame):
         ratings[k]['Adj_Elo'] = adj_elo_ratings[k]
         ratings[k]['Avg_Pts_For'] = avg_points_for[k]
         ratings[k]['Avg_Pts_Against'] = avg_points_against[k]
+        ratings[k]['Avg_Net_Pts'] = avg_net_points[k]
 
     return ratings
 
@@ -876,7 +897,9 @@ def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: dict):
             "Home_Avg_Pts_For": ratings[team1]['Avg_Pts_For'],
             "Away_Avg_Pts_For": ratings[team2]['Avg_Pts_For'],
             "Home_Avg_Pts_Against": ratings[team1]['Avg_Pts_Against'],
-            "Away_Avg_Pts_Against": ratings[team2]['Avg_Pts_Against']
+            "Away_Avg_Pts_Against": ratings[team2]['Avg_Pts_Against'],
+            "Home_Avg_Net_Pts": ratings[team1]['Avg_Net_Pts'],
+            "Away_Avg_Net_Pts": ratings[team2]['Avg_Net_Pts'],
         })
 
     df = pd.DataFrame(rating_df)
@@ -910,6 +933,7 @@ def compute_score_features(df: pd.DataFrame):
 
         lagged_for = []
         lagged_against = []
+        lagged_net_for_vs_against = []
 
         for i in range(len(team_rows)):
 
@@ -917,28 +941,36 @@ def compute_score_features(df: pd.DataFrame):
                 if i == 0:
                     lagged_for.append(default_home_score)
                     lagged_against.append(default_away_score)
+                    lagged_net_for_vs_against.append(default_home_score - default_away_score)
                 else:
                     lagged_for.append(np.mean(team_home_scores[1:i + 1]))
                     lagged_against.append(np.mean(team_away_scores[1:i + 1]))
+                    lagged_net_for_vs_against.append(np.mean(team_home_scores[1:i + 1]) - np.mean(team_away_scores[1:i + 1]))
             elif away_teams[i] == team:
                 if i == 0:
                     lagged_for.append(default_away_score)
                     lagged_against.append(default_home_score)
+                    lagged_net_for_vs_against.append(default_away_score - default_home_score)
                 else:
                     lagged_for.append(np.mean(team_away_scores[1:i + 1]))
                     lagged_against.append(np.mean(team_home_scores[1:i + 1]))
+                    lagged_net_for_vs_against.append(np.mean(team_away_scores[1:i + 1]) - np.mean(team_home_scores[1:i + 1]))
 
         is_home = team_rows["Home"] == team
         is_away = team_rows["Away"] == team
 
         lagged_for = np.asarray(lagged_for)
         lagged_against = np.asarray(lagged_against)
+        lagged_net_for_vs_against = np.asarray(lagged_net_for_vs_against)
 
         df.loc[team_rows.index[is_home], "Home_Avg_Pts_For"] = lagged_for[is_home]
         df.loc[team_rows.index[is_away], "Away_Avg_Pts_For"] = lagged_for[is_away]
 
         df.loc[team_rows.index[is_home], "Home_Avg_Pts_Against"] = lagged_against[is_home]
         df.loc[team_rows.index[is_away], "Away_Avg_Pts_Against"] = lagged_against[is_away]
+
+        df.loc[team_rows.index[is_home], "Home_Avg_Net_Pts"] = lagged_net_for_vs_against[is_home]
+        df.loc[team_rows.index[is_away], "Away_Avg_Net_Pts"] = lagged_net_for_vs_against[is_away]
 
     return df
 
