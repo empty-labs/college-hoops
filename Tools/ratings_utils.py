@@ -18,6 +18,9 @@ ML_FEATURES = [
     "Avg_Pts_Against_diff",
     "Avg_Net_Pts_diff"
 ]
+MASSEY_INITIAL = 0
+COLLEY_INITIAL = 0
+ELO_INITIAL = 1500
 
 
 def fix_time_format(time_str: str):
@@ -478,16 +481,18 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
     N = len(teams)
 
     # Initialize Massey matrix and score vector
+    massey_ratings = {team: initial_ratings.get(team, MASSEY_INITIAL) if initial_ratings else MASSEY_INITIAL for team in teams}
     M = np.zeros((N, N))
     mb = np.zeros(N)
 
     # Initialize Colley matrix (C) and RHS vector (b)
+    colley_ratings = {team: initial_ratings.get(team, COLLEY_INITIAL) if initial_ratings else COLLEY_INITIAL for team in teams}
     C = np.eye(N) * 2  # Start with 2 on the diagonal
     cb = np.ones(N)  # Initialize b with 1s
 
     # Initialize Elo
-    elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
-    adj_elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
+    elo_ratings = {team: initial_ratings.get(team, ELO_INITIAL) if initial_ratings else ELO_INITIAL for team in teams}
+    adj_elo_ratings = {team: initial_ratings.get(team, ELO_INITIAL) if initial_ratings else ELO_INITIAL for team in teams}
 
     rating_scores = []
     curr = 0
@@ -502,6 +507,24 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
         i, j = team_index[h], team_index[a]
         hPts, aPts = row["Home_Score"], row["Away_Score"]
         home_margin = hPts - aPts
+
+        # Append to current pregame rating data
+        rating_scores.append({
+            "Date": row["Date"],
+            "Home": h,
+            "Home_Score": hPts,
+            "Away": a,
+            "Away_Score": aPts,
+            "Winner": winner,
+            "Home_Massey": massey_ratings[i],
+            "Away_Massey": massey_ratings[j],
+            "Home_Colley": colley_ratings[i],
+            "Away_Colley": colley_ratings[j],
+            "Home_Elo": elo_ratings[h],
+            "Away_Elo": elo_ratings[a],
+            "Home_Adj_Elo": adj_elo_ratings[h],
+            "Away_Adj_Elo": adj_elo_ratings[a]
+        })
 
         # Update Massey matrix
         M = update_rating_matrix(mtx=M, i=i, j=j)
@@ -527,31 +550,12 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
         M_reg = M + lambda_t * np.eye(N)
 
         # Solve Massey, Colley systems
-        # TODO: Move after dict like Elo to create post-game lag
         try:
             massey_ratings = np.linalg.solve(M_reg, mb)
             colley_ratings = np.linalg.solve(C, cb)
         except np.linalg.LinAlgError:
             massey_ratings = np.zeros(N)  # fallback at very start
             colley_ratings = np.zeros(N)
-
-        # Append to current pregame rating data
-        rating_scores.append({
-            "Date": row["Date"],
-            "Home": h,
-            "Home_Score": hPts,
-            "Away": a,
-            "Away_Score": aPts,
-            "Winner": winner,
-            "Home_Massey": massey_ratings[i],
-            "Away_Massey": massey_ratings[j],
-            "Home_Colley": colley_ratings[i],
-            "Away_Colley": colley_ratings[j],
-            "Home_Elo": elo_ratings[h],
-            "Away_Elo": elo_ratings[a],
-            "Home_Adj_Elo": adj_elo_ratings[h],
-            "Away_Adj_Elo": adj_elo_ratings[a]
-        })
 
         # Assign Elo outcome (1 if h wins, 0 if a wins)
         outcome = 1 if winner == h else 0
@@ -565,6 +569,7 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
         adj_elo_ratings[h], adj_elo_ratings[a] = update_elo(
             r1=adj_elo_ratings[h], r2=adj_elo_ratings[a],
             outcome=outcome, mov=home_margin, K=30, adjust_K=True)
+
         # Update status
         curr += 1
         pct = round(100 * (curr / len(score_df)), 3)
