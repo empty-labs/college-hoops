@@ -492,6 +492,7 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
     rating_scores = []
     curr = 0
     curr_pct = 1
+    lambda0 = 25
 
     # Fill the matrix and score vector
     for _, row in score_df.iterrows():
@@ -502,20 +503,34 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
         hPts, aPts = row["Home_Score"], row["Away_Score"]
         home_margin = hPts - aPts
 
-        # Copy current M, mb, C, cb
-        M_copy = M.copy()
-        mb_copy = mb.copy()
-        C_copy = C.copy()
-        cb_copy = cb.copy()
+        # Update Massey matrix
+        M = update_rating_matrix(mtx=M, i=i, j=j)
 
-        # Fix singularity: replace last row with ones
-        M_copy[-1, :] = 1
-        mb_copy[-1] = 0
+        # Update Colley matrix
+        C = update_rating_matrix(mtx=C, i=i, j=j)
+
+        # Update mb vector
+        mb[i] += home_margin
+        mb[j] -= home_margin
+
+        # Update cb vector
+        if winner == h:
+            cb[i] += 0.5
+            cb[j] -= 0.5
+        else:
+            cb[i] -= 0.5
+            cb[j] += 0.5
+
+        games_played = np.diag(M)
+        avg_games = games_played.mean()
+        lambda_t = lambda0 / (1 + avg_games)
+        M_reg = M + lambda_t * np.eye(N)
 
         # Solve Massey, Colley systems
+        # TODO: Move after dict like Elo to create post-game lag
         try:
-            massey_ratings = np.linalg.solve(M_copy, mb_copy)
-            colley_ratings = np.linalg.solve(C_copy, cb_copy)
+            massey_ratings = np.linalg.solve(M_reg, mb)
+            colley_ratings = np.linalg.solve(C, cb)
         except np.linalg.LinAlgError:
             massey_ratings = np.zeros(N)  # fallback at very start
             colley_ratings = np.zeros(N)
@@ -538,33 +553,18 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
             "Away_Adj_Elo": adj_elo_ratings[a]
         })
 
-        # Update Massey matrix
-        M = update_rating_matrix(mtx=M, i=i, j=j)
-
-        mb[i] += home_margin
-        mb[j] -= home_margin
-
-        # Update Colley matrix
-        C = update_rating_matrix(mtx=C, i=i, j=j)
-
-        # Update cb vector
-        if winner == h:
-            cb[i] += 0.5
-            cb[j] -= 0.5
-        else:
-            cb[i] -= 0.5
-            cb[j] += 0.5
-
         # Assign Elo outcome (1 if h wins, 0 if a wins)
         outcome = 1 if winner == h else 0
 
         # Traditional Elo rating
-        elo_ratings[h], elo_ratings[a] = update_elo(r1=elo_ratings[h], r2=elo_ratings[a],
-                                                    outcome=outcome, mov=home_margin, K=30, adjust_K=False)
+        elo_ratings[h], elo_ratings[a] = update_elo(
+            r1=elo_ratings[h], r2=elo_ratings[a],
+            outcome=outcome, mov=home_margin, K=30, adjust_K=False)
 
         # Adjusted Elo rating
-        adj_elo_ratings[h], adj_elo_ratings[a] = update_elo(r1=adj_elo_ratings[h], r2=adj_elo_ratings[a],
-                                                    outcome=outcome, mov=home_margin, K=30, adjust_K=True)
+        adj_elo_ratings[h], adj_elo_ratings[a] = update_elo(
+            r1=adj_elo_ratings[h], r2=adj_elo_ratings[a],
+            outcome=outcome, mov=home_margin, K=30, adjust_K=True)
         # Update status
         curr += 1
         pct = round(100 * (curr / len(score_df)), 3)
@@ -813,7 +813,14 @@ def simulate_tournament(filename: str, ratings: dict=None):
 
 
 def compile_ratings_dict(score_df: pd.DataFrame):
-    """Compile all rating systems together into one dictionary"""
+    """Compile all rating systems together into one dictionary
+
+    Args:
+        score_df (pd.DataFrame): matchup score data frame
+
+    Returns:
+        ratings_dict (dict): dictionary of all final ratings
+    """
 
     massey_ratings = calculate_massey_ratings(
         score_df=score_df,
