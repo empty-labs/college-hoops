@@ -946,44 +946,50 @@ def compute_score_features(df: pd.DataFrame):
 
     default_home_score = df["Home_Score"].mean()
     default_away_score = df["Away_Score"].mean()
+    default_score = (default_home_score + default_away_score) * 0.5
 
     all_teams = list(df["Home"]) + list(df["Away"])
     teams = list(set(all_teams))
+
+    ratings = {}
 
     for team in teams:
 
         team_rows = df[(df["Home"] == team) | (df["Away"] == team)]
 
+        # TODO Resolve this team vs. that team score
         team_home_scores = list(team_rows["Home_Score"])
         team_away_scores = list(team_rows["Away_Score"])
         home_teams = list(team_rows["Home"])
         away_teams = list(team_rows["Away"])
 
+        curr_team_scores = []
+        opponent_team_scores = []
+
+        for i in range(len(team_rows)):
+            if home_teams[i] == team:
+                curr_team_scores.append(team_home_scores[i])
+                opponent_team_scores.append(team_away_scores[i])
+            else:
+                curr_team_scores.append(team_away_scores[i])
+                opponent_team_scores.append(team_home_scores[i])
+
         lagged_for = []
         lagged_against = []
         lagged_net_for_vs_against = []
+        ratings[team] = {}
 
         # TODO: Include final game
         for i in range(len(team_rows)):
 
-            if home_teams[i] == team:
-                if i == 0:
-                    lagged_for.append(default_home_score)
-                    lagged_against.append(default_away_score)
-                    lagged_net_for_vs_against.append(default_home_score - default_away_score)
-                else:
-                    lagged_for.append(np.mean(team_home_scores[1:i + 1]))
-                    lagged_against.append(np.mean(team_away_scores[1:i + 1]))
-                    lagged_net_for_vs_against.append(np.mean(team_home_scores[1:i + 1]) - np.mean(team_away_scores[1:i + 1]))
-            elif away_teams[i] == team:
-                if i == 0:
-                    lagged_for.append(default_away_score)
-                    lagged_against.append(default_home_score)
-                    lagged_net_for_vs_against.append(default_away_score - default_home_score)
-                else:
-                    lagged_for.append(np.mean(team_away_scores[1:i + 1]))
-                    lagged_against.append(np.mean(team_home_scores[1:i + 1]))
-                    lagged_net_for_vs_against.append(np.mean(team_away_scores[1:i + 1]) - np.mean(team_home_scores[1:i + 1]))
+            if i == 0:
+                lagged_for.append(default_score)
+                lagged_against.append(default_score)
+                lagged_net_for_vs_against.append(0)
+            else:
+                lagged_for.append(np.mean(curr_team_scores[0:i]))
+                lagged_against.append(np.mean(opponent_team_scores[0:i]))
+                lagged_net_for_vs_against.append(np.mean(curr_team_scores[0:i]) - np.mean(opponent_team_scores[0:i]))
 
         is_home = team_rows["Home"] == team
         is_away = team_rows["Away"] == team
@@ -1001,6 +1007,12 @@ def compute_score_features(df: pd.DataFrame):
         df.loc[team_rows.index[is_home], "Home_Avg_Net_Pts"] = lagged_net_for_vs_against[is_home]
         df.loc[team_rows.index[is_away], "Away_Avg_Net_Pts"] = lagged_net_for_vs_against[is_away]
 
+        # Final points values
+
+    g = "Gonzaga"
+    team_rows = df[(df["Home"] == g) | (df["Away"] == g)]
+    print(team_rows[["Home", "Home_Score", "Away", "Away_Score",  "Home_Avg_Pts_For", "Home_Avg_Pts_Against", "Home_Avg_Net_Pts", "Away_Avg_Pts_For", "Away_Avg_Pts_Against", "Away_Avg_Net_Pts"]])
+
     return df
 
 
@@ -1016,7 +1028,7 @@ def derive_features(df: pd.DataFrame, need_score_computation: bool=True):
     """
 
     if need_score_computation:
-        # TODO Move to mid-season and pull last game for compile_ratings_dict
+        # TODO Move to mid-season and pull last game for compile_ratings_dict?
         df = compute_score_features(df=df)
 
     # Add feature columns
