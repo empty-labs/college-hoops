@@ -477,16 +477,17 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
 
     # Get unique teams and index them
     teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
+    teams.sort()
     team_index = {team: i for i, team in enumerate(teams)}
     N = len(teams)
 
     # Initialize Massey matrix and score vector
-    massey_ratings = {team: initial_ratings.get(team, MASSEY_INITIAL) if initial_ratings else MASSEY_INITIAL for team in teams}
+    massey_ratings = [MASSEY_INITIAL] * N
     M = np.zeros((N, N))
     mb = np.zeros(N)
 
     # Initialize Colley matrix (C) and RHS vector (b)
-    colley_ratings = {team: initial_ratings.get(team, COLLEY_INITIAL) if initial_ratings else COLLEY_INITIAL for team in teams}
+    colley_ratings = [COLLEY_INITIAL] * N
     C = np.eye(N) * 2  # Start with 2 on the diagonal
     cb = np.ones(N)  # Initialize b with 1s
 
