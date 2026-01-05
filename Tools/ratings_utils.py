@@ -995,15 +995,22 @@ def compute_score_features(df: pd.DataFrame, final_ratings_filename: str):
     return df
 
 
-def derive_features(df: pd.DataFrame):
+def derive_features(df: pd.DataFrame, final_ratings_filename: str=None, need_score_computation: bool=True):
     """Derive ML model features from rating/score dataframe
 
     Args:
         df (pd.DataFrame): dataframe containing ratings in ML model format
+        final_ratings_filename (str): final ratings filename string
+        need_score_computation (bool): whether to compute score features
 
     Returns:
         df (pd.DataFrame): dataframe containing ratings in ML model format with derived features
     """
+
+    if need_score_computation:
+        # TODO: Move to mid-season and pull last game for compile_ratings_dict?
+        df = compute_score_features(df=df, final_ratings_filename=final_ratings_filename)
+        pass
 
     # Add feature columns
     for feature in ML_FEATURES:
@@ -1084,7 +1091,7 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
     model_ratings = {}
 
     df = mimic_tournament_rating_scores_df(tourney_df=tourney_df, ratings=ratings)
-    df = derive_features(df=df)
+    df = derive_features(df=df, need_score_computation=False)
 
     # Add ratings to 1st round
     for i in range(32):
