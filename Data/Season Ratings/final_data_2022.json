@@ -1,0 +1,6140 @@
+{
+    "Abilene Christian": {
+        "Massey": 16.3003323229,
+        "Colley": 0.7868412847,
+        "Elo": 1643.1744806097,
+        "Adj_Elo": 1872.5079042668,
+        "Avg_Pts_For": 76.69444444444444,
+        "Avg_Pts_Against": 67.55555555555556,
+        "Avg_Net_Pts": 9.138888888888886
+    },
+    "Academy of Art": {
+        "Massey": 5.7932962845,
+        "Colley": 0.6384539745,
+        "Elo": 1504.8317757072,
+        "Adj_Elo": 1552.4487272115,
+        "Avg_Pts_For": 78.5,
+        "Avg_Pts_Against": 85.5,
+        "Avg_Net_Pts": -7.0
+    },
+    "Air Force": {
+        "Massey": 6.247532848,
+        "Colley": 0.578806518,
+        "Elo": 1427.4587588617,
+        "Adj_Elo": 1363.5944979243,
+        "Avg_Pts_For": 59.03448275862069,
+        "Avg_Pts_Against": 66.03448275862068,
+        "Avg_Net_Pts": -6.999999999999993
+    },
+    "Akron": {
+        "Massey": 14.2972520382,
+        "Colley": 0.7746843346,
+        "Elo": 1648.2307362483,
+        "Adj_Elo": 2076.518191849,
+        "Avg_Pts_For": 71.18181818181819,
+        "Avg_Pts_Against": 62.81818181818182,
+        "Avg_Net_Pts": 8.363636363636367
+    },
+    "Alabama": {
+        "Massey": 24.841536516,
+        "Colley": 0.950450142,
+        "Elo": 1577.1990603299,
+        "Adj_Elo": 1733.911267314,
+        "Avg_Pts_For": 79.96875,
+        "Avg_Pts_Against": 76.40625,
+        "Avg_Net_Pts": 3.5625
+    },
+    "Alabama A&M": {
+        "Massey": -1.456051354,
+        "Colley": 0.3784743293,
+        "Elo": 1440.138498724,
+        "Adj_Elo": 1419.1668695602,
+        "Avg_Pts_For": 61.43333333333333,
+        "Avg_Pts_Against": 67.0,
+        "Avg_Net_Pts": -5.56666666666667
+    },
+    "Alabama State": {
+        "Massey": 0.7169108966,
+        "Colley": 0.3546089176,
+        "Elo": 1391.5800576556,
+        "Adj_Elo": 1305.2991570109,
+        "Avg_Pts_For": 69.6774193548387,
+        "Avg_Pts_Against": 75.2258064516129,
+        "Avg_Net_Pts": -5.548387096774192
+    },
+    "Albany (NY)": {
+        "Massey": 3.3412936503,
+        "Colley": 0.4219380786,
+        "Elo": 1433.2433575757,
+        "Adj_Elo": 1205.796766936,
+        "Avg_Pts_For": 61.529411764705884,
+        "Avg_Pts_Against": 65.3529411764706,
+        "Avg_Net_Pts": -3.82352941176471
+    },
+    "Alcorn State": {
+        "Massey": 3.0005009291,
+        "Colley": 0.540770964,
+        "Elo": 1512.5118033112,
+        "Adj_Elo": 1505.2431973381,
+        "Avg_Pts_For": 66.52941176470588,
+        "Avg_Pts_Against": 71.08823529411765,
+        "Avg_Net_Pts": -4.558823529411768
+    },
+    "Alice Lloyd": {
+        "Massey": -22.1192302971,
+        "Colley": 0.2598681581,
+        "Elo": 1457.365086405,
+        "Adj_Elo": 1300.2116698421,
+        "Avg_Pts_For": 51.333333333333336,
+        "Avg_Pts_Against": 94.66666666666667,
+        "Avg_Net_Pts": -43.333333333333336
+    },
+    "Allen": {
+        "Massey": -17.3711593743,
+        "Colley": 0.448634032,
+        "Elo": 1487.9282243749,
+        "Adj_Elo": 1437.9695652909,
+        "Avg_Pts_For": 51.0,
+        "Avg_Pts_Against": 110.0,
+        "Avg_Net_Pts": -59.0
+    },
+    "American": {
+        "Massey": -1.8377139264,
+        "Colley": 0.3042384329,
+        "Elo": 1390.4716729648,
+        "Adj_Elo": 1340.8734541356,
+        "Avg_Pts_For": 63.46875,
+        "Avg_Pts_Against": 70.9375,
+        "Avg_Net_Pts": -7.46875
+    },
+    "American International": {
+        "Massey": -0.5091351168,
+        "Colley": 0.3789703961,
+        "Elo": 1487.7542576914,
+        "Adj_Elo": 1469.6248884454,
+        "Avg_Pts_For": 55.0,
+        "Avg_Pts_Against": 70.0,
+        "Avg_Net_Pts": -15.0
+    },
+    "Antelope Valley": {
+        "Massey": -8.1209340302,
+        "Colley": 0.4170687377,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1349.660876426,
+        "Avg_Pts_For": 48.0,
+        "Avg_Pts_Against": 82.0,
+        "Avg_Net_Pts": -34.0
+    },
+    "Appalachian State": {
+        "Massey": 12.9363773881,
+        "Colley": 0.7018524361,
+        "Elo": 1553.1782884019,
+        "Adj_Elo": 1673.88383602,
+        "Avg_Pts_For": 67.14285714285714,
+        "Avg_Pts_Against": 63.0,
+        "Avg_Net_Pts": 4.142857142857139
+    },
+    "Aquinas": {
+        "Massey": -4.758802491,
+        "Colley": 0.2922576312,
+        "Elo": 1483.2767919173,
+        "Adj_Elo": 1376.3024796292,
+        "Avg_Pts_For": 56.0,
+        "Avg_Pts_Against": 67.0,
+        "Avg_Net_Pts": -11.0
+    },
+    "Arizona": {
+        "Massey": 32.7335871584,
+        "Colley": 1.1460492489,
+        "Elo": 1773.6723072997,
+        "Adj_Elo": 2252.3580631458,
+        "Avg_Pts_For": 84.55882352941177,
+        "Avg_Pts_Against": 67.52941176470588,
+        "Avg_Net_Pts": 17.029411764705884
+    },
+    "Arizona Christian": {
+        "Massey": 0.9479997577,
+        "Colley": 0.3679659639,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1415.4765166915,
+        "Avg_Pts_For": 67.0,
+        "Avg_Pts_Against": 74.0,
+        "Avg_Net_Pts": -7.0
+    },
+    "Arizona State": {
+        "Massey": 17.1890430565,
+        "Colley": 0.7725951539,
+        "Elo": 1536.9578907651,
+        "Adj_Elo": 1899.2741209606,
+        "Avg_Pts_For": 65.38709677419355,
+        "Avg_Pts_Against": 67.2258064516129,
+        "Avg_Net_Pts": -1.8387096774193452
+    },
+    "Arkansas": {
+        "Massey": 26.1200520622,
+        "Colley": 1.0208726529,
+        "Elo": 1690.7211360654,
+        "Adj_Elo": 2086.5045744529,
+        "Avg_Pts_For": 76.93939393939394,
+        "Avg_Pts_Against": 68.54545454545455,
+        "Avg_Net_Pts": 8.393939393939391
+    },
+    "Arkansas Baptist": {
+        "Massey": -11.1729806002,
+        "Colley": 0.184891939,
+        "Elo": 1455.9573809273,
+        "Adj_Elo": 1313.4082554381,
+        "Avg_Pts_For": 64.66666666666667,
+        "Avg_Pts_Against": 83.33333333333333,
+        "Avg_Net_Pts": -18.666666666666657
+    },
+    "Arkansas State": {
+        "Massey": 10.9614781961,
+        "Colley": 0.7081500489,
+        "Elo": 1560.0514481034,
+        "Adj_Elo": 1685.6563167525,
+        "Avg_Pts_For": 70.86206896551724,
+        "Avg_Pts_Against": 68.06896551724138,
+        "Avg_Net_Pts": 2.7931034482758577
+    },
+    "Arkansas-Pine Bluff": {
+        "Massey": -6.2104068468,
+        "Colley": 0.277322443,
+        "Elo": 1324.7390868896,
+        "Adj_Elo": 1122.7802549327,
+        "Avg_Pts_For": 66.29032258064517,
+        "Avg_Pts_Against": 78.25806451612904,
+        "Avg_Net_Pts": -11.967741935483872
+    },
+    "Arlington Baptist": {
+        "Massey": -30.5086713122,
+        "Colley": 0.2983956147,
+        "Elo": 1482.6164099265,
+        "Adj_Elo": 1315.8458145881,
+        "Avg_Pts_For": 44.0,
+        "Avg_Pts_Against": 120.0,
+        "Avg_Net_Pts": -76.0
+    },
+    "Army": {
+        "Massey": 4.1408712331,
+        "Colley": 0.4792204623,
+        "Elo": 1455.1302983546,
+        "Adj_Elo": 1297.7054269143,
+        "Avg_Pts_For": 70.90625,
+        "Avg_Pts_Against": 70.65625,
+        "Avg_Net_Pts": 0.25
+    },
+    "Asbury": {
+        "Massey": -8.8744300742,
+        "Colley": 0.4003153412,
+        "Elo": 1483.9580368784,
+        "Adj_Elo": 1420.3008085894,
+        "Avg_Pts_For": 55.0,
+        "Avg_Pts_Against": 87.0,
+        "Avg_Net_Pts": -32.0
+    },
+    "Ashland": {
+        "Massey": 1.4528550359,
+        "Colley": 0.4128100984,
+        "Elo": 1487.727670588,
+        "Adj_Elo": 1464.4055308436,
+        "Avg_Pts_For": 57.0,
+        "Avg_Pts_Against": 71.0,
+        "Avg_Net_Pts": -14.0
+    },
+    "Auburn": {
+        "Massey": 29.6715761221,
+        "Colley": 1.1031900251,
+        "Elo": 1704.5755701356,
+        "Adj_Elo": 2082.7406079603,
+        "Avg_Pts_For": 78.71875,
+        "Avg_Pts_Against": 67.03125,
+        "Avg_Net_Pts": 11.6875
+    },
+    "Austin Peay": {
+        "Massey": 4.1730071724,
+        "Colley": 0.4726751791,
+        "Elo": 1455.0807031038,
+        "Adj_Elo": 1384.2900975217,
+        "Avg_Pts_For": 64.65517241379311,
+        "Avg_Pts_Against": 69.10344827586206,
+        "Avg_Net_Pts": -4.448275862068954
+    },
+    "Babson": {
+        "Massey": -0.4143071457,
+        "Colley": 0.3422681684,
+        "Elo": 1485.4133866125,
+        "Adj_Elo": 1444.777023721,
+        "Avg_Pts_For": 64.0,
+        "Avg_Pts_Against": 74.0,
+        "Avg_Net_Pts": -10.0
+    },
+    "Ball State": {
+        "Massey": 5.5153057169,
+        "Colley": 0.5252527923,
+        "Elo": 1480.9560850009,
+        "Adj_Elo": 1474.1653463796,
+        "Avg_Pts_For": 74.3225806451613,
+        "Avg_Pts_Against": 76.7741935483871,
+        "Avg_Net_Pts": -2.451612903225808
+    },
+    "Baptist Bible (MO)": {
+        "Massey": -12.1524472564,
+        "Colley": 0.3827872281,
+        "Elo": 1485.5881073439,
+        "Adj_Elo": 1416.6088316629,
+        "Avg_Pts_For": 57.0,
+        "Avg_Pts_Against": 98.0,
+        "Avg_Net_Pts": -41.0
+    },
+    "Barclay": {
+        "Massey": -32.6810447502,
+        "Colley": 0.2950567927,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1305.8327852481,
+        "Avg_Pts_For": 44.0,
+        "Avg_Pts_Against": 122.0,
+        "Avg_Net_Pts": -78.0
+    },
+    "Baylor": {
+        "Massey": 30.6359394487,
+        "Colley": 1.0850178274,
+        "Elo": 1705.0931031781,
+        "Adj_Elo": 2131.9782348412,
+        "Avg_Pts_For": 76.5,
+        "Avg_Pts_Against": 63.625,
+        "Avg_Net_Pts": 12.875
+    },
+    "Belhaven (MS)": {
+        "Massey": -13.8344364169,
+        "Colley": 0.3562721439,
+        "Elo": 1482.9394942504,
+        "Adj_Elo": 1338.4302258402,
+        "Avg_Pts_For": 54.0,
+        "Avg_Pts_Against": 94.0,
+        "Avg_Net_Pts": -40.0
+    },
+    "Bellarmine": {
+        "Massey": 11.1207275928,
+        "Colley": 0.7009460236,
+        "Elo": 1598.5452533498,
+        "Adj_Elo": 1821.6951087027,
+        "Avg_Pts_For": 70.12121212121212,
+        "Avg_Pts_Against": 67.18181818181819,
+        "Avg_Net_Pts": 2.9393939393939377
+    },
+    "Belmont": {
+        "Massey": 19.4357219661,
+        "Colley": 0.8442494339,
+        "Elo": 1638.1280101366,
+        "Adj_Elo": 1757.4990675634,
+        "Avg_Pts_For": 78.27272727272727,
+        "Avg_Pts_Against": 68.60606060606061,
+        "Avg_Net_Pts": 9.666666666666657
+    },
+    "Benedictine (AZ)": {
+        "Massey": -20.7647912701,
+        "Colley": 0.197866717,
+        "Elo": 1470.0875385699,
+        "Adj_Elo": 1278.833410126,
+        "Avg_Pts_For": 53.5,
+        "Avg_Pts_Against": 92.0,
+        "Avg_Net_Pts": -38.5
+    },
+    "Bethel (IN)": {
+        "Massey": -4.06515682,
+        "Colley": 0.4480831446,
+        "Elo": 1489.022820798,
+        "Adj_Elo": 1486.9450126529,
+        "Avg_Pts_For": 86.0,
+        "Avg_Pts_Against": 115.0,
+        "Avg_Net_Pts": -29.0
+    },
+    "Bethesda University (CA)": {
+        "Massey": -25.2602380562,
+        "Colley": 0.2355561526,
+        "Elo": 1399.1761042453,
+        "Adj_Elo": 1034.1971066966,
+        "Avg_Pts_For": 64.0,
+        "Avg_Pts_Against": 100.5,
+        "Avg_Net_Pts": -36.5
+    },
+    "Bethune-Cookman": {
+        "Massey": -1.6624833726,
+        "Colley": 0.3106439806,
+        "Elo": 1374.9898293564,
+        "Adj_Elo": 1159.858817378,
+        "Avg_Pts_For": 63.36666666666667,
+        "Avg_Pts_Against": 69.53333333333333,
+        "Avg_Net_Pts": -6.166666666666664
+    },
+    "Binghamton": {
+        "Massey": 4.5034476949,
+        "Colley": 0.4192972217,
+        "Elo": 1452.8693520741,
+        "Adj_Elo": 1488.8945852528,
+        "Avg_Pts_For": 67.61290322580645,
+        "Avg_Pts_Against": 68.35483870967742,
+        "Avg_Net_Pts": -0.7419354838709751
+    },
+    "Birmingham-Southern": {
+        "Massey": -0.5658768067,
+        "Colley": 0.3346763488,
+        "Elo": 1485.0,
+        "Adj_Elo": 1431.3784291246,
+        "Avg_Pts_For": 98.0,
+        "Avg_Pts_Against": 105.0,
+        "Avg_Net_Pts": -7.0
+    },
+    "Blue Mountain Christian University": {
+        "Massey": -3.3238306564,
+        "Colley": 0.3817227339,
+        "Elo": 1486.4728810771,
+        "Adj_Elo": 1421.1206148911,
+        "Avg_Pts_For": 69.0,
+        "Avg_Pts_Against": 87.0,
+        "Avg_Net_Pts": -18.0
+    },
+    "Bluefield University": {
+        "Massey": -13.5472532915,
+        "Colley": 0.2527034458,
+        "Elo": 1471.7699870976,
+        "Adj_Elo": 1367.0679385605,
+        "Avg_Pts_For": 64.5,
+        "Avg_Pts_Against": 94.5,
+        "Avg_Net_Pts": -30.0
+    },
+    "Bob Jones University": {
+        "Massey": -27.659272918,
+        "Colley": 0.1574146097,
+        "Elo": 1445.5675487221,
+        "Adj_Elo": 1208.680250952,
+        "Avg_Pts_For": 63.5,
+        "Avg_Pts_Against": 107.25,
+        "Avg_Net_Pts": -43.75
+    },
+    "Boise State": {
+        "Massey": 22.5384101126,
+        "Colley": 1.0269610125,
+        "Elo": 1728.192185206,
+        "Adj_Elo": 2137.9935238682,
+        "Avg_Pts_For": 68.70588235294117,
+        "Avg_Pts_Against": 60.76470588235294,
+        "Avg_Net_Pts": 7.941176470588232
+    },
+    "Boston College": {
+        "Massey": 13.5425195957,
+        "Colley": 0.590619026,
+        "Elo": 1460.8392080812,
+        "Adj_Elo": 1690.6186011089,
+        "Avg_Pts_For": 66.93939393939394,
+        "Avg_Pts_Against": 68.12121212121212,
+        "Avg_Net_Pts": -1.181818181818187
+    },
+    "Boston University": {
+        "Massey": 8.1803789148,
+        "Colley": 0.6141610991,
+        "Elo": 1557.2105505757,
+        "Adj_Elo": 1535.4569396123,
+        "Avg_Pts_For": 70.69444444444444,
+        "Avg_Pts_Against": 67.75,
+        "Avg_Net_Pts": 2.944444444444443
+    },
+    "Bowling Green State": {
+        "Massey": 5.8320781578,
+        "Colley": 0.4896364872,
+        "Elo": 1437.1199340514,
+        "Adj_Elo": 1280.0815716996,
+        "Avg_Pts_For": 80.25806451612904,
+        "Avg_Pts_Against": 80.48387096774194,
+        "Avg_Net_Pts": -0.2258064516128968
+    },
+    "Boyce": {
+        "Massey": -19.0628324807,
+        "Colley": 0.3529614076,
+        "Elo": 1472.3078912945,
+        "Adj_Elo": 1360.9456271162,
+        "Avg_Pts_For": 44.5,
+        "Avg_Pts_Against": 90.5,
+        "Avg_Net_Pts": -46.0
+    },
+    "Bradley": {
+        "Massey": 17.6567765435,
+        "Colley": 0.6792887498,
+        "Elo": 1558.6347894382,
+        "Adj_Elo": 1738.6030481634,
+        "Avg_Pts_For": 70.48387096774194,
+        "Avg_Pts_Against": 65.19354838709677,
+        "Avg_Net_Pts": 5.290322580645167
+    },
+    "Brescia": {
+        "Massey": -9.0305575787,
+        "Colley": 0.4411184638,
+        "Elo": 1485.0,
+        "Adj_Elo": 1378.2669780142,
+        "Avg_Pts_For": 59.0,
+        "Avg_Pts_Against": 98.0,
+        "Avg_Net_Pts": -39.0
+    },
+    "Brevard": {
+        "Massey": -19.2754678253,
+        "Colley": 0.357842862,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1325.8143437352,
+        "Avg_Pts_For": 44.0,
+        "Avg_Pts_Against": 101.0,
+        "Avg_Net_Pts": -57.0
+    },
+    "Brewton-Parker": {
+        "Massey": -19.915397658,
+        "Colley": 0.406401092,
+        "Elo": 1485.0,
+        "Adj_Elo": 1364.3411624823,
+        "Avg_Pts_For": 37.0,
+        "Avg_Pts_Against": 97.0,
+        "Avg_Net_Pts": -60.0
+    },
+    "Bridgewater (VA)": {
+        "Massey": -4.2230785681,
+        "Colley": 0.4071448324,
+        "Elo": 1485.0,
+        "Adj_Elo": 1395.1242235985,
+        "Avg_Pts_For": 56.0,
+        "Avg_Pts_Against": 79.0,
+        "Avg_Net_Pts": -23.0
+    },
+    "Brigham Young": {
+        "Massey": 20.6654398062,
+        "Colley": 0.9034118919,
+        "Elo": 1614.2381787822,
+        "Adj_Elo": 1910.7964188679,
+        "Avg_Pts_For": 74.25714285714285,
+        "Avg_Pts_Against": 68.34285714285714,
+        "Avg_Net_Pts": 5.914285714285711
+    },
+    "Brown": {
+        "Massey": 10.1469600315,
+        "Colley": 0.5297438679,
+        "Elo": 1456.85366503,
+        "Adj_Elo": 1339.8455143399,
+        "Avg_Pts_For": 70.96551724137932,
+        "Avg_Pts_Against": 69.48275862068965,
+        "Avg_Net_Pts": 1.4827586206896655
+    },
+    "Bryan": {
+        "Massey": -12.8558762541,
+        "Colley": 0.4411184638,
+        "Elo": 1487.2817869657,
+        "Adj_Elo": 1439.8943480652,
+        "Avg_Pts_For": 48.0,
+        "Avg_Pts_Against": 96.0,
+        "Avg_Net_Pts": -48.0
+    },
+    "Bryant": {
+        "Massey": 9.8112964943,
+        "Colley": 0.6779448132,
+        "Elo": 1651.2075035769,
+        "Adj_Elo": 1934.0895280434,
+        "Avg_Pts_For": 78.36363636363636,
+        "Avg_Pts_Against": 72.48484848484848,
+        "Avg_Net_Pts": 5.878787878787875
+    },
+    "Bryn Athyn": {
+        "Massey": -19.2457775561,
+        "Colley": 0.3051941047,
+        "Elo": 1483.73574423,
+        "Adj_Elo": 1324.6606691483,
+        "Avg_Pts_For": 42.0,
+        "Avg_Pts_Against": 91.0,
+        "Avg_Net_Pts": -49.0
+    },
+    "Bucknell": {
+        "Massey": -1.5436171489,
+        "Colley": 0.3060413959,
+        "Elo": 1392.2616976206,
+        "Adj_Elo": 1302.9614416435,
+        "Avg_Pts_For": 71.15625,
+        "Avg_Pts_Against": 79.40625,
+        "Avg_Net_Pts": -8.25
+    },
+    "Buffalo": {
+        "Massey": 14.7992724266,
+        "Colley": 0.7139108251,
+        "Elo": 1574.6378089695,
+        "Adj_Elo": 1726.815167349,
+        "Avg_Pts_For": 79.93333333333334,
+        "Avg_Pts_Against": 72.26666666666667,
+        "Avg_Net_Pts": 7.666666666666671
+    },
+    "Buffalo State": {
+        "Massey": -21.3598568515,
+        "Colley": 0.3489566188,
+        "Elo": 1483.3805926937,
+        "Adj_Elo": 1354.0004098637,
+        "Avg_Pts_For": 52.0,
+        "Avg_Pts_Against": 112.0,
+        "Avg_Net_Pts": -60.0
+    },
+    "Bushnell": {
+        "Massey": -14.232709244,
+        "Colley": 0.3936524319,
+        "Elo": 1485.6683422415,
+        "Adj_Elo": 1413.7996833561,
+        "Avg_Pts_For": 39.0,
+        "Avg_Pts_Against": 84.0,
+        "Avg_Net_Pts": -45.0
+    },
+    "Butler": {
+        "Massey": 14.3977233031,
+        "Colley": 0.7350532443,
+        "Elo": 1490.0906577864,
+        "Adj_Elo": 1689.8555798677,
+        "Avg_Pts_For": 63.84848484848485,
+        "Avg_Pts_Against": 66.93939393939394,
+        "Avg_Net_Pts": -3.0909090909090864
+    },
+    "Cairn": {
+        "Massey": -18.9222591603,
+        "Colley": 0.2065670712,
+        "Elo": 1485.0,
+        "Adj_Elo": 1378.2669780142,
+        "Avg_Pts_For": 41.0,
+        "Avg_Pts_Against": 80.0,
+        "Avg_Net_Pts": -39.0
+    },
+    "Cal Lutheran": {
+        "Massey": -8.0658728771,
+        "Colley": 0.3207429562,
+        "Elo": 1471.3450324956,
+        "Adj_Elo": 1343.0164275336,
+        "Avg_Pts_For": 60.5,
+        "Avg_Pts_Against": 85.5,
+        "Avg_Net_Pts": -25.0
+    },
+    "Cal Poly": {
+        "Massey": 2.4317418114,
+        "Colley": 0.3505484163,
+        "Elo": 1379.4530133756,
+        "Adj_Elo": 1338.856363935,
+        "Avg_Pts_For": 61.464285714285715,
+        "Avg_Pts_Against": 67.32142857142857,
+        "Avg_Net_Pts": -5.857142857142854
+    },
+    "Cal State Bakersfield": {
+        "Massey": 5.36352585,
+        "Colley": 0.4133047845,
+        "Elo": 1384.1014452785,
+        "Adj_Elo": 1260.5402819052,
+        "Avg_Pts_For": 64.85714285714286,
+        "Avg_Pts_Against": 66.32142857142857,
+        "Avg_Net_Pts": -1.4642857142857082
+    },
+    "Cal State Fullerton": {
+        "Massey": 11.6506531096,
+        "Colley": 0.7403556869,
+        "Elo": 1617.5879817469,
+        "Adj_Elo": 1796.4815495517,
+        "Avg_Pts_For": 70.25806451612904,
+        "Avg_Pts_Against": 66.16129032258064,
+        "Avg_Net_Pts": 4.096774193548399
+    },
+    "Cal State Northridge": {
+        "Massey": -0.7962627168,
+        "Colley": 0.3615276021,
+        "Elo": 1342.8446128906,
+        "Adj_Elo": 1105.0322604965,
+        "Avg_Pts_For": 61.56666666666667,
+        "Avg_Pts_Against": 71.23333333333333,
+        "Avg_Net_Pts": -9.666666666666664
+    },
+    "Cal State Stanislaus": {
+        "Massey": -8.0705685834,
+        "Colley": 0.3648746651,
+        "Elo": 1473.8915691199,
+        "Adj_Elo": 1371.9391325899,
+        "Avg_Pts_For": 42.5,
+        "Avg_Pts_Against": 70.5,
+        "Avg_Net_Pts": -28.0
+    },
+    "Cal Tech": {
+        "Massey": -14.8140846619,
+        "Colley": 0.3365361718,
+        "Elo": 1485.118395244,
+        "Adj_Elo": 1350.0997890666,
+        "Avg_Pts_For": 52.0,
+        "Avg_Pts_Against": 93.0,
+        "Avg_Net_Pts": -41.0
+    },
+    "California": {
+        "Massey": 13.9729183688,
+        "Colley": 0.6418516274,
+        "Elo": 1443.3643854486,
+        "Adj_Elo": 1571.1593852127,
+        "Avg_Pts_For": 63.0625,
+        "Avg_Pts_Against": 66.0625,
+        "Avg_Net_Pts": -3.0
+    },
+    "California Baptist": {
+        "Massey": 9.7945324506,
+        "Colley": 0.593342158,
+        "Elo": 1497.274260573,
+        "Adj_Elo": 1541.4910187209,
+        "Avg_Pts_For": 70.6470588235294,
+        "Avg_Pts_Against": 67.17647058823529,
+        "Avg_Net_Pts": 3.470588235294116
+    },
+    "Calvary University": {
+        "Massey": -21.0781908323,
+        "Colley": 0.3827872281,
+        "Elo": 1484.4471885299,
+        "Adj_Elo": 1360.1574259327,
+        "Avg_Pts_For": 32.0,
+        "Avg_Pts_Against": 94.0,
+        "Avg_Net_Pts": -62.0
+    },
+    "Campbell": {
+        "Massey": 9.3569176787,
+        "Colley": 0.5843230878,
+        "Elo": 1506.0426949911,
+        "Adj_Elo": 1535.0355613479,
+        "Avg_Pts_For": 66.23333333333333,
+        "Avg_Pts_Against": 62.166666666666664,
+        "Avg_Net_Pts": 4.06666666666667
+    },
+    "Campbellsville": {
+        "Massey": -5.5326175762,
+        "Colley": 0.4943350548,
+        "Elo": 1487.2920498955,
+        "Adj_Elo": 1452.0468762887,
+        "Avg_Pts_For": 61.0,
+        "Avg_Pts_Against": 98.0,
+        "Avg_Net_Pts": -37.0
+    },
+    "Campbellsville-Harrodsburg": {
+        "Massey": -15.1710534085,
+        "Colley": 0.3139682488,
+        "Elo": 1483.3910689323,
+        "Adj_Elo": 1353.9701431355,
+        "Avg_Pts_For": 66.0,
+        "Avg_Pts_Against": 108.0,
+        "Avg_Net_Pts": -42.0
+    },
+    "Canisius": {
+        "Massey": 5.6283174317,
+        "Colley": 0.4539373469,
+        "Elo": 1440.1483613089,
+        "Adj_Elo": 1456.7705532123,
+        "Avg_Pts_For": 68.5,
+        "Avg_Pts_Against": 71.5,
+        "Avg_Net_Pts": -3.0
+    },
+    "Carlow": {
+        "Massey": -46.5087294844,
+        "Colley": 0.2490393946,
+        "Elo": 1458.3327748445,
+        "Adj_Elo": 1240.4666870944,
+        "Avg_Pts_For": 48.333333333333336,
+        "Avg_Pts_Against": 125.0,
+        "Avg_Net_Pts": -76.66666666666666
+    },
+    "Carroll (MT)": {
+        "Massey": -3.7286009699,
+        "Colley": 0.4310772617,
+        "Elo": 1487.5549022925,
+        "Adj_Elo": 1470.7650282135,
+        "Avg_Pts_For": 63.0,
+        "Avg_Pts_Against": 93.0,
+        "Avg_Net_Pts": -30.0
+    },
+    "Carver College": {
+        "Massey": -43.7117559658,
+        "Colley": 0.0998744272,
+        "Elo": 1304.4951291631,
+        "Adj_Elo": 915.0133153716,
+        "Avg_Pts_For": 46.611111111111114,
+        "Avg_Pts_Against": 101.88888888888889,
+        "Avg_Net_Pts": -55.27777777777777
+    },
+    "Centenary (LA)": {
+        "Massey": -13.1728121244,
+        "Colley": 0.3408992649,
+        "Elo": 1483.7867894711,
+        "Adj_Elo": 1340.1335858412,
+        "Avg_Pts_For": 67.0,
+        "Avg_Pts_Against": 104.0,
+        "Avg_Net_Pts": -37.0
+    },
+    "Central Arkansas": {
+        "Massey": 1.7956826824,
+        "Colley": 0.4672270513,
+        "Elo": 1445.9877746382,
+        "Adj_Elo": 1422.9509398895,
+        "Avg_Pts_For": 73.19354838709677,
+        "Avg_Pts_Against": 81.12903225806451,
+        "Avg_Net_Pts": -7.935483870967744
+    },
+    "Central Baptist": {
+        "Massey": -6.8169396647,
+        "Colley": 0.402716683,
+        "Elo": 1485.0,
+        "Adj_Elo": 1385.6528340418,
+        "Avg_Pts_For": 63.0,
+        "Avg_Pts_Against": 90.0,
+        "Avg_Net_Pts": -27.0
+    },
+    "Central Connecticut State": {
+        "Massey": -3.1201207092,
+        "Colley": 0.2890188629,
+        "Elo": 1349.3888159573,
+        "Adj_Elo": 1027.4084886368,
+        "Avg_Pts_For": 61.97142857142857,
+        "Avg_Pts_Against": 71.28571428571429,
+        "Avg_Net_Pts": -9.314285714285724
+    },
+    "Central Methodist": {
+        "Massey": -6.5177310542,
+        "Colley": 0.467803964,
+        "Elo": 1486.9320147072,
+        "Adj_Elo": 1460.2662406177,
+        "Avg_Pts_For": 61.0,
+        "Avg_Pts_Against": 97.0,
+        "Avg_Net_Pts": -36.0
+    },
+    "Central Michigan": {
+        "Massey": 0.4718857555,
+        "Colley": 0.3871935618,
+        "Elo": 1373.5724275461,
+        "Adj_Elo": 1272.5057396403,
+        "Avg_Pts_For": 65.93333333333334,
+        "Avg_Pts_Against": 76.96666666666667,
+        "Avg_Net_Pts": -11.033333333333331
+    },
+    "Centre (KY)": {
+        "Massey": -9.105981349,
+        "Colley": 0.4057777035,
+        "Elo": 1486.431743832,
+        "Adj_Elo": 1454.4697615115,
+        "Avg_Pts_For": 52.0,
+        "Avg_Pts_Against": 90.0,
+        "Avg_Net_Pts": -38.0
+    },
+    "Chaminade": {
+        "Massey": -6.5390573645,
+        "Colley": 0.392066925,
+        "Elo": 1458.0399315038,
+        "Adj_Elo": 1282.2178000342,
+        "Avg_Pts_For": 54.666666666666664,
+        "Avg_Pts_Against": 82.33333333333333,
+        "Avg_Net_Pts": -27.666666666666664
+    },
+    "Champion Christian": {
+        "Massey": -36.8106392436,
+        "Colley": 0.0732638895,
+        "Elo": 1411.2651006488,
+        "Adj_Elo": 1024.3855691758,
+        "Avg_Pts_For": 58.666666666666664,
+        "Avg_Pts_Against": 106.5,
+        "Avg_Net_Pts": -47.833333333333336
+    },
+    "Charleston Southern": {
+        "Massey": -1.3545276067,
+        "Colley": 0.255712374,
+        "Elo": 1328.9181451951,
+        "Adj_Elo": 1137.6363141429,
+        "Avg_Pts_For": 68.45161290322581,
+        "Avg_Pts_Against": 76.0,
+        "Avg_Net_Pts": -7.548387096774192
+    },
+    "Charlotte": {
+        "Massey": 10.7775477893,
+        "Colley": 0.6937739677,
+        "Elo": 1529.1734745331,
+        "Adj_Elo": 1542.0745265051,
+        "Avg_Pts_For": 70.03225806451613,
+        "Avg_Pts_Against": 71.2258064516129,
+        "Avg_Net_Pts": -1.1935483870967687
+    },
+    "Chattanooga": {
+        "Massey": 19.212742274,
+        "Colley": 0.9113709093,
+        "Elo": 1691.7764515969,
+        "Adj_Elo": 2012.4401803282,
+        "Avg_Pts_For": 74.79411764705883,
+        "Avg_Pts_Against": 64.67647058823529,
+        "Avg_Net_Pts": 10.117647058823536
+    },
+    "Chicago State": {
+        "Massey": -1.1636986433,
+        "Colley": 0.3547774973,
+        "Elo": 1355.9829255008,
+        "Adj_Elo": 1226.6364994557,
+        "Avg_Pts_For": 62.09375,
+        "Avg_Pts_Against": 74.375,
+        "Avg_Net_Pts": -12.28125
+    },
+    "Chowan": {
+        "Massey": -9.4246220294,
+        "Colley": 0.3401757327,
+        "Elo": 1484.4960074191,
+        "Adj_Elo": 1381.6333322904,
+        "Avg_Pts_For": 60.0,
+        "Avg_Pts_Against": 90.0,
+        "Avg_Net_Pts": -30.0
+    },
+    "Cincinnati": {
+        "Massey": 17.4181976542,
+        "Colley": 0.7384302952,
+        "Elo": 1512.2864033135,
+        "Adj_Elo": 1596.8414492013,
+        "Avg_Pts_For": 69.42424242424242,
+        "Avg_Pts_Against": 65.93939393939394,
+        "Avg_Net_Pts": 3.4848484848484844
+    },
+    "Clarks Summit": {
+        "Massey": -22.8609750339,
+        "Colley": 0.2590166782,
+        "Elo": 1468.854519583,
+        "Adj_Elo": 1264.7080628009,
+        "Avg_Pts_For": 49.0,
+        "Avg_Pts_Against": 95.0,
+        "Avg_Net_Pts": -46.0
+    },
+    "Clayton State": {
+        "Massey": -15.8782795178,
+        "Colley": 0.364959105,
+        "Elo": 1484.1934551405,
+        "Adj_Elo": 1398.4894130262,
+        "Avg_Pts_For": 53.0,
+        "Avg_Pts_Against": 103.0,
+        "Avg_Net_Pts": -50.0
+    },
+    "Clemson": {
+        "Massey": 19.0888935708,
+        "Colley": 0.74959156,
+        "Elo": 1527.5100440099,
+        "Adj_Elo": 1821.3552325561,
+        "Avg_Pts_For": 71.72727272727273,
+        "Avg_Pts_Against": 68.45454545454545,
+        "Avg_Net_Pts": 3.2727272727272805
+    },
+    "Cleveland State": {
+        "Massey": 11.678452373,
+        "Colley": 0.6513962282,
+        "Elo": 1529.4040763162,
+        "Adj_Elo": 1493.9708874543,
+        "Avg_Pts_For": 75.35483870967742,
+        "Avg_Pts_Against": 69.93548387096774,
+        "Avg_Net_Pts": 5.41935483870968
+    },
+    "Coastal Carolina": {
+        "Massey": 15.0401432908,
+        "Colley": 0.6909723242,
+        "Elo": 1565.2428887028,
+        "Adj_Elo": 1781.8304671715,
+        "Avg_Pts_For": 72.84848484848484,
+        "Avg_Pts_Against": 65.33333333333333,
+        "Avg_Net_Pts": 7.515151515151516
+    },
+    "Coastal Georgia": {
+        "Massey": -7.2777460345,
+        "Colley": 0.3964795515,
+        "Elo": 1485.0310639907,
+        "Adj_Elo": 1402.5889315499,
+        "Avg_Pts_For": 54.0,
+        "Avg_Pts_Against": 83.0,
+        "Avg_Net_Pts": -29.0
+    },
+    "Coe": {
+        "Massey": -2.8736479255,
+        "Colley": 0.4387237586,
+        "Elo": 1485.0,
+        "Adj_Elo": 1391.2373834219,
+        "Avg_Pts_For": 61.0,
+        "Avg_Pts_Against": 87.0,
+        "Avg_Net_Pts": -26.0
+    },
+    "Colgate": {
+        "Massey": 13.7026307399,
+        "Colley": 0.649920377,
+        "Elo": 1644.82560974,
+        "Adj_Elo": 1962.9921105737,
+        "Avg_Pts_For": 76.05882352941177,
+        "Avg_Pts_Against": 67.11764705882354,
+        "Avg_Net_Pts": 8.941176470588232
+    },
+    "College of Charleston": {
+        "Massey": 12.5643019057,
+        "Colley": 0.6722241957,
+        "Elo": 1521.0196241494,
+        "Adj_Elo": 1689.7931792762,
+        "Avg_Pts_For": 78.1875,
+        "Avg_Pts_Against": 76.4375,
+        "Avg_Net_Pts": 1.75
+    },
+    "Colorado": {
+        "Massey": 19.7392522073,
+        "Colley": 0.8662786472,
+        "Elo": 1591.6990711057,
+        "Adj_Elo": 1840.235147338,
+        "Avg_Pts_For": 71.06060606060606,
+        "Avg_Pts_Against": 67.39393939393939,
+        "Avg_Net_Pts": 3.6666666666666714
+    },
+    "Colorado College": {
+        "Massey": -21.0292399157,
+        "Colley": 0.2708744604,
+        "Elo": 1470.5146660504,
+        "Adj_Elo": 1267.478497173,
+        "Avg_Pts_For": 53.5,
+        "Avg_Pts_Against": 96.0,
+        "Avg_Net_Pts": -42.5
+    },
+    "Colorado State": {
+        "Massey": 22.3899076562,
+        "Colley": 1.0549682687,
+        "Elo": 1706.4921996196,
+        "Adj_Elo": 2015.0088626938,
+        "Avg_Pts_For": 73.73333333333333,
+        "Avg_Pts_Against": 65.73333333333333,
+        "Avg_Net_Pts": 8.0
+    },
+    "Columbia": {
+        "Massey": -3.7930134912,
+        "Colley": 0.1980172216,
+        "Elo": 1305.3710358644,
+        "Adj_Elo": 1004.1661699303,
+        "Avg_Pts_For": 67.38461538461539,
+        "Avg_Pts_Against": 78.8076923076923,
+        "Avg_Net_Pts": -11.42307692307692
+    },
+    "Columbia International": {
+        "Massey": -2.8072753245,
+        "Colley": 0.3027773713,
+        "Elo": 1472.1247151304,
+        "Adj_Elo": 1367.1352591778,
+        "Avg_Pts_For": 67.0,
+        "Avg_Pts_Against": 82.0,
+        "Avg_Net_Pts": -15.0
+    },
+    "Concordia (MI)": {
+        "Massey": -2.3488412498,
+        "Colley": 0.4264348865,
+        "Elo": 1486.6500593014,
+        "Adj_Elo": 1428.8384243336,
+        "Avg_Pts_For": 68.0,
+        "Avg_Pts_Against": 88.0,
+        "Avg_Net_Pts": -20.0
+    },
+    "Concordia (TX)": {
+        "Massey": 0.9863568951,
+        "Colley": 0.6026407408,
+        "Elo": 1513.73574423,
+        "Adj_Elo": 1528.1565627305,
+        "Avg_Pts_For": 82.0,
+        "Avg_Pts_Against": 78.0,
+        "Avg_Net_Pts": 4.0
+    },
+    "Concordia-Moorhead": {
+        "Massey": -13.0001090279,
+        "Colley": 0.417259942,
+        "Elo": 1485.0,
+        "Adj_Elo": 1374.3801378376,
+        "Avg_Pts_For": 44.0,
+        "Avg_Pts_Against": 88.0,
+        "Avg_Net_Pts": -44.0
+    },
+    "Connecticut": {
+        "Massey": 26.3183450948,
+        "Colley": 0.9859038568,
+        "Elo": 1656.5237194352,
+        "Adj_Elo": 2075.2816150916,
+        "Avg_Pts_For": 75.1875,
+        "Avg_Pts_Against": 65.15625,
+        "Avg_Net_Pts": 10.03125
+    },
+    "Converse": {
+        "Massey": -18.9993391256,
+        "Colley": 0.2868150211,
+        "Elo": 1452.4630106213,
+        "Adj_Elo": 1199.4690033348,
+        "Avg_Pts_For": 41.333333333333336,
+        "Avg_Pts_Against": 78.33333333333333,
+        "Avg_Net_Pts": -36.99999999999999
+    },
+    "Coppin State": {
+        "Massey": 1.652804051,
+        "Colley": 0.3670688361,
+        "Elo": 1409.7092950125,
+        "Adj_Elo": 1414.1866134248,
+        "Avg_Pts_For": 66.9375,
+        "Avg_Pts_Against": 74.6875,
+        "Avg_Net_Pts": -7.75
+    },
+    "Cornell": {
+        "Massey": 11.1086554926,
+        "Colley": 0.6054862045,
+        "Elo": 1508.9468137739,
+        "Adj_Elo": 1459.9115748625,
+        "Avg_Pts_For": 79.1923076923077,
+        "Avg_Pts_Against": 74.65384615384616,
+        "Avg_Net_Pts": 4.538461538461533
+    },
+    "Covenant": {
+        "Massey": -20.4927851614,
+        "Colley": 0.3608860611,
+        "Elo": 1473.9728193708,
+        "Adj_Elo": 1380.6070123161,
+        "Avg_Pts_For": 45.0,
+        "Avg_Pts_Against": 92.5,
+        "Avg_Net_Pts": -47.5
+    },
+    "Creighton": {
+        "Massey": 20.5767885127,
+        "Colley": 0.9517749459,
+        "Elo": 1639.7253344466,
+        "Adj_Elo": 2055.2357001557,
+        "Avg_Pts_For": 69.03030303030303,
+        "Avg_Pts_Against": 65.93939393939394,
+        "Avg_Net_Pts": 3.0909090909090935
+    },
+    "Crowley's Ridge": {
+        "Massey": -10.9537128192,
+        "Colley": 0.4409527723,
+        "Elo": 1487.798232721,
+        "Adj_Elo": 1449.6943758588,
+        "Avg_Pts_For": 56.0,
+        "Avg_Pts_Against": 99.0,
+        "Avg_Net_Pts": -43.0
+    },
+    "Crown (MN)": {
+        "Massey": -6.085406607,
+        "Colley": 0.3004942725,
+        "Elo": 1485.0129597262,
+        "Adj_Elo": 1417.1737729243,
+        "Avg_Pts_For": 53.0,
+        "Avg_Pts_Against": 73.0,
+        "Avg_Net_Pts": -20.0
+    },
+    "Culver-Stockton": {
+        "Massey": -5.748332672,
+        "Colley": 0.3493487211,
+        "Elo": 1485.6471999915,
+        "Adj_Elo": 1403.3310289084,
+        "Avg_Pts_For": 69.0,
+        "Avg_Pts_Against": 91.0,
+        "Avg_Net_Pts": -22.0
+    },
+    "Cumberland": {
+        "Massey": -3.4074405343,
+        "Colley": 0.4943350548,
+        "Elo": 1485.0,
+        "Adj_Elo": 1384.6152504716,
+        "Avg_Pts_For": 77.0,
+        "Avg_Pts_Against": 109.0,
+        "Avg_Net_Pts": -32.0
+    },
+    "Dallas": {
+        "Massey": -11.3483041546,
+        "Colley": 0.4289470949,
+        "Elo": 1485.7726041623,
+        "Adj_Elo": 1439.8899046871,
+        "Avg_Pts_For": 65.0,
+        "Avg_Pts_Against": 108.0,
+        "Avg_Net_Pts": -43.0
+    },
+    "Dallas Christian": {
+        "Massey": -24.3533007791,
+        "Colley": 0.1543166087,
+        "Elo": 1423.7700460803,
+        "Adj_Elo": 1087.7470171435,
+        "Avg_Pts_For": 55.4,
+        "Avg_Pts_Against": 93.2,
+        "Avg_Net_Pts": -37.800000000000004
+    },
+    "Dartmouth": {
+        "Massey": 8.9132735261,
+        "Colley": 0.4420122756,
+        "Elo": 1453.8911628642,
+        "Adj_Elo": 1640.1033861936,
+        "Avg_Pts_For": 68.36,
+        "Avg_Pts_Against": 68.2,
+        "Avg_Net_Pts": 0.1599999999999966
+    },
+    "Davidson": {
+        "Massey": 20.9386869484,
+        "Colley": 0.9527060281,
+        "Elo": 1687.5540013735,
+        "Adj_Elo": 2013.7234733349,
+        "Avg_Pts_For": 75.57575757575758,
+        "Avg_Pts_Against": 65.75757575757575,
+        "Avg_Net_Pts": 9.818181818181827
+    },
+    "Dayton": {
+        "Massey": 20.9913613822,
+        "Colley": 0.8581483436,
+        "Elo": 1641.0700129336,
+        "Adj_Elo": 1997.8952406389,
+        "Avg_Pts_For": 69.22857142857143,
+        "Avg_Pts_Against": 61.22857142857143,
+        "Avg_Net_Pts": 8.0
+    },
+    "DePaul": {
+        "Massey": 17.4612544284,
+        "Colley": 0.751168728,
+        "Elo": 1507.4776464762,
+        "Adj_Elo": 1702.9184150292,
+        "Avg_Pts_For": 73.29032258064517,
+        "Avg_Pts_Against": 72.19354838709677,
+        "Avg_Net_Pts": 1.0967741935483986
+    },
+    "DePauw": {
+        "Massey": -4.0427730723,
+        "Colley": 0.2822498973,
+        "Elo": 1484.32491243,
+        "Adj_Elo": 1385.3415047093,
+        "Avg_Pts_For": 58.0,
+        "Avg_Pts_Against": 69.0,
+        "Avg_Net_Pts": -11.0
+    },
+    "Defiance": {
+        "Massey": -26.2696385489,
+        "Colley": 0.244258453,
+        "Elo": 1458.9325232813,
+        "Adj_Elo": 1309.8220354528,
+        "Avg_Pts_For": 48.666666666666664,
+        "Avg_Pts_Against": 95.66666666666667,
+        "Avg_Net_Pts": -47.00000000000001
+    },
+    "Delaware": {
+        "Massey": 13.0082007471,
+        "Colley": 0.760183342,
+        "Elo": 1599.810397243,
+        "Adj_Elo": 1909.2405194666,
+        "Avg_Pts_For": 73.76470588235294,
+        "Avg_Pts_Against": 69.88235294117646,
+        "Avg_Net_Pts": 3.882352941176478
+    },
+    "Delaware State": {
+        "Massey": -5.5192536607,
+        "Colley": 0.1197012137,
+        "Elo": 1247.619211274,
+        "Adj_Elo": 891.0878847828,
+        "Avg_Pts_For": 62.689655172413794,
+        "Avg_Pts_Against": 73.55172413793103,
+        "Avg_Net_Pts": -10.862068965517238
+    },
+    "Denver": {
+        "Massey": 4.3531414574,
+        "Colley": 0.422826766,
+        "Elo": 1427.1141319446,
+        "Adj_Elo": 1477.0363493209,
+        "Avg_Pts_For": 70.53125,
+        "Avg_Pts_Against": 74.375,
+        "Avg_Net_Pts": -3.84375
+    },
+    "Detroit Mercy": {
+        "Massey": 7.0980890898,
+        "Colley": 0.5090450556,
+        "Elo": 1502.2480308879,
+        "Adj_Elo": 1592.5713977127,
+        "Avg_Pts_For": 70.73333333333333,
+        "Avg_Pts_Against": 70.5,
+        "Avg_Net_Pts": 0.23333333333333428
+    },
+    "Dickinson State (ND)": {
+        "Massey": -15.8898019681,
+        "Colley": 0.3651004992,
+        "Elo": 1485.0,
+        "Adj_Elo": 1372.25036664,
+        "Avg_Pts_For": 27.0,
+        "Avg_Pts_Against": 74.0,
+        "Avg_Net_Pts": -47.0
+    },
+    "Dillard": {
+        "Massey": -8.308976108,
+        "Colley": 0.3562721439,
+        "Elo": 1484.2245827066,
+        "Adj_Elo": 1397.6355014431,
+        "Avg_Pts_For": 66.0,
+        "Avg_Pts_Against": 93.0,
+        "Avg_Net_Pts": -27.0
+    },
+    "District of Columbia": {
+        "Massey": -7.8060564726,
+        "Colley": 0.3380197244,
+        "Elo": 1485.0,
+        "Adj_Elo": 1388.8792376104,
+        "Avg_Pts_For": 59.0,
+        "Avg_Pts_Against": 87.0,
+        "Avg_Net_Pts": -28.0
+    },
+    "Drake": {
+        "Massey": 19.239038751,
+        "Colley": 0.8161712759,
+        "Elo": 1638.9780179171,
+        "Adj_Elo": 1992.2216022514,
+        "Avg_Pts_For": 73.88888888888889,
+        "Avg_Pts_Against": 66.41666666666667,
+        "Avg_Net_Pts": 7.472222222222214
+    },
+    "Drexel": {
+        "Massey": 12.0898603627,
+        "Colley": 0.6374357213,
+        "Elo": 1517.315611515,
+        "Adj_Elo": 1559.5379577926,
+        "Avg_Pts_For": 72.82758620689656,
+        "Avg_Pts_Against": 70.27586206896552,
+        "Avg_Net_Pts": 2.551724137931032
+    },
+    "Dubuque": {
+        "Massey": -8.3781374473,
+        "Colley": 0.431451464,
+        "Elo": 1483.73574423,
+        "Adj_Elo": 1337.3545031775,
+        "Avg_Pts_For": 58.0,
+        "Avg_Pts_Against": 95.0,
+        "Avg_Net_Pts": -37.0
+    },
+    "Duke": {
+        "Massey": 28.6819390399,
+        "Colley": 1.0415954126,
+        "Elo": 1707.4285156896,
+        "Adj_Elo": 2031.445550573,
+        "Avg_Pts_For": 80.17647058823529,
+        "Avg_Pts_Against": 67.1470588235294,
+        "Avg_Net_Pts": 13.029411764705884
+    },
+    "Duquesne": {
+        "Massey": 4.9797200646,
+        "Colley": 0.3961642766,
+        "Elo": 1332.0155022564,
+        "Adj_Elo": 1162.7579360365,
+        "Avg_Pts_For": 65.2,
+        "Avg_Pts_Against": 73.4,
+        "Avg_Net_Pts": -8.200000000000003
+    },
+    "Earlham": {
+        "Massey": -17.1084297424,
+        "Colley": 0.3752033049,
+        "Elo": 1485.0,
+        "Adj_Elo": 1370.9032408209,
+        "Avg_Pts_For": 54.0,
+        "Avg_Pts_Against": 103.0,
+        "Avg_Net_Pts": -49.0
+    },
+    "East Carolina": {
+        "Massey": 11.0669266338,
+        "Colley": 0.6654487351,
+        "Elo": 1479.5665558463,
+        "Adj_Elo": 1439.2188056826,
+        "Avg_Pts_For": 68.76666666666667,
+        "Avg_Pts_Against": 70.93333333333334,
+        "Avg_Net_Pts": -2.1666666666666714
+    },
+    "East Tennessee State": {
+        "Massey": 10.4103762916,
+        "Colley": 0.6336126101,
+        "Elo": 1481.7954949126,
+        "Adj_Elo": 1509.8765917017,
+        "Avg_Pts_For": 72.0625,
+        "Avg_Pts_Against": 73.0,
+        "Avg_Net_Pts": -0.9375
+    },
+    "East Texas A&M": {
+        "Massey": 5.5874283282,
+        "Colley": 0.5317739829,
+        "Elo": 1501.3289090153,
+        "Adj_Elo": 1521.1906829422,
+        "Avg_Pts_For": 65.5,
+        "Avg_Pts_Against": 65.5,
+        "Avg_Net_Pts": 0.0
+    },
+    "East-West": {
+        "Massey": -16.9663098309,
+        "Colley": 0.164781857,
+        "Elo": 1462.8727494203,
+        "Adj_Elo": 1226.2874114517,
+        "Avg_Pts_For": 58.5,
+        "Avg_Pts_Against": 88.0,
+        "Avg_Net_Pts": -29.5
+    },
+    "Eastern": {
+        "Massey": -1.9481015355,
+        "Colley": 0.2998248796,
+        "Elo": 1480.2535834128,
+        "Adj_Elo": 1378.6830177177,
+        "Avg_Pts_For": 63.0,
+        "Avg_Pts_Against": 70.0,
+        "Avg_Net_Pts": -7.0
+    },
+    "Eastern Illinois": {
+        "Massey": -6.1394334939,
+        "Colley": 0.2246217799,
+        "Elo": 1310.639850843,
+        "Adj_Elo": 1095.1832215298,
+        "Avg_Pts_For": 56.32258064516129,
+        "Avg_Pts_Against": 71.12903225806451,
+        "Avg_Net_Pts": -14.806451612903224
+    },
+    "Eastern Kentucky": {
+        "Massey": 9.1195041953,
+        "Colley": 0.4491092912,
+        "Elo": 1434.4841914103,
+        "Adj_Elo": 1415.485411644,
+        "Avg_Pts_For": 79.25806451612904,
+        "Avg_Pts_Against": 75.06451612903226,
+        "Avg_Net_Pts": 4.193548387096783
+    },
+    "Eastern Mennonite": {
+        "Massey": -13.561227313,
+        "Colley": 0.3783586958,
+        "Elo": 1487.2528166659,
+        "Adj_Elo": 1422.7871380228,
+        "Avg_Pts_For": 54.0,
+        "Avg_Pts_Against": 96.0,
+        "Avg_Net_Pts": -42.0
+    },
+    "Eastern Michigan": {
+        "Massey": 2.3896576604,
+        "Colley": 0.4245907522,
+        "Elo": 1391.8258829546,
+        "Adj_Elo": 1214.6325586884,
+        "Avg_Pts_For": 69.12903225806451,
+        "Avg_Pts_Against": 76.0,
+        "Avg_Net_Pts": -6.8709677419354875
+    },
+    "Eastern Oregon": {
+        "Massey": -8.9474324042,
+        "Colley": 0.2706319728,
+        "Elo": 1485.0,
+        "Adj_Elo": 1397.9955990392,
+        "Avg_Pts_For": 61.0,
+        "Avg_Pts_Against": 82.0,
+        "Avg_Net_Pts": -21.0
+    },
+    "Eastern Washington": {
+        "Massey": 9.27750177,
+        "Colley": 0.5952250151,
+        "Elo": 1518.2158028917,
+        "Adj_Elo": 1618.0450919618,
+        "Avg_Pts_For": 76.8529411764706,
+        "Avg_Pts_Against": 74.58823529411765,
+        "Avg_Net_Pts": 2.264705882352942
+    },
+    "Ecclesia": {
+        "Massey": -32.5135028965,
+        "Colley": 0.096462551,
+        "Elo": 1421.3759188942,
+        "Adj_Elo": 1032.3752201051,
+        "Avg_Pts_For": 63.4,
+        "Avg_Pts_Against": 107.2,
+        "Avg_Net_Pts": -43.800000000000004
+    },
+    "Eckerd": {
+        "Massey": -12.122507093,
+        "Colley": 0.3961900115,
+        "Elo": 1484.4084331264,
+        "Adj_Elo": 1370.2421993265,
+        "Avg_Pts_For": 59.0,
+        "Avg_Pts_Against": 99.0,
+        "Avg_Net_Pts": -40.0
+    },
+    "Edinboro": {
+        "Massey": -0.9867399437,
+        "Colley": 0.3837987427,
+        "Elo": 1483.7633887961,
+        "Adj_Elo": 1379.7770074569,
+        "Avg_Pts_For": 61.0,
+        "Avg_Pts_Against": 75.0,
+        "Avg_Net_Pts": -14.0
+    },
+    "Edward Waters": {
+        "Massey": -16.5333055638,
+        "Colley": 0.3291186606,
+        "Elo": 1482.0184653018,
+        "Adj_Elo": 1340.0515700127,
+        "Avg_Pts_For": 57.0,
+        "Avg_Pts_Against": 103.0,
+        "Avg_Net_Pts": -46.0
+    },
+    "Elizabethtown": {
+        "Massey": -9.3253302819,
+        "Colley": 0.3177550601,
+        "Elo": 1483.0747442495,
+        "Adj_Elo": 1319.8985352053,
+        "Avg_Pts_For": 42.0,
+        "Avg_Pts_Against": 69.0,
+        "Avg_Net_Pts": -27.0
+    },
+    "Elon": {
+        "Massey": 6.274697723,
+        "Colley": 0.5020414743,
+        "Elo": 1436.4288973896,
+        "Adj_Elo": 1611.181969193,
+        "Avg_Pts_For": 67.09375,
+        "Avg_Pts_Against": 72.21875,
+        "Avg_Net_Pts": -5.125
+    },
+    "Embry\u2013Riddle (AZ)": {
+        "Massey": -19.1191889561,
+        "Colley": 0.2927206945,
+        "Elo": 1482.3768825936,
+        "Adj_Elo": 1312.4644549706,
+        "Avg_Pts_For": 54.0,
+        "Avg_Pts_Against": 101.0,
+        "Avg_Net_Pts": -47.0
+    },
+    "Emerson": {
+        "Massey": -10.4742369313,
+        "Colley": 0.3325319165,
+        "Elo": 1485.0,
+        "Adj_Elo": 1387.7604864051,
+        "Avg_Pts_For": 48.0,
+        "Avg_Pts_Against": 77.0,
+        "Avg_Net_Pts": -29.0
+    },
+    "Emory & Henry": {
+        "Massey": -2.0210965825,
+        "Colley": 0.284936407,
+        "Elo": 1472.3713274064,
+        "Adj_Elo": 1396.7974275119,
+        "Avg_Pts_For": 67.0,
+        "Avg_Pts_Against": 80.0,
+        "Avg_Net_Pts": -13.0
+    },
+    "Erskine": {
+        "Massey": -16.090841174,
+        "Colley": 0.3533412443,
+        "Elo": 1471.1848483182,
+        "Adj_Elo": 1335.1557441488,
+        "Avg_Pts_For": 42.5,
+        "Avg_Pts_Against": 83.5,
+        "Avg_Net_Pts": -41.0
+    },
+    "Evangel": {
+        "Massey": -11.349036744,
+        "Colley": 0.4357530995,
+        "Elo": 1486.6655367891,
+        "Adj_Elo": 1437.5743501035,
+        "Avg_Pts_For": 56.0,
+        "Avg_Pts_Against": 103.0,
+        "Avg_Net_Pts": -47.0
+    },
+    "Evansville": {
+        "Massey": 1.4883852202,
+        "Colley": 0.346749692,
+        "Elo": 1334.3164155972,
+        "Adj_Elo": 1232.0220489287,
+        "Avg_Pts_For": 59.166666666666664,
+        "Avg_Pts_Against": 70.73333333333333,
+        "Avg_Net_Pts": -11.56666666666667
+    },
+    "Evergreen State": {
+        "Massey": -20.5643546987,
+        "Colley": 0.3343815116,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1337.8562612414,
+        "Avg_Pts_For": 44.0,
+        "Avg_Pts_Against": 100.0,
+        "Avg_Net_Pts": -56.0
+    },
+    "FDU": {
+        "Massey": -4.9174297603,
+        "Colley": 0.1720470783,
+        "Elo": 1311.5374730038,
+        "Adj_Elo": 1131.2684531548,
+        "Avg_Pts_For": 67.5,
+        "Avg_Pts_Against": 79.25,
+        "Avg_Net_Pts": -11.75
+    },
+    "Fairfield": {
+        "Massey": 8.4220014446,
+        "Colley": 0.5084936546,
+        "Elo": 1469.05639728,
+        "Adj_Elo": 1589.9592419042,
+        "Avg_Pts_For": 67.84848484848484,
+        "Avg_Pts_Against": 65.96969696969697,
+        "Avg_Net_Pts": 1.8787878787878753
+    },
+    "Farmingdale State": {
+        "Massey": -9.9054220607,
+        "Colley": 0.3644997122,
+        "Elo": 1486.210340337,
+        "Adj_Elo": 1417.4058140314,
+        "Avg_Pts_For": 57.0,
+        "Avg_Pts_Against": 87.0,
+        "Avg_Net_Pts": -30.0
+    },
+    "Ferrum": {
+        "Massey": -5.5083979889,
+        "Colley": 0.3969907747,
+        "Elo": 1485.0,
+        "Adj_Elo": 1388.8792376104,
+        "Avg_Pts_For": 73.0,
+        "Avg_Pts_Against": 101.0,
+        "Avg_Net_Pts": -28.0
+    },
+    "Fisher College": {
+        "Massey": -39.4840035115,
+        "Colley": 0.1943343172,
+        "Elo": 1457.2339133746,
+        "Adj_Elo": 1179.697945514,
+        "Avg_Pts_For": 47.0,
+        "Avg_Pts_Against": 110.66666666666667,
+        "Avg_Net_Pts": -63.66666666666667
+    },
+    "Fisk": {
+        "Massey": -20.6965137174,
+        "Colley": 0.3139682488,
+        "Elo": 1483.7896581167,
+        "Adj_Elo": 1330.1824072377,
+        "Avg_Pts_For": 56.0,
+        "Avg_Pts_Against": 111.0,
+        "Avg_Net_Pts": -55.0
+    },
+    "Florida": {
+        "Massey": 21.7665752799,
+        "Colley": 0.8548576528,
+        "Elo": 1573.7022879469,
+        "Adj_Elo": 1725.5294775169,
+        "Avg_Pts_For": 70.58823529411765,
+        "Avg_Pts_Against": 66.5,
+        "Avg_Net_Pts": 4.088235294117652
+    },
+    "Florida A&M": {
+        "Massey": 0.838335211,
+        "Colley": 0.4369981925,
+        "Elo": 1440.8568219701,
+        "Adj_Elo": 1295.0248271399,
+        "Avg_Pts_For": 65.06666666666666,
+        "Avg_Pts_Against": 68.8,
+        "Avg_Net_Pts": -3.7333333333333343
+    },
+    "Florida Atlantic": {
+        "Massey": 15.4689421161,
+        "Colley": 0.6615336573,
+        "Elo": 1542.5071614453,
+        "Adj_Elo": 1651.1423697164,
+        "Avg_Pts_For": 74.08823529411765,
+        "Avg_Pts_Against": 68.08823529411765,
+        "Avg_Net_Pts": 6.0
+    },
+    "Florida Gulf Coast": {
+        "Massey": 11.4788301066,
+        "Colley": 0.6885700344,
+        "Elo": 1581.0584090772,
+        "Adj_Elo": 1701.7568087039,
+        "Avg_Pts_For": 77.67647058823529,
+        "Avg_Pts_Against": 73.67647058823529,
+        "Avg_Net_Pts": 4.0
+    },
+    "Florida International": {
+        "Massey": 7.7598142536,
+        "Colley": 0.5345997948,
+        "Elo": 1441.4056806458,
+        "Adj_Elo": 1268.5257881163,
+        "Avg_Pts_For": 70.75,
+        "Avg_Pts_Against": 71.0625,
+        "Avg_Net_Pts": -0.3125
+    },
+    "Florida Memorial": {
+        "Massey": -0.890077519,
+        "Colley": 0.3046311433,
+        "Elo": 1485.0,
+        "Adj_Elo": 1431.3784291246,
+        "Avg_Pts_For": 67.0,
+        "Avg_Pts_Against": 74.0,
+        "Avg_Net_Pts": -7.0
+    },
+    "Florida National University": {
+        "Massey": -10.8474008679,
+        "Colley": 0.3961900115,
+        "Elo": 1485.0,
+        "Adj_Elo": 1379.959656729,
+        "Avg_Pts_For": 57.0,
+        "Avg_Pts_Against": 94.0,
+        "Avg_Net_Pts": -37.0
+    },
+    "Florida State": {
+        "Massey": 15.7046406064,
+        "Colley": 0.7886801907,
+        "Elo": 1538.8146659439,
+        "Adj_Elo": 1522.0817296008,
+        "Avg_Pts_For": 71.0,
+        "Avg_Pts_Against": 71.93548387096774,
+        "Avg_Net_Pts": -0.9354838709677438
+    },
+    "Florida Tech": {
+        "Massey": -3.2009662632,
+        "Colley": 0.3871778858,
+        "Elo": 1485.6773461884,
+        "Adj_Elo": 1438.7659144107,
+        "Avg_Pts_For": 55.0,
+        "Avg_Pts_Against": 78.0,
+        "Avg_Net_Pts": -23.0
+    },
+    "Fordham": {
+        "Massey": 10.8709905882,
+        "Colley": 0.6387951133,
+        "Elo": 1518.0296489806,
+        "Adj_Elo": 1631.5804339151,
+        "Avg_Pts_For": 66.15151515151516,
+        "Avg_Pts_Against": 66.15151515151516,
+        "Avg_Net_Pts": 0.0
+    },
+    "Fort Valley State": {
+        "Massey": -5.1691381601,
+        "Colley": 0.3123327308,
+        "Elo": 1483.2787886164,
+        "Adj_Elo": 1380.4177296588,
+        "Avg_Pts_For": 63.0,
+        "Avg_Pts_Against": 76.0,
+        "Avg_Net_Pts": -13.0
+    },
+    "Franciscan": {
+        "Massey": -19.5898267148,
+        "Colley": 0.2620776072,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1356.311514338,
+        "Avg_Pts_For": 54.0,
+        "Avg_Pts_Against": 100.0,
+        "Avg_Net_Pts": -46.0
+    },
+    "Franklin": {
+        "Massey": -11.4246425244,
+        "Colley": 0.4003153412,
+        "Elo": 1483.0211398005,
+        "Adj_Elo": 1337.0297485602,
+        "Avg_Pts_For": 37.0,
+        "Avg_Pts_Against": 75.0,
+        "Avg_Net_Pts": -38.0
+    },
+    "Fredonia State": {
+        "Massey": -25.6601027548,
+        "Colley": 0.3179791156,
+        "Elo": 1482.6212557872,
+        "Adj_Elo": 1287.5517104592,
+        "Avg_Pts_For": 40.0,
+        "Avg_Pts_Against": 106.0,
+        "Avg_Net_Pts": -66.0
+    },
+    "Fresno Pacific": {
+        "Massey": -0.2069974983,
+        "Colley": 0.4426625608,
+        "Elo": 1485.0,
+        "Adj_Elo": 1399.5307595551,
+        "Avg_Pts_For": 54.0,
+        "Avg_Pts_Against": 74.0,
+        "Avg_Net_Pts": -20.0
+    },
+    "Fresno State": {
+        "Massey": 19.5129876377,
+        "Colley": 0.8279876825,
+        "Elo": 1608.2937897606,
+        "Adj_Elo": 1982.5703224359,
+        "Avg_Pts_For": 66.22222222222223,
+        "Avg_Pts_Against": 59.416666666666664,
+        "Avg_Net_Pts": 6.805555555555564
+    },
+    "Furman": {
+        "Massey": 18.941944006,
+        "Colley": 0.7952138765,
+        "Elo": 1609.2521991331,
+        "Adj_Elo": 1859.7621505612,
+        "Avg_Pts_For": 77.6470588235294,
+        "Avg_Pts_Against": 68.70588235294117,
+        "Avg_Net_Pts": 8.941176470588232
+    },
+    "Gallaudet": {
+        "Massey": -20.5571187239,
+        "Colley": 0.3380197244,
+        "Elo": 1484.428338047,
+        "Adj_Elo": 1370.5724243653,
+        "Avg_Pts_For": 38.0,
+        "Avg_Pts_Against": 96.0,
+        "Avg_Net_Pts": -58.0
+    },
+    "Gardner-Webb": {
+        "Massey": 11.2310035637,
+        "Colley": 0.6267863974,
+        "Elo": 1556.4633720893,
+        "Adj_Elo": 1645.5630973273,
+        "Avg_Pts_For": 69.48387096774194,
+        "Avg_Pts_Against": 64.16129032258064,
+        "Avg_Net_Pts": 5.322580645161295
+    },
+    "George Fox": {
+        "Massey": -14.2664436255,
+        "Colley": 0.2205762995,
+        "Elo": 1470.0557704814,
+        "Adj_Elo": 1339.7886396362,
+        "Avg_Pts_For": 71.5,
+        "Avg_Pts_Against": 99.5,
+        "Avg_Net_Pts": -28.0
+    },
+    "George Mason": {
+        "Massey": 15.0778920618,
+        "Colley": 0.6561403739,
+        "Elo": 1482.2353300318,
+        "Adj_Elo": 1546.8242179196,
+        "Avg_Pts_For": 70.73333333333333,
+        "Avg_Pts_Against": 68.53333333333333,
+        "Avg_Net_Pts": 2.200000000000003
+    },
+    "George Washington": {
+        "Massey": 7.4315305101,
+        "Colley": 0.5451800925,
+        "Elo": 1461.9373283042,
+        "Adj_Elo": 1463.8015463692,
+        "Avg_Pts_For": 68.36666666666666,
+        "Avg_Pts_Against": 72.83333333333333,
+        "Avg_Net_Pts": -4.466666666666669
+    },
+    "Georgetown": {
+        "Massey": 11.6276645241,
+        "Colley": 0.519715182,
+        "Elo": 1345.0234324199,
+        "Adj_Elo": 1274.2674584721,
+        "Avg_Pts_For": 70.70967741935483,
+        "Avg_Pts_Against": 77.03225806451613,
+        "Avg_Net_Pts": -6.322580645161295
+    },
+    "Georgetown (KY)": {
+        "Massey": -8.8749500615,
+        "Colley": 0.3163697637,
+        "Elo": 1485.0,
+        "Adj_Elo": 1386.678422252,
+        "Avg_Pts_For": 63.0,
+        "Avg_Pts_Against": 93.0,
+        "Avg_Net_Pts": -30.0
+    },
+    "Georgia": {
+        "Massey": 9.9086884922,
+        "Colley": 0.4928570546,
+        "Elo": 1337.3748189214,
+        "Adj_Elo": 1220.6733228259,
+        "Avg_Pts_For": 69.8125,
+        "Avg_Pts_Against": 78.5,
+        "Avg_Net_Pts": -8.6875
+    },
+    "Georgia Southern": {
+        "Massey": 7.0801714557,
+        "Colley": 0.532173335,
+        "Elo": 1474.9236313676,
+        "Adj_Elo": 1509.7091321779,
+        "Avg_Pts_For": 66.44827586206897,
+        "Avg_Pts_Against": 65.62068965517241,
+        "Avg_Net_Pts": 0.8275862068965552
+    },
+    "Georgia State": {
+        "Massey": 13.1441445453,
+        "Colley": 0.7192032759,
+        "Elo": 1622.2798852571,
+        "Adj_Elo": 2012.011952459,
+        "Avg_Pts_For": 70.60714285714286,
+        "Avg_Pts_Against": 64.75,
+        "Avg_Net_Pts": 5.857142857142861
+    },
+    "Georgia Tech": {
+        "Massey": 12.6424547111,
+        "Colley": 0.594877315,
+        "Elo": 1441.61293956,
+        "Adj_Elo": 1489.9393285859,
+        "Avg_Pts_For": 68.59375,
+        "Avg_Pts_Against": 70.75,
+        "Avg_Net_Pts": -2.15625
+    },
+    "Gonzaga": {
+        "Massey": 36.4626413003,
+        "Colley": 1.1023692809,
+        "Elo": 1750.8896574506,
+        "Adj_Elo": 2295.9503690423,
+        "Avg_Pts_For": 87.82758620689656,
+        "Avg_Pts_Against": 65.34482758620689,
+        "Avg_Net_Pts": 22.482758620689665
+    },
+    "Gordon": {
+        "Massey": -6.7238991083,
+        "Colley": 0.371387033,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1370.9092400099,
+        "Avg_Pts_For": 61.0,
+        "Avg_Pts_Against": 85.0,
+        "Avg_Net_Pts": -24.0
+    },
+    "Goucher": {
+        "Massey": -22.5625289468,
+        "Colley": 0.3184071663,
+        "Elo": 1483.2288314652,
+        "Adj_Elo": 1284.1009513632,
+        "Avg_Pts_For": 41.0,
+        "Avg_Pts_Against": 100.0,
+        "Avg_Net_Pts": -59.0
+    },
+    "Grambling": {
+        "Massey": 0.4432813604,
+        "Colley": 0.4077849354,
+        "Elo": 1404.7604057208,
+        "Adj_Elo": 1213.0628355897,
+        "Avg_Pts_For": 65.375,
+        "Avg_Pts_Against": 71.03125,
+        "Avg_Net_Pts": -5.65625
+    },
+    "Grand Canyon": {
+        "Massey": 18.1816018487,
+        "Colley": 0.8365968205,
+        "Elo": 1647.2162378427,
+        "Adj_Elo": 1986.3250224923,
+        "Avg_Pts_For": 71.09677419354838,
+        "Avg_Pts_Against": 61.225806451612904,
+        "Avg_Net_Pts": 9.87096774193548
+    },
+    "Green Bay": {
+        "Massey": 0.1390578967,
+        "Colley": 0.2172776145,
+        "Elo": 1315.3105163654,
+        "Adj_Elo": 1229.0403900912,
+        "Avg_Pts_For": 61.733333333333334,
+        "Avg_Pts_Against": 68.93333333333334,
+        "Avg_Net_Pts": -7.200000000000003
+    },
+    "Greensboro": {
+        "Massey": -1.9331752771,
+        "Colley": 0.314326886,
+        "Elo": 1483.1754417454,
+        "Adj_Elo": 1403.4566991597,
+        "Avg_Pts_For": 69.0,
+        "Avg_Pts_Against": 77.0,
+        "Avg_Net_Pts": -8.0
+    },
+    "Guilford": {
+        "Massey": 1.7918732906,
+        "Colley": 0.338251669,
+        "Elo": 1470.1509795844,
+        "Adj_Elo": 1377.602147996,
+        "Avg_Pts_For": 63.5,
+        "Avg_Pts_Against": 70.5,
+        "Avg_Net_Pts": -7.0
+    },
+    "Gwynedd-Mercy": {
+        "Massey": -11.5891766544,
+        "Colley": 0.2085836849,
+        "Elo": 1464.9585563309,
+        "Adj_Elo": 1217.3823645658,
+        "Avg_Pts_For": 61.5,
+        "Avg_Pts_Against": 84.5,
+        "Avg_Net_Pts": -23.0
+    },
+    "Hampton": {
+        "Massey": 0.7968873213,
+        "Colley": 0.3628186076,
+        "Elo": 1406.2126834203,
+        "Adj_Elo": 1329.8578749884,
+        "Avg_Pts_For": 64.78571428571429,
+        "Avg_Pts_Against": 69.5,
+        "Avg_Net_Pts": -4.714285714285708
+    },
+    "Hanover": {
+        "Massey": -13.443299757,
+        "Colley": 0.326642436,
+        "Elo": 1485.0,
+        "Adj_Elo": 1363.8228271678,
+        "Avg_Pts_For": 49.0,
+        "Avg_Pts_Against": 90.0,
+        "Avg_Net_Pts": -41.0
+    },
+    "Hardin-Simmons": {
+        "Massey": -15.2419627022,
+        "Colley": 0.3947993924,
+        "Elo": 1482.8930033636,
+        "Adj_Elo": 1353.0820880599,
+        "Avg_Pts_For": 53.0,
+        "Avg_Pts_Against": 103.0,
+        "Avg_Net_Pts": -50.0
+    },
+    "Harding": {
+        "Massey": -6.3919042563,
+        "Colley": 0.402716683,
+        "Elo": 1485.0,
+        "Adj_Elo": 1391.2373834219,
+        "Avg_Pts_For": 55.0,
+        "Avg_Pts_Against": 81.0,
+        "Avg_Net_Pts": -26.0
+    },
+    "Harris-Stowe": {
+        "Massey": -22.0256456438,
+        "Colley": 0.4540007652,
+        "Elo": 1485.6471999915,
+        "Adj_Elo": 1404.5255441768,
+        "Avg_Pts_For": 54.0,
+        "Avg_Pts_Against": 127.0,
+        "Avg_Net_Pts": -73.0
+    },
+    "Hartford": {
+        "Massey": 3.7579498349,
+        "Colley": 0.3904518744,
+        "Elo": 1457.3389261034,
+        "Adj_Elo": 1435.0592555386,
+        "Avg_Pts_For": 69.8125,
+        "Avg_Pts_Against": 72.15625,
+        "Avg_Net_Pts": -2.34375
+    },
+    "Hartford Hawks": {
+        "Massey": 3.7295130209,
+        "Colley": 0.3900853438,
+        "Elo": 1461.4831718035,
+        "Adj_Elo": 1479.9598615415,
+        "Avg_Pts_For": 69.8125,
+        "Avg_Pts_Against": 72.15625,
+        "Avg_Net_Pts": -2.34375
+    },
+    "Hartwick": {
+        "Massey": -27.4133184479,
+        "Colley": 0.3064324072,
+        "Elo": 1483.7814938207,
+        "Adj_Elo": 1312.1743501797,
+        "Avg_Pts_For": 41.0,
+        "Avg_Pts_Against": 110.0,
+        "Avg_Net_Pts": -69.0
+    },
+    "Harvard": {
+        "Massey": 9.0252408681,
+        "Colley": 0.5268045051,
+        "Elo": 1473.4795121997,
+        "Adj_Elo": 1390.5458160299,
+        "Avg_Pts_For": 71.46153846153847,
+        "Avg_Pts_Against": 69.11538461538461,
+        "Avg_Net_Pts": 2.346153846153854
+    },
+    "Haskell (KS)": {
+        "Massey": -11.6738243462,
+        "Colley": 0.3924351131,
+        "Elo": 1485.0279418374,
+        "Adj_Elo": 1400.9669140225,
+        "Avg_Pts_For": 46.0,
+        "Avg_Pts_Against": 89.0,
+        "Avg_Net_Pts": -43.0
+    },
+    "Hastings (NE)": {
+        "Massey": -12.1000756805,
+        "Colley": 0.3194728887,
+        "Elo": 1473.0794961518,
+        "Adj_Elo": 1389.5439742757,
+        "Avg_Pts_For": 58.0,
+        "Avg_Pts_Against": 87.5,
+        "Avg_Net_Pts": -29.5
+    },
+    "Hawaii": {
+        "Massey": 12.0976636754,
+        "Colley": 0.6705956558,
+        "Elo": 1552.2715239895,
+        "Adj_Elo": 1581.1731251399,
+        "Avg_Pts_For": 68.85714285714286,
+        "Avg_Pts_Against": 64.14285714285714,
+        "Avg_Net_Pts": 4.714285714285722
+    },
+    "Hawaii Pacific": {
+        "Massey": -10.1593392809,
+        "Colley": 0.3901985519,
+        "Elo": 1485.0227627501,
+        "Adj_Elo": 1406.2032175828,
+        "Avg_Pts_For": 52.0,
+        "Avg_Pts_Against": 88.0,
+        "Avg_Net_Pts": -36.0
+    },
+    "Hawaii-Hilo": {
+        "Massey": -1.7547944721,
+        "Colley": 0.4548750724,
+        "Elo": 1487.5649603602,
+        "Adj_Elo": 1442.2179044671,
+        "Avg_Pts_For": 76.0,
+        "Avg_Pts_Against": 87.0,
+        "Avg_Net_Pts": -11.0
+    },
+    "Heidelberg": {
+        "Massey": -15.7782938491,
+        "Colley": 0.3295363657,
+        "Elo": 1486.874781954,
+        "Adj_Elo": 1441.7731146741,
+        "Avg_Pts_For": 45.0,
+        "Avg_Pts_Against": 90.0,
+        "Avg_Net_Pts": -45.0
+    },
+    "Hendrix": {
+        "Massey": -13.6879751626,
+        "Colley": 0.3224090171,
+        "Elo": 1481.0407158953,
+        "Adj_Elo": 1301.8672415021,
+        "Avg_Pts_For": 56.0,
+        "Avg_Pts_Against": 90.0,
+        "Avg_Net_Pts": -34.0
+    },
+    "High Point": {
+        "Massey": 7.826266133,
+        "Colley": 0.5205271982,
+        "Elo": 1473.1474865049,
+        "Adj_Elo": 1575.8757185806,
+        "Avg_Pts_For": 69.53125,
+        "Avg_Pts_Against": 69.75,
+        "Avg_Net_Pts": -0.21875
+    },
+    "Hofstra": {
+        "Massey": 14.535320426,
+        "Colley": 0.7850177046,
+        "Elo": 1604.3566058873,
+        "Adj_Elo": 1626.3808731996,
+        "Avg_Pts_For": 77.9375,
+        "Avg_Pts_Against": 72.90625,
+        "Avg_Net_Pts": 5.03125
+    },
+    "Holy Cross": {
+        "Massey": -1.871791438,
+        "Colley": 0.2682775171,
+        "Elo": 1379.5512378243,
+        "Adj_Elo": 1165.3326701234,
+        "Avg_Pts_For": 65.2258064516129,
+        "Avg_Pts_Against": 70.70967741935483,
+        "Avg_Net_Pts": -5.483870967741936
+    },
+    "Hope": {
+        "Massey": -7.7340503496,
+        "Colley": 0.2922576312,
+        "Elo": 1485.0,
+        "Adj_Elo": 1402.8335136875,
+        "Avg_Pts_For": 58.0,
+        "Avg_Pts_Against": 76.0,
+        "Avg_Net_Pts": -18.0
+    },
+    "Houston": {
+        "Massey": 31.4612204653,
+        "Colley": 1.0677870865,
+        "Elo": 1733.2074100516,
+        "Adj_Elo": 2207.2701516004,
+        "Avg_Pts_For": 75.82352941176471,
+        "Avg_Pts_Against": 58.88235294117647,
+        "Avg_Net_Pts": 16.94117647058824
+    },
+    "Houston Christian": {
+        "Massey": 1.1098301315,
+        "Colley": 0.3851703781,
+        "Elo": 1433.3733179818,
+        "Adj_Elo": 1445.6834347536,
+        "Avg_Pts_For": 75.51724137931035,
+        "Avg_Pts_Against": 76.55172413793103,
+        "Avg_Net_Pts": -1.0344827586206833
+    },
+    "Howard": {
+        "Massey": 9.6343384134,
+        "Colley": 0.5140591732,
+        "Elo": 1508.5405337397,
+        "Adj_Elo": 1503.612434067,
+        "Avg_Pts_For": 76.37931034482759,
+        "Avg_Pts_Against": 69.62068965517241,
+        "Avg_Net_Pts": 6.758620689655174
+    },
+    "Howard Payne": {
+        "Massey": -28.3535209542,
+        "Colley": 0.3296573894,
+        "Elo": 1471.520049456,
+        "Adj_Elo": 1324.6467428485,
+        "Avg_Pts_For": 43.5,
+        "Avg_Pts_Against": 103.5,
+        "Avg_Net_Pts": -60.0
+    },
+    "IU Indy": {
+        "Massey": -8.7627744824,
+        "Colley": 0.111833371,
+        "Elo": 1278.0847612731,
+        "Adj_Elo": 1024.4305934511,
+        "Avg_Pts_For": 52.44827586206897,
+        "Avg_Pts_Against": 67.13793103448276,
+        "Avg_Net_Pts": -14.689655172413794
+    },
+    "Idaho": {
+        "Massey": 0.5509361716,
+        "Colley": 0.3791606632,
+        "Elo": 1401.9579296717,
+        "Adj_Elo": 1351.3768944494,
+        "Avg_Pts_For": 73.0,
+        "Avg_Pts_Against": 79.61290322580645,
+        "Avg_Net_Pts": -6.612903225806448
+    },
+    "Idaho State": {
+        "Massey": -0.0510282858,
+        "Colley": 0.3118959185,
+        "Elo": 1367.7156256213,
+        "Adj_Elo": 1330.3956545606,
+        "Avg_Pts_For": 64.36666666666666,
+        "Avg_Pts_Against": 71.53333333333333,
+        "Avg_Net_Pts": -7.166666666666671
+    },
+    "Illinois": {
+        "Massey": 26.2565283676,
+        "Colley": 0.9846245854,
+        "Elo": 1655.0299756965,
+        "Adj_Elo": 2047.67635235,
+        "Avg_Pts_For": 75.7741935483871,
+        "Avg_Pts_Against": 67.64516129032258,
+        "Avg_Net_Pts": 8.129032258064527
+    },
+    "Illinois State": {
+        "Massey": 11.1138034761,
+        "Colley": 0.5250722905,
+        "Elo": 1437.8266806102,
+        "Adj_Elo": 1554.0262211575,
+        "Avg_Pts_For": 74.15151515151516,
+        "Avg_Pts_Against": 74.72727272727273,
+        "Avg_Net_Pts": -0.5757575757575779
+    },
+    "Illinois-Chicago": {
+        "Massey": 4.9186301933,
+        "Colley": 0.4648160499,
+        "Elo": 1480.3525753108,
+        "Adj_Elo": 1536.6602554068,
+        "Avg_Pts_For": 71.96666666666667,
+        "Avg_Pts_Against": 72.93333333333334,
+        "Avg_Net_Pts": -0.9666666666666686
+    },
+    "Illinois-Springfield": {
+        "Massey": -8.9915112827,
+        "Colley": 0.4088590642,
+        "Elo": 1487.8541584113,
+        "Adj_Elo": 1463.0924082867,
+        "Avg_Pts_For": 50.0,
+        "Avg_Pts_Against": 90.0,
+        "Avg_Net_Pts": -40.0
+    },
+    "Immaculata": {
+        "Massey": -19.2153881263,
+        "Colley": 0.4116149438,
+        "Elo": 1486.1475941236,
+        "Adj_Elo": 1390.614847965,
+        "Avg_Pts_For": 46.0,
+        "Avg_Pts_Against": 104.0,
+        "Avg_Net_Pts": -58.0
+    },
+    "Incarnate Word": {
+        "Massey": -1.6793535887,
+        "Colley": 0.3079222223,
+        "Elo": 1351.9393778292,
+        "Adj_Elo": 1247.1298202198,
+        "Avg_Pts_For": 67.03125,
+        "Avg_Pts_Against": 76.40625,
+        "Avg_Net_Pts": -9.375
+    },
+    "Indiana": {
+        "Massey": 22.7265894229,
+        "Colley": 0.8666218229,
+        "Elo": 1579.2804141807,
+        "Adj_Elo": 1905.27909203,
+        "Avg_Pts_For": 71.48484848484848,
+        "Avg_Pts_Against": 65.93939393939394,
+        "Avg_Net_Pts": 5.545454545454547
+    },
+    "Indiana State": {
+        "Massey": 9.3713415588,
+        "Colley": 0.479927308,
+        "Elo": 1403.6188779818,
+        "Adj_Elo": 1315.6289947429,
+        "Avg_Pts_For": 70.45161290322581,
+        "Avg_Pts_Against": 71.93548387096774,
+        "Avg_Net_Pts": -1.483870967741936
+    },
+    "Indiana-Kokomo": {
+        "Massey": -9.1317558085,
+        "Colley": 0.3417509308,
+        "Elo": 1484.2036928177,
+        "Adj_Elo": 1390.4608551837,
+        "Avg_Pts_For": 58.0,
+        "Avg_Pts_Against": 85.0,
+        "Avg_Net_Pts": -27.0
+    },
+    "Iona": {
+        "Massey": 17.0398726371,
+        "Colley": 0.8664993453,
+        "Elo": 1619.1777654289,
+        "Adj_Elo": 1743.0159142366,
+        "Avg_Pts_For": 75.21212121212122,
+        "Avg_Pts_Against": 68.60606060606061,
+        "Avg_Net_Pts": 6.606060606060609
+    },
+    "Iowa": {
+        "Massey": 29.0848968341,
+        "Colley": 0.989401795,
+        "Elo": 1692.187002671,
+        "Adj_Elo": 2258.7992486231,
+        "Avg_Pts_For": 83.77142857142857,
+        "Avg_Pts_Against": 71.28571428571429,
+        "Avg_Net_Pts": 12.48571428571428
+    },
+    "Iowa State": {
+        "Massey": 21.5296049467,
+        "Colley": 0.8899802658,
+        "Elo": 1573.1233047598,
+        "Adj_Elo": 1719.9042906578,
+        "Avg_Pts_For": 66.46875,
+        "Avg_Pts_Against": 63.0,
+        "Avg_Net_Pts": 3.46875
+    },
+    "Iowa Wesleyan": {
+        "Massey": -7.4484743056,
+        "Colley": 0.3493487211,
+        "Elo": 1486.26425577,
+        "Adj_Elo": 1427.2495311597,
+        "Avg_Pts_For": 71.0,
+        "Avg_Pts_Against": 97.0,
+        "Avg_Net_Pts": -26.0
+    },
+    "Jackson State": {
+        "Massey": 1.8663028604,
+        "Colley": 0.4046180901,
+        "Elo": 1424.4020986656,
+        "Adj_Elo": 1412.4199248628,
+        "Avg_Pts_For": 60.96666666666667,
+        "Avg_Pts_Against": 65.46666666666667,
+        "Avg_Net_Pts": -4.5
+    },
+    "Jacksonville": {
+        "Massey": 11.8773182397,
+        "Colley": 0.6894386544,
+        "Elo": 1603.0408454166,
+        "Adj_Elo": 1826.2373786646,
+        "Avg_Pts_For": 67.12903225806451,
+        "Avg_Pts_Against": 59.32258064516129,
+        "Avg_Net_Pts": 7.806451612903224
+    },
+    "Jacksonville State": {
+        "Massey": 13.7679110886,
+        "Colley": 0.7194389715,
+        "Elo": 1604.3295238457,
+        "Adj_Elo": 1804.0379960146,
+        "Avg_Pts_For": 73.93548387096774,
+        "Avg_Pts_Against": 66.80645161290323,
+        "Avg_Net_Pts": 7.1290322580645125
+    },
+    "James Madison": {
+        "Massey": 10.0938880721,
+        "Colley": 0.6350760873,
+        "Elo": 1481.6822528785,
+        "Adj_Elo": 1483.8758555756,
+        "Avg_Pts_For": 75.10344827586206,
+        "Avg_Pts_Against": 73.20689655172414,
+        "Avg_Net_Pts": 1.8965517241379217
+    },
+    "Jarvis Christian": {
+        "Massey": -17.1120137422,
+        "Colley": 0.2413697838,
+        "Elo": 1444.094893383,
+        "Adj_Elo": 1200.6306024237,
+        "Avg_Pts_For": 57.5,
+        "Avg_Pts_Against": 90.0,
+        "Avg_Net_Pts": -32.5
+    },
+    "John Jay": {
+        "Massey": -15.4987799741,
+        "Colley": 0.4283392349,
+        "Elo": 1485.163769122,
+        "Adj_Elo": 1377.5526748381,
+        "Avg_Pts_For": 51.0,
+        "Avg_Pts_Against": 102.0,
+        "Avg_Net_Pts": -51.0
+    },
+    "Johnson & Wales (NC)": {
+        "Massey": -20.7041804074,
+        "Colley": 0.3021046005,
+        "Elo": 1474.5933573925,
+        "Adj_Elo": 1357.1594065569,
+        "Avg_Pts_For": 67.5,
+        "Avg_Pts_Against": 112.0,
+        "Avg_Net_Pts": -44.5
+    },
+    "Johnson & Wales (RI)": {
+        "Massey": -17.3639885264,
+        "Colley": 0.343247956,
+        "Elo": 1485.6193079298,
+        "Adj_Elo": 1403.9152580375,
+        "Avg_Pts_For": 47.0,
+        "Avg_Pts_Against": 98.0,
+        "Avg_Net_Pts": -51.0
+    },
+    "Johnson (FL)": {
+        "Massey": -26.7710800127,
+        "Colley": 0.1811343526,
+        "Elo": 1465.0316565676,
+        "Adj_Elo": 1166.8680651631,
+        "Avg_Pts_For": 49.5,
+        "Avg_Pts_Against": 96.0,
+        "Avg_Net_Pts": -46.5
+    },
+    "Kansas": {
+        "Massey": 30.4747132981,
+        "Colley": 1.1355511653,
+        "Elo": 1739.3946760461,
+        "Adj_Elo": 2217.8552227963,
+        "Avg_Pts_For": 78.58823529411765,
+        "Avg_Pts_Against": 68.1470588235294,
+        "Avg_Net_Pts": 10.441176470588246
+    },
+    "Kansas Christian": {
+        "Massey": -21.5032262407,
+        "Colley": 0.3827872281,
+        "Elo": 1484.4894175673,
+        "Adj_Elo": 1360.8266233106,
+        "Avg_Pts_For": 36.0,
+        "Avg_Pts_Against": 99.0,
+        "Avg_Net_Pts": -63.0
+    },
+    "Kansas City": {
+        "Massey": 12.408388532,
+        "Colley": 0.6483616842,
+        "Elo": 1574.4031225313,
+        "Adj_Elo": 1780.5277229455,
+        "Avg_Pts_For": 74.54838709677419,
+        "Avg_Pts_Against": 67.25806451612904,
+        "Avg_Net_Pts": 7.290322580645153
+    },
+    "Kansas State": {
+        "Massey": 19.9958263061,
+        "Colley": 0.7321758894,
+        "Elo": 1494.7758163222,
+        "Adj_Elo": 1627.2537893483,
+        "Avg_Pts_For": 69.0,
+        "Avg_Pts_Against": 67.45161290322581,
+        "Avg_Net_Pts": 1.5483870967741922
+    },
+    "Kean": {
+        "Massey": -10.5438753059,
+        "Colley": 0.4305208411,
+        "Elo": 1487.9666423856,
+        "Adj_Elo": 1437.3515900798,
+        "Avg_Pts_For": 59.0,
+        "Avg_Pts_Against": 100.0,
+        "Avg_Net_Pts": -41.0
+    },
+    "Keene State": {
+        "Massey": -12.8508190865,
+        "Colley": 0.3398348964,
+        "Elo": 1484.7484431738,
+        "Adj_Elo": 1382.0529214507,
+        "Avg_Pts_For": 54.0,
+        "Avg_Pts_Against": 92.0,
+        "Avg_Net_Pts": -38.0
+    },
+    "Kennesaw State": {
+        "Massey": 9.759641201,
+        "Colley": 0.4917194519,
+        "Elo": 1463.5811267494,
+        "Adj_Elo": 1570.6058208968,
+        "Avg_Pts_For": 74.80645161290323,
+        "Avg_Pts_Against": 71.16129032258064,
+        "Avg_Net_Pts": 3.6451612903225907
+    },
+    "Kent State": {
+        "Massey": 13.659455908,
+        "Colley": 0.7663782917,
+        "Elo": 1638.9661452624,
+        "Adj_Elo": 1850.8600225863,
+        "Avg_Pts_For": 71.26470588235294,
+        "Avg_Pts_Against": 65.20588235294117,
+        "Avg_Net_Pts": 6.058823529411768
+    },
+    "Kentucky": {
+        "Massey": 31.2488125705,
+        "Colley": 1.0557880619,
+        "Elo": 1705.546570097,
+        "Adj_Elo": 2156.355148932,
+        "Avg_Pts_For": 79.45454545454545,
+        "Avg_Pts_Against": 66.0,
+        "Avg_Net_Pts": 13.454545454545453
+    },
+    "Kentucky Christian": {
+        "Massey": -6.5581730553,
+        "Colley": 0.2369891582,
+        "Elo": 1456.2308972517,
+        "Adj_Elo": 1266.1245349976,
+        "Avg_Pts_For": 64.66666666666667,
+        "Avg_Pts_Against": 82.33333333333333,
+        "Avg_Net_Pts": -17.666666666666657
+    },
+    "Keuka": {
+        "Massey": -19.930481762,
+        "Colley": 0.3684954015,
+        "Elo": 1488.0643994488,
+        "Adj_Elo": 1446.9613002847,
+        "Avg_Pts_For": 64.0,
+        "Avg_Pts_Against": 122.0,
+        "Avg_Net_Pts": -58.0
+    },
+    "Keystone": {
+        "Massey": -21.4075940965,
+        "Colley": 0.3734947996,
+        "Elo": 1484.9442203594,
+        "Adj_Elo": 1400.8285587955,
+        "Avg_Pts_For": 35.0,
+        "Avg_Pts_Against": 97.0,
+        "Avg_Net_Pts": -62.0
+    },
+    "Knox": {
+        "Massey": -13.9876145018,
+        "Colley": 0.3012006123,
+        "Elo": 1483.7633887961,
+        "Adj_Elo": 1335.1349891862,
+        "Avg_Pts_For": 37.0,
+        "Avg_Pts_Against": 75.0,
+        "Avg_Net_Pts": -38.0
+    },
+    "La Salle": {
+        "Massey": 7.7261582602,
+        "Colley": 0.5165958545,
+        "Elo": 1449.4312821091,
+        "Adj_Elo": 1523.7812526597,
+        "Avg_Pts_For": 67.5,
+        "Avg_Pts_Against": 71.53333333333333,
+        "Avg_Net_Pts": -4.033333333333331
+    },
+    "La Sierra": {
+        "Massey": -3.1159616456,
+        "Colley": 0.3872530908,
+        "Elo": 1485.0557796406,
+        "Adj_Elo": 1388.0451692101,
+        "Avg_Pts_For": 54.0,
+        "Avg_Pts_Against": 72.0,
+        "Avg_Net_Pts": -18.0
+    },
+    "La Verne": {
+        "Massey": -33.7757836615,
+        "Colley": 0.2848570133,
+        "Elo": 1459.7062584157,
+        "Adj_Elo": 1251.7757999777,
+        "Avg_Pts_For": 40.0,
+        "Avg_Pts_Against": 99.66666666666667,
+        "Avg_Net_Pts": -59.66666666666667
+    },
+    "LaGrange": {
+        "Massey": -6.8992125393,
+        "Colley": 0.4064796572,
+        "Elo": 1483.9344158685,
+        "Adj_Elo": 1381.2515067463,
+        "Avg_Pts_For": 80.0,
+        "Avg_Pts_Against": 110.0,
+        "Avg_Net_Pts": -30.0
+    },
+    "Lafayette": {
+        "Massey": 0.7255020456,
+        "Colley": 0.3412446761,
+        "Elo": 1404.3631725125,
+        "Adj_Elo": 1293.4745283656,
+        "Avg_Pts_For": 67.8,
+        "Avg_Pts_Against": 72.83333333333333,
+        "Avg_Net_Pts": -5.033333333333331
+    },
+    "Lake Erie": {
+        "Massey": -9.3739505361,
+        "Colley": 0.3762760399,
+        "Elo": 1485.0,
+        "Adj_Elo": 1383.6301026877,
+        "Avg_Pts_For": 53.0,
+        "Avg_Pts_Against": 86.0,
+        "Avg_Net_Pts": -33.0
+    },
+    "Lamar": {
+        "Massey": -2.2736529553,
+        "Colley": 0.176451059,
+        "Elo": 1266.9196389892,
+        "Adj_Elo": 996.9671910028,
+        "Avg_Pts_For": 61.310344827586206,
+        "Avg_Pts_Against": 72.96551724137932,
+        "Avg_Net_Pts": -11.65517241379311
+    },
+    "Lancaster Bible": {
+        "Massey": -24.15351582,
+        "Colley": 0.2204062429,
+        "Elo": 1469.2768206988,
+        "Adj_Elo": 1221.0618857959,
+        "Avg_Pts_For": 45.0,
+        "Avg_Pts_Against": 91.0,
+        "Avg_Net_Pts": -46.0
+    },
+    "LeMoyne-Owen": {
+        "Massey": -10.2695630606,
+        "Colley": 0.3123327308,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1368.4099387358,
+        "Avg_Pts_For": 70.0,
+        "Avg_Pts_Against": 95.0,
+        "Avg_Net_Pts": -25.0
+    },
+    "LeTourneau": {
+        "Massey": -17.7350630444,
+        "Colley": 0.3702708851,
+        "Elo": 1471.348426116,
+        "Adj_Elo": 1324.3862395004,
+        "Avg_Pts_For": 50.5,
+        "Avg_Pts_Against": 94.5,
+        "Avg_Net_Pts": -44.0
+    },
+    "Lees-McRae": {
+        "Massey": -3.2258588123,
+        "Colley": 0.37787087,
+        "Elo": 1486.5215949456,
+        "Adj_Elo": 1456.9458340711,
+        "Avg_Pts_For": 74.0,
+        "Avg_Pts_Against": 92.0,
+        "Avg_Net_Pts": -18.0
+    },
+    "Lehigh": {
+        "Massey": 2.4166135406,
+        "Colley": 0.3994746387,
+        "Elo": 1462.6691103079,
+        "Adj_Elo": 1528.668581979,
+        "Avg_Pts_For": 68.4375,
+        "Avg_Pts_Against": 71.375,
+        "Avg_Net_Pts": -2.9375
+    },
+    "Lenoir-Rhyne": {
+        "Massey": -5.7760712626,
+        "Colley": 0.37787087,
+        "Elo": 1486.4424797361,
+        "Adj_Elo": 1441.6816152806,
+        "Avg_Pts_For": 66.0,
+        "Avg_Pts_Against": 90.0,
+        "Avg_Net_Pts": -24.0
+    },
+    "Liberty": {
+        "Massey": 15.1508032713,
+        "Colley": 0.7099931942,
+        "Elo": 1594.2842303597,
+        "Adj_Elo": 1760.7681691368,
+        "Avg_Pts_For": 73.36363636363636,
+        "Avg_Pts_Against": 63.45454545454545,
+        "Avg_Net_Pts": 9.909090909090907
+    },
+    "Life": {
+        "Massey": -7.7052247346,
+        "Colley": 0.3776527234,
+        "Elo": 1483.7633887961,
+        "Adj_Elo": 1355.1662664982,
+        "Avg_Pts_For": 50.0,
+        "Avg_Pts_Against": 78.0,
+        "Avg_Net_Pts": -28.0
+    },
+    "Life Pacific": {
+        "Massey": -12.1312452826,
+        "Colley": 0.2980514584,
+        "Elo": 1457.010422662,
+        "Adj_Elo": 1261.2244842432,
+        "Avg_Pts_For": 55.333333333333336,
+        "Avg_Pts_Against": 84.66666666666667,
+        "Avg_Net_Pts": -29.333333333333336
+    },
+    "Lincoln (CA)": {
+        "Massey": -8.9439110053,
+        "Colley": 0.4275412506,
+        "Elo": 1486.7481736371,
+        "Adj_Elo": 1420.5248292104,
+        "Avg_Pts_For": 54.0,
+        "Avg_Pts_Against": 90.0,
+        "Avg_Net_Pts": -36.0
+    },
+    "Lindsey Wilson": {
+        "Massey": -4.3746716138,
+        "Colley": 0.3461119321,
+        "Elo": 1483.4338339516,
+        "Adj_Elo": 1376.5791989226,
+        "Avg_Pts_For": 68.0,
+        "Avg_Pts_Against": 86.0,
+        "Avg_Net_Pts": -18.0
+    },
+    "Lipscomb": {
+        "Massey": 5.6686360817,
+        "Colley": 0.5040290463,
+        "Elo": 1460.7294268144,
+        "Adj_Elo": 1619.6945463588,
+        "Avg_Pts_For": 74.0,
+        "Avg_Pts_Against": 76.84848484848484,
+        "Avg_Net_Pts": -2.848484848484844
+    },
+    "Little Rock": {
+        "Massey": 3.0023788303,
+        "Colley": 0.452301798,
+        "Elo": 1419.6589734923,
+        "Adj_Elo": 1395.675612823,
+        "Avg_Pts_For": 66.71428571428571,
+        "Avg_Pts_Against": 73.10714285714286,
+        "Avg_Net_Pts": -6.392857142857153
+    },
+    "Long Beach State": {
+        "Massey": 10.7320500445,
+        "Colley": 0.7365702762,
+        "Elo": 1590.998272678,
+        "Adj_Elo": 1687.7301266509,
+        "Avg_Pts_For": 73.84848484848484,
+        "Avg_Pts_Against": 73.0,
+        "Avg_Net_Pts": 0.8484848484848442
+    },
+    "Long Island University": {
+        "Massey": 6.978137442,
+        "Colley": 0.552843412,
+        "Elo": 1551.1230989853,
+        "Adj_Elo": 1644.0144222783,
+        "Avg_Pts_For": 74.96875,
+        "Avg_Pts_Against": 73.0625,
+        "Avg_Net_Pts": 1.90625
+    },
+    "Longwood": {
+        "Massey": 14.8235087191,
+        "Colley": 0.7884906337,
+        "Elo": 1691.8280441268,
+        "Adj_Elo": 2010.2438458032,
+        "Avg_Pts_For": 76.34375,
+        "Avg_Pts_Against": 65.0625,
+        "Avg_Net_Pts": 11.28125
+    },
+    "Louisiana": {
+        "Massey": 11.0843452759,
+        "Colley": 0.6324676798,
+        "Elo": 1538.4336788947,
+        "Adj_Elo": 1775.9496177871,
+        "Avg_Pts_For": 71.06451612903226,
+        "Avg_Pts_Against": 69.38709677419355,
+        "Avg_Net_Pts": 1.6774193548387046
+    },
+    "Louisiana Christian University": {
+        "Massey": -7.3220562371,
+        "Colley": 0.2326206825,
+        "Elo": 1468.4509168753,
+        "Adj_Elo": 1321.5512598947,
+        "Avg_Pts_For": 64.5,
+        "Avg_Pts_Against": 80.0,
+        "Avg_Net_Pts": -15.5
+    },
+    "Louisiana State": {
+        "Massey": 27.7031440714,
+        "Colley": 0.9552946458,
+        "Elo": 1598.7698414213,
+        "Adj_Elo": 1857.2624980947,
+        "Avg_Pts_For": 73.12121212121212,
+        "Avg_Pts_Against": 63.54545454545455,
+        "Avg_Net_Pts": 9.575757575757578
+    },
+    "Louisiana State-Alexandria": {
+        "Massey": 2.5320450209,
+        "Colley": 0.4275412506,
+        "Elo": 1485.0,
+        "Adj_Elo": 1424.0146919312,
+        "Avg_Pts_For": 73.0,
+        "Avg_Pts_Against": 82.0,
+        "Avg_Net_Pts": -9.0
+    },
+    "Louisiana State-Shreveport": {
+        "Massey": -4.086292701,
+        "Colley": 0.4396594485,
+        "Elo": 1473.5125430894,
+        "Adj_Elo": 1371.8463972845,
+        "Avg_Pts_For": 52.5,
+        "Avg_Pts_Against": 78.5,
+        "Avg_Net_Pts": -26.0
+    },
+    "Louisiana Tech": {
+        "Massey": 17.2287051776,
+        "Colley": 0.8228583168,
+        "Elo": 1636.2573892999,
+        "Adj_Elo": 1895.7648951892,
+        "Avg_Pts_For": 75.23529411764706,
+        "Avg_Pts_Against": 68.0,
+        "Avg_Net_Pts": 7.235294117647058
+    },
+    "Louisiana-Monroe": {
+        "Massey": 6.0077300273,
+        "Colley": 0.5226977947,
+        "Elo": 1436.0115357132,
+        "Adj_Elo": 1328.0657829584,
+        "Avg_Pts_For": 72.45161290322581,
+        "Avg_Pts_Against": 74.3225806451613,
+        "Avg_Net_Pts": -1.8709677419354875
+    },
+    "Louisville": {
+        "Massey": 13.7017823731,
+        "Colley": 0.6567146822,
+        "Elo": 1448.1998278703,
+        "Adj_Elo": 1560.0999002956,
+        "Avg_Pts_For": 67.3125,
+        "Avg_Pts_Against": 70.09375,
+        "Avg_Net_Pts": -2.78125
+    },
+    "Loyola (IL)": {
+        "Massey": 24.8533283168,
+        "Colley": 0.9197084204,
+        "Elo": 1674.9074968153,
+        "Adj_Elo": 2144.7272258062,
+        "Avg_Pts_For": 73.8125,
+        "Avg_Pts_Against": 61.71875,
+        "Avg_Net_Pts": 12.09375
+    },
+    "Loyola (MD)": {
+        "Massey": 5.0598743115,
+        "Colley": 0.4532651804,
+        "Elo": 1437.5843353873,
+        "Adj_Elo": 1263.608331363,
+        "Avg_Pts_For": 66.13333333333334,
+        "Avg_Pts_Against": 65.66666666666667,
+        "Avg_Net_Pts": 0.46666666666666856
+    },
+    "Loyola Marymount": {
+        "Massey": 9.2304018419,
+        "Colley": 0.6038978917,
+        "Elo": 1435.9914093722,
+        "Adj_Elo": 1456.6843571338,
+        "Avg_Pts_For": 69.3103448275862,
+        "Avg_Pts_Against": 74.06896551724138,
+        "Avg_Net_Pts": -4.758620689655174
+    },
+    "Lyon": {
+        "Massey": -4.6917626228,
+        "Colley": 0.402716683,
+        "Elo": 1487.5087064675,
+        "Adj_Elo": 1449.2284670713,
+        "Avg_Pts_For": 66.0,
+        "Avg_Pts_Against": 88.0,
+        "Avg_Net_Pts": -22.0
+    },
+    "Maine": {
+        "Massey": -3.2888768197,
+        "Colley": 0.2105384166,
+        "Elo": 1324.7103367603,
+        "Adj_Elo": 1196.9093665549,
+        "Avg_Pts_For": 62.645161290322584,
+        "Avg_Pts_Against": 71.48387096774194,
+        "Avg_Net_Pts": -8.838709677419352
+    },
+    "Maine-Farmington": {
+        "Massey": -9.4735618613,
+        "Colley": 0.2368461389,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1368.73417529,
+        "Avg_Pts_For": 52.0,
+        "Avg_Pts_Against": 71.0,
+        "Avg_Net_Pts": -19.0
+    },
+    "Maine-Fort Kent": {
+        "Massey": -20.4979968084,
+        "Colley": 0.2249256525,
+        "Elo": 1473.5573044369,
+        "Adj_Elo": 1327.5763472831,
+        "Avg_Pts_For": 39.5,
+        "Avg_Pts_Against": 78.5,
+        "Avg_Net_Pts": -39.0
+    },
+    "Manhattan": {
+        "Massey": 5.5278028746,
+        "Colley": 0.545303714,
+        "Elo": 1475.4682325436,
+        "Adj_Elo": 1439.6865091377,
+        "Avg_Pts_For": 70.86666666666666,
+        "Avg_Pts_Against": 72.63333333333334,
+        "Avg_Net_Pts": -1.76666666666668
+    },
+    "Manhattanville": {
+        "Massey": -21.8775063252,
+        "Colley": 0.3484345713,
+        "Elo": 1485.0,
+        "Adj_Elo": 1366.005380652,
+        "Avg_Pts_For": 42.0,
+        "Avg_Pts_Against": 99.0,
+        "Avg_Net_Pts": -57.0
+    },
+    "Marist": {
+        "Massey": 8.0090427972,
+        "Colley": 0.5213966133,
+        "Elo": 1483.7629039144,
+        "Adj_Elo": 1350.7278340417,
+        "Avg_Pts_For": 68.76666666666667,
+        "Avg_Pts_Against": 68.16666666666667,
+        "Avg_Net_Pts": 0.5999999999999943
+    },
+    "Marquette": {
+        "Massey": 21.3692606771,
+        "Colley": 0.9151489733,
+        "Elo": 1584.0641726948,
+        "Adj_Elo": 1794.8299621211,
+        "Avg_Pts_For": 74.38709677419355,
+        "Avg_Pts_Against": 70.87096774193549,
+        "Avg_Net_Pts": 3.516129032258064
+    },
+    "Marshall": {
+        "Massey": 8.3048143691,
+        "Colley": 0.5087723088,
+        "Elo": 1430.7207758369,
+        "Adj_Elo": 1453.9696135796,
+        "Avg_Pts_For": 74.0,
+        "Avg_Pts_Against": 76.45454545454545,
+        "Avg_Net_Pts": -2.4545454545454533
+    },
+    "Mary Baldwin": {
+        "Massey": -17.3527213349,
+        "Colley": 0.2648708044,
+        "Elo": 1467.2357463272,
+        "Adj_Elo": 1199.352318442,
+        "Avg_Pts_For": 64.0,
+        "Avg_Pts_Against": 98.5,
+        "Avg_Net_Pts": -34.5
+    },
+    "Mary Hardin-Baylor": {
+        "Massey": -5.4895928352,
+        "Colley": 0.3286030061,
+        "Elo": 1470.6192581541,
+        "Adj_Elo": 1301.3151000532,
+        "Avg_Pts_For": 69.0,
+        "Avg_Pts_Against": 90.0,
+        "Avg_Net_Pts": -21.0
+    },
+    "Maryland": {
+        "Massey": 18.7890363066,
+        "Colley": 0.7640910726,
+        "Elo": 1511.6513543602,
+        "Adj_Elo": 1724.0199668089,
+        "Avg_Pts_For": 70.9375,
+        "Avg_Pts_Against": 70.71875,
+        "Avg_Net_Pts": 0.21875
+    },
+    "Maryland-Baltimore County": {
+        "Massey": 8.1728071564,
+        "Colley": 0.5937483431,
+        "Elo": 1579.0517936048,
+        "Adj_Elo": 1763.7010716189,
+        "Avg_Pts_For": 74.25714285714285,
+        "Avg_Pts_Against": 71.88571428571429,
+        "Avg_Net_Pts": 2.3714285714285666
+    },
+    "Maryland-Eastern Shore": {
+        "Massey": 3.7195899994,
+        "Colley": 0.415582314,
+        "Elo": 1434.6115287399,
+        "Adj_Elo": 1295.0923237532,
+        "Avg_Pts_For": 65.85185185185185,
+        "Avg_Pts_Against": 66.37037037037037,
+        "Avg_Net_Pts": -0.518518518518519
+    },
+    "Maryville (MO)": {
+        "Massey": -2.3884065258,
+        "Colley": 0.3794203522,
+        "Elo": 1486.176234136,
+        "Adj_Elo": 1437.2296831223,
+        "Avg_Pts_For": 55.0,
+        "Avg_Pts_Against": 75.0,
+        "Avg_Net_Pts": -20.0
+    },
+    "Maryville (TN)": {
+        "Massey": -4.8014003531,
+        "Colley": 0.4171621506,
+        "Elo": 1485.0,
+        "Adj_Elo": 1397.9955990392,
+        "Avg_Pts_For": 78.0,
+        "Avg_Pts_Against": 99.0,
+        "Avg_Net_Pts": -21.0
+    },
+    "Massachusetts": {
+        "Massey": 10.546146221,
+        "Colley": 0.6385851983,
+        "Elo": 1508.3436660146,
+        "Adj_Elo": 1683.7080879542,
+        "Avg_Pts_For": 75.6875,
+        "Avg_Pts_Against": 78.0625,
+        "Avg_Net_Pts": -2.375
+    },
+    "Massachusetts Institute of Technology": {
+        "Massey": -15.7155818473,
+        "Colley": 0.3422681684,
+        "Elo": 1485.5915152578,
+        "Adj_Elo": 1402.1138968022,
+        "Avg_Pts_For": 52.0,
+        "Avg_Pts_Against": 98.0,
+        "Avg_Net_Pts": -46.0
+    },
+    "Massachusetts Liberal Arts": {
+        "Massey": -23.5820638629,
+        "Colley": 0.3331057196,
+        "Elo": 1485.8749327628,
+        "Adj_Elo": 1363.6138642971,
+        "Avg_Pts_For": 45.0,
+        "Avg_Pts_Against": 109.0,
+        "Avg_Net_Pts": -64.0
+    },
+    "Massachusetts-Lowell": {
+        "Massey": 8.5174133775,
+        "Colley": 0.4993171587,
+        "Elo": 1487.1765580967,
+        "Adj_Elo": 1560.007174666,
+        "Avg_Pts_For": 71.48484848484848,
+        "Avg_Pts_Against": 66.3030303030303,
+        "Avg_Net_Pts": 5.181818181818187
+    },
+    "McMurry": {
+        "Massey": -7.9480208876,
+        "Colley": 0.4289470949,
+        "Elo": 1484.4607046769,
+        "Adj_Elo": 1380.5586253122,
+        "Avg_Pts_For": 54.0,
+        "Avg_Pts_Against": 89.0,
+        "Avg_Net_Pts": -35.0
+    },
+    "McNeese State": {
+        "Massey": 4.2208712241,
+        "Colley": 0.3951868441,
+        "Elo": 1397.5726610383,
+        "Adj_Elo": 1380.0688023701,
+        "Avg_Pts_For": 77.94117647058823,
+        "Avg_Pts_Against": 76.88235294117646,
+        "Avg_Net_Pts": 1.058823529411768
+    },
+    "Medgar Evers": {
+        "Massey": -32.0211032505,
+        "Colley": 0.2075122927,
+        "Elo": 1466.3379861108,
+        "Adj_Elo": 1184.5042905097,
+        "Avg_Pts_For": 53.0,
+        "Avg_Pts_Against": 111.5,
+        "Avg_Net_Pts": -58.5
+    },
+    "Memphis": {
+        "Massey": 23.7346282442,
+        "Colley": 0.9203662366,
+        "Elo": 1659.9139431182,
+        "Adj_Elo": 2050.4918072147,
+        "Avg_Pts_For": 75.41935483870968,
+        "Avg_Pts_Against": 68.38709677419355,
+        "Avg_Net_Pts": 7.032258064516128
+    },
+    "Menlo": {
+        "Massey": -4.8228018788,
+        "Colley": 0.3161877889,
+        "Elo": 1483.9270256851,
+        "Adj_Elo": 1396.5075547718,
+        "Avg_Pts_For": 53.0,
+        "Avg_Pts_Against": 67.0,
+        "Avg_Net_Pts": -14.0
+    },
+    "Mercer": {
+        "Massey": 9.8715697968,
+        "Colley": 0.6329581702,
+        "Elo": 1494.8603338933,
+        "Adj_Elo": 1564.715457486,
+        "Avg_Pts_For": 70.45454545454545,
+        "Avg_Pts_Against": 70.54545454545455,
+        "Avg_Net_Pts": -0.09090909090909349
+    },
+    "Merchant Marine": {
+        "Massey": -21.6860981885,
+        "Colley": 0.350947804,
+        "Elo": 1481.818437225,
+        "Adj_Elo": 1306.9450697064,
+        "Avg_Pts_For": 48.0,
+        "Avg_Pts_Against": 106.0,
+        "Avg_Net_Pts": -58.0
+    },
+    "Merrimack": {
+        "Massey": 4.3567897523,
+        "Colley": 0.4975957495,
+        "Elo": 1502.4864252956,
+        "Adj_Elo": 1638.3483348489,
+        "Avg_Pts_For": 62.54545454545455,
+        "Avg_Pts_Against": 63.84848484848485,
+        "Avg_Net_Pts": -1.3030303030303045
+    },
+    "Methodist": {
+        "Massey": -19.109531057,
+        "Colley": 0.3969907747,
+        "Elo": 1486.4177173191,
+        "Adj_Elo": 1427.8789776898,
+        "Avg_Pts_For": 42.0,
+        "Avg_Pts_Against": 102.0,
+        "Avg_Net_Pts": -60.0
+    },
+    "Miami (FL)": {
+        "Massey": 19.7549751875,
+        "Colley": 0.9165473032,
+        "Elo": 1630.215463166,
+        "Adj_Elo": 1931.5223264743,
+        "Avg_Pts_For": 74.81818181818181,
+        "Avg_Pts_Against": 71.03030303030303,
+        "Avg_Net_Pts": 3.787878787878782
+    },
+    "Miami (OH)": {
+        "Massey": 7.8776955092,
+        "Colley": 0.4886090971,
+        "Elo": 1458.8149707433,
+        "Adj_Elo": 1477.1058631499,
+        "Avg_Pts_For": 75.25,
+        "Avg_Pts_Against": 73.46875,
+        "Avg_Net_Pts": 1.78125
+    },
+    "Miami-Hamilton": {
+        "Massey": -10.3186459181,
+        "Colley": 0.2863083233,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1354.5035473893,
+        "Avg_Pts_For": 66.0,
+        "Avg_Pts_Against": 94.0,
+        "Avg_Net_Pts": -28.0
+    },
+    "Michigan": {
+        "Massey": 22.6783415232,
+        "Colley": 0.8761690154,
+        "Elo": 1579.0637341238,
+        "Adj_Elo": 1904.8987932309,
+        "Avg_Pts_For": 73.03225806451613,
+        "Avg_Pts_Against": 69.87096774193549,
+        "Avg_Net_Pts": 3.1612903225806406
+    },
+    "Michigan State": {
+        "Massey": 22.5639521285,
+        "Colley": 0.9497887995,
+        "Elo": 1613.6101405607,
+        "Adj_Elo": 1927.1265283077,
+        "Avg_Pts_For": 72.08823529411765,
+        "Avg_Pts_Against": 68.44117647058823,
+        "Avg_Net_Pts": 3.64705882352942
+    },
+    "Michigan-Dearborn": {
+        "Massey": -23.62481239,
+        "Colley": 0.2596803637,
+        "Elo": 1459.718688105,
+        "Adj_Elo": 1327.2929009183,
+        "Avg_Pts_For": 57.0,
+        "Avg_Pts_Against": 100.66666666666667,
+        "Avg_Net_Pts": -43.66666666666667
+    },
+    "Mid-Atlantic Christian": {
+        "Massey": -23.4169171371,
+        "Colley": 0.2188579799,
+        "Elo": 1455.2267513563,
+        "Adj_Elo": 1207.3017918772,
+        "Avg_Pts_For": 53.666666666666664,
+        "Avg_Pts_Against": 94.0,
+        "Avg_Net_Pts": -40.333333333333336
+    },
+    "Middle Tennessee": {
+        "Massey": 17.7533993621,
+        "Colley": 0.8233553913,
+        "Elo": 1643.5635407223,
+        "Adj_Elo": 1958.1369019499,
+        "Avg_Pts_For": 74.89189189189189,
+        "Avg_Pts_Against": 67.1891891891892,
+        "Avg_Net_Pts": 7.702702702702695
+    },
+    "Midway": {
+        "Massey": -29.9554469311,
+        "Colley": 0.2259965246,
+        "Elo": 1456.0109390101,
+        "Adj_Elo": 1258.8856986417,
+        "Avg_Pts_For": 52.333333333333336,
+        "Avg_Pts_Against": 105.66666666666667,
+        "Avg_Net_Pts": -53.333333333333336
+    },
+    "Millersville": {
+        "Massey": -0.0356523028,
+        "Colley": 0.3184071663,
+        "Elo": 1483.8626849494,
+        "Adj_Elo": 1419.3260872704,
+        "Avg_Pts_For": 71.0,
+        "Avg_Pts_Against": 77.0,
+        "Avg_Net_Pts": -6.0
+    },
+    "Milligan": {
+        "Massey": -24.2867665856,
+        "Colley": 0.1979890407,
+        "Elo": 1444.7616619327,
+        "Adj_Elo": 1216.4550834109,
+        "Avg_Pts_For": 54.0,
+        "Avg_Pts_Against": 95.0,
+        "Avg_Net_Pts": -41.0
+    },
+    "Millsaps": {
+        "Massey": -21.4842054844,
+        "Colley": 0.4694382611,
+        "Elo": 1488.0882809116,
+        "Adj_Elo": 1473.8159432514,
+        "Avg_Pts_For": 29.0,
+        "Avg_Pts_Against": 103.0,
+        "Avg_Net_Pts": -74.0
+    },
+    "Milwaukee": {
+        "Massey": 0.6837451758,
+        "Colley": 0.3297183487,
+        "Elo": 1385.9315179509,
+        "Adj_Elo": 1270.1012609568,
+        "Avg_Pts_For": 64.78125,
+        "Avg_Pts_Against": 70.75,
+        "Avg_Net_Pts": -5.96875
+    },
+    "Minnesota": {
+        "Massey": 15.9967729704,
+        "Colley": 0.720333101,
+        "Elo": 1451.5172025679,
+        "Adj_Elo": 1453.612138028,
+        "Avg_Pts_For": 67.0,
+        "Avg_Pts_Against": 69.2,
+        "Avg_Net_Pts": -2.200000000000003
+    },
+    "Minnesota-Duluth": {
+        "Massey": -9.017173933,
+        "Colley": 0.4031464184,
+        "Elo": 1485.4459412133,
+        "Adj_Elo": 1451.6049881753,
+        "Avg_Pts_For": 62.0,
+        "Avg_Pts_Against": 98.0,
+        "Avg_Net_Pts": -36.0
+    },
+    "Minnesota-Morris": {
+        "Massey": -18.7381632606,
+        "Colley": 0.4786843003,
+        "Elo": 1487.6668879647,
+        "Adj_Elo": 1436.3837570034,
+        "Avg_Pts_For": 47.0,
+        "Avg_Pts_Against": 112.0,
+        "Avg_Net_Pts": -65.0
+    },
+    "Mississippi": {
+        "Massey": 17.0087571586,
+        "Colley": 0.6849219296,
+        "Elo": 1445.4423636591,
+        "Adj_Elo": 1427.3792425878,
+        "Avg_Pts_For": 68.125,
+        "Avg_Pts_Against": 68.65625,
+        "Avg_Net_Pts": -0.53125
+    },
+    "Mississippi College": {
+        "Massey": -6.5015419867,
+        "Colley": 0.4171621506,
+        "Elo": 1487.2927481246,
+        "Adj_Elo": 1436.1027165713,
+        "Avg_Pts_For": 58.0,
+        "Avg_Pts_Against": 83.0,
+        "Avg_Net_Pts": -25.0
+    },
+    "Mississippi State": {
+        "Massey": 22.0794279884,
+        "Colley": 0.8148507769,
+        "Elo": 1530.1157611284,
+        "Adj_Elo": 1792.2236423342,
+        "Avg_Pts_For": 70.47058823529412,
+        "Avg_Pts_Against": 66.23529411764706,
+        "Avg_Net_Pts": 4.235294117647058
+    },
+    "Mississippi Valley State": {
+        "Massey": -9.2736096532,
+        "Colley": 0.1187721993,
+        "Elo": 1250.7800950385,
+        "Adj_Elo": 967.0797121474,
+        "Avg_Pts_For": 67.21428571428571,
+        "Avg_Pts_Against": 82.96428571428571,
+        "Avg_Net_Pts": -15.75
+    },
+    "Missouri": {
+        "Massey": 13.2313119822,
+        "Colley": 0.6534473028,
+        "Elo": 1449.3416116539,
+        "Adj_Elo": 1575.0417995827,
+        "Avg_Pts_For": 65.45454545454545,
+        "Avg_Pts_Against": 70.45454545454545,
+        "Avg_Net_Pts": -5.0
+    },
+    "Missouri Baptist University": {
+        "Massey": -0.538236922,
+        "Colley": 0.3329627568,
+        "Elo": 1484.3274145441,
+        "Adj_Elo": 1402.8873721529,
+        "Avg_Pts_For": 63.0,
+        "Avg_Pts_Against": 71.0,
+        "Avg_Net_Pts": -8.0
+    },
+    "Missouri S&T": {
+        "Massey": -3.546165389,
+        "Colley": 0.3930962499,
+        "Elo": 1483.7896581167,
+        "Adj_Elo": 1355.3528178405,
+        "Avg_Pts_For": 66.0,
+        "Avg_Pts_Against": 92.0,
+        "Avg_Net_Pts": -26.0
+    },
+    "Missouri State": {
+        "Massey": 20.2986087268,
+        "Colley": 0.8072592984,
+        "Elo": 1611.4352068252,
+        "Adj_Elo": 1846.7345776929,
+        "Avg_Pts_For": 77.29411764705883,
+        "Avg_Pts_Against": 68.88235294117646,
+        "Avg_Net_Pts": 8.411764705882362
+    },
+    "Mobile": {
+        "Massey": -7.6895355678,
+        "Colley": 0.4055553165,
+        "Elo": 1484.4084847422,
+        "Adj_Elo": 1390.2713025858,
+        "Avg_Pts_For": 45.0,
+        "Avg_Pts_Against": 78.0,
+        "Avg_Net_Pts": -33.0
+    },
+    "Molloy": {
+        "Massey": -9.9733196652,
+        "Colley": 0.4283392349,
+        "Elo": 1483.3001540438,
+        "Adj_Elo": 1347.8117079052,
+        "Avg_Pts_For": 49.0,
+        "Avg_Pts_Against": 87.0,
+        "Avg_Net_Pts": -38.0
+    },
+    "Monmouth": {
+        "Massey": 11.1354739264,
+        "Colley": 0.7145377933,
+        "Elo": 1551.963134557,
+        "Adj_Elo": 1594.869096098,
+        "Avg_Pts_For": 68.61764705882354,
+        "Avg_Pts_Against": 67.32352941176471,
+        "Avg_Net_Pts": 1.294117647058826
+    },
+    "Montana": {
+        "Massey": 9.615345322,
+        "Colley": 0.5953014975,
+        "Elo": 1506.6959235996,
+        "Adj_Elo": 1423.8248668367,
+        "Avg_Pts_For": 72.1875,
+        "Avg_Pts_Against": 66.90625,
+        "Avg_Net_Pts": 5.28125
+    },
+    "Montana State": {
+        "Massey": 14.2806606557,
+        "Colley": 0.8292019601,
+        "Elo": 1690.7845049893,
+        "Adj_Elo": 2019.6114672742,
+        "Avg_Pts_For": 76.97058823529412,
+        "Avg_Pts_Against": 68.47058823529412,
+        "Avg_Net_Pts": 8.5
+    },
+    "Montana Tech": {
+        "Massey": -3.5964753133,
+        "Colley": 0.5089870042,
+        "Elo": 1486.9048842812,
+        "Adj_Elo": 1460.690598033,
+        "Avg_Pts_For": 57.0,
+        "Avg_Pts_Against": 88.0,
+        "Avg_Net_Pts": -31.0
+    },
+    "Montreat": {
+        "Massey": -21.0943552593,
+        "Colley": 0.3132022637,
+        "Elo": 1481.8166639424,
+        "Adj_Elo": 1307.2858924264,
+        "Avg_Pts_For": 60.0,
+        "Avg_Pts_Against": 117.0,
+        "Avg_Net_Pts": -57.0
+    },
+    "Moravian": {
+        "Massey": -11.0474350099,
+        "Colley": 0.420061114,
+        "Elo": 1487.6860518069,
+        "Adj_Elo": 1453.228424635,
+        "Avg_Pts_For": 55.0,
+        "Avg_Pts_Against": 94.0,
+        "Avg_Net_Pts": -39.0
+    },
+    "Morehead State": {
+        "Massey": 14.6016729677,
+        "Colley": 0.7321434409,
+        "Elo": 1598.9296144447,
+        "Adj_Elo": 1746.2683812702,
+        "Avg_Pts_For": 69.97058823529412,
+        "Avg_Pts_Against": 63.470588235294116,
+        "Avg_Net_Pts": 6.5
+    },
+    "Morehouse": {
+        "Massey": -2.964519596,
+        "Colley": 0.3422681684,
+        "Elo": 1485.0,
+        "Adj_Elo": 1406.5039596461,
+        "Avg_Pts_For": 70.0,
+        "Avg_Pts_Against": 86.0,
+        "Avg_Net_Pts": -16.0
+    },
+    "Morgan State": {
+        "Massey": 5.9161192171,
+        "Colley": 0.455221499,
+        "Elo": 1482.1851508278,
+        "Adj_Elo": 1527.7301222639,
+        "Avg_Pts_For": 75.0,
+        "Avg_Pts_Against": 72.32142857142857,
+        "Avg_Net_Pts": 2.6785714285714306
+    },
+    "Morris College": {
+        "Massey": -19.9044835062,
+        "Colley": 0.2453045617,
+        "Elo": 1469.8870632658,
+        "Adj_Elo": 1276.0011700734,
+        "Avg_Pts_For": 67.0,
+        "Avg_Pts_Against": 105.0,
+        "Avg_Net_Pts": -38.0
+    },
+    "Mount Marty": {
+        "Massey": -4.1487541506,
+        "Colley": 0.4387237586,
+        "Elo": 1487.3997849122,
+        "Adj_Elo": 1448.8238055227,
+        "Avg_Pts_For": 53.0,
+        "Avg_Pts_Against": 82.0,
+        "Avg_Net_Pts": -29.0
+    },
+    "Mount Olive": {
+        "Massey": -7.5735238696,
+        "Colley": 0.444159826,
+        "Elo": 1483.8979654543,
+        "Adj_Elo": 1345.2034420407,
+        "Avg_Pts_For": 55.0,
+        "Avg_Pts_Against": 85.0,
+        "Avg_Net_Pts": -30.0
+    },
+    "Mount Saint Vincent": {
+        "Massey": -21.9714894536,
+        "Colley": 0.1165736847,
+        "Elo": 1468.1962097216,
+        "Adj_Elo": 1213.8672531898,
+        "Avg_Pts_For": 57.0,
+        "Avg_Pts_Against": 91.0,
+        "Avg_Net_Pts": -34.0
+    },
+    "Mount St. Mary's": {
+        "Massey": 6.5303125679,
+        "Colley": 0.4700777376,
+        "Elo": 1472.1612797644,
+        "Adj_Elo": 1525.1547244036,
+        "Avg_Pts_For": 66.24242424242425,
+        "Avg_Pts_Against": 64.57575757575758,
+        "Avg_Net_Pts": 1.6666666666666714
+    },
+    "Multnomah": {
+        "Massey": -12.6331141732,
+        "Colley": 0.365075005,
+        "Elo": 1485.1091030434,
+        "Adj_Elo": 1391.3808639493,
+        "Avg_Pts_For": 56.0,
+        "Avg_Pts_Against": 95.0,
+        "Avg_Net_Pts": -39.0
+    },
+    "Murray State": {
+        "Massey": 23.9831607739,
+        "Colley": 0.9830051645,
+        "Elo": 1759.8373413572,
+        "Adj_Elo": 2221.3369310988,
+        "Avg_Pts_For": 79.3125,
+        "Avg_Pts_Against": 62.28125,
+        "Avg_Net_Pts": 17.03125
+    },
+    "NC State": {
+        "Massey": 13.2559566551,
+        "Colley": 0.585413295,
+        "Elo": 1404.7557669044,
+        "Adj_Elo": 1409.8595086075,
+        "Avg_Pts_For": 73.0,
+        "Avg_Pts_Against": 75.59375,
+        "Avg_Net_Pts": -2.59375
+    },
+    "NJIT": {
+        "Massey": -1.3617048994,
+        "Colley": 0.3592775231,
+        "Elo": 1382.4555044321,
+        "Adj_Elo": 1092.0338970741,
+        "Avg_Pts_For": 62.483870967741936,
+        "Avg_Pts_Against": 70.25806451612904,
+        "Avg_Net_Pts": -7.774193548387103
+    },
+    "Navy": {
+        "Massey": 9.9929473636,
+        "Colley": 0.6436364672,
+        "Elo": 1565.7689620452,
+        "Adj_Elo": 1608.0653873059,
+        "Avg_Pts_For": 64.96875,
+        "Avg_Pts_Against": 60.125,
+        "Avg_Net_Pts": 4.84375
+    },
+    "Nebraska": {
+        "Massey": 13.113557065,
+        "Colley": 0.6019580115,
+        "Elo": 1440.2349886288,
+        "Adj_Elo": 1720.2473237111,
+        "Avg_Pts_For": 73.28125,
+        "Avg_Pts_Against": 78.53125,
+        "Avg_Net_Pts": -5.25
+    },
+    "Neumann": {
+        "Massey": -7.1874081065,
+        "Colley": 0.3791452404,
+        "Elo": 1485.0,
+        "Adj_Elo": 1387.7604864051,
+        "Avg_Pts_For": 74.0,
+        "Avg_Pts_Against": 103.0,
+        "Avg_Net_Pts": -29.0
+    },
+    "Nevada": {
+        "Massey": 14.7848876698,
+        "Colley": 0.7094392553,
+        "Elo": 1491.599158739,
+        "Adj_Elo": 1696.9674402903,
+        "Avg_Pts_For": 72.54838709677419,
+        "Avg_Pts_Against": 73.6774193548387,
+        "Avg_Net_Pts": -1.1290322580645125
+    },
+    "Nevada-Las Vegas": {
+        "Massey": 18.6446470307,
+        "Colley": 0.8143444183,
+        "Elo": 1576.4651451381,
+        "Adj_Elo": 1807.5257414429,
+        "Avg_Pts_For": 70.63636363636364,
+        "Avg_Pts_Against": 65.96969696969697,
+        "Avg_Net_Pts": 4.666666666666671
+    },
+    "New England": {
+        "Massey": -16.6991638037,
+        "Colley": 0.2368461389,
+        "Elo": 1482.4123820439,
+        "Adj_Elo": 1294.1162306106,
+        "Avg_Pts_For": 50.0,
+        "Avg_Pts_Against": 86.0,
+        "Avg_Net_Pts": -36.0
+    },
+    "New Hampshire": {
+        "Massey": 7.7652975888,
+        "Colley": 0.5195046892,
+        "Elo": 1508.6633492762,
+        "Adj_Elo": 1584.8741151016,
+        "Avg_Pts_For": 68.4,
+        "Avg_Pts_Against": 65.06666666666666,
+        "Avg_Net_Pts": 3.333333333333343
+    },
+    "New Mexico": {
+        "Massey": 12.7743828922,
+        "Colley": 0.6585092928,
+        "Elo": 1470.2547522733,
+        "Adj_Elo": 1574.7038550052,
+        "Avg_Pts_For": 74.25,
+        "Avg_Pts_Against": 75.34375,
+        "Avg_Net_Pts": -1.09375
+    },
+    "New Mexico Highlands": {
+        "Massey": -3.6548535201,
+        "Colley": 0.4822731111,
+        "Elo": 1486.8062256599,
+        "Adj_Elo": 1443.4187015881,
+        "Avg_Pts_For": 67.0,
+        "Avg_Pts_Against": 94.0,
+        "Avg_Net_Pts": -27.0
+    },
+    "New Mexico State": {
+        "Massey": 18.4010610692,
+        "Colley": 0.9468193333,
+        "Elo": 1699.5411767366,
+        "Adj_Elo": 2154.9900872379,
+        "Avg_Pts_For": 73.3125,
+        "Avg_Pts_Against": 65.03125,
+        "Avg_Net_Pts": 8.28125
+    },
+    "New Orleans": {
+        "Massey": 7.451096675,
+        "Colley": 0.5688164316,
+        "Elo": 1522.5441395708,
+        "Adj_Elo": 1474.8945104561,
+        "Avg_Pts_For": 77.15625,
+        "Avg_Pts_Against": 74.53125,
+        "Avg_Net_Pts": 2.625
+    },
+    "Newport News-Apprentice": {
+        "Massey": -14.4872675631,
+        "Colley": 0.331179927,
+        "Elo": 1483.2854584057,
+        "Adj_Elo": 1372.2019359571,
+        "Avg_Pts_For": 56.0,
+        "Avg_Pts_Against": 96.0,
+        "Avg_Net_Pts": -40.0
+    },
+    "Niagara": {
+        "Massey": 9.7457001687,
+        "Colley": 0.5468698565,
+        "Elo": 1494.6128633751,
+        "Adj_Elo": 1666.9109029756,
+        "Avg_Pts_For": 67.4,
+        "Avg_Pts_Against": 65.5,
+        "Avg_Net_Pts": 1.9000000000000057
+    },
+    "Nicholls State": {
+        "Massey": 10.1798735097,
+        "Colley": 0.6451682017,
+        "Elo": 1569.7034069737,
+        "Adj_Elo": 1685.5867865788,
+        "Avg_Pts_For": 78.48484848484848,
+        "Avg_Pts_Against": 71.27272727272727,
+        "Avg_Net_Pts": 7.212121212121218
+    },
+    "Norfolk State": {
+        "Massey": 13.0641723375,
+        "Colley": 0.7214344972,
+        "Elo": 1637.6999418929,
+        "Adj_Elo": 1838.2851061029,
+        "Avg_Pts_For": 75.1,
+        "Avg_Pts_Against": 63.733333333333334,
+        "Avg_Net_Pts": 11.36666666666666
+    },
+    "North Alabama": {
+        "Massey": 5.3563961328,
+        "Colley": 0.3647701786,
+        "Elo": 1361.3690093872,
+        "Adj_Elo": 1227.4398819952,
+        "Avg_Pts_For": 69.36666666666666,
+        "Avg_Pts_Against": 68.53333333333333,
+        "Avg_Net_Pts": 0.8333333333333286
+    },
+    "North Carolina": {
+        "Massey": 22.7114795525,
+        "Colley": 0.9613309519,
+        "Elo": 1660.9073792224,
+        "Adj_Elo": 2023.1944118813,
+        "Avg_Pts_For": 77.51515151515152,
+        "Avg_Pts_Against": 71.72727272727273,
+        "Avg_Net_Pts": 5.787878787878782
+    },
+    "North Carolina A&T": {
+        "Massey": 3.4517312228,
+        "Colley": 0.4429806581,
+        "Elo": 1434.2279407991,
+        "Adj_Elo": 1370.5233344069,
+        "Avg_Pts_For": 67.87878787878788,
+        "Avg_Pts_Against": 70.21212121212122,
+        "Avg_Net_Pts": -2.333333333333343
+    },
+    "North Carolina Central": {
+        "Massey": 5.9151513553,
+        "Colley": 0.4935397811,
+        "Elo": 1494.2506844234,
+        "Adj_Elo": 1399.1607786193,
+        "Avg_Pts_For": 72.7741935483871,
+        "Avg_Pts_Against": 68.38709677419355,
+        "Avg_Net_Pts": 4.387096774193552
+    },
+    "North Carolina Wesleyan": {
+        "Massey": -3.6925527688,
+        "Colley": 0.3880012642,
+        "Elo": 1485.8977227265,
+        "Adj_Elo": 1408.9656002883,
+        "Avg_Pts_For": 61.0,
+        "Avg_Pts_Against": 80.0,
+        "Avg_Net_Pts": -19.0
+    },
+    "North Central (MN)": {
+        "Massey": -27.5125743281,
+        "Colley": 0.1670599569,
+        "Elo": 1467.779678506,
+        "Adj_Elo": 1254.0829478433,
+        "Avg_Pts_For": 55.0,
+        "Avg_Pts_Against": 103.5,
+        "Avg_Net_Pts": -48.5
+    },
+    "North Dakota": {
+        "Massey": -0.9252394822,
+        "Colley": 0.2667570102,
+        "Elo": 1329.4870396621,
+        "Adj_Elo": 1189.4955526295,
+        "Avg_Pts_For": 70.25806451612904,
+        "Avg_Pts_Against": 78.83870967741936,
+        "Avg_Net_Pts": -8.58064516129032
+    },
+    "North Dakota State": {
+        "Massey": 13.4140564016,
+        "Colley": 0.751779826,
+        "Elo": 1626.8612525303,
+        "Adj_Elo": 1888.6951238766,
+        "Avg_Pts_For": 74.81818181818181,
+        "Avg_Pts_Against": 68.6969696969697,
+        "Avg_Net_Pts": 6.1212121212121104
+    },
+    "North Florida": {
+        "Massey": 7.1013453516,
+        "Colley": 0.4873559818,
+        "Elo": 1469.4259921054,
+        "Adj_Elo": 1617.3147601414,
+        "Avg_Pts_For": 68.51612903225806,
+        "Avg_Pts_Against": 71.16129032258064,
+        "Avg_Net_Pts": -2.6451612903225765
+    },
+    "North Greenville": {
+        "Massey": -14.0508443295,
+        "Colley": 0.4317379588,
+        "Elo": 1485.0,
+        "Adj_Elo": 1368.9803668528,
+        "Avg_Pts_For": 66.0,
+        "Avg_Pts_Against": 118.0,
+        "Avg_Net_Pts": -52.0
+    },
+    "North Park": {
+        "Massey": -4.7346536641,
+        "Colley": 0.2415405933,
+        "Elo": 1481.4462565393,
+        "Adj_Elo": 1399.2030378592,
+        "Avg_Pts_For": 71.0,
+        "Avg_Pts_Against": 76.0,
+        "Avg_Net_Pts": -5.0
+    },
+    "North Texas": {
+        "Massey": 21.0709967458,
+        "Colley": 0.9357794771,
+        "Elo": 1678.9283112973,
+        "Adj_Elo": 1946.8125076512,
+        "Avg_Pts_For": 65.09375,
+        "Avg_Pts_Against": 55.71875,
+        "Avg_Net_Pts": 9.375
+    },
+    "Northeastern": {
+        "Massey": 6.3119077952,
+        "Colley": 0.4524414532,
+        "Elo": 1385.9247083997,
+        "Adj_Elo": 1353.8022335506,
+        "Avg_Pts_For": 64.29032258064517,
+        "Avg_Pts_Against": 69.09677419354838,
+        "Avg_Net_Pts": -4.806451612903217
+    },
+    "Northern Arizona": {
+        "Massey": 2.0174207153,
+        "Colley": 0.3781620834,
+        "Elo": 1357.7867496474,
+        "Adj_Elo": 1155.9866038384,
+        "Avg_Pts_For": 67.53125,
+        "Avg_Pts_Against": 73.34375,
+        "Avg_Net_Pts": -5.8125
+    },
+    "Northern Colorado": {
+        "Massey": 9.1307917984,
+        "Colley": 0.6701930572,
+        "Elo": 1577.953287968,
+        "Adj_Elo": 1739.0997684934,
+        "Avg_Pts_For": 77.94736842105263,
+        "Avg_Pts_Against": 76.94736842105263,
+        "Avg_Net_Pts": 1.0
+    },
+    "Northern Illinois": {
+        "Massey": 2.4170994507,
+        "Colley": 0.4240682677,
+        "Elo": 1410.8791374247,
+        "Adj_Elo": 1377.6837205641,
+        "Avg_Pts_For": 64.1,
+        "Avg_Pts_Against": 71.53333333333333,
+        "Avg_Net_Pts": -7.433333333333337
+    },
+    "Northern Iowa": {
+        "Massey": 17.2883776689,
+        "Colley": 0.7943543919,
+        "Elo": 1620.5363842839,
+        "Adj_Elo": 1859.850450197,
+        "Avg_Pts_For": 74.46875,
+        "Avg_Pts_Against": 71.03125,
+        "Avg_Net_Pts": 3.4375
+    },
+    "Northern Kentucky": {
+        "Massey": 9.9994502125,
+        "Colley": 0.6180880582,
+        "Elo": 1597.1628365738,
+        "Adj_Elo": 1934.7015438303,
+        "Avg_Pts_For": 69.90625,
+        "Avg_Pts_Against": 65.09375,
+        "Avg_Net_Pts": 4.8125
+    },
+    "Northern New Mexico": {
+        "Massey": -15.4510637522,
+        "Colley": 0.3329762186,
+        "Elo": 1445.5991946024,
+        "Adj_Elo": 1270.9576907803,
+        "Avg_Pts_For": 53.25,
+        "Avg_Pts_Against": 87.25,
+        "Avg_Net_Pts": -34.0
+    },
+    "Northland": {
+        "Massey": -30.6922684613,
+        "Colley": 0.2883156609,
+        "Elo": 1470.6135449864,
+        "Adj_Elo": 1291.9010275462,
+        "Avg_Pts_For": 50.5,
+        "Avg_Pts_Against": 111.5,
+        "Avg_Net_Pts": -61.0
+    },
+    "Northwest University": {
+        "Massey": -7.0222806492,
+        "Colley": 0.4275703769,
+        "Elo": 1486.7466888524,
+        "Adj_Elo": 1414.449074654,
+        "Avg_Pts_For": 68.0,
+        "Avg_Pts_Against": 100.0,
+        "Avg_Net_Pts": -32.0
+    },
+    "Northwestern": {
+        "Massey": 18.8452653461,
+        "Colley": 0.7265771926,
+        "Elo": 1510.9556418589,
+        "Adj_Elo": 1707.83181114,
+        "Avg_Pts_For": 72.96774193548387,
+        "Avg_Pts_Against": 69.93548387096774,
+        "Avg_Net_Pts": 3.032258064516128
+    },
+    "Northwestern Ohio": {
+        "Massey": -21.5439760171,
+        "Colley": 0.4480512953,
+        "Elo": 1487.4102654442,
+        "Adj_Elo": 1420.2788379189,
+        "Avg_Pts_For": 36.0,
+        "Avg_Pts_Against": 106.0,
+        "Avg_Net_Pts": -70.0
+    },
+    "Northwestern State": {
+        "Massey": 0.2042575599,
+        "Colley": 0.36352725,
+        "Elo": 1387.3378703921,
+        "Adj_Elo": 1331.7817412517,
+        "Avg_Pts_For": 73.84375,
+        "Avg_Pts_Against": 80.40625,
+        "Avg_Net_Pts": -6.5625
+    },
+    "Northwood": {
+        "Massey": -8.3350898647,
+        "Colley": 0.3081969174,
+        "Elo": 1483.5331446569,
+        "Adj_Elo": 1379.2152019998,
+        "Avg_Pts_For": 57.0,
+        "Avg_Pts_Against": 79.0,
+        "Avg_Net_Pts": -22.0
+    },
+    "Notre Dame": {
+        "Massey": 20.6276101435,
+        "Colley": 0.8869822911,
+        "Elo": 1627.5351092872,
+        "Adj_Elo": 1857.9934920266,
+        "Avg_Pts_For": 72.5,
+        "Avg_Pts_Against": 66.84375,
+        "Avg_Net_Pts": 5.65625
+    },
+    "Nyack": {
+        "Massey": -14.8418839134,
+        "Colley": 0.4063435918,
+        "Elo": 1470.7438806659,
+        "Adj_Elo": 1264.4213528815,
+        "Avg_Pts_For": 57.5,
+        "Avg_Pts_Against": 100.0,
+        "Avg_Net_Pts": -42.5
+    },
+    "Oakland": {
+        "Massey": 12.3208983935,
+        "Colley": 0.6637468482,
+        "Elo": 1543.118770924,
+        "Adj_Elo": 1581.5808792176,
+        "Avg_Pts_For": 74.40625,
+        "Avg_Pts_Against": 68.5625,
+        "Avg_Net_Pts": 5.84375
+    },
+    "Oakland City": {
+        "Massey": 0.1578333111,
+        "Colley": 0.326642436,
+        "Elo": 1484.5681369428,
+        "Adj_Elo": 1414.065266498,
+        "Avg_Pts_For": 69.0,
+        "Avg_Pts_Against": 78.0,
+        "Avg_Net_Pts": -9.0
+    },
+    "Oakwood": {
+        "Massey": -24.8373324341,
+        "Colley": 0.2010942425,
+        "Elo": 1468.9154845695,
+        "Adj_Elo": 1252.5605222629,
+        "Avg_Pts_For": 59.0,
+        "Avg_Pts_Against": 107.0,
+        "Avg_Net_Pts": -48.0
+    },
+    "Oberlin": {
+        "Massey": -13.7458763653,
+        "Colley": 0.4221260972,
+        "Elo": 1484.3806920702,
+        "Adj_Elo": 1345.0069424143,
+        "Avg_Pts_For": 38.0,
+        "Avg_Pts_Against": 84.0,
+        "Avg_Net_Pts": -46.0
+    },
+    "Ohio": {
+        "Massey": 14.4737751173,
+        "Colley": 0.7793046596,
+        "Elo": 1587.76813321,
+        "Adj_Elo": 1640.4718419258,
+        "Avg_Pts_For": 74.02857142857142,
+        "Avg_Pts_Against": 67.94285714285714,
+        "Avg_Net_Pts": 6.085714285714289
+    },
+    "Ohio Christian": {
+        "Massey": -23.6655896894,
+        "Colley": 0.3879156161,
+        "Elo": 1487.8377187495,
+        "Adj_Elo": 1460.4279620401,
+        "Avg_Pts_For": 40.0,
+        "Avg_Pts_Against": 108.0,
+        "Avg_Net_Pts": -68.0
+    },
+    "Ohio State": {
+        "Massey": 23.1359529482,
+        "Colley": 0.9083109442,
+        "Elo": 1575.1004487113,
+        "Adj_Elo": 1735.1356968214,
+        "Avg_Pts_For": 73.8,
+        "Avg_Pts_Against": 68.46666666666667,
+        "Avg_Net_Pts": 5.333333333333329
+    },
+    "Ohio Valley": {
+        "Massey": -8.4499146531,
+        "Colley": 0.3163697637,
+        "Elo": 1485.6471999915,
+        "Adj_Elo": 1423.1239369098,
+        "Avg_Pts_For": 74.0,
+        "Avg_Pts_Against": 103.0,
+        "Avg_Net_Pts": -29.0
+    },
+    "Ohio Wesleyan": {
+        "Massey": -14.947612022,
+        "Colley": 0.3298788291,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1351.2830067633,
+        "Avg_Pts_For": 60.0,
+        "Avg_Pts_Against": 101.0,
+        "Avg_Net_Pts": -41.0
+    },
+    "Oklahoma": {
+        "Massey": 23.4168832349,
+        "Colley": 0.8529924893,
+        "Elo": 1576.8443695951,
+        "Adj_Elo": 2004.7115807834,
+        "Avg_Pts_For": 69.05714285714286,
+        "Avg_Pts_Against": 65.02857142857142,
+        "Avg_Net_Pts": 4.028571428571439
+    },
+    "Oklahoma Christian": {
+        "Massey": -4.2201779529,
+        "Colley": 0.478593159,
+        "Elo": 1485.0,
+        "Adj_Elo": 1385.6307152076,
+        "Avg_Pts_For": 53.0,
+        "Avg_Pts_Against": 84.0,
+        "Avg_Net_Pts": -31.0
+    },
+    "Oklahoma State": {
+        "Massey": 22.5078664466,
+        "Colley": 0.8114616965,
+        "Elo": 1556.2851620729,
+        "Adj_Elo": 1936.5518233137,
+        "Avg_Pts_For": 68.36666666666666,
+        "Avg_Pts_Against": 65.66666666666667,
+        "Avg_Net_Pts": 2.6999999999999886
+    },
+    "Old Dominion": {
+        "Massey": 11.0550255118,
+        "Colley": 0.5618626116,
+        "Elo": 1482.0757339971,
+        "Adj_Elo": 1659.4679100065,
+        "Avg_Pts_For": 66.46875,
+        "Avg_Pts_Against": 67.03125,
+        "Avg_Net_Pts": -0.5625
+    },
+    "Omaha": {
+        "Massey": -2.2802897512,
+        "Colley": 0.3143993974,
+        "Elo": 1335.2124286378,
+        "Adj_Elo": 1115.804821937,
+        "Avg_Pts_For": 69.6,
+        "Avg_Pts_Against": 83.5,
+        "Avg_Net_Pts": -13.900000000000006
+    },
+    "Oral Roberts": {
+        "Massey": 15.5344662677,
+        "Colley": 0.6773053393,
+        "Elo": 1560.2154093362,
+        "Adj_Elo": 1656.8173484777,
+        "Avg_Pts_For": 83.29032258064517,
+        "Avg_Pts_Against": 74.38709677419355,
+        "Avg_Net_Pts": 8.903225806451616
+    },
+    "Oregon": {
+        "Massey": 19.5118162574,
+        "Colley": 0.8382990895,
+        "Elo": 1553.1167555467,
+        "Adj_Elo": 1696.2348903426,
+        "Avg_Pts_For": 72.34285714285714,
+        "Avg_Pts_Against": 69.71428571428571,
+        "Avg_Net_Pts": 2.6285714285714334
+    },
+    "Oregon State": {
+        "Massey": 8.5493104584,
+        "Colley": 0.4198635938,
+        "Elo": 1300.700874764,
+        "Adj_Elo": 1206.7659803853,
+        "Avg_Pts_For": 68.29032258064517,
+        "Avg_Pts_Against": 78.12903225806451,
+        "Avg_Net_Pts": -9.838709677419345
+    },
+    "Ottawa (AZ)": {
+        "Massey": -1.3318210841,
+        "Colley": 0.5648558966,
+        "Elo": 1502.8069249071,
+        "Adj_Elo": 1454.4604298916,
+        "Avg_Pts_For": 62.5,
+        "Avg_Pts_Against": 76.0,
+        "Avg_Net_Pts": -13.5
+    },
+    "Our Lady of the Lake": {
+        "Massey": -10.1269273151,
+        "Colley": 0.1210933203,
+        "Elo": 1463.717209585,
+        "Adj_Elo": 1261.9040345341,
+        "Avg_Pts_For": 65.0,
+        "Avg_Pts_Against": 80.0,
+        "Avg_Net_Pts": -15.0
+    },
+    "Pacific": {
+        "Massey": 4.1333713803,
+        "Colley": 0.4335866489,
+        "Elo": 1370.488469515,
+        "Adj_Elo": 1190.7437569973,
+        "Avg_Pts_For": 65.86666666666666,
+        "Avg_Pts_Against": 72.73333333333333,
+        "Avg_Net_Pts": -6.866666666666674
+    },
+    "Pacific Lutheran": {
+        "Massey": -14.2478825916,
+        "Colley": 0.4275703769,
+        "Elo": 1486.7535153807,
+        "Adj_Elo": 1434.4751462955,
+        "Avg_Pts_For": 40.0,
+        "Avg_Pts_Against": 89.0,
+        "Avg_Net_Pts": -49.0
+    },
+    "Palm Beach Atlantic": {
+        "Massey": -2.3508954464,
+        "Colley": 0.3871778858,
+        "Elo": 1485.6901828772,
+        "Adj_Elo": 1451.5524269739,
+        "Avg_Pts_For": 63.0,
+        "Avg_Pts_Against": 84.0,
+        "Avg_Net_Pts": -21.0
+    },
+    "Paul Quinn": {
+        "Massey": -13.687348691,
+        "Colley": 0.212822914,
+        "Elo": 1432.6412259256,
+        "Adj_Elo": 1183.0738905578,
+        "Avg_Pts_For": 53.0,
+        "Avg_Pts_Against": 79.4,
+        "Avg_Net_Pts": -26.400000000000006
+    },
+    "Penn St. - York": {
+        "Massey": -12.677613091,
+        "Colley": 0.364582781,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1346.7216294066,
+        "Avg_Pts_For": 47.0,
+        "Avg_Pts_Against": 85.0,
+        "Avg_Net_Pts": -38.0
+    },
+    "Penn St.-Wilkes Barre": {
+        "Massey": -18.2492470445,
+        "Colley": 0.4071448324,
+        "Elo": 1485.6471999915,
+        "Adj_Elo": 1405.6730213853,
+        "Avg_Pts_For": 55.0,
+        "Avg_Pts_Against": 111.0,
+        "Avg_Net_Pts": -56.0
+    },
+    "Penn State": {
+        "Massey": 18.1064030981,
+        "Colley": 0.7474882668,
+        "Elo": 1513.2997262571,
+        "Adj_Elo": 1691.2475354421,
+        "Avg_Pts_For": 64.90625,
+        "Avg_Pts_Against": 64.8125,
+        "Avg_Net_Pts": 0.09375
+    },
+    "Penn State-Allegheny": {
+        "Massey": -20.8623873133,
+        "Colley": 0.3184071663,
+        "Elo": 1485.6471999915,
+        "Adj_Elo": 1417.0671453629,
+        "Avg_Pts_For": 71.0,
+        "Avg_Pts_Against": 126.0,
+        "Avg_Net_Pts": -55.0
+    },
+    "Penn State-Behrend": {
+        "Massey": -12.8877313783,
+        "Colley": 0.3837987427,
+        "Elo": 1485.5812379283,
+        "Adj_Elo": 1396.977029755,
+        "Avg_Pts_For": 47.0,
+        "Avg_Pts_Against": 89.0,
+        "Avg_Net_Pts": -42.0
+    },
+    "Pennsylvania": {
+        "Massey": 8.0198584339,
+        "Colley": 0.5523006198,
+        "Elo": 1481.5837979868,
+        "Adj_Elo": 1434.4070503724,
+        "Avg_Pts_For": 72.03571428571429,
+        "Avg_Pts_Against": 75.46428571428571,
+        "Avg_Net_Pts": -3.4285714285714164
+    },
+    "Pepperdine": {
+        "Massey": 4.9109928594,
+        "Colley": 0.4403150803,
+        "Elo": 1353.2343941805,
+        "Adj_Elo": 1273.0165473673,
+        "Avg_Pts_For": 68.21875,
+        "Avg_Pts_Against": 77.5,
+        "Avg_Net_Pts": -9.28125
+    },
+    "Peru State": {
+        "Massey": -1.5344170736,
+        "Colley": 0.5183227562,
+        "Elo": 1486.2366112039,
+        "Adj_Elo": 1438.2278412183,
+        "Avg_Pts_For": 62.0,
+        "Avg_Pts_Against": 88.0,
+        "Avg_Net_Pts": -26.0
+    },
+    "Pfeiffer": {
+        "Massey": -10.7009002531,
+        "Colley": 0.4294968779,
+        "Elo": 1485.9220861198,
+        "Adj_Elo": 1423.2315913573,
+        "Avg_Pts_For": 69.0,
+        "Avg_Pts_Against": 109.0,
+        "Avg_Net_Pts": -40.0
+    },
+    "Philander Smith": {
+        "Massey": -2.5492013631,
+        "Colley": 0.3174339327,
+        "Elo": 1483.7347190972,
+        "Adj_Elo": 1391.0932749983,
+        "Avg_Pts_For": 51.0,
+        "Avg_Pts_Against": 60.0,
+        "Avg_Net_Pts": -9.0
+    },
+    "Piedmont": {
+        "Massey": -18.4965975931,
+        "Colley": 0.2388207031,
+        "Elo": 1455.5697761755,
+        "Adj_Elo": 1269.6775973769,
+        "Avg_Pts_For": 55.333333333333336,
+        "Avg_Pts_Against": 92.0,
+        "Avg_Net_Pts": -36.666666666666664
+    },
+    "Pittsburgh": {
+        "Massey": 10.1229873592,
+        "Colley": 0.5976471157,
+        "Elo": 1437.1518321438,
+        "Adj_Elo": 1425.6270236714,
+        "Avg_Pts_For": 61.53125,
+        "Avg_Pts_Against": 68.0625,
+        "Avg_Net_Pts": -6.53125
+    },
+    "Point Park": {
+        "Massey": -28.5438303996,
+        "Colley": 0.3509946903,
+        "Elo": 1457.6764150418,
+        "Adj_Elo": 1272.9247921641,
+        "Avg_Pts_For": 45.333333333333336,
+        "Avg_Pts_Against": 101.0,
+        "Avg_Net_Pts": -55.666666666666664
+    },
+    "Point University": {
+        "Massey": -3.0152545609,
+        "Colley": 0.3046311433,
+        "Elo": 1484.5670543758,
+        "Adj_Elo": 1443.1662437469,
+        "Avg_Pts_For": 65.0,
+        "Avg_Pts_Against": 77.0,
+        "Avg_Net_Pts": -12.0
+    },
+    "Portland": {
+        "Massey": 11.5140622088,
+        "Colley": 0.6809572958,
+        "Elo": 1551.0120825928,
+        "Adj_Elo": 1697.0965846908,
+        "Avg_Pts_For": 74.23529411764706,
+        "Avg_Pts_Against": 72.17647058823529,
+        "Avg_Net_Pts": 2.058823529411768
+    },
+    "Portland State": {
+        "Massey": 7.6173140087,
+        "Colley": 0.5031445349,
+        "Elo": 1506.9768402424,
+        "Adj_Elo": 1657.5236190359,
+        "Avg_Pts_For": 73.54838709677419,
+        "Avg_Pts_Against": 72.16129032258064,
+        "Avg_Net_Pts": 1.3870967741935516
+    },
+    "Prairie View": {
+        "Massey": 1.2013308421,
+        "Colley": 0.3857058803,
+        "Elo": 1387.6691042155,
+        "Adj_Elo": 1310.5856724756,
+        "Avg_Pts_For": 69.51851851851852,
+        "Avg_Pts_Against": 76.33333333333333,
+        "Avg_Net_Pts": -6.8148148148148096
+    },
+    "Presbyterian": {
+        "Massey": 6.1061841618,
+        "Colley": 0.4450894082,
+        "Elo": 1397.6945651177,
+        "Adj_Elo": 1323.6111593823,
+        "Avg_Pts_For": 67.8125,
+        "Avg_Pts_Against": 67.9375,
+        "Avg_Net_Pts": -0.125
+    },
+    "Presentation College": {
+        "Massey": -14.6300602262,
+        "Colley": 0.2733109933,
+        "Elo": 1457.470468647,
+        "Adj_Elo": 1253.5355910318,
+        "Avg_Pts_For": 58.333333333333336,
+        "Avg_Pts_Against": 90.0,
+        "Avg_Net_Pts": -31.666666666666664
+    },
+    "Princeton": {
+        "Massey": 16.1929484036,
+        "Colley": 0.7915625233,
+        "Elo": 1631.5123652294,
+        "Adj_Elo": 1732.9454526921,
+        "Avg_Pts_For": 79.83333333333333,
+        "Avg_Pts_Against": 70.1,
+        "Avg_Net_Pts": 9.733333333333334
+    },
+    "Providence": {
+        "Massey": 21.3836142674,
+        "Colley": 1.0755791373,
+        "Elo": 1698.369020823,
+        "Adj_Elo": 1940.3638545289,
+        "Avg_Pts_For": 71.8,
+        "Avg_Pts_Against": 67.0,
+        "Avg_Net_Pts": 4.799999999999997
+    },
+    "Purdue": {
+        "Massey": 28.55656494,
+        "Colley": 1.0618609175,
+        "Elo": 1694.0097360766,
+        "Adj_Elo": 2066.502966749,
+        "Avg_Pts_For": 79.79411764705883,
+        "Avg_Pts_Against": 68.76470588235294,
+        "Avg_Net_Pts": 11.029411764705884
+    },
+    "Purdue Fort Wayne": {
+        "Massey": 8.7482247238,
+        "Colley": 0.6256099147,
+        "Elo": 1585.6442519346,
+        "Adj_Elo": 1718.0765584566,
+        "Avg_Pts_For": 73.45454545454545,
+        "Avg_Pts_Against": 69.63636363636364,
+        "Avg_Net_Pts": 3.818181818181813
+    },
+    "Purdue Northwest": {
+        "Massey": 0.4734059153,
+        "Colley": 0.3416907635,
+        "Elo": 1483.8120007204,
+        "Adj_Elo": 1398.0418952064,
+        "Avg_Pts_For": 71.0,
+        "Avg_Pts_Against": 81.0,
+        "Avg_Net_Pts": -10.0
+    },
+    "Quincy": {
+        "Massey": -2.9268773517,
+        "Colley": 0.3416907635,
+        "Elo": 1485.0721814541,
+        "Adj_Elo": 1412.6159420596,
+        "Avg_Pts_For": 63.0,
+        "Avg_Pts_Against": 81.0,
+        "Avg_Net_Pts": -18.0
+    },
+    "Quinnipiac": {
+        "Massey": 7.2581574555,
+        "Colley": 0.4999225873,
+        "Elo": 1458.6908287858,
+        "Adj_Elo": 1489.5337336622,
+        "Avg_Pts_For": 71.80645161290323,
+        "Avg_Pts_Against": 71.48387096774194,
+        "Avg_Net_Pts": 0.32258064516129537
+    },
+    "Radford": {
+        "Massey": 4.1836349239,
+        "Colley": 0.4487733036,
+        "Elo": 1442.1723777149,
+        "Adj_Elo": 1400.271925317,
+        "Avg_Pts_For": 63.172413793103445,
+        "Avg_Pts_Against": 67.41379310344827,
+        "Avg_Net_Pts": -4.241379310344826
+    },
+    "Randolph": {
+        "Massey": -16.4596246678,
+        "Colley": 0.3340138248,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1342.6319366271,
+        "Avg_Pts_For": 62.0,
+        "Avg_Pts_Against": 107.0,
+        "Avg_Net_Pts": -45.0
+    },
+    "Redlands": {
+        "Massey": -1.4235910234,
+        "Colley": 0.4134518956,
+        "Elo": 1485.3014816956,
+        "Adj_Elo": 1429.381320287,
+        "Avg_Pts_For": 78.0,
+        "Avg_Pts_Against": 93.0,
+        "Avg_Net_Pts": -15.0
+    },
+    "Regent": {
+        "Massey": -37.6502793164,
+        "Colley": 0.1398723763,
+        "Elo": 1423.432126014,
+        "Adj_Elo": 1165.9109166279,
+        "Avg_Pts_For": 39.5,
+        "Avg_Pts_Against": 93.66666666666667,
+        "Avg_Net_Pts": -54.16666666666667
+    },
+    "Regis (CO)": {
+        "Massey": 0.5751330319,
+        "Colley": 0.307608922,
+        "Elo": 1485.0,
+        "Adj_Elo": 1454.252286083,
+        "Avg_Pts_For": 65.0,
+        "Avg_Pts_Against": 68.0,
+        "Avg_Net_Pts": -3.0
+    },
+    "Regis (MA)": {
+        "Massey": -20.772241832,
+        "Colley": 0.2560925057,
+        "Elo": 1485.0,
+        "Adj_Elo": 1372.25036664,
+        "Avg_Pts_For": 51.0,
+        "Avg_Pts_Against": 98.0,
+        "Avg_Net_Pts": -47.0
+    },
+    "Rhode Island": {
+        "Massey": 13.8021348181,
+        "Colley": 0.6369111882,
+        "Elo": 1467.0367092156,
+        "Adj_Elo": 1414.5250408737,
+        "Avg_Pts_For": 67.12903225806451,
+        "Avg_Pts_Against": 65.0,
+        "Avg_Net_Pts": 2.1290322580645125
+    },
+    "Rhodes": {
+        "Massey": -19.9749491305,
+        "Colley": 0.4064119734,
+        "Elo": 1471.9589402493,
+        "Adj_Elo": 1349.15695661,
+        "Avg_Pts_For": 48.0,
+        "Avg_Pts_Against": 101.5,
+        "Avg_Net_Pts": -53.5
+    },
+    "Rice": {
+        "Massey": 10.3658823605,
+        "Colley": 0.6087877254,
+        "Elo": 1480.3706773413,
+        "Adj_Elo": 1514.2414379625,
+        "Avg_Pts_For": 74.12121212121212,
+        "Avg_Pts_Against": 73.36363636363636,
+        "Avg_Net_Pts": 0.7575757575757649
+    },
+    "Richmond": {
+        "Massey": 17.9349469359,
+        "Colley": 0.8598938294,
+        "Elo": 1645.2725015201,
+        "Adj_Elo": 2032.4997418431,
+        "Avg_Pts_For": 71.71428571428571,
+        "Avg_Pts_Against": 68.28571428571429,
+        "Avg_Net_Pts": 3.4285714285714164
+    },
+    "Rider": {
+        "Massey": 6.4189420148,
+        "Colley": 0.4930900637,
+        "Elo": 1492.9458703154,
+        "Adj_Elo": 1609.6249697713,
+        "Avg_Pts_For": 67.78787878787878,
+        "Avg_Pts_Against": 69.27272727272727,
+        "Avg_Net_Pts": -1.4848484848484844
+    },
+    "Rivier": {
+        "Massey": -11.6810724283,
+        "Colley": 0.3331057196,
+        "Elo": 1485.0,
+        "Adj_Elo": 1380.8397088827,
+        "Avg_Pts_For": 55.0,
+        "Avg_Pts_Against": 91.0,
+        "Avg_Net_Pts": -36.0
+    },
+    "Robert Morris": {
+        "Massey": 1.6624990523,
+        "Colley": 0.2973018838,
+        "Elo": 1373.3643194142,
+        "Adj_Elo": 1297.8866537157,
+        "Avg_Pts_For": 69.375,
+        "Avg_Pts_Against": 74.6875,
+        "Avg_Net_Pts": -5.3125
+    },
+    "Rockford": {
+        "Massey": -16.2106096903,
+        "Colley": 0.2415405933,
+        "Elo": 1483.1477274356,
+        "Adj_Elo": 1333.9594708052,
+        "Avg_Pts_For": 64.0,
+        "Avg_Pts_Against": 96.0,
+        "Avg_Net_Pts": -32.0
+    },
+    "Rocky Mountain": {
+        "Massey": -6.2562404092,
+        "Colley": 0.44306732,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1370.7351752568,
+        "Avg_Pts_For": 52.0,
+        "Avg_Pts_Against": 81.0,
+        "Avg_Net_Pts": -29.0
+    },
+    "Rogers State": {
+        "Massey": -18.8994262886,
+        "Colley": 0.3924351131,
+        "Elo": 1484.9218062384,
+        "Adj_Elo": 1398.7773115046,
+        "Avg_Pts_For": 31.0,
+        "Avg_Pts_Against": 91.0,
+        "Avg_Net_Pts": -60.0
+    },
+    "Roosevelt": {
+        "Massey": -6.0128363761,
+        "Colley": 0.4732361401,
+        "Elo": 1487.9181408097,
+        "Adj_Elo": 1466.656885598,
+        "Avg_Pts_For": 49.0,
+        "Avg_Pts_Against": 88.0,
+        "Avg_Net_Pts": -39.0
+    },
+    "Rust": {
+        "Massey": -9.5314654539,
+        "Colley": 0.3982784846,
+        "Elo": 1485.7007847961,
+        "Adj_Elo": 1421.3408089604,
+        "Avg_Pts_For": 48.0,
+        "Avg_Pts_Against": 81.0,
+        "Avg_Net_Pts": -33.0
+    },
+    "Rutgers": {
+        "Massey": 18.4337424995,
+        "Colley": 0.8177935593,
+        "Elo": 1587.4164090079,
+        "Adj_Elo": 1900.6150371634,
+        "Avg_Pts_For": 67.90322580645162,
+        "Avg_Pts_Against": 65.80645161290323,
+        "Avg_Net_Pts": 2.0967741935483843
+    },
+    "Rutgers-Camden": {
+        "Massey": -21.1697605153,
+        "Colley": 0.4305208411,
+        "Elo": 1485.0,
+        "Adj_Elo": 1361.2451435601,
+        "Avg_Pts_For": 28.0,
+        "Avg_Pts_Against": 94.0,
+        "Avg_Net_Pts": -66.0
+    },
+    "SAGU Amer. Indian Coll.": {
+        "Massey": -34.3246385594,
+        "Colley": 0.2241954841,
+        "Elo": 1445.3429563725,
+        "Adj_Elo": 1261.9061882128,
+        "Avg_Pts_For": 56.5,
+        "Avg_Pts_Against": 110.0,
+        "Avg_Net_Pts": -53.5
+    },
+    "SUNY New Paltz": {
+        "Massey": -11.4160807641,
+        "Colley": 0.3264068208,
+        "Elo": 1485.0,
+        "Adj_Elo": 1385.6307152076,
+        "Avg_Pts_For": 52.0,
+        "Avg_Pts_Against": 83.0,
+        "Avg_Net_Pts": -31.0
+    },
+    "SUNY-Oneonta": {
+        "Massey": -8.2867250709,
+        "Colley": 0.3064324072,
+        "Elo": 1482.7704036955,
+        "Adj_Elo": 1352.6033539828,
+        "Avg_Pts_For": 55.0,
+        "Avg_Pts_Against": 79.0,
+        "Avg_Net_Pts": -24.0
+    },
+    "SUNY-Polytechnic": {
+        "Massey": -14.1525609413,
+        "Colley": 0.3833067923,
+        "Elo": 1484.4060973752,
+        "Adj_Elo": 1358.9525193568,
+        "Avg_Pts_For": 50.0,
+        "Avg_Pts_Against": 97.0,
+        "Avg_Net_Pts": -47.0
+    },
+    "SUNY-Purchase": {
+        "Massey": -22.4670013819,
+        "Colley": 0.3264068208,
+        "Elo": 1485.265261089,
+        "Adj_Elo": 1337.9978700033,
+        "Avg_Pts_For": 40.0,
+        "Avg_Pts_Against": 97.0,
+        "Avg_Net_Pts": -57.0
+    },
+    "Sacramento State": {
+        "Massey": 2.6531762208,
+        "Colley": 0.4485633667,
+        "Elo": 1453.5231925747,
+        "Adj_Elo": 1596.6007595551,
+        "Avg_Pts_For": 65.44827586206897,
+        "Avg_Pts_Against": 70.17241379310344,
+        "Avg_Net_Pts": -4.724137931034477
+    },
+    "Sacred Heart": {
+        "Massey": 0.8074849354,
+        "Colley": 0.2944096139,
+        "Elo": 1379.8231366237,
+        "Adj_Elo": 1344.0242294102,
+        "Avg_Pts_For": 72.21212121212122,
+        "Avg_Pts_Against": 74.6969696969697,
+        "Avg_Net_Pts": -2.4848484848484844
+    },
+    "Saginaw Valley": {
+        "Massey": 6.0253531981,
+        "Colley": 0.5279565345,
+        "Elo": 1499.8221862283,
+        "Adj_Elo": 1487.1276649132,
+        "Avg_Pts_For": 68.5,
+        "Avg_Pts_Against": 65.5,
+        "Avg_Net_Pts": 3.0
+    },
+    "Saint Francis (PA)": {
+        "Massey": -0.0898699936,
+        "Colley": 0.2862328215,
+        "Elo": 1350.5733362026,
+        "Adj_Elo": 1179.2612286596,
+        "Avg_Pts_For": 68.60606060606061,
+        "Avg_Pts_Against": 73.36363636363636,
+        "Avg_Net_Pts": -4.757575757575751
+    },
+    "Saint Joseph's": {
+        "Massey": 11.8059103361,
+        "Colley": 0.5581120588,
+        "Elo": 1421.1918973948,
+        "Adj_Elo": 1440.3845232176,
+        "Avg_Pts_For": 67.6,
+        "Avg_Pts_Against": 69.06666666666666,
+        "Avg_Net_Pts": -1.4666666666666686
+    },
+    "Saint Joseph's (ME)": {
+        "Massey": -15.8260669451,
+        "Colley": 0.3398348964,
+        "Elo": 1485.0,
+        "Adj_Elo": 1373.6548339159,
+        "Avg_Pts_For": 53.0,
+        "Avg_Pts_Against": 98.0,
+        "Avg_Net_Pts": -45.0
+    },
+    "Saint Louis": {
+        "Massey": 21.1792688097,
+        "Colley": 0.8620022955,
+        "Elo": 1611.3729035878,
+        "Adj_Elo": 1781.8724668863,
+        "Avg_Pts_For": 76.17142857142858,
+        "Avg_Pts_Against": 67.88571428571429,
+        "Avg_Net_Pts": 8.285714285714292
+    },
+    "Saint Mary's (CA)": {
+        "Massey": 24.8080688613,
+        "Colley": 1.0259120116,
+        "Elo": 1697.3292758703,
+        "Adj_Elo": 2111.7422980651,
+        "Avg_Pts_For": 69.75,
+        "Avg_Pts_Against": 60.5,
+        "Avg_Net_Pts": 9.25
+    },
+    "Saint Peter's": {
+        "Massey": 12.4012116785,
+        "Colley": 0.6869617831,
+        "Elo": 1602.0338729299,
+        "Adj_Elo": 1899.5759647174,
+        "Avg_Pts_For": 66.64516129032258,
+        "Avg_Pts_Against": 62.064516129032256,
+        "Avg_Net_Pts": 4.58064516129032
+    },
+    "Saint Xavier (IL)": {
+        "Massey": -9.0601630743,
+        "Colley": 0.2765727829,
+        "Elo": 1481.6979668543,
+        "Adj_Elo": 1336.6221057571,
+        "Avg_Pts_For": 52.0,
+        "Avg_Pts_Against": 74.0,
+        "Avg_Net_Pts": -22.0
+    },
+    "Salisbury": {
+        "Massey": 3.1795820753,
+        "Colley": 0.5399004046,
+        "Elo": 1515.6471999915,
+        "Adj_Elo": 1616.4124866677,
+        "Avg_Pts_For": 91.0,
+        "Avg_Pts_Against": 78.0,
+        "Avg_Net_Pts": 13.0
+    },
+    "Salve Regina": {
+        "Massey": -8.4382449505,
+        "Colley": 0.343247956,
+        "Elo": 1485.0,
+        "Adj_Elo": 1386.678422252,
+        "Avg_Pts_For": 59.0,
+        "Avg_Pts_Against": 89.0,
+        "Avg_Net_Pts": -30.0
+    },
+    "Sam Houston": {
+        "Massey": 14.1395460195,
+        "Colley": 0.6843981771,
+        "Elo": 1580.8303100447,
+        "Adj_Elo": 1822.9438403022,
+        "Avg_Pts_For": 68.84848484848484,
+        "Avg_Pts_Against": 63.09090909090909,
+        "Avg_Net_Pts": 5.757575757575751
+    },
+    "Samford": {
+        "Massey": 9.7035285566,
+        "Colley": 0.7514864519,
+        "Elo": 1603.639622815,
+        "Adj_Elo": 1745.6415600886,
+        "Avg_Pts_For": 74.6875,
+        "Avg_Pts_Against": 73.84375,
+        "Avg_Net_Pts": 0.84375
+    },
+    "San Diego": {
+        "Massey": 9.248391337,
+        "Colley": 0.6335097995,
+        "Elo": 1492.1729054096,
+        "Adj_Elo": 1494.4795151003,
+        "Avg_Pts_For": 65.83870967741936,
+        "Avg_Pts_Against": 67.29032258064517,
+        "Avg_Net_Pts": -1.4516129032258078
+    },
+    "San Diego Christian": {
+        "Massey": -20.29955463,
+        "Colley": 0.2757376683,
+        "Elo": 1474.0221980889,
+        "Adj_Elo": 1361.3073124556,
+        "Avg_Pts_For": 49.0,
+        "Avg_Pts_Against": 91.0,
+        "Avg_Net_Pts": -42.0
+    },
+    "San Diego State": {
+        "Massey": 23.4005883123,
+        "Colley": 1.0103460018,
+        "Elo": 1679.0646916832,
+        "Adj_Elo": 2101.7807509505,
+        "Avg_Pts_For": 65.29032258064517,
+        "Avg_Pts_Against": 57.67741935483871,
+        "Avg_Net_Pts": 7.6129032258064555
+    },
+    "San Francisco": {
+        "Massey": 25.5030091537,
+        "Colley": 0.9665351196,
+        "Elo": 1638.8776354333,
+        "Adj_Elo": 1963.3689503984,
+        "Avg_Pts_For": 77.06060606060606,
+        "Avg_Pts_Against": 67.03030303030303,
+        "Avg_Net_Pts": 10.030303030303031
+    },
+    "San Francisco State": {
+        "Massey": -15.6578184828,
+        "Colley": 0.3107010458,
+        "Elo": 1470.6471999915,
+        "Adj_Elo": 1302.5457844948,
+        "Avg_Pts_For": 65.0,
+        "Avg_Pts_Against": 103.0,
+        "Avg_Net_Pts": -38.0
+    },
+    "San Jose State": {
+        "Massey": 5.8285170607,
+        "Colley": 0.4974449169,
+        "Elo": 1363.5924555348,
+        "Adj_Elo": 1308.7062021204,
+        "Avg_Pts_For": 64.29032258064517,
+        "Avg_Pts_Against": 72.3225806451613,
+        "Avg_Net_Pts": -8.032258064516128
+    },
+    "Santa Clara": {
+        "Massey": 19.7922566369,
+        "Colley": 0.8516518633,
+        "Elo": 1602.9506939329,
+        "Adj_Elo": 1845.7938810293,
+        "Avg_Pts_For": 77.27272727272727,
+        "Avg_Pts_Against": 71.9090909090909,
+        "Avg_Net_Pts": 5.36363636363636
+    },
+    "Schreiner": {
+        "Massey": -21.0454771492,
+        "Colley": 0.3678098655,
+        "Elo": 1469.0610072904,
+        "Adj_Elo": 1275.8672082812,
+        "Avg_Pts_For": 46.5,
+        "Avg_Pts_Against": 97.0,
+        "Avg_Net_Pts": -50.5
+    },
+    "Seattle": {
+        "Massey": 15.4783631884,
+        "Colley": 0.7827111306,
+        "Elo": 1616.6452540757,
+        "Adj_Elo": 1732.9711774227,
+        "Avg_Pts_For": 74.84375,
+        "Avg_Pts_Against": 66.625,
+        "Avg_Net_Pts": 8.21875
+    },
+    "Seton Hall": {
+        "Massey": 22.8377338617,
+        "Colley": 0.9384125842,
+        "Elo": 1622.0735831917,
+        "Adj_Elo": 1919.3963322931,
+        "Avg_Pts_For": 72.90322580645162,
+        "Avg_Pts_Against": 66.3225806451613,
+        "Avg_Net_Pts": 6.58064516129032
+    },
+    "Shenandoah": {
+        "Massey": -17.5002947885,
+        "Colley": 0.3401757327,
+        "Elo": 1485.0,
+        "Adj_Elo": 1370.9032408209,
+        "Avg_Pts_For": 59.0,
+        "Avg_Pts_Against": 108.0,
+        "Avg_Net_Pts": -49.0
+    },
+    "Siena": {
+        "Massey": 5.6707958308,
+        "Colley": 0.5861374711,
+        "Elo": 1513.3190502274,
+        "Adj_Elo": 1422.3927980915,
+        "Avg_Pts_For": 66.27586206896552,
+        "Avg_Pts_Against": 69.17241379310344,
+        "Avg_Net_Pts": -2.8965517241379217
+    },
+    "South Alabama": {
+        "Massey": 14.9084824081,
+        "Colley": 0.7166659496,
+        "Elo": 1568.6473430104,
+        "Adj_Elo": 1698.2081843036,
+        "Avg_Pts_For": 71.57575757575758,
+        "Avg_Pts_Against": 63.96969696969697,
+        "Avg_Net_Pts": 7.606060606060609
+    },
+    "South Carolina": {
+        "Massey": 18.1300888539,
+        "Colley": 0.845902096,
+        "Elo": 1561.9762950283,
+        "Adj_Elo": 1670.3678886761,
+        "Avg_Pts_For": 70.96774193548387,
+        "Avg_Pts_Against": 70.25806451612904,
+        "Avg_Net_Pts": 0.7096774193548328
+    },
+    "South Carolina State": {
+        "Massey": 2.2874989604,
+        "Colley": 0.4486010638,
+        "Elo": 1474.6446507418,
+        "Adj_Elo": 1340.1877788616,
+        "Avg_Pts_For": 71.83870967741936,
+        "Avg_Pts_Against": 72.54838709677419,
+        "Avg_Net_Pts": -0.7096774193548328
+    },
+    "South Carolina Upstate": {
+        "Massey": 5.8522044553,
+        "Colley": 0.5462321117,
+        "Elo": 1512.0554919369,
+        "Adj_Elo": 1584.1799342045,
+        "Avg_Pts_For": 71.46875,
+        "Avg_Pts_Against": 73.15625,
+        "Avg_Net_Pts": -1.6875
+    },
+    "South Dakota": {
+        "Massey": 11.3304385619,
+        "Colley": 0.6637450556,
+        "Elo": 1574.7983657274,
+        "Adj_Elo": 1844.6851133491,
+        "Avg_Pts_For": 75.12903225806451,
+        "Avg_Pts_Against": 70.90322580645162,
+        "Avg_Net_Pts": 4.225806451612897
+    },
+    "South Dakota State": {
+        "Massey": 20.9138770764,
+        "Colley": 0.9360529009,
+        "Elo": 1740.515716221,
+        "Adj_Elo": 2185.2575406917,
+        "Avg_Pts_For": 86.70588235294117,
+        "Avg_Pts_Against": 73.38235294117646,
+        "Avg_Net_Pts": 13.32352941176471
+    },
+    "South Florida": {
+        "Massey": 7.4712611159,
+        "Colley": 0.4876930767,
+        "Elo": 1376.8300635269,
+        "Adj_Elo": 1293.5633971017,
+        "Avg_Pts_For": 57.45161290322581,
+        "Avg_Pts_Against": 64.90322580645162,
+        "Avg_Net_Pts": -7.451612903225808
+    },
+    "Southeast Missouri State": {
+        "Massey": 6.7336656867,
+        "Colley": 0.4988882703,
+        "Elo": 1475.0983626868,
+        "Adj_Elo": 1635.4448532921,
+        "Avg_Pts_For": 75.5625,
+        "Avg_Pts_Against": 77.28125,
+        "Avg_Net_Pts": -1.71875
+    },
+    "Southeastern Baptist College": {
+        "Massey": -40.2554583632,
+        "Colley": 0.1610500292,
+        "Elo": 1454.724783572,
+        "Adj_Elo": 1170.5946869307,
+        "Avg_Pts_For": 49.333333333333336,
+        "Avg_Pts_Against": 111.33333333333333,
+        "Avg_Net_Pts": -61.99999999999999
+    },
+    "Southeastern Louisiana": {
+        "Massey": 5.6221947892,
+        "Colley": 0.5792223954,
+        "Elo": 1551.8518921632,
+        "Adj_Elo": 1638.1690901737,
+        "Avg_Pts_For": 78.79411764705883,
+        "Avg_Pts_Against": 77.73529411764706,
+        "Avg_Net_Pts": 1.058823529411768
+    },
+    "Southern": {
+        "Massey": 7.7075125329,
+        "Colley": 0.5383357962,
+        "Elo": 1478.2557318752,
+        "Adj_Elo": 1320.3035484052,
+        "Avg_Pts_For": 71.90322580645162,
+        "Avg_Pts_Against": 67.90322580645162,
+        "Avg_Net_Pts": 4.0
+    },
+    "Southern California": {
+        "Massey": 22.2404422095,
+        "Colley": 1.0040531701,
+        "Elo": 1664.4650551588,
+        "Adj_Elo": 1871.2966996003,
+        "Avg_Pts_For": 72.57575757575758,
+        "Avg_Pts_Against": 65.9090909090909,
+        "Avg_Net_Pts": 6.666666666666671
+    },
+    "Southern Illinois": {
+        "Massey": 14.3806881057,
+        "Colley": 0.6382610567,
+        "Elo": 1525.7844141115,
+        "Adj_Elo": 1771.9018344358,
+        "Avg_Pts_For": 64.03225806451613,
+        "Avg_Pts_Against": 61.354838709677416,
+        "Avg_Net_Pts": 2.6774193548387117
+    },
+    "Southern Illinois-Edwardsville": {
+        "Massey": 5.0907076772,
+        "Colley": 0.4036018369,
+        "Elo": 1407.3827890227,
+        "Adj_Elo": 1366.8335330955,
+        "Avg_Pts_For": 67.53125,
+        "Avg_Pts_Against": 69.9375,
+        "Avg_Net_Pts": -2.40625
+    },
+    "Southern Methodist": {
+        "Massey": 21.1367663543,
+        "Colley": 0.9154977568,
+        "Elo": 1646.0889074061,
+        "Adj_Elo": 1873.8120158062,
+        "Avg_Pts_For": 73.81818181818181,
+        "Avg_Pts_Against": 67.12121212121212,
+        "Avg_Net_Pts": 6.696969696969688
+    },
+    "Southern Mississippi": {
+        "Massey": -0.2003424866,
+        "Colley": 0.3612575721,
+        "Elo": 1343.4872933948,
+        "Adj_Elo": 1202.9716245701,
+        "Avg_Pts_For": 64.42424242424242,
+        "Avg_Pts_Against": 74.87878787878788,
+        "Avg_Net_Pts": -10.454545454545453
+    },
+    "Southern Utah": {
+        "Massey": 12.3675032817,
+        "Colley": 0.7258189557,
+        "Elo": 1600.745053267,
+        "Adj_Elo": 1757.5510997619,
+        "Avg_Pts_For": 77.71428571428571,
+        "Avg_Pts_Against": 72.51428571428572,
+        "Avg_Net_Pts": 5.199999999999989
+    },
+    "Southwest Assemblies of God": {
+        "Massey": 1.1848807981,
+        "Colley": 0.35548594,
+        "Elo": 1482.4915361537,
+        "Adj_Elo": 1431.4243742508,
+        "Avg_Pts_For": 75.0,
+        "Avg_Pts_Against": 81.0,
+        "Avg_Net_Pts": -6.0
+    },
+    "Southwestern (TX)": {
+        "Massey": -22.1738573132,
+        "Colley": 0.35635995,
+        "Elo": 1475.8149944372,
+        "Adj_Elo": 1411.0009954754,
+        "Avg_Pts_For": 57.0,
+        "Avg_Pts_Against": 106.0,
+        "Avg_Net_Pts": -49.0
+    },
+    "Southwestern Adventist": {
+        "Massey": -27.0482568683,
+        "Colley": 0.187174407,
+        "Elo": 1465.6702687914,
+        "Adj_Elo": 1202.0066621768,
+        "Avg_Pts_For": 56.0,
+        "Avg_Pts_Against": 102.0,
+        "Avg_Net_Pts": -46.0
+    },
+    "Southwestern Christian": {
+        "Massey": -22.1566676475,
+        "Colley": 0.3306183852,
+        "Elo": 1470.434317524,
+        "Adj_Elo": 1251.0430171614,
+        "Avg_Pts_For": 54.0,
+        "Avg_Pts_Against": 104.0,
+        "Avg_Net_Pts": -50.0
+    },
+    "Spalding": {
+        "Massey": -13.3875605892,
+        "Colley": 0.150110617,
+        "Elo": 1467.3388923671,
+        "Adj_Elo": 1272.0827387417,
+        "Avg_Pts_For": 48.5,
+        "Avg_Pts_Against": 70.5,
+        "Avg_Net_Pts": -22.0
+    },
+    "Spring Hill": {
+        "Massey": -19.2836679543,
+        "Colley": 0.3073937666,
+        "Elo": 1456.8835100185,
+        "Adj_Elo": 1229.2612846407,
+        "Avg_Pts_For": 50.333333333333336,
+        "Avg_Pts_Against": 89.0,
+        "Avg_Net_Pts": -38.666666666666664
+    },
+    "Spurgeon College": {
+        "Massey": -23.2033678742,
+        "Colley": 0.3827872281,
+        "Elo": 1485.9752701507,
+        "Adj_Elo": 1397.2827478188,
+        "Avg_Pts_For": 44.0,
+        "Avg_Pts_Against": 111.0,
+        "Avg_Net_Pts": -67.0
+    },
+    "St. Andrews": {
+        "Massey": -28.0664809228,
+        "Colley": 0.1834964907,
+        "Elo": 1440.2871677331,
+        "Adj_Elo": 1124.1978113609,
+        "Avg_Pts_For": 48.5,
+        "Avg_Pts_Against": 92.75,
+        "Avg_Net_Pts": -44.25
+    },
+    "St. Bonaventure": {
+        "Massey": 18.504035307,
+        "Colley": 0.9107178898,
+        "Elo": 1639.3487809547,
+        "Adj_Elo": 1930.9529803849,
+        "Avg_Pts_For": 69.96969696969697,
+        "Avg_Pts_Against": 66.48484848484848,
+        "Avg_Net_Pts": 3.4848484848484844
+    },
+    "St. Elizabeth": {
+        "Massey": -14.6049412744,
+        "Colley": 0.286425841,
+        "Elo": 1485.0870918578,
+        "Adj_Elo": 1393.1005305409,
+        "Avg_Pts_For": 43.0,
+        "Avg_Pts_Against": 76.0,
+        "Avg_Net_Pts": -33.0
+    },
+    "St. Francis (NY)": {
+        "Massey": 0.2709537964,
+        "Colley": 0.309093474,
+        "Elo": 1398.969909362,
+        "Adj_Elo": 1296.1165538619,
+        "Avg_Pts_For": 65.65517241379311,
+        "Avg_Pts_Against": 71.20689655172414,
+        "Avg_Net_Pts": -5.551724137931032
+    },
+    "St. Francis (NY) Terriers": {
+        "Massey": 1.219399606,
+        "Colley": 0.3215555162,
+        "Elo": 1404.3755696566,
+        "Adj_Elo": 1221.5018086376,
+        "Avg_Pts_For": 67.23333333333333,
+        "Avg_Pts_Against": 70.53333333333333,
+        "Avg_Net_Pts": -3.299999999999997
+    },
+    "St. John Fisher": {
+        "Massey": -11.5612723523,
+        "Colley": 0.4046369417,
+        "Elo": 1486.369706685,
+        "Adj_Elo": 1448.0306867774,
+        "Avg_Pts_For": 58.0,
+        "Avg_Pts_Against": 100.0,
+        "Avg_Net_Pts": -42.0
+    },
+    "St. John's (NY)": {
+        "Massey": 20.8140674318,
+        "Colley": 0.79437791,
+        "Elo": 1545.173517908,
+        "Adj_Elo": 1881.5897887618,
+        "Avg_Pts_For": 79.48484848484848,
+        "Avg_Pts_Against": 74.03030303030303,
+        "Avg_Net_Pts": 5.454545454545453
+    },
+    "St. Katherine": {
+        "Massey": -14.3832781856,
+        "Colley": 0.2257710683,
+        "Elo": 1456.8520533716,
+        "Adj_Elo": 1281.0477135883,
+        "Avg_Pts_For": 62.666666666666664,
+        "Avg_Pts_Against": 89.33333333333333,
+        "Avg_Net_Pts": -26.666666666666664
+    },
+    "St. Mary's (MD)": {
+        "Massey": -26.6540660002,
+        "Colley": 0.2177009532,
+        "Elo": 1470.3053096822,
+        "Adj_Elo": 1299.9098460787,
+        "Avg_Pts_For": 49.0,
+        "Avg_Pts_Against": 98.5,
+        "Avg_Net_Pts": -49.5
+    },
+    "St. Mary's (TX)": {
+        "Massey": -3.5546570154,
+        "Colley": 0.2597961047,
+        "Elo": 1472.9236869065,
+        "Adj_Elo": 1382.5355005828,
+        "Avg_Pts_For": 69.0,
+        "Avg_Pts_Against": 81.5,
+        "Avg_Net_Pts": -12.5
+    },
+    "St. Thomas": {
+        "Massey": 5.6825890571,
+        "Colley": 0.4014828176,
+        "Elo": 1401.9713438798,
+        "Adj_Elo": 1332.2459163073,
+        "Avg_Pts_For": 75.2258064516129,
+        "Avg_Pts_Against": 75.25806451612904,
+        "Avg_Net_Pts": -0.032258064516142326
+    },
+    "St. Thomas (FL)": {
+        "Massey": -6.4776185725,
+        "Colley": 0.3448665983,
+        "Elo": 1486.5155371773,
+        "Adj_Elo": 1418.8094735067,
+        "Avg_Pts_For": 72.0,
+        "Avg_Pts_Against": 95.0,
+        "Avg_Net_Pts": -23.0
+    },
+    "Stanford": {
+        "Massey": 16.0143261111,
+        "Colley": 0.7922915603,
+        "Elo": 1508.1286196978,
+        "Adj_Elo": 1545.1285795699,
+        "Avg_Pts_For": 66.375,
+        "Avg_Pts_Against": 68.6875,
+        "Avg_Net_Pts": -2.3125
+    },
+    "Stephen F. Austin": {
+        "Massey": 14.9572566684,
+        "Colley": 0.7826237517,
+        "Elo": 1617.832095877,
+        "Adj_Elo": 1728.6901925326,
+        "Avg_Pts_For": 74.53125,
+        "Avg_Pts_Against": 68.4375,
+        "Avg_Net_Pts": 6.09375
+    },
+    "Stetson": {
+        "Massey": 4.905874425,
+        "Colley": 0.41389343,
+        "Elo": 1421.1662321375,
+        "Adj_Elo": 1414.9040065499,
+        "Avg_Pts_For": 69.66666666666667,
+        "Avg_Pts_Against": 71.46666666666667,
+        "Avg_Net_Pts": -1.7999999999999972
+    },
+    "Stony Brook": {
+        "Massey": 6.6950661864,
+        "Colley": 0.5934991366,
+        "Elo": 1516.8114390086,
+        "Adj_Elo": 1499.6137884468,
+        "Avg_Pts_For": 73.3030303030303,
+        "Avg_Pts_Against": 73.42424242424242,
+        "Avg_Net_Pts": -0.12121212121212466
+    },
+    "Sul Ross State": {
+        "Massey": -18.1671184386,
+        "Colley": 0.3762514789,
+        "Elo": 1488.1532796979,
+        "Adj_Elo": 1426.3207999707,
+        "Avg_Pts_For": 49.0,
+        "Avg_Pts_Against": 101.0,
+        "Avg_Net_Pts": -52.0
+    },
+    "Syracuse": {
+        "Massey": 19.3007762095,
+        "Colley": 0.7481073918,
+        "Elo": 1526.5270093195,
+        "Adj_Elo": 1764.1300045315,
+        "Avg_Pts_For": 77.36363636363636,
+        "Avg_Pts_Against": 75.06060606060606,
+        "Avg_Net_Pts": 2.3030303030302974
+    },
+    "TCU": {
+        "Massey": 22.1950060051,
+        "Colley": 0.9063199969,
+        "Elo": 1598.3605358694,
+        "Adj_Elo": 1843.8781423978,
+        "Avg_Pts_For": 68.09375,
+        "Avg_Pts_Against": 65.0,
+        "Avg_Net_Pts": 3.09375
+    },
+    "Tarleton State": {
+        "Massey": 8.7877225631,
+        "Colley": 0.56645782,
+        "Elo": 1491.779943711,
+        "Adj_Elo": 1512.9417785085,
+        "Avg_Pts_For": 64.58064516129032,
+        "Avg_Pts_Against": 65.3225806451613,
+        "Avg_Net_Pts": -0.7419354838709751
+    },
+    "Temple": {
+        "Massey": 14.6673216517,
+        "Colley": 0.7758352201,
+        "Elo": 1562.539031772,
+        "Adj_Elo": 1694.1326759825,
+        "Avg_Pts_For": 66.75862068965517,
+        "Avg_Pts_Against": 66.44827586206897,
+        "Avg_Net_Pts": 0.3103448275862064
+    },
+    "Tennessee": {
+        "Massey": 30.0759217803,
+        "Colley": 1.0931069603,
+        "Elo": 1741.5935800523,
+        "Adj_Elo": 2391.1621616241,
+        "Avg_Pts_For": 73.18181818181819,
+        "Avg_Pts_Against": 62.75757575757576,
+        "Avg_Net_Pts": 10.42424242424243
+    },
+    "Tennessee State": {
+        "Massey": 6.3063775171,
+        "Colley": 0.4419047465,
+        "Elo": 1468.3823064386,
+        "Adj_Elo": 1498.1918444086,
+        "Avg_Pts_For": 71.3125,
+        "Avg_Pts_Against": 70.1875,
+        "Avg_Net_Pts": 1.125
+    },
+    "Tennessee Tech": {
+        "Massey": 7.3703577548,
+        "Colley": 0.4396067912,
+        "Elo": 1439.7316004097,
+        "Adj_Elo": 1492.8595869136,
+        "Avg_Pts_For": 72.75,
+        "Avg_Pts_Against": 73.65625,
+        "Avg_Net_Pts": -0.90625
+    },
+    "Tennessee Wesleyan": {
+        "Massey": -23.9240886007,
+        "Colley": 0.379681024,
+        "Elo": 1462.6067110746,
+        "Adj_Elo": 1285.701315122,
+        "Avg_Pts_For": 55.666666666666664,
+        "Avg_Pts_Against": 106.66666666666667,
+        "Avg_Net_Pts": -51.00000000000001
+    },
+    "Tennessee-Martin": {
+        "Massey": 3.7228557556,
+        "Colley": 0.3589249699,
+        "Elo": 1351.1766551212,
+        "Adj_Elo": 1091.7923399747,
+        "Avg_Pts_For": 68.9,
+        "Avg_Pts_Against": 73.53333333333333,
+        "Avg_Net_Pts": -4.633333333333326
+    },
+    "Tennessee-Southern": {
+        "Massey": -1.201572051,
+        "Colley": 0.3242250597,
+        "Elo": 1485.0,
+        "Adj_Elo": 1431.3784291246,
+        "Avg_Pts_For": 79.0,
+        "Avg_Pts_Against": 86.0,
+        "Avg_Net_Pts": -7.0
+    },
+    "Texas": {
+        "Massey": 26.4324779848,
+        "Colley": 0.9246995031,
+        "Elo": 1614.3601925059,
+        "Adj_Elo": 1845.1552082012,
+        "Avg_Pts_For": 68.34375,
+        "Avg_Pts_Against": 59.625,
+        "Avg_Net_Pts": 8.71875
+    },
+    "Texas A&M": {
+        "Massey": 23.1523189272,
+        "Colley": 0.9318789866,
+        "Elo": 1658.0839662055,
+        "Adj_Elo": 2219.2176324685,
+        "Avg_Pts_For": 72.7,
+        "Avg_Pts_Against": 66.075,
+        "Avg_Net_Pts": 6.625
+    },
+    "Texas A&M-Corpus Christi": {
+        "Massey": 9.2574000175,
+        "Colley": 0.6287544366,
+        "Elo": 1583.4669920001,
+        "Adj_Elo": 1832.0273226168,
+        "Avg_Pts_For": 76.91176470588235,
+        "Avg_Pts_Against": 69.94117647058823,
+        "Avg_Net_Pts": 6.970588235294116
+    },
+    "Texas A&M-International": {
+        "Massey": -5.0973538833,
+        "Colley": 0.2979825055,
+        "Elo": 1485.0,
+        "Adj_Elo": 1408.5045721661,
+        "Avg_Pts_For": 59.0,
+        "Avg_Pts_Against": 74.0,
+        "Avg_Net_Pts": -15.0
+    },
+    "Texas Lutheran": {
+        "Massey": -12.2166227214,
+        "Colley": 0.3762514789,
+        "Elo": 1485.0,
+        "Adj_Elo": 1379.1024656777,
+        "Avg_Pts_For": 64.0,
+        "Avg_Pts_Against": 102.0,
+        "Avg_Net_Pts": -38.0
+    },
+    "Texas Southern": {
+        "Massey": 8.1263765787,
+        "Colley": 0.5929111723,
+        "Elo": 1560.0504706251,
+        "Adj_Elo": 1720.6810071044,
+        "Avg_Pts_For": 69.23333333333333,
+        "Avg_Pts_Against": 65.5,
+        "Avg_Net_Pts": 3.7333333333333343
+    },
+    "Texas State": {
+        "Massey": 14.3993071913,
+        "Colley": 0.7966853634,
+        "Elo": 1632.2693224468,
+        "Adj_Elo": 1800.5888220799,
+        "Avg_Pts_For": 70.44827586206897,
+        "Avg_Pts_Against": 63.241379310344826,
+        "Avg_Net_Pts": 7.206896551724142
+    },
+    "Texas Tech": {
+        "Massey": 29.1258056167,
+        "Colley": 0.999851723,
+        "Elo": 1674.3740337738,
+        "Adj_Elo": 2065.8806781127,
+        "Avg_Pts_For": 71.70588235294117,
+        "Avg_Pts_Against": 60.3235294117647,
+        "Avg_Net_Pts": 11.382352941176471
+    },
+    "Texas-Permian Basin": {
+        "Massey": -2.8047827033,
+        "Colley": 0.4822731111,
+        "Elo": 1489.3884236187,
+        "Adj_Elo": 1471.1118440408,
+        "Avg_Pts_For": 59.0,
+        "Avg_Pts_Against": 84.0,
+        "Avg_Net_Pts": -25.0
+    },
+    "Texas-Rio Grande Valley": {
+        "Massey": 3.0072253209,
+        "Colley": 0.3939475166,
+        "Elo": 1364.3783645412,
+        "Adj_Elo": 1265.6801752241,
+        "Avg_Pts_For": 71.35483870967742,
+        "Avg_Pts_Against": 78.64516129032258,
+        "Avg_Net_Pts": -7.290322580645153
+    },
+    "The Citadel": {
+        "Massey": 6.9778402966,
+        "Colley": 0.5326171828,
+        "Elo": 1475.3075134619,
+        "Adj_Elo": 1552.3002236758,
+        "Avg_Pts_For": 76.80645161290323,
+        "Avg_Pts_Against": 76.83870967741936,
+        "Avg_Net_Pts": -0.032258064516128115
+    },
+    "Toccoa Falls": {
+        "Massey": -27.6723624805,
+        "Colley": 0.1933270204,
+        "Elo": 1448.8201417388,
+        "Adj_Elo": 1094.731194201,
+        "Avg_Pts_For": 51.666666666666664,
+        "Avg_Pts_Against": 99.0,
+        "Avg_Net_Pts": -47.333333333333336
+    },
+    "Toledo": {
+        "Massey": 19.3125146928,
+        "Colley": 0.8441538859,
+        "Elo": 1648.2864442858,
+        "Adj_Elo": 1811.2612679833,
+        "Avg_Pts_For": 79.91176470588235,
+        "Avg_Pts_Against": 68.6470588235294,
+        "Avg_Net_Pts": 11.264705882352942
+    },
+    "Tougaloo": {
+        "Massey": 0.2644548163,
+        "Colley": 0.3597407985,
+        "Elo": 1484.6855754379,
+        "Adj_Elo": 1461.3521258115,
+        "Avg_Pts_For": 72.0,
+        "Avg_Pts_Against": 77.0,
+        "Avg_Net_Pts": -5.0
+    },
+    "Towson": {
+        "Massey": 18.2713914488,
+        "Colley": 0.8455441887,
+        "Elo": 1640.114937434,
+        "Adj_Elo": 1763.1035003046,
+        "Avg_Pts_For": 72.88235294117646,
+        "Avg_Pts_Against": 64.26470588235294,
+        "Avg_Net_Pts": 8.617647058823522
+    },
+    "Transylvania": {
+        "Massey": -4.4196571766,
+        "Colley": 0.4107144803,
+        "Elo": 1484.461797774,
+        "Adj_Elo": 1393.8937897005,
+        "Avg_Pts_For": 59.0,
+        "Avg_Pts_Against": 84.0,
+        "Avg_Net_Pts": -25.0
+    },
+    "Trinity (FL)": {
+        "Massey": -23.4790349075,
+        "Colley": 0.3448665983,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1335.9971964516,
+        "Avg_Pts_For": 48.0,
+        "Avg_Pts_Against": 111.0,
+        "Avg_Net_Pts": -63.0
+    },
+    "Trinity (TX)": {
+        "Massey": -11.5504473588,
+        "Colley": 0.3034766607,
+        "Elo": 1485.0,
+        "Adj_Elo": 1385.6307152076,
+        "Avg_Pts_For": 66.0,
+        "Avg_Pts_Against": 97.0,
+        "Avg_Net_Pts": -31.0
+    },
+    "Trinity Baptist": {
+        "Massey": -19.3934621633,
+        "Colley": 0.2941986591,
+        "Elo": 1468.2318951451,
+        "Adj_Elo": 1293.9249201899,
+        "Avg_Pts_For": 43.5,
+        "Avg_Pts_Against": 85.5,
+        "Avg_Net_Pts": -42.0
+    },
+    "Trinity Christian": {
+        "Massey": -18.5526502982,
+        "Colley": 0.2530275268,
+        "Elo": 1469.5892867342,
+        "Adj_Elo": 1281.2723125428,
+        "Avg_Pts_For": 59.5,
+        "Avg_Pts_Against": 98.5,
+        "Avg_Net_Pts": -39.0
+    },
+    "Troy": {
+        "Massey": 10.5748907831,
+        "Colley": 0.6948354538,
+        "Elo": 1568.191087442,
+        "Adj_Elo": 1635.3582910641,
+        "Avg_Pts_For": 69.1875,
+        "Avg_Pts_Against": 65.625,
+        "Avg_Net_Pts": 3.5625
+    },
+    "Truett-McConnell": {
+        "Massey": -15.256142673,
+        "Colley": 0.3150298027,
+        "Elo": 1484.5871174761,
+        "Adj_Elo": 1347.9135439783,
+        "Avg_Pts_For": 49.0,
+        "Avg_Pts_Against": 91.0,
+        "Avg_Net_Pts": -42.0
+    },
+    "Tulane": {
+        "Massey": 16.5701106076,
+        "Colley": 0.7173575771,
+        "Elo": 1535.7647291294,
+        "Adj_Elo": 1788.1484134626,
+        "Avg_Pts_For": 73.13793103448276,
+        "Avg_Pts_Against": 71.72413793103448,
+        "Avg_Net_Pts": 1.4137931034482847
+    },
+    "Tulsa": {
+        "Massey": 11.7432129849,
+        "Colley": 0.5646633904,
+        "Elo": 1443.3983881241,
+        "Adj_Elo": 1538.1145161849,
+        "Avg_Pts_For": 67.38709677419355,
+        "Avg_Pts_Against": 69.90322580645162,
+        "Avg_Net_Pts": -2.516129032258064
+    },
+    "Tuskegee": {
+        "Massey": -10.7462081021,
+        "Colley": 0.2848696392,
+        "Elo": 1482.8378479973,
+        "Adj_Elo": 1342.0638538679,
+        "Avg_Pts_For": 65.0,
+        "Avg_Pts_Against": 91.0,
+        "Avg_Net_Pts": -26.0
+    },
+    "UAB": {
+        "Massey": 23.4531395244,
+        "Colley": 0.9083147833,
+        "Elo": 1699.6854132032,
+        "Adj_Elo": 2112.8627444183,
+        "Avg_Pts_For": 80.67647058823529,
+        "Avg_Pts_Against": 66.29411764705883,
+        "Avg_Net_Pts": 14.382352941176464
+    },
+    "UC Davis": {
+        "Massey": 7.9204369261,
+        "Colley": 0.5872807784,
+        "Elo": 1507.4686887062,
+        "Adj_Elo": 1487.6306662638,
+        "Avg_Pts_For": 67.83333333333333,
+        "Avg_Pts_Against": 66.375,
+        "Avg_Net_Pts": 1.4583333333333286
+    },
+    "UC Irvine": {
+        "Massey": 12.9396973458,
+        "Colley": 0.6974331088,
+        "Elo": 1549.0610424619,
+        "Adj_Elo": 1654.504966428,
+        "Avg_Pts_For": 66.24,
+        "Avg_Pts_Against": 60.28,
+        "Avg_Net_Pts": 5.959999999999994
+    },
+    "UC Merced": {
+        "Massey": -14.0599856,
+        "Colley": 0.3624269261,
+        "Elo": 1484.9114575828,
+        "Adj_Elo": 1356.9085784278,
+        "Avg_Pts_For": 40.0,
+        "Avg_Pts_Against": 81.0,
+        "Avg_Net_Pts": -41.0
+    },
+    "UC Riverside": {
+        "Massey": 10.6689363188,
+        "Colley": 0.6617592725,
+        "Elo": 1527.6432347957,
+        "Adj_Elo": 1550.1098711454,
+        "Avg_Pts_For": 66.60714285714286,
+        "Avg_Pts_Against": 63.714285714285715,
+        "Avg_Net_Pts": 2.892857142857146
+    },
+    "UC San Diego": {
+        "Massey": 6.146234008,
+        "Colley": 0.5096085153,
+        "Elo": 1457.9868106473,
+        "Adj_Elo": 1439.9952195227,
+        "Avg_Pts_For": 70.20689655172414,
+        "Avg_Pts_Against": 70.55172413793103,
+        "Avg_Net_Pts": -0.3448275862068897
+    },
+    "UC Santa Barbara": {
+        "Massey": 13.708792411,
+        "Colley": 0.6494620252,
+        "Elo": 1569.9030377982,
+        "Adj_Elo": 1819.0046203668,
+        "Avg_Pts_For": 73.78571428571429,
+        "Avg_Pts_Against": 65.75,
+        "Avg_Net_Pts": 8.035714285714292
+    },
+    "UCF": {
+        "Massey": 16.1013161161,
+        "Colley": 0.7872601519,
+        "Elo": 1546.0447419258,
+        "Adj_Elo": 1640.9608077942,
+        "Avg_Pts_For": 69.83333333333333,
+        "Avg_Pts_Against": 68.23333333333333,
+        "Avg_Net_Pts": 1.5999999999999943
+    },
+    "UCLA": {
+        "Massey": 28.9292023168,
+        "Colley": 1.0593950629,
+        "Elo": 1686.3147672302,
+        "Adj_Elo": 2071.5905039967,
+        "Avg_Pts_For": 76.375,
+        "Avg_Pts_Against": 64.8125,
+        "Avg_Net_Pts": 11.5625
+    },
+    "UNC Asheville": {
+        "Massey": 11.6497363622,
+        "Colley": 0.573528586,
+        "Elo": 1501.1483160305,
+        "Adj_Elo": 1674.5300724158,
+        "Avg_Pts_For": 75.3125,
+        "Avg_Pts_Against": 68.78125,
+        "Avg_Net_Pts": 6.53125
+    },
+    "UNC Greensboro": {
+        "Massey": 10.3123643442,
+        "Colley": 0.6640037927,
+        "Elo": 1514.1139205867,
+        "Adj_Elo": 1519.6453662123,
+        "Avg_Pts_For": 65.09375,
+        "Avg_Pts_Against": 64.96875,
+        "Avg_Net_Pts": 0.125
+    },
+    "UNC Wilmington": {
+        "Massey": 12.1814283697,
+        "Colley": 0.8324794779,
+        "Elo": 1690.0798524692,
+        "Adj_Elo": 2048.213755252,
+        "Avg_Pts_For": 72.11111111111111,
+        "Avg_Pts_Against": 68.97222222222223,
+        "Avg_Net_Pts": 3.1388888888888857
+    },
+    "UT Arlington": {
+        "Massey": 8.6375375214,
+        "Colley": 0.5317882728,
+        "Elo": 1444.7921819537,
+        "Adj_Elo": 1436.8960078381,
+        "Avg_Pts_For": 67.17241379310344,
+        "Avg_Pts_Against": 68.72413793103448,
+        "Avg_Net_Pts": -1.551724137931032
+    },
+    "UTEP": {
+        "Massey": 12.9881575198,
+        "Colley": 0.7223356286,
+        "Elo": 1577.6133294161,
+        "Adj_Elo": 1675.3437176629,
+        "Avg_Pts_For": 69.17647058823529,
+        "Avg_Pts_Against": 66.61764705882354,
+        "Avg_Net_Pts": 2.558823529411754
+    },
+    "UTSA": {
+        "Massey": 3.8247408776,
+        "Colley": 0.4104299822,
+        "Elo": 1394.0697569329,
+        "Adj_Elo": 1412.8306911132,
+        "Avg_Pts_For": 67.28125,
+        "Avg_Pts_Against": 72.28125,
+        "Avg_Net_Pts": -5.0
+    },
+    "Utah": {
+        "Massey": 15.1722299296,
+        "Colley": 0.6167034499,
+        "Elo": 1422.5841831515,
+        "Adj_Elo": 1524.9284810772,
+        "Avg_Pts_For": 69.70967741935483,
+        "Avg_Pts_Against": 70.87096774193549,
+        "Avg_Net_Pts": -1.1612903225806548
+    },
+    "Utah State": {
+        "Massey": 21.2275521135,
+        "Colley": 0.7932317852,
+        "Elo": 1532.8056582287,
+        "Adj_Elo": 1641.177001446,
+        "Avg_Pts_For": 73.44117647058823,
+        "Avg_Pts_Against": 66.8529411764706,
+        "Avg_Net_Pts": 6.588235294117638
+    },
+    "Utah Tech": {
+        "Massey": 5.8220149239,
+        "Colley": 0.5415087836,
+        "Elo": 1471.8213111098,
+        "Adj_Elo": 1454.9412591369,
+        "Avg_Pts_For": 72.48387096774194,
+        "Avg_Pts_Against": 74.06451612903226,
+        "Avg_Net_Pts": -1.5806451612903203
+    },
+    "Utah Valley": {
+        "Massey": 14.8935117636,
+        "Colley": 0.7512062132,
+        "Elo": 1572.6912828705,
+        "Adj_Elo": 1699.3151856376,
+        "Avg_Pts_For": 71.21875,
+        "Avg_Pts_Against": 65.125,
+        "Avg_Net_Pts": 6.09375
+    },
+    "Valparaiso": {
+        "Massey": 10.8790613093,
+        "Colley": 0.5472940572,
+        "Elo": 1465.7271749574,
+        "Adj_Elo": 1542.1136886937,
+        "Avg_Pts_For": 70.75,
+        "Avg_Pts_Against": 70.53125,
+        "Avg_Net_Pts": 0.21875
+    },
+    "Vanderbilt": {
+        "Massey": 21.0478058288,
+        "Colley": 0.81976925,
+        "Elo": 1560.2656774071,
+        "Adj_Elo": 1879.1032028899,
+        "Avg_Pts_For": 70.77777777777777,
+        "Avg_Pts_Against": 67.83333333333333,
+        "Avg_Net_Pts": 2.944444444444443
+    },
+    "Vassar": {
+        "Massey": -14.1101493946,
+        "Colley": 0.4084510685,
+        "Elo": 1485.0,
+        "Adj_Elo": 1372.9451291436,
+        "Avg_Pts_For": 42.0,
+        "Avg_Pts_Against": 88.0,
+        "Avg_Net_Pts": -46.0
+    },
+    "Vermont": {
+        "Massey": 19.8464397583,
+        "Colley": 0.8234103388,
+        "Elo": 1693.9520926914,
+        "Adj_Elo": 2081.3027097617,
+        "Avg_Pts_For": 75.11428571428571,
+        "Avg_Pts_Against": 61.05714285714286,
+        "Avg_Net_Pts": 14.057142857142857
+    },
+    "Vermont State\u2013Lyndon": {
+        "Massey": -13.2129594819,
+        "Colley": 0.3140040919,
+        "Elo": 1485.0279418374,
+        "Adj_Elo": 1378.3189061043,
+        "Avg_Pts_For": 74.0,
+        "Avg_Pts_Against": 114.0,
+        "Avg_Net_Pts": -40.0
+    },
+    "Villanova": {
+        "Massey": 28.0329723691,
+        "Colley": 1.0888387439,
+        "Elo": 1734.0173212637,
+        "Adj_Elo": 2261.4107056213,
+        "Avg_Pts_For": 72.63636363636364,
+        "Avg_Pts_Against": 63.09090909090909,
+        "Avg_Net_Pts": 9.545454545454547
+    },
+    "Virgin Islands": {
+        "Massey": -19.8251832178,
+        "Colley": 0.2882567262,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1329.2547193097,
+        "Avg_Pts_For": 47.0,
+        "Avg_Pts_Against": 99.0,
+        "Avg_Net_Pts": -52.0
+    },
+    "Virginia": {
+        "Massey": 18.2733788903,
+        "Colley": 0.832741443,
+        "Elo": 1599.9682011231,
+        "Adj_Elo": 1918.982042534,
+        "Avg_Pts_For": 62.4,
+        "Avg_Pts_Against": 60.114285714285714,
+        "Avg_Net_Pts": 2.2857142857142847
+    },
+    "Virginia Commonwealth": {
+        "Massey": 20.1660403072,
+        "Colley": 0.9211157356,
+        "Elo": 1640.8773128708,
+        "Adj_Elo": 1863.1160310542,
+        "Avg_Pts_For": 67.0625,
+        "Avg_Pts_Against": 62.40625,
+        "Avg_Net_Pts": 4.65625
+    },
+    "Virginia Military Institute": {
+        "Massey": 11.6333865965,
+        "Colley": 0.6204843987,
+        "Elo": 1503.1779611858,
+        "Adj_Elo": 1503.0453729233,
+        "Avg_Pts_For": 79.03125,
+        "Avg_Pts_Against": 74.21875,
+        "Avg_Net_Pts": 4.8125
+    },
+    "Virginia Tech": {
+        "Massey": 23.7998978673,
+        "Colley": 0.8801750241,
+        "Elo": 1658.3250324573,
+        "Adj_Elo": 2203.4842328846,
+        "Avg_Pts_For": 70.74285714285715,
+        "Avg_Pts_Against": 62.285714285714285,
+        "Avg_Net_Pts": 8.457142857142863
+    },
+    "Virginia Wesleyan": {
+        "Massey": -3.8019308845,
+        "Colley": 0.3539542039,
+        "Elo": 1485.0,
+        "Adj_Elo": 1399.5307595551,
+        "Avg_Pts_For": 60.0,
+        "Avg_Pts_Against": 80.0,
+        "Avg_Net_Pts": -20.0
+    },
+    "Virginia-Lynchburg": {
+        "Massey": -8.1506878028,
+        "Colley": 0.4294968779,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1344.7826766665,
+        "Avg_Pts_For": 46.0,
+        "Avg_Pts_Against": 80.0,
+        "Avg_Net_Pts": -34.0
+    },
+    "Voorhees": {
+        "Massey": -8.9765886803,
+        "Colley": 0.3027306819,
+        "Elo": 1469.3379600904,
+        "Adj_Elo": 1296.8623112108,
+        "Avg_Pts_For": 53.5,
+        "Avg_Pts_Against": 80.0,
+        "Avg_Net_Pts": -26.5
+    },
+    "WPI": {
+        "Massey": -5.5907288489,
+        "Colley": 0.4411367796,
+        "Elo": 1485.0012040035,
+        "Adj_Elo": 1387.2883063992,
+        "Avg_Pts_For": 48.0,
+        "Avg_Pts_Against": 81.0,
+        "Avg_Net_Pts": -33.0
+    },
+    "Wagner": {
+        "Massey": 12.7910885831,
+        "Colley": 0.7348448315,
+        "Elo": 1617.5381671152,
+        "Adj_Elo": 1695.9152952949,
+        "Avg_Pts_For": 74.66666666666667,
+        "Avg_Pts_Against": 65.03333333333333,
+        "Avg_Net_Pts": 9.63333333333334
+    },
+    "Wake Forest": {
+        "Massey": 22.8724975285,
+        "Colley": 0.8997854709,
+        "Elo": 1629.3031498752,
+        "Adj_Elo": 1894.2016732747,
+        "Avg_Pts_For": 78.54285714285714,
+        "Avg_Pts_Against": 70.05714285714286,
+        "Avg_Net_Pts": 8.48571428571428
+    },
+    "Waldorf": {
+        "Massey": -18.9861452879,
+        "Colley": 0.3879150185,
+        "Elo": 1485.4018053716,
+        "Adj_Elo": 1355.417447152,
+        "Avg_Pts_For": 37.0,
+        "Avg_Pts_Against": 93.0,
+        "Avg_Net_Pts": -56.0
+    },
+    "Walla Walla": {
+        "Massey": -13.0581495815,
+        "Colley": 0.365075005,
+        "Elo": 1483.7633887961,
+        "Adj_Elo": 1331.5588289138,
+        "Avg_Pts_For": 71.0,
+        "Avg_Pts_Against": 111.0,
+        "Avg_Net_Pts": -40.0
+    },
+    "Warner": {
+        "Massey": -2.7759308548,
+        "Colley": 0.3871778858,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1376.3538595303,
+        "Avg_Pts_For": 56.0,
+        "Avg_Pts_Against": 78.0,
+        "Avg_Net_Pts": -22.0
+    },
+    "Warren Wilson": {
+        "Massey": -43.709013294,
+        "Colley": 0.1941675512,
+        "Elo": 1453.7017604455,
+        "Adj_Elo": 1142.9915503888,
+        "Avg_Pts_For": 40.666666666666664,
+        "Avg_Pts_Against": 109.0,
+        "Avg_Net_Pts": -68.33333333333334
+    },
+    "Washington": {
+        "Massey": 15.0762731603,
+        "Colley": 0.789131194,
+        "Elo": 1549.3156238714,
+        "Adj_Elo": 1787.9154428504,
+        "Avg_Pts_For": 70.625,
+        "Avg_Pts_Against": 72.3125,
+        "Avg_Net_Pts": -1.6875
+    },
+    "Washington College": {
+        "Massey": -26.0910793654,
+        "Colley": 0.2784285512,
+        "Elo": 1470.6990219248,
+        "Adj_Elo": 1278.3310342743,
+        "Avg_Pts_For": 51.0,
+        "Avg_Pts_Against": 103.0,
+        "Avg_Net_Pts": -52.0
+    },
+    "Washington State": {
+        "Massey": 22.5544475133,
+        "Colley": 0.8581754709,
+        "Elo": 1597.2007723092,
+        "Adj_Elo": 2039.5869459849,
+        "Avg_Pts_For": 71.45945945945945,
+        "Avg_Pts_Against": 64.86486486486487,
+        "Avg_Net_Pts": 6.594594594594582
+    },
+    "Webber": {
+        "Massey": -23.867407925,
+        "Colley": 0.2941986591,
+        "Elo": 1469.5758457943,
+        "Adj_Elo": 1258.9095108033,
+        "Avg_Pts_For": 45.5,
+        "Avg_Pts_Against": 95.0,
+        "Avg_Net_Pts": -49.5
+    },
+    "Weber State": {
+        "Massey": 12.5643172251,
+        "Colley": 0.6891641936,
+        "Elo": 1545.6257336863,
+        "Adj_Elo": 1567.347840672,
+        "Avg_Pts_For": 76.15151515151516,
+        "Avg_Pts_Against": 70.27272727272727,
+        "Avg_Net_Pts": 5.8787878787878896
+    },
+    "Webster": {
+        "Massey": -2.2383785555,
+        "Colley": 0.3329627568,
+        "Elo": 1484.3078995626,
+        "Adj_Elo": 1394.8944856172,
+        "Avg_Pts_For": 64.0,
+        "Avg_Pts_Against": 76.0,
+        "Avg_Net_Pts": -12.0
+    },
+    "Wells": {
+        "Massey": -20.3555171704,
+        "Colley": 0.3684954015,
+        "Elo": 1486.8245582546,
+        "Adj_Elo": 1423.6026684386,
+        "Avg_Pts_For": 48.0,
+        "Avg_Pts_Against": 107.0,
+        "Avg_Net_Pts": -59.0
+    },
+    "West Florida": {
+        "Massey": -9.7399646639,
+        "Colley": 0.3774892266,
+        "Elo": 1485.0,
+        "Adj_Elo": 1382.6735139708,
+        "Avg_Pts_For": 47.0,
+        "Avg_Pts_Against": 81.0,
+        "Avg_Net_Pts": -34.0
+    },
+    "West Virginia": {
+        "Massey": 19.7045946369,
+        "Colley": 0.8081154139,
+        "Elo": 1506.4057035142,
+        "Adj_Elo": 1687.7139777927,
+        "Avg_Pts_For": 68.45454545454545,
+        "Avg_Pts_Against": 68.96969696969697,
+        "Avg_Net_Pts": -0.5151515151515156
+    },
+    "Westcliff": {
+        "Massey": -13.6712472774,
+        "Colley": 0.2717796731,
+        "Elo": 1468.696507687,
+        "Adj_Elo": 1274.4548263617,
+        "Avg_Pts_For": 58.5,
+        "Avg_Pts_Against": 88.0,
+        "Avg_Net_Pts": -29.5
+    },
+    "Western Carolina": {
+        "Massey": 2.9155012137,
+        "Colley": 0.4837581941,
+        "Elo": 1423.1428043994,
+        "Adj_Elo": 1384.0544377678,
+        "Avg_Pts_For": 70.65625,
+        "Avg_Pts_Against": 77.25,
+        "Avg_Net_Pts": -6.59375
+    },
+    "Western Colorado": {
+        "Massey": -11.6611366323,
+        "Colley": 0.3963880645,
+        "Elo": 1485.0,
+        "Adj_Elo": 1377.4521217988,
+        "Avg_Pts_For": 60.0,
+        "Avg_Pts_Against": 100.0,
+        "Avg_Net_Pts": -40.0
+    },
+    "Western Illinois": {
+        "Massey": 8.4756381262,
+        "Colley": 0.5480461632,
+        "Elo": 1467.7526538641,
+        "Adj_Elo": 1402.4845375878,
+        "Avg_Pts_For": 77.90625,
+        "Avg_Pts_Against": 77.1875,
+        "Avg_Net_Pts": 0.71875
+    },
+    "Western Kentucky": {
+        "Massey": 16.5759464516,
+        "Colley": 0.7173331104,
+        "Elo": 1578.623085733,
+        "Adj_Elo": 1817.3869152161,
+        "Avg_Pts_For": 75.4375,
+        "Avg_Pts_Against": 69.1875,
+        "Avg_Net_Pts": 6.25
+    },
+    "Western Michigan": {
+        "Massey": -0.1962495293,
+        "Colley": 0.3767728937,
+        "Elo": 1382.2328775551,
+        "Adj_Elo": 1432.0897923012,
+        "Avg_Pts_For": 65.38709677419355,
+        "Avg_Pts_Against": 75.12903225806451,
+        "Avg_Net_Pts": -9.74193548387096
+    },
+    "Western New England": {
+        "Massey": -18.591831909,
+        "Colley": 0.3333075291,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1336.790989299,
+        "Avg_Pts_For": 52.0,
+        "Avg_Pts_Against": 103.0,
+        "Avg_Net_Pts": -51.0
+    },
+    "Western New Mexico": {
+        "Massey": -8.1239277923,
+        "Colley": 0.3452112303,
+        "Elo": 1471.8292228051,
+        "Adj_Elo": 1337.0345716442,
+        "Avg_Pts_For": 60.0,
+        "Avg_Pts_Against": 86.5,
+        "Avg_Net_Pts": -26.5
+    },
+    "Westminster (PA)": {
+        "Massey": -9.0717284294,
+        "Colley": 0.3439123815,
+        "Elo": 1486.401053013,
+        "Adj_Elo": 1431.3948941292,
+        "Avg_Pts_For": 54.0,
+        "Avg_Pts_Against": 83.0,
+        "Avg_Net_Pts": -29.0
+    },
+    "Westminster (UT)": {
+        "Massey": 3.6831187468,
+        "Colley": 0.467803964,
+        "Elo": 1489.1352354432,
+        "Adj_Elo": 1481.4131235235,
+        "Avg_Pts_For": 53.0,
+        "Avg_Pts_Against": 65.0,
+        "Avg_Net_Pts": -12.0
+    },
+    "Westmont": {
+        "Massey": -9.3886101706,
+        "Colley": 0.3134383601,
+        "Elo": 1483.3616471854,
+        "Adj_Elo": 1392.2279929251,
+        "Avg_Pts_For": 69.0,
+        "Avg_Pts_Against": 96.0,
+        "Avg_Net_Pts": -27.0
+    },
+    "Wheeling Jesuit": {
+        "Massey": -19.2986029825,
+        "Colley": 0.3481930982,
+        "Elo": 1470.67508757,
+        "Adj_Elo": 1331.7488478187,
+        "Avg_Pts_For": 46.0,
+        "Avg_Pts_Against": 90.5,
+        "Avg_Net_Pts": -44.5
+    },
+    "Whittier": {
+        "Massey": -15.8773477044,
+        "Colley": 0.4381148061,
+        "Elo": 1485.5374610141,
+        "Adj_Elo": 1376.1021330372,
+        "Avg_Pts_For": 45.0,
+        "Avg_Pts_Against": 101.0,
+        "Avg_Net_Pts": -56.0
+    },
+    "Wichita State": {
+        "Massey": 17.9673107981,
+        "Colley": 0.765625485,
+        "Elo": 1514.7685932337,
+        "Adj_Elo": 1616.1284103657,
+        "Avg_Pts_For": 68.46428571428571,
+        "Avg_Pts_Against": 66.35714285714286,
+        "Avg_Net_Pts": 2.107142857142847
+    },
+    "Wiley": {
+        "Massey": -8.4457347437,
+        "Colley": 0.2397687027,
+        "Elo": 1472.9374451342,
+        "Adj_Elo": 1371.7757873517,
+        "Avg_Pts_For": 63.0,
+        "Avg_Pts_Against": 83.5,
+        "Avg_Net_Pts": -20.5
+    },
+    "Willamette": {
+        "Massey": -13.8076738356,
+        "Colley": 0.3936524319,
+        "Elo": 1484.3528000085,
+        "Adj_Elo": 1341.3684694248,
+        "Avg_Pts_For": 78.0,
+        "Avg_Pts_Against": 122.0,
+        "Avg_Net_Pts": -44.0
+    },
+    "William & Mary": {
+        "Massey": -0.3967630267,
+        "Colley": 0.2984266214,
+        "Elo": 1315.6623855647,
+        "Adj_Elo": 1082.7714345785,
+        "Avg_Pts_For": 63.875,
+        "Avg_Pts_Against": 74.375,
+        "Avg_Net_Pts": -10.5
+    },
+    "William Carey": {
+        "Massey": -12.6140992103,
+        "Colley": 0.2694808804,
+        "Elo": 1470.7283464964,
+        "Adj_Elo": 1355.4594139499,
+        "Avg_Pts_For": 60.0,
+        "Avg_Pts_Against": 88.5,
+        "Avg_Net_Pts": -28.5
+    },
+    "William Jessup": {
+        "Massey": -11.6233684128,
+        "Colley": 0.3161877889,
+        "Elo": 1485.0,
+        "Adj_Elo": 1386.678422252,
+        "Avg_Pts_For": 59.0,
+        "Avg_Pts_Against": 89.0,
+        "Avg_Net_Pts": -30.0
+    },
+    "William Peace": {
+        "Massey": -18.4048300672,
+        "Colley": 0.321543881,
+        "Elo": 1470.67508757,
+        "Adj_Elo": 1281.3391050116,
+        "Avg_Pts_For": 49.5,
+        "Avg_Pts_Against": 91.5,
+        "Avg_Net_Pts": -42.0
+    },
+    "William Woods": {
+        "Massey": -21.2132164442,
+        "Colley": 0.3012006123,
+        "Elo": 1484.7899149766,
+        "Adj_Elo": 1398.1835487384,
+        "Avg_Pts_For": 29.0,
+        "Avg_Pts_Against": 84.0,
+        "Avg_Net_Pts": -55.0
+    },
+    "Winthrop": {
+        "Massey": 11.2175105538,
+        "Colley": 0.7610565963,
+        "Elo": 1641.3353343778,
+        "Adj_Elo": 1825.5882640417,
+        "Avg_Pts_For": 75.42424242424242,
+        "Avg_Pts_Against": 70.33333333333333,
+        "Avg_Net_Pts": 5.0909090909090935
+    },
+    "Wisconsin": {
+        "Massey": 22.6403766802,
+        "Colley": 1.0447301661,
+        "Elo": 1681.0334035941,
+        "Adj_Elo": 2009.3801167396,
+        "Avg_Pts_For": 71.03125,
+        "Avg_Pts_Against": 66.28125,
+        "Avg_Net_Pts": 4.75
+    },
+    "Wisconsin-Superior": {
+        "Massey": -12.266922313,
+        "Colley": 0.2390925382,
+        "Elo": 1482.3015506841,
+        "Adj_Elo": 1341.95012854,
+        "Avg_Pts_For": 48.0,
+        "Avg_Pts_Against": 77.0,
+        "Avg_Net_Pts": -29.0
+    },
+    "Wofford": {
+        "Massey": 15.1151327411,
+        "Colley": 0.7115125411,
+        "Elo": 1574.9897097489,
+        "Adj_Elo": 1750.0774584062,
+        "Avg_Pts_For": 72.5625,
+        "Avg_Pts_Against": 66.25,
+        "Avg_Net_Pts": 6.3125
+    },
+    "Wright State": {
+        "Massey": 10.9454832436,
+        "Colley": 0.6288281198,
+        "Elo": 1594.9565026806,
+        "Adj_Elo": 1891.6560749722,
+        "Avg_Pts_For": 75.47058823529412,
+        "Avg_Pts_Against": 71.05882352941177,
+        "Avg_Net_Pts": 4.411764705882348
+    },
+    "Wyoming": {
+        "Massey": 20.7118195745,
+        "Colley": 0.9634921573,
+        "Elo": 1652.42121778,
+        "Adj_Elo": 1867.1236183535,
+        "Avg_Pts_For": 72.96969696969697,
+        "Avg_Pts_Against": 65.48484848484848,
+        "Avg_Net_Pts": 7.484848484848484
+    },
+    "Xavier": {
+        "Massey": 22.7562339664,
+        "Colley": 0.9421982986,
+        "Elo": 1615.0395702302,
+        "Adj_Elo": 1969.1337180189,
+        "Avg_Pts_For": 74.11111111111111,
+        "Avg_Pts_Against": 69.22222222222223,
+        "Avg_Net_Pts": 4.888888888888886
+    },
+    "Xavier (LA)": {
+        "Massey": -0.3891856796,
+        "Colley": 0.3774892266,
+        "Elo": 1486.2919947607,
+        "Adj_Elo": 1461.2766829386,
+        "Avg_Pts_For": 72.0,
+        "Avg_Pts_Against": 84.0,
+        "Avg_Net_Pts": -12.0
+    },
+    "Yale": {
+        "Massey": 12.8024143013,
+        "Colley": 0.7253532054,
+        "Elo": 1597.1741174562,
+        "Adj_Elo": 1726.2922824138,
+        "Avg_Pts_For": 72.33333333333333,
+        "Avg_Pts_Against": 68.83333333333333,
+        "Avg_Net_Pts": 3.5
+    },
+    "Yellowstone Christian": {
+        "Massey": -21.8402976853,
+        "Colley": 0.3651004992,
+        "Elo": 1486.3574283107,
+        "Adj_Elo": 1433.1418423265,
+        "Avg_Pts_For": 43.0,
+        "Avg_Pts_Against": 104.0,
+        "Avg_Net_Pts": -61.0
+    },
+    "Youngstown State": {
+        "Massey": 7.6565348424,
+        "Colley": 0.5317371444,
+        "Elo": 1504.6440863364,
+        "Adj_Elo": 1511.3572790757,
+        "Avg_Pts_For": 72.6470588235294,
+        "Avg_Pts_Against": 69.82352941176471,
+        "Avg_Net_Pts": 2.823529411764696
+    }
+}

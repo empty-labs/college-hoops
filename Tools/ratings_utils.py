@@ -465,12 +465,15 @@ def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, net_
     return avg_points
 
 
-def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
+def add_ratings_per_game(score_df: pd.DataFrame, ratings_filename: str, final_ratings_filename: str,
+                         initial_ratings: int=None):
     """Calculate Massey, Colley, Elo ratings for each team for each game
 
     Args:
         score_df (pd.DataFrame): matchup score data frame
-        initial_ratings (int): starting rating for all teams (default 1500)
+        initial_ratings (int): starting rating for all teams
+        ratings_filename (str): filename for ratings
+        final_ratings_filename (str): filename for final ratings
 
     Returns:
         rating_score_df (pd.DataFrame): data frame with mid-season ratings and scores
@@ -598,6 +601,13 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
 
     # Convert to DataFrame
     final_ratings_df = pd.DataFrame(ratings)
+
+    # Write to JSON
+    rating_score_df.to_json(ratings_filename, orient='records', indent=4)
+    final_ratings_df.to_json(final_ratings_filename, indent=4)
+
+    # Set up final ratings for tournament
+    compute_score_features(df=rating_score_df, final_ratings_filename=final_ratings_filename)
 
     return rating_score_df, final_ratings_df
 
@@ -898,12 +908,8 @@ def compute_score_features(df: pd.DataFrame, final_ratings_filename: str):
     Args:
         df (pd.DataFrame): dataframe containing ratings in ML model format
         final_ratings_filename (str): final ratings filename string
-
-    Returns:
-        df (pd.DataFrame): dataframe containing ratings in ML model format with derived features
     """
 
-    # TODO 2/3: Move this to "Save Ratings to JSON" section of ML notebook to append to JSON's to run just once initially
     default_home_score = df["Home_Score"].mean()
     default_away_score = df["Away_Score"].mean()
     default_score = (default_home_score + default_away_score) * 0.5
@@ -989,21 +995,15 @@ def compute_score_features(df: pd.DataFrame, final_ratings_filename: str):
     return df
 
 
-def derive_features(df: pd.DataFrame, final_ratings_filename: str=None, need_score_computation: bool=True):
+def derive_features(df: pd.DataFrame):
     """Derive ML model features from rating/score dataframe
 
     Args:
         df (pd.DataFrame): dataframe containing ratings in ML model format
-        final_ratings_filename (str): final ratings filename string
-        need_score_computation (bool): whether to compute score features
 
     Returns:
         df (pd.DataFrame): dataframe containing ratings in ML model format with derived features
     """
-
-    if need_score_computation:
-        # TODO 2/3: Move to mid-season and pull last game for compile_ratings_dict?
-        df = compute_score_features(df=df, final_ratings_filename=final_ratings_filename)
 
     # Add feature columns
     for feature in ML_FEATURES:
@@ -1084,7 +1084,7 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
     model_ratings = {}
 
     df = mimic_tournament_rating_scores_df(tourney_df=tourney_df, ratings=ratings)
-    df = derive_features(df=df, need_score_computation=False)
+    df = derive_features(df=df)
 
     # Add ratings to 1st round
     for i in range(32):
