@@ -1010,7 +1010,6 @@ def derive_features(df: pd.DataFrame, final_ratings_filename: str=None, need_sco
     if need_score_computation:
         # TODO: Move to mid-season and pull last game for compile_ratings_dict?
         df = compute_score_features(df=df, final_ratings_filename=final_ratings_filename)
-        pass
 
     # Add feature columns
     for feature in ML_FEATURES:
