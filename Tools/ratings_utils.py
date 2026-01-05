@@ -3,6 +3,7 @@ import Tools.season_utils as su
 
 # Third party libraries
 from datetime import datetime as dt
+import json
 import numpy as np
 import pandas as pd
 
@@ -18,6 +19,9 @@ ML_FEATURES = [
     "Avg_Pts_Against_diff",
     "Avg_Net_Pts_diff"
 ]
+MASSEY_INITIAL = 0
+COLLEY_INITIAL = 0
+ELO_INITIAL = 1500
 
 
 def fix_time_format(time_str: str):
@@ -238,7 +242,7 @@ def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool=False):
         debug (bool): flag to print debug statements
 
     Returns:
-        colley_ratings (dict): dictionary of Massey ratings
+        colley_ratings (dict): dictionary of Colley ratings
     """
 
     # Get unique teams and index them
@@ -283,7 +287,15 @@ def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool=False):
 
 
 def compile_srs_ratings(filename: str, debug: bool=False):
-    """"""
+    """Compile SRS rankings given a game results DataFrame.
+
+    Args:
+        score_df (pd.DataFrame): matchup score data frame
+        debug (bool): flag to print debug statements
+
+    Returns:
+        srs_ratings (dict): dictionary of SRS ratings
+    """
 
     # Read Stats
     teams_df = pd.read_json(filename)
@@ -461,37 +473,45 @@ def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, net_
     return avg_points
 
 
-def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
+def add_ratings_per_game(score_df: pd.DataFrame, ratings_filename: str, final_ratings_filename: str,
+                         initial_ratings: int=None):
     """Calculate Massey, Colley, Elo ratings for each team for each game
 
     Args:
         score_df (pd.DataFrame): matchup score data frame
-        initial_ratings (int): starting rating for all teams (default 1500)
+        initial_ratings (int): starting rating for all teams
+        ratings_filename (str): filename for ratings
+        final_ratings_filename (str): filename for final ratings
 
     Returns:
-        rating_score_df (dict): score data frame with Massey ratings
+        rating_score_df (pd.DataFrame): data frame with mid-season ratings and scores
+        final_ratings_df (pd.DataFrame): data frame with final ratings
     """
 
     # Get unique teams and index them
     teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
+    teams.sort()
     team_index = {team: i for i, team in enumerate(teams)}
     N = len(teams)
 
     # Initialize Massey matrix and score vector
+    massey_ratings = [MASSEY_INITIAL] * N
     M = np.zeros((N, N))
     mb = np.zeros(N)
 
     # Initialize Colley matrix (C) and RHS vector (b)
+    colley_ratings = [COLLEY_INITIAL] * N
     C = np.eye(N) * 2  # Start with 2 on the diagonal
     cb = np.ones(N)  # Initialize b with 1s
 
     # Initialize Elo
-    elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
-    adj_elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
+    elo_ratings = {team: initial_ratings.get(team, ELO_INITIAL) if initial_ratings else ELO_INITIAL for team in teams}
+    adj_elo_ratings = {team: initial_ratings.get(team, ELO_INITIAL) if initial_ratings else ELO_INITIAL for team in teams}
 
     rating_scores = []
     curr = 0
     curr_pct = 1
+    lambda0 = 25
 
     # Fill the matrix and score vector
     for _, row in score_df.iterrows():
@@ -501,24 +521,6 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
         i, j = team_index[h], team_index[a]
         hPts, aPts = row["Home_Score"], row["Away_Score"]
         home_margin = hPts - aPts
-
-        # Copy current M, mb, C, cb
-        M_copy = M.copy()
-        mb_copy = mb.copy()
-        C_copy = C.copy()
-        cb_copy = cb.copy()
-
-        # Fix singularity: replace last row with ones
-        M_copy[-1, :] = 1
-        mb_copy[-1] = 0
-
-        # Solve Massey, Colley systems
-        try:
-            massey_ratings = np.linalg.solve(M_copy, mb_copy)
-            colley_ratings = np.linalg.solve(C_copy, cb_copy)
-        except np.linalg.LinAlgError:
-            massey_ratings = np.zeros(N)  # fallback at very start
-            colley_ratings = np.zeros(N)
 
         # Append to current pregame rating data
         rating_scores.append({
@@ -541,11 +543,12 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
         # Update Massey matrix
         M = update_rating_matrix(mtx=M, i=i, j=j)
 
-        mb[i] += home_margin
-        mb[j] -= home_margin
-
         # Update Colley matrix
         C = update_rating_matrix(mtx=C, i=i, j=j)
+
+        # Update mb vector
+        mb[i] += home_margin
+        mb[j] -= home_margin
 
         # Update cb vector
         if winner == h:
@@ -555,16 +558,32 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
             cb[i] -= 0.5
             cb[j] += 0.5
 
+        games_played = np.diag(M)
+        avg_games = games_played.mean()
+        lambda_t = lambda0 / (1 + avg_games)
+        M_reg = M + lambda_t * np.eye(N)
+
+        # Solve Massey, Colley systems
+        try:
+            massey_ratings = np.linalg.solve(M_reg, mb)
+            colley_ratings = np.linalg.solve(C, cb)
+        except np.linalg.LinAlgError:
+            massey_ratings = np.zeros(N)  # fallback at very start
+            colley_ratings = np.zeros(N)
+
         # Assign Elo outcome (1 if h wins, 0 if a wins)
         outcome = 1 if winner == h else 0
 
         # Traditional Elo rating
-        elo_ratings[h], elo_ratings[a] = update_elo(r1=elo_ratings[h], r2=elo_ratings[a],
-                                                    outcome=outcome, mov=home_margin, K=30, adjust_K=False)
+        elo_ratings[h], elo_ratings[a] = update_elo(
+            r1=elo_ratings[h], r2=elo_ratings[a],
+            outcome=outcome, mov=home_margin, K=30, adjust_K=False)
 
         # Adjusted Elo rating
-        adj_elo_ratings[h], adj_elo_ratings[a] = update_elo(r1=adj_elo_ratings[h], r2=adj_elo_ratings[a],
-                                                    outcome=outcome, mov=home_margin, K=30, adjust_K=True)
+        adj_elo_ratings[h], adj_elo_ratings[a] = update_elo(
+            r1=adj_elo_ratings[h], r2=adj_elo_ratings[a],
+            outcome=outcome, mov=home_margin, K=30, adjust_K=True)
+
         # Update status
         curr += 1
         pct = round(100 * (curr / len(score_df)), 3)
@@ -575,7 +594,30 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
     # Convert to DataFrame
     rating_score_df = pd.DataFrame(rating_scores)
 
-    return rating_score_df
+    # Final ratings
+    ratings = {}
+    for team in teams:
+
+        ratings[team] = {}
+        i = team_index[team]
+
+        # Assign values to entry
+        ratings[team]['Massey'] = massey_ratings[i]
+        ratings[team]['Colley'] = colley_ratings[i]
+        ratings[team]['Elo'] = elo_ratings[team]
+        ratings[team]['Adj_Elo'] = adj_elo_ratings[team]
+
+    # Convert to DataFrame
+    final_ratings_df = pd.DataFrame(ratings)
+
+    # Write to JSON
+    rating_score_df.to_json(ratings_filename, orient='records', indent=4)
+    final_ratings_df.to_json(final_ratings_filename, indent=4)
+
+    # Set up final ratings for tournament
+    compute_score_features(df=rating_score_df, final_ratings_filename=final_ratings_filename)
+
+    return rating_score_df, final_ratings_df
 
 
 def set_tournament_team_rating(i: int, tourney_dict: dict, team: str, seed: int, rating: float):
@@ -812,57 +854,19 @@ def simulate_tournament(filename: str, ratings: dict=None):
     return total_correct_picks, total_points, tourney_dict, tourney_results
 
 
-def compile_ratings_dict(score_df: pd.DataFrame):
-    """Compile all rating systems together into one dictionary"""
+def compile_ratings_dict(final_ratings_filename: str):
+    """Compile all rating systems together into one dictionary
 
-    massey_ratings = calculate_massey_ratings(
-        score_df=score_df,
-        debug=False)
-    colley_ratings = calculate_colley_ratings(
-        score_df=score_df,
-        debug=False)
-    elo_ratings = calculate_elo_ratings(
-        score_df=score_df,
-        K=30,
-        debug=False,
-        adjust_K=False)
-    adj_elo_ratings = calculate_elo_ratings(
-        score_df=score_df,
-        K=30,
-        debug=False,
-        adjust_K=True)
-    avg_points_for = calculate_average_points(
-        score_df=score_df,
-        points_for=True,
-        net_points=False,
-        debug=False)
-    avg_points_against = calculate_average_points(
-        score_df=score_df,
-        points_for=False,
-        net_points=False,
-        debug=False)
-    avg_net_points = calculate_average_points(
-        score_df=score_df,
-        net_points=True,
-        debug=False)
+    Args:
+        final_ratings_filename (str): name of final ratings file
 
-    ratings = {}
+    Returns:
+        ratings_dict (dict): dictionary of all final ratings
+    """
+    with open(final_ratings_filename, "r") as f:
+        final_ratings = json.load(f)
 
-    # TODO Audit these ratings and/or see if the last row of the mid-season ratings can be-used by refactor
-    for k in massey_ratings.keys():
-        # Initialize dictionary entry
-        ratings[k] = {}
-
-        # Assign values to entry
-        ratings[k]['Massey'] = massey_ratings[k]
-        ratings[k]['Colley'] = colley_ratings[k]
-        ratings[k]['Elo'] = elo_ratings[k]
-        ratings[k]['Adj_Elo'] = adj_elo_ratings[k]
-        ratings[k]['Avg_Pts_For'] = avg_points_for[k]
-        ratings[k]['Avg_Pts_Against'] = avg_points_against[k]
-        ratings[k]['Avg_Net_Pts'] = avg_net_points[k]
-
-    return ratings
+    return final_ratings
 
 
 def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: dict):
@@ -876,14 +880,14 @@ def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: dict):
         rating_score_df (pd.DataFrame): dataframe containing ratings in ML model format
     """
 
-    rating_df = []
+    rating_scores = []
 
     # Re-wire ratings dict based on tournament
     for i in range(32):
         team1 = tourney_df["Team1"][i]
         team2 = tourney_df["Team2"][i]
 
-        rating_df.append({
+        rating_scores.append({
             "Home": team1,
             "Away": team2,
             "Home_Massey": ratings[team1]['Massey'],
@@ -902,25 +906,26 @@ def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: dict):
             "Away_Avg_Net_Pts": ratings[team2]['Avg_Net_Pts'],
         })
 
-    df = pd.DataFrame(rating_df)
-    return df
+    rating_score_df = pd.DataFrame(rating_scores)
+    return rating_score_df
 
 
-def compute_score_features(df: pd.DataFrame):
+def compute_score_features(df: pd.DataFrame, final_ratings_filename: str):
     """Compute score features
 
     Args:
         df (pd.DataFrame): dataframe containing ratings in ML model format
-
-    Returns:
-        df (pd.DataFrame): dataframe containing ratings in ML model format with derived features
+        final_ratings_filename (str): final ratings filename string
     """
 
     default_home_score = df["Home_Score"].mean()
     default_away_score = df["Away_Score"].mean()
+    default_score = (default_home_score + default_away_score) * 0.5
 
     all_teams = list(df["Home"]) + list(df["Away"])
     teams = list(set(all_teams))
+
+    ratings = {}
 
     for team in teams:
 
@@ -929,7 +934,17 @@ def compute_score_features(df: pd.DataFrame):
         team_home_scores = list(team_rows["Home_Score"])
         team_away_scores = list(team_rows["Away_Score"])
         home_teams = list(team_rows["Home"])
-        away_teams = list(team_rows["Away"])
+
+        curr_team_scores = []
+        opponent_team_scores = []
+
+        for i in range(len(team_rows)):
+            if home_teams[i] == team:
+                curr_team_scores.append(team_home_scores[i])
+                opponent_team_scores.append(team_away_scores[i])
+            else:
+                curr_team_scores.append(team_away_scores[i])
+                opponent_team_scores.append(team_home_scores[i])
 
         lagged_for = []
         lagged_against = []
@@ -937,49 +952,63 @@ def compute_score_features(df: pd.DataFrame):
 
         for i in range(len(team_rows)):
 
-            if home_teams[i] == team:
-                if i == 0:
-                    lagged_for.append(default_home_score)
-                    lagged_against.append(default_away_score)
-                    lagged_net_for_vs_against.append(default_home_score - default_away_score)
-                else:
-                    lagged_for.append(np.mean(team_home_scores[1:i + 1]))
-                    lagged_against.append(np.mean(team_away_scores[1:i + 1]))
-                    lagged_net_for_vs_against.append(np.mean(team_home_scores[1:i + 1]) - np.mean(team_away_scores[1:i + 1]))
-            elif away_teams[i] == team:
-                if i == 0:
-                    lagged_for.append(default_away_score)
-                    lagged_against.append(default_home_score)
-                    lagged_net_for_vs_against.append(default_away_score - default_home_score)
-                else:
-                    lagged_for.append(np.mean(team_away_scores[1:i + 1]))
-                    lagged_against.append(np.mean(team_home_scores[1:i + 1]))
-                    lagged_net_for_vs_against.append(np.mean(team_away_scores[1:i + 1]) - np.mean(team_home_scores[1:i + 1]))
+            if i == 0:
+                lagged_for.append(default_score)
+                lagged_against.append(default_score)
+                lagged_net_for_vs_against.append(0)
+            else:
+                lagged_for.append(np.mean(curr_team_scores[0:i]))
+                lagged_against.append(np.mean(opponent_team_scores[0:i]))
+                lagged_net_for_vs_against.append(np.mean(curr_team_scores[0:i]) - np.mean(opponent_team_scores[0:i]))
 
         is_home = team_rows["Home"] == team
         is_away = team_rows["Away"] == team
 
-        lagged_for = np.asarray(lagged_for)
-        lagged_against = np.asarray(lagged_against)
-        lagged_net_for_vs_against = np.asarray(lagged_net_for_vs_against)
+        lagged_for_arr = np.asarray(lagged_for)
+        lagged_against_arr = np.asarray(lagged_against)
+        lagged_net_for_vs_against_arr = np.asarray(lagged_net_for_vs_against)
 
-        df.loc[team_rows.index[is_home], "Home_Avg_Pts_For"] = lagged_for[is_home]
-        df.loc[team_rows.index[is_away], "Away_Avg_Pts_For"] = lagged_for[is_away]
+        df.loc[team_rows.index[is_home], "Home_Avg_Pts_For"] = lagged_for_arr[is_home]
+        df.loc[team_rows.index[is_away], "Away_Avg_Pts_For"] = lagged_for_arr[is_away]
 
-        df.loc[team_rows.index[is_home], "Home_Avg_Pts_Against"] = lagged_against[is_home]
-        df.loc[team_rows.index[is_away], "Away_Avg_Pts_Against"] = lagged_against[is_away]
+        df.loc[team_rows.index[is_home], "Home_Avg_Pts_Against"] = lagged_against_arr[is_home]
+        df.loc[team_rows.index[is_away], "Away_Avg_Pts_Against"] = lagged_against_arr[is_away]
 
-        df.loc[team_rows.index[is_home], "Home_Avg_Net_Pts"] = lagged_net_for_vs_against[is_home]
-        df.loc[team_rows.index[is_away], "Away_Avg_Net_Pts"] = lagged_net_for_vs_against[is_away]
+        df.loc[team_rows.index[is_home], "Home_Avg_Net_Pts"] = lagged_net_for_vs_against_arr[is_home]
+        df.loc[team_rows.index[is_away], "Away_Avg_Net_Pts"] = lagged_net_for_vs_against_arr[is_away]
+
+        # Final points values
+        ratings[team] = {}
+
+        lagged_for.append(np.mean(curr_team_scores))
+        lagged_against.append(np.mean(opponent_team_scores))
+        lagged_net_for_vs_against.append(np.mean(curr_team_scores) - np.mean(opponent_team_scores))
+
+        ratings[team]["Avg_Pts_For"] = lagged_for[-1]
+        ratings[team]["Avg_Pts_Against"] = lagged_against[-1]
+        ratings[team]["Avg_Net_Pts"] = lagged_net_for_vs_against[-1]
+
+    # Write ratings back to final data set (using simpler dictionary style)
+    with open(final_ratings_filename, "r") as f:
+        final_ratings = json.load(f)
+
+    for team in teams:
+        final_ratings[team]["Avg_Pts_For"] = ratings[team]["Avg_Pts_For"]
+        final_ratings[team]["Avg_Pts_Against"] = ratings[team]["Avg_Pts_Against"]
+        final_ratings[team]["Avg_Net_Pts"] = ratings[team]["Avg_Net_Pts"]
+
+    with open(final_ratings_filename, "w") as f:
+        json.dump(final_ratings, f, indent=4)
 
     return df
 
 
-def derive_features(df: pd.DataFrame, need_score_computation: bool=True):
+def derive_features(df: pd.DataFrame, final_ratings_filename: str=None, need_score_computation: bool=True):
     """Derive ML model features from rating/score dataframe
 
     Args:
         df (pd.DataFrame): dataframe containing ratings in ML model format
+        final_ratings_filename (str): final ratings filename string
         need_score_computation (bool): whether to compute score features
 
     Returns:
@@ -987,7 +1016,8 @@ def derive_features(df: pd.DataFrame, need_score_computation: bool=True):
     """
 
     if need_score_computation:
-        df = compute_score_features(df=df)
+        # TODO: Move to mid-season and pull last game for compile_ratings_dict?
+        df = compute_score_features(df=df, final_ratings_filename=final_ratings_filename)
 
     # Add feature columns
     for feature in ML_FEATURES:
