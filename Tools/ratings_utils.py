@@ -581,6 +581,21 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
     # Convert to DataFrame
     rating_score_df = pd.DataFrame(rating_scores)
 
+    # Final ratings
+    ratings = {}
+    for team in teams:
+
+        ratings[team] = {}
+        i = team_index[team]
+
+        # Assign values to entry
+        ratings[team]['Massey'] = massey_ratings[i]
+        ratings[team]['Colley'] = colley_ratings[i]
+        ratings[team]['Elo'] = elo_ratings[team]
+        ratings[team]['Adj_Elo'] = adj_elo_ratings[team]
+
+        # TODO: Add final Net_Pts value
+
     return rating_score_df
 
 
@@ -948,6 +963,7 @@ def compute_score_features(df: pd.DataFrame):
         lagged_against = []
         lagged_net_for_vs_against = []
 
+        # TODO: Include final game
         for i in range(len(team_rows)):
 
             if home_teams[i] == team:
@@ -1000,6 +1016,7 @@ def derive_features(df: pd.DataFrame, need_score_computation: bool=True):
     """
 
     if need_score_computation:
+        # TODO Move to mid-season and pull last game for compile_ratings_dict
         df = compute_score_features(df=df)
 
     # Add feature columns
