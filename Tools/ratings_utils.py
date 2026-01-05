@@ -836,64 +836,19 @@ def simulate_tournament(filename: str, ratings: dict=None):
     return total_correct_picks, total_points, tourney_dict, tourney_results
 
 
-def compile_ratings_dict(score_df: pd.DataFrame):
+def compile_ratings_dict(final_ratings_filename: str):
     """Compile all rating systems together into one dictionary
 
     Args:
-        score_df (pd.DataFrame): matchup score data frame
+        final_ratings_filename (str): name of final ratings file
 
     Returns:
         ratings_dict (dict): dictionary of all final ratings
     """
+    with open(final_ratings_filename, "r") as f:
+        final_ratings = json.load(f)
 
-    massey_ratings = calculate_massey_ratings(
-        score_df=score_df,
-        debug=False)
-    colley_ratings = calculate_colley_ratings(
-        score_df=score_df,
-        debug=False)
-    elo_ratings = calculate_elo_ratings(
-        score_df=score_df,
-        K=30,
-        debug=False,
-        adjust_K=False)
-    adj_elo_ratings = calculate_elo_ratings(
-        score_df=score_df,
-        K=30,
-        debug=False,
-        adjust_K=True)
-    avg_points_for = calculate_average_points(
-        score_df=score_df,
-        points_for=True,
-        net_points=False,
-        debug=False)
-    avg_points_against = calculate_average_points(
-        score_df=score_df,
-        points_for=False,
-        net_points=False,
-        debug=False)
-    avg_net_points = calculate_average_points(
-        score_df=score_df,
-        net_points=True,
-        debug=False)
-
-    ratings = {}
-
-    # TODO Audit these ratings and/or see if the last row of the mid-season ratings can be-used by refactor
-    for k in massey_ratings.keys():
-        # Initialize dictionary entry
-        ratings[k] = {}
-
-        # Assign values to entry
-        ratings[k]['Massey'] = massey_ratings[k]
-        ratings[k]['Colley'] = colley_ratings[k]
-        ratings[k]['Elo'] = elo_ratings[k]
-        ratings[k]['Adj_Elo'] = adj_elo_ratings[k]
-        ratings[k]['Avg_Pts_For'] = avg_points_for[k]
-        ratings[k]['Avg_Pts_Against'] = avg_points_against[k]
-        ratings[k]['Avg_Net_Pts'] = avg_net_points[k]
-
-    return ratings
+    return final_ratings
 
 
 def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: dict):
@@ -948,7 +903,7 @@ def compute_score_features(df: pd.DataFrame, final_ratings_filename: str):
         df (pd.DataFrame): dataframe containing ratings in ML model format with derived features
     """
 
-    # TODO Move this to "Save Ratings to JSON" section of ML notebook to append to JSON's to run just once initially
+    # TODO 2/3: Move this to "Save Ratings to JSON" section of ML notebook to append to JSON's to run just once initially
     default_home_score = df["Home_Score"].mean()
     default_away_score = df["Away_Score"].mean()
     default_score = (default_home_score + default_away_score) * 0.5
@@ -1047,7 +1002,7 @@ def derive_features(df: pd.DataFrame, final_ratings_filename: str=None, need_sco
     """
 
     if need_score_computation:
-        # TODO Move to mid-season and pull last game for compile_ratings_dict?
+        # TODO 2/3: Move to mid-season and pull last game for compile_ratings_dict?
         df = compute_score_features(df=df, final_ratings_filename=final_ratings_filename)
 
     # Add feature columns
