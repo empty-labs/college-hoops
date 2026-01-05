@@ -3,6 +3,7 @@ import Tools.season_utils as su
 
 # Third party libraries
 from datetime import datetime as dt
+import json
 import numpy as np
 import pandas as pd
 
@@ -472,7 +473,8 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
         initial_ratings (int): starting rating for all teams (default 1500)
 
     Returns:
-        rating_score_df (dict): score data frame with Massey ratings
+        rating_score_df (pd.DataFrame): data frame with mid-season ratings and scores
+        final_ratings_df (pd.DataFrame): data frame with final ratings
     """
 
     # Get unique teams and index them
@@ -594,9 +596,10 @@ def add_ratings_per_game(score_df: pd.DataFrame, initial_ratings: int=None):
         ratings[team]['Elo'] = elo_ratings[team]
         ratings[team]['Adj_Elo'] = adj_elo_ratings[team]
 
-        # TODO: Add final Net_Pts value
+    # Convert to DataFrame
+    final_ratings_df = pd.DataFrame(ratings)
 
-    return rating_score_df
+    return rating_score_df, final_ratings_df
 
 
 def set_tournament_team_rating(i: int, tourney_dict: dict, team: str, seed: int, rating: float):
@@ -904,14 +907,14 @@ def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: dict):
         rating_score_df (pd.DataFrame): dataframe containing ratings in ML model format
     """
 
-    rating_df = []
+    rating_scores = []
 
     # Re-wire ratings dict based on tournament
     for i in range(32):
         team1 = tourney_df["Team1"][i]
         team2 = tourney_df["Team2"][i]
 
-        rating_df.append({
+        rating_scores.append({
             "Home": team1,
             "Away": team2,
             "Home_Massey": ratings[team1]['Massey'],
@@ -930,20 +933,22 @@ def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: dict):
             "Away_Avg_Net_Pts": ratings[team2]['Avg_Net_Pts'],
         })
 
-    df = pd.DataFrame(rating_df)
-    return df
+    rating_score_df = pd.DataFrame(rating_scores)
+    return rating_score_df
 
 
-def compute_score_features(df: pd.DataFrame):
+def compute_score_features(df: pd.DataFrame, final_ratings_filename: str):
     """Compute score features
 
     Args:
         df (pd.DataFrame): dataframe containing ratings in ML model format
+        final_ratings_filename (str): final ratings filename string
 
     Returns:
         df (pd.DataFrame): dataframe containing ratings in ML model format with derived features
     """
 
+    # TODO Move this to "Save Ratings to JSON" section of ML notebook to append to JSON's to run just once initially
     default_home_score = df["Home_Score"].mean()
     default_away_score = df["Away_Score"].mean()
     default_score = (default_home_score + default_away_score) * 0.5
@@ -957,11 +962,9 @@ def compute_score_features(df: pd.DataFrame):
 
         team_rows = df[(df["Home"] == team) | (df["Away"] == team)]
 
-        # TODO Resolve this team vs. that team score
         team_home_scores = list(team_rows["Home_Score"])
         team_away_scores = list(team_rows["Away_Score"])
         home_teams = list(team_rows["Home"])
-        away_teams = list(team_rows["Away"])
 
         curr_team_scores = []
         opponent_team_scores = []
@@ -977,9 +980,7 @@ def compute_score_features(df: pd.DataFrame):
         lagged_for = []
         lagged_against = []
         lagged_net_for_vs_against = []
-        ratings[team] = {}
 
-        # TODO: Include final game
         for i in range(len(team_rows)):
 
             if i == 0:
@@ -994,33 +995,51 @@ def compute_score_features(df: pd.DataFrame):
         is_home = team_rows["Home"] == team
         is_away = team_rows["Away"] == team
 
-        lagged_for = np.asarray(lagged_for)
-        lagged_against = np.asarray(lagged_against)
-        lagged_net_for_vs_against = np.asarray(lagged_net_for_vs_against)
+        lagged_for_arr = np.asarray(lagged_for)
+        lagged_against_arr = np.asarray(lagged_against)
+        lagged_net_for_vs_against_arr = np.asarray(lagged_net_for_vs_against)
 
-        df.loc[team_rows.index[is_home], "Home_Avg_Pts_For"] = lagged_for[is_home]
-        df.loc[team_rows.index[is_away], "Away_Avg_Pts_For"] = lagged_for[is_away]
+        df.loc[team_rows.index[is_home], "Home_Avg_Pts_For"] = lagged_for_arr[is_home]
+        df.loc[team_rows.index[is_away], "Away_Avg_Pts_For"] = lagged_for_arr[is_away]
 
-        df.loc[team_rows.index[is_home], "Home_Avg_Pts_Against"] = lagged_against[is_home]
-        df.loc[team_rows.index[is_away], "Away_Avg_Pts_Against"] = lagged_against[is_away]
+        df.loc[team_rows.index[is_home], "Home_Avg_Pts_Against"] = lagged_against_arr[is_home]
+        df.loc[team_rows.index[is_away], "Away_Avg_Pts_Against"] = lagged_against_arr[is_away]
 
-        df.loc[team_rows.index[is_home], "Home_Avg_Net_Pts"] = lagged_net_for_vs_against[is_home]
-        df.loc[team_rows.index[is_away], "Away_Avg_Net_Pts"] = lagged_net_for_vs_against[is_away]
+        df.loc[team_rows.index[is_home], "Home_Avg_Net_Pts"] = lagged_net_for_vs_against_arr[is_home]
+        df.loc[team_rows.index[is_away], "Away_Avg_Net_Pts"] = lagged_net_for_vs_against_arr[is_away]
 
         # Final points values
+        ratings[team] = {}
 
-    g = "Gonzaga"
-    team_rows = df[(df["Home"] == g) | (df["Away"] == g)]
-    print(team_rows[["Home", "Home_Score", "Away", "Away_Score",  "Home_Avg_Pts_For", "Home_Avg_Pts_Against", "Home_Avg_Net_Pts", "Away_Avg_Pts_For", "Away_Avg_Pts_Against", "Away_Avg_Net_Pts"]])
+        lagged_for.append(np.mean(curr_team_scores))
+        lagged_against.append(np.mean(opponent_team_scores))
+        lagged_net_for_vs_against.append(np.mean(curr_team_scores) - np.mean(opponent_team_scores))
+
+        ratings[team]["Avg_Pts_For"] = lagged_for[-1]
+        ratings[team]["Avg_Pts_Against"] = lagged_against[-1]
+        ratings[team]["Avg_Net_Pts"] = lagged_net_for_vs_against[-1]
+
+    # Write ratings back to final data set (using simpler dictionary style)
+    with open(final_ratings_filename, "r") as f:
+        final_ratings = json.load(f)
+
+    for team in teams:
+        final_ratings[team]["Avg_Pts_For"] = ratings[team]["Avg_Pts_For"]
+        final_ratings[team]["Avg_Pts_Against"] = ratings[team]["Avg_Pts_Against"]
+        final_ratings[team]["Avg_Net_Pts"] = ratings[team]["Avg_Net_Pts"]
+
+    with open(final_ratings_filename, "w") as f:
+        json.dump(final_ratings, f, indent=4)
 
     return df
 
 
-def derive_features(df: pd.DataFrame, need_score_computation: bool=True):
+def derive_features(df: pd.DataFrame, final_ratings_filename: str=None, need_score_computation: bool=True):
     """Derive ML model features from rating/score dataframe
 
     Args:
         df (pd.DataFrame): dataframe containing ratings in ML model format
+        final_ratings_filename (str): final ratings filename string
         need_score_computation (bool): whether to compute score features
 
     Returns:
@@ -1029,7 +1048,7 @@ def derive_features(df: pd.DataFrame, need_score_computation: bool=True):
 
     if need_score_computation:
         # TODO Move to mid-season and pull last game for compile_ratings_dict?
-        df = compute_score_features(df=df)
+        df = compute_score_features(df=df, final_ratings_filename=final_ratings_filename)
 
     # Add feature columns
     for feature in ML_FEATURES:

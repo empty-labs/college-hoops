@@ -51,6 +51,7 @@ def create_filenames(years):
         tournament_filename (str): tournament filename string
         picks_filename (str): picks filename string
         ratings_filename (str): ratings filename string
+        final_ratings_filename (str): final ratings filename string
     """
 
     years = create_year_list(years)
@@ -65,8 +66,9 @@ def create_filenames(years):
     tournament_filename = f"Data/Tournaments/tournament_{tournament_year}.csv"
     picks_filename = f"Data/Tournament Picks/picks_{filename_years}.csv"
     ratings_filename = f"Data/Season Ratings/data_{filename_years}.json"
+    final_ratings_filename = f"Data/Season Ratings/final_data_{filename_years}.json"
 
-    return filename, tournament_filename, picks_filename, ratings_filename
+    return filename, tournament_filename, picks_filename, ratings_filename, final_ratings_filename
 
 
 SEASONS_STR = [convert_season_to_string(season) for season in SEASONS]
