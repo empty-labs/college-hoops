@@ -242,7 +242,7 @@ def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool=False):
         debug (bool): flag to print debug statements
 
     Returns:
-        colley_ratings (dict): dictionary of Massey ratings
+        colley_ratings (dict): dictionary of Colley ratings
     """
 
     # Get unique teams and index them
@@ -287,7 +287,15 @@ def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool=False):
 
 
 def compile_srs_ratings(filename: str, debug: bool=False):
-    """"""
+    """Compile SRS rankings given a game results DataFrame.
+
+    Args:
+        score_df (pd.DataFrame): matchup score data frame
+        debug (bool): flag to print debug statements
+
+    Returns:
+        srs_ratings (dict): dictionary of SRS ratings
+    """
 
     # Read Stats
     teams_df = pd.read_json(filename)
