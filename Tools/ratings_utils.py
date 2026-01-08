@@ -450,7 +450,7 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
 
     else:
 
-        ratings_str = "Elo" if adjust_K is False else "Adj_Elo"
+        ratings_str = "Adj_Elo" if adjust_K is True else "Elo"
         elo_ratings = collect_final_ratings(
             final_ratings_filename=final_ratings_filename,
             teams=teams,
@@ -459,68 +459,80 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
     return elo_ratings
 
 
-def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, net_points: bool=False, debug: bool=False):
+def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, net_points: bool=False,
+                             final_ratings_filename: str=None, debug: bool=False):
     """Calculates average points forced or against using total or net score for full season (not in during season)
 
     Args:
         score_df (pd.DataFrame): matchup data frame
         points_for (bool): whether to calculate points for (True) instead of points against (False)
         net_points (bool): whether to calculate net points (True) instead of points total (False)
+        final_ratings_filename (str): filename for final ratings
         debug (bool): flag to print debug statements
 
     Returns:
         avg_points (dict): dictionary of points features
     """
 
-    # Get unique teams and index them
     teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
 
-    default_points = 70
-    avg_points = {team: default_points for team in teams}
+    if final_ratings_filename is None:
 
-    for team in teams:
+        default_points = 70
+        avg_points = {team: default_points for team in teams}
 
-        team_rows = score_df[(score_df["Home"] == team) | (score_df["Away"] == team)]
+        for team in teams:
 
-        team_home_scores = list(team_rows["Home_Score"])
-        team_away_scores = list(team_rows["Away_Score"])
-        home_teams = list(team_rows["Home"])
-        away_teams = list(team_rows["Away"])
+            team_rows = score_df[(score_df["Home"] == team) | (score_df["Away"] == team)]
 
-        team_pts = []
+            team_home_scores = list(team_rows["Home_Score"])
+            team_away_scores = list(team_rows["Away_Score"])
+            home_teams = list(team_rows["Home"])
+            away_teams = list(team_rows["Away"])
 
-        for i in range(len(team_rows)):
+            team_pts = []
 
-            if net_points:  # Net points
+            for i in range(len(team_rows)):
 
-                # Net Points (for) - (against)
-                if home_teams[i] == team:
-                    team_pts.append(team_home_scores[i] - team_away_scores[i])
-                elif away_teams[i] == team:
-                    team_pts.append(team_away_scores[i] - team_home_scores[i])
+                if net_points:  # Net points
 
-            else:  # Total points
-
-                if points_for:  # Points for
+                    # Net Points (for) - (against)
                     if home_teams[i] == team:
-                        team_pts.append(team_home_scores[i])
+                        team_pts.append(team_home_scores[i] - team_away_scores[i])
                     elif away_teams[i] == team:
-                        team_pts.append(team_away_scores[i])
+                        team_pts.append(team_away_scores[i] - team_home_scores[i])
 
-                else:  # Points against
-                    if home_teams[i] == team:
-                        team_pts.append(team_away_scores[i])
-                    elif away_teams[i] == team:
-                        team_pts.append(team_home_scores[i])
+                else:  # Total points
 
-        avg_points[team] = np.mean(team_pts)
+                    if points_for:  # Points for
+                        if home_teams[i] == team:
+                            team_pts.append(team_home_scores[i])
+                        elif away_teams[i] == team:
+                            team_pts.append(team_away_scores[i])
 
-    # Sort and display rankings
-    points_rankings = sorted(avg_points.items(), key=lambda x: x[1], reverse=True)
+                    else:  # Points against
+                        if home_teams[i] == team:
+                            team_pts.append(team_away_scores[i])
+                        elif away_teams[i] == team:
+                            team_pts.append(team_home_scores[i])
 
-    if debug:
-        for rank, (team, rating) in enumerate(points_rankings, 1):
-            print(f"{rank}. {team}: {rating:.2f}")
+            avg_points[team] = np.mean(team_pts)
+
+        # Sort and display rankings
+        points_rankings = sorted(avg_points.items(), key=lambda x: x[1], reverse=True)
+
+        if debug:
+            for rank, (team, rating) in enumerate(points_rankings, 1):
+                print(f"{rank}. {team}: {rating:.2f}")
+
+    else:
+
+        ratings_str = "Avg_Pts_For" if points_for is True else "Avg_Pts_Against"
+        ratings_str = "Avg_Net_Pts" if net_points is True else ratings_str
+        avg_points = collect_final_ratings(
+            final_ratings_filename=final_ratings_filename,
+            teams=teams,
+            ratings_str=ratings_str)
 
     return avg_points
 
