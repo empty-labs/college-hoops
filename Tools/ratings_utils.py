@@ -9,7 +9,7 @@ import pandas as pd
 
 ROUND_NAMES = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8", "Final 4", "Championship", "Champion"]
 ROUND_POINTS = [10, 20, 40, 80, 160, 320]
-ROUND_1_SEEDING = [1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15]
+FIRST_ROUND_SEEDING = [1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15]
 ML_FEATURES = [
     "Massey_diff",
     "Colley_diff",
@@ -184,104 +184,145 @@ def update_rating_matrix(mtx, i: int, j: int):
     return mtx
 
 
-def calculate_massey_ratings(score_df: pd.DataFrame, debug: bool=False):
+def collect_final_ratings(final_ratings_filename: str, teams: list, ratings_str: str):
+    """Collect final ratings
+
+    Args:
+        final_ratings_filename (str): Name of JSON team ratings file
+        teams (list): List of teams
+        ratings_str (str): Name of team ratings type
+
+    Returns:
+        final_ratings (dict): final ratings dictionary
+    """
+
+    # Collect ratings from final data set (using simpler dictionary style)
+    with open(final_ratings_filename, "r") as f:
+        final_ratings = json.load(f)
+
+    ratings = {team: final_ratings[team][ratings_str] for team in teams}
+
+    return ratings
+
+
+def calculate_massey_ratings(score_df: pd.DataFrame, final_ratings_filename: str=None, debug: bool=False):
     """Calculate Massey ratings for each team and sort in ranked order
 
     Args:
         score_df (pd.DataFrame): matchup score data frame
+        final_ratings_filename (str): Name of JSON team ratings file
         debug (bool): flag to print debug statements
 
     Returns:
         massey_ratings (dict): dictionary of Massey ratings
     """
 
-    # Get unique teams and index them
     teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
-    team_index = {team: i for i, team in enumerate(teams)}
-    N = len(teams)
 
-    # Initialize Massey matrix and score vector
-    M = np.zeros((N, N))
-    b = np.zeros(N)
+    if final_ratings_filename is None:
+        # Get unique teams and index them
+        team_index = {team: i for i, team in enumerate(teams)}  # Map teams to indices
+        N = len(teams)
 
-    # Fill the matrix and score vector
-    for _, row in score_df.iterrows():
-        h, a = row["Home"], row["Away"]
-        i, j = team_index[h], team_index[a]
-        home_margin = row["Home_Score"] - row["Away_Score"]
+        # Initialize Massey matrix and score vector
+        M = np.zeros((N, N))
+        b = np.zeros(N)
 
-        M = update_rating_matrix(mtx=M, i=i, j=j)
+        # Fill the matrix and score vector
+        for _, row in score_df.iterrows():
+            h, a = row["Home"], row["Away"]
+            i, j = team_index[h], team_index[a]
+            home_margin = row["Home_Score"] - row["Away_Score"]
 
-        b[i] += home_margin
-        b[j] -= home_margin
+            M = update_rating_matrix(mtx=M, i=i, j=j)
 
-    # Replace last row to enforce sum constraint (makes matrix invertible)
-    M[-1, :] = 1
-    b[-1] = 0
+            b[i] += home_margin
+            b[j] -= home_margin
 
-    ratings = np.linalg.solve(M, b)
+        # Replace last row to enforce sum constraint (makes matrix invertible)
+        M[-1, :] = 1
+        b[-1] = 0
 
-    # Convert ratings to a dictionary
-    massey_ratings = {team: rating for team, rating in zip(teams, ratings)}
+        ratings = np.linalg.solve(M, b)
 
-    # Sort and display rankings
-    massey_rankings = sorted(massey_ratings.items(), key=lambda x: x[1], reverse=True)
+        # Convert ratings to a dictionary
+        massey_ratings = {team: rating for team, rating in zip(teams, ratings)}
 
-    if debug:
-        for rank, (team, rating) in enumerate(massey_rankings, 1):
-            print(f"{rank}. {team}: {rating:.2f}")
+        # Sort and display rankings
+        massey_rankings = sorted(massey_ratings.items(), key=lambda x: x[1], reverse=True)
+
+        if debug:
+            for rank, (team, rating) in enumerate(massey_rankings, 1):
+                print(f"{rank}. {team}: {rating:.2f}")
+
+    else:
+
+        massey_ratings = collect_final_ratings(
+            final_ratings_filename=final_ratings_filename,
+            teams=teams,
+            ratings_str="Massey")
 
     return massey_ratings
 
 
-def calculate_colley_ratings(score_df: pd.DataFrame, debug: bool=False):
+def calculate_colley_ratings(score_df: pd.DataFrame, final_ratings_filename: str=None, debug: bool=False):
     """Calculates Colley rankings given a game results DataFrame.
 
     Args:
         score_df (pd.DataFrame): matchup score data frame
+        final_ratings_filename (str): Name of JSON team ratings file
         debug (bool): flag to print debug statements
 
     Returns:
         colley_ratings (dict): dictionary of Colley ratings
     """
 
-    # Get unique teams and index them
     teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
-    team_index = {team: i for i, team in enumerate(teams)}  # Map teams to indices
-    N = len(teams)
 
-    # Initialize Colley matrix (C) and RHS vector (b)
-    C = np.eye(N) * 2  # Start with 2 on the diagonal
-    b = np.ones(N)  # Initialize b with 1s
+    if final_ratings_filename is None:
 
-    # Populate matrix and vector using game results
-    for _, row in score_df.iterrows():
-        h, a, winner = row["Home"], row["Away"], row["Winner"]
-        i, j = team_index[h], team_index[a]
+        team_index = {team: i for i, team in enumerate(teams)}  # Map teams to indices
+        N = len(teams)
 
-        # Update matrix
-        C = update_rating_matrix(mtx=C, i=i, j=j)
+        # Initialize Colley matrix (C) and RHS vector (b)
+        C = np.eye(N) * 2  # Start with 2 on the diagonal
+        b = np.ones(N)  # Initialize b with 1s
 
-        # Update b vector
-        if winner == h:
-            b[i] += 0.5
-            b[j] -= 0.5
-        else:
-            b[i] -= 0.5
-            b[j] += 0.5
+        # Populate matrix and vector using game results
+        for _, row in score_df.iterrows():
+            h, a, winner = row["Home"], row["Away"], row["Winner"]
+            i, j = team_index[h], team_index[a]
 
-    # Solve for ratings
-    ratings = np.linalg.solve(C, b)
+            # Update matrix
+            C = update_rating_matrix(mtx=C, i=i, j=j)
 
-    # Convert ratings to a dictionary
-    colley_ratings = {team: rating for team, rating in zip(teams, ratings)}
+            # Update b vector
+            if winner == h:
+                b[i] += 0.5
+                b[j] -= 0.5
+            else:
+                b[i] -= 0.5
+                b[j] += 0.5
 
-    # Sort and display rankings
-    colley_rankings = sorted(colley_ratings.items(), key=lambda x: x[1], reverse=True)
+        # Solve for ratings
+        ratings = np.linalg.solve(C, b)
 
-    if debug:
-        for rank, (team, rating) in enumerate(colley_rankings, 1):
-            print(f"{rank}. {team}: {rating:.2f}")
+        # Convert ratings to a dictionary
+        colley_ratings = {team: rating for team, rating in zip(teams, ratings)}
+
+        # Sort and display rankings
+        colley_rankings = sorted(colley_ratings.items(), key=lambda x: x[1], reverse=True)
+
+        if debug:
+            for rank, (team, rating) in enumerate(colley_rankings, 1):
+                print(f"{rank}. {team}: {rating:.2f}")
+
+    else:
+
+        colley_ratings = collect_final_ratings(
+            final_ratings_filename=final_ratings_filename,
+            teams=teams,
+            ratings_str="Colley")
 
     return colley_ratings
 
@@ -290,7 +331,7 @@ def compile_srs_ratings(filename: str, debug: bool=False):
     """Compile SRS rankings given a game results DataFrame.
 
     Args:
-        score_df (pd.DataFrame): matchup score data frame
+        filename (str): matchup data filename
         debug (bool): flag to print debug statements
 
     Returns:
@@ -369,14 +410,15 @@ def update_elo(r1: float, r2: float, outcome: int, mov: int, K: int=40, adjust_K
     return r1_new, r2_new
 
 
-def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: int=40, debug: bool=False,
-                          adjust_K: bool=True):
+def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: int=40, final_ratings_filename: str=None,
+                          debug: bool=False, adjust_K: bool=True):
     """Calculates Elo rankings given a game results DataFrame.
 
     Args:
         score_df (pd.DataFrame): matchup data frame
         initial_ratings (int): starting rating for all teams (default 1500)
         K (int): rating adjustment factor (default 30)
+        final_ratings_filename (str): filename for final ratings
         debug (bool): flag to print debug statements
         adjust_K (bool): use adjusted K value based on MOV
 
@@ -384,25 +426,35 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
         elo_ratings (dict): dictionary of Elo ratings
     """
 
-    # Get unique teams and index them
     teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
-    elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
 
-    for _, row in score_df.iterrows():
-        h, a, winner, mov = row["Home"], row["Away"], row["Winner"], row["Home_Score"] - row["Away_Score"]
+    if final_ratings_filename is None:
 
-        # Assign outcome (1 if h wins, 0 if a wins)
-        outcome = 1 if winner == h else 0
+        elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
 
-        elo_ratings[h], elo_ratings[a] = update_elo(r1=elo_ratings[h], r2=elo_ratings[a],
-                                                    outcome=outcome, mov=mov, K=K, adjust_K=adjust_K)
+        for _, row in score_df.iterrows():
+            h, a, winner, mov = row["Home"], row["Away"], row["Winner"], row["Home_Score"] - row["Away_Score"]
 
-    # Sort and display rankings
-    elo_rankings = sorted(elo_ratings.items(), key=lambda x: x[1], reverse=True)
+            # Assign outcome (1 if h wins, 0 if a wins)
+            outcome = 1 if winner == h else 0
 
-    if debug:
-        for rank, (team, rating) in enumerate(elo_rankings, 1):
-            print(f"{rank}. {team}: {rating:.2f}")
+            elo_ratings[h], elo_ratings[a] = update_elo(r1=elo_ratings[h], r2=elo_ratings[a],
+                                                        outcome=outcome, mov=mov, K=K, adjust_K=adjust_K)
+
+        # Sort and display rankings
+        elo_rankings = sorted(elo_ratings.items(), key=lambda x: x[1], reverse=True)
+
+        if debug:
+            for rank, (team, rating) in enumerate(elo_rankings, 1):
+                print(f"{rank}. {team}: {rating:.2f}")
+
+    else:
+
+        ratings_str = "Elo" if adjust_K is False else "Adj_Elo"
+        elo_ratings = collect_final_ratings(
+            final_ratings_filename=final_ratings_filename,
+            teams=teams,
+            ratings_str=ratings_str)
 
     return elo_ratings
 
@@ -789,8 +841,8 @@ def setup_first_round_dictionary(tourney_df: pd.DataFrame):
         team1 = tourney_df["Team1"][i]
         team2 = tourney_df["Team2"][i]
 
-        team1_seed = ROUND_1_SEEDING[(2 * i) % 16]
-        team2_seed = ROUND_1_SEEDING[(2 * i + 1) % 16]
+        team1_seed = FIRST_ROUND_SEEDING[(2 * i) % 16]
+        team2_seed = FIRST_ROUND_SEEDING[(2 * i + 1) % 16]
 
         rd = tourney_df["Round"][i]
         tourney_dict["Round Name"].append(ROUND_NAMES[rd - 1])
