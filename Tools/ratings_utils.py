@@ -678,6 +678,12 @@ def add_ratings_per_game(score_df: pd.DataFrame, ratings_filename: str, final_ra
     rating_score_df.to_json(ratings_filename, orient='records', indent=4)
     final_ratings_df.to_json(final_ratings_filename, indent=4)
 
+    import os
+    print('MTMT test')
+    print(os.path.exists(ratings_filename))
+    print(os.path.exists(final_ratings_filename))
+
+
     # Set up final ratings for tournament
     compute_score_features(df=rating_score_df, final_ratings_filename=final_ratings_filename)
 
