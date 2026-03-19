@@ -1,28 +1,28 @@
 Round Name,Round,Game,Team1,Team2,Seed1,Seed2,Rating1,Rating2
-Round of 64,1,1,Florida,Prairie View A&M,1,16,1.104257528,0.5055285373
-Round of 64,1,2,Clemson,Iowa,8,9,0.9802673723,0.9135960662
-Round of 64,1,3,Vanderbilt,McNeese,5,12,1.0658102303,0.8961887174
-Round of 64,1,4,Nebraska,Troy,4,13,1.0837555484,0.7680868558
-Round of 64,1,5,North Carolina,Virginia Commonwealth,6,11,1.0597684695,1.0005024563
-Round of 64,1,6,Illinois,Pennsylvania,3,14,1.0676835694,0.7501764671
-Round of 64,1,7,Saint Mary's,Texas A&M,7,10,1.0606357728,0.8931005727
-Round of 64,1,8,Houston,Idaho,2,15,1.1397836337,0.6550724805
-Round of 64,1,9,Arizona,Long Island University,1,16,1.2696037184,0.6986888778
-Round of 64,1,10,Villanova,Utah State,8,9,1.0223896121,1.0546633476
-Round of 64,1,11,Wisconsin,High Point,5,12,1.0176667765,0.8783941681
-Round of 64,1,12,Arkansas,Hawaii,4,13,1.0820529575,0.8326110038
-Round of 64,1,13,Brigham Young,Texas,6,11,1.0168127672,0.825093007
-Round of 64,1,14,Gonzaga,Kennesaw State,3,14,1.1232741569,0.7302789426
-Round of 64,1,15,Miami (FL),Missouri,7,10,0.9878166429,0.8794552021
-Round of 64,1,16,Purdue,Queens (NC),2,15,1.1153082805,0.699352334
-Round of 64,1,17,Duke,Siena,1,16,1.2604542252,0.7037593123
-Round of 64,1,18,Ohio State,Texas Christian,8,9,0.9553494116,0.9445505888
-Round of 64,1,19,St. John's (NY),Northern Iowa,5,12,1.1066693162,0.8127317225
-Round of 64,1,20,Kansas,California Baptist,4,13,1.0696438432,0.867077294
-Round of 64,1,21,Louisville,South Florida,6,11,0.9974194104,0.9561126993
-Round of 64,1,22,Michigan State,North Dakota State,3,14,1.1054513046,0.8250069524
-Round of 64,1,23,UCLA,UCF,7,10,0.9790803177,0.9664001903
-Round of 64,1,24,Connecticut,Furman,2,15,1.132377589,0.7024576246
+Round of 64,1,1,Duke,Siena,1,16,1.2604542252,0.7037593123
+Round of 64,1,2,Ohio State,Texas Christian,8,9,0.9553494116,0.9445505888
+Round of 64,1,3,St. John's (NY),Northern Iowa,5,12,1.1066693162,0.8127317225
+Round of 64,1,4,Kansas,California Baptist,4,13,1.0696438432,0.867077294
+Round of 64,1,5,Louisville,South Florida,6,11,0.9974194104,0.9561126993
+Round of 64,1,6,Michigan State,North Dakota State,3,14,1.1054513046,0.8250069524
+Round of 64,1,7,UCLA,UCF,7,10,0.9790803177,0.9664001903
+Round of 64,1,8,Connecticut,Furman,2,15,1.132377589,0.7024576246
+Round of 64,1,9,Florida,Prairie View A&M,1,16,1.104257528,0.5055285373
+Round of 64,1,10,Clemson,Iowa,8,9,0.9802673723,0.9135960662
+Round of 64,1,11,Vanderbilt,McNeese,5,12,1.0658102303,0.8961887174
+Round of 64,1,12,Nebraska,Troy,4,13,1.0837555484,0.7680868558
+Round of 64,1,13,North Carolina,Virginia Commonwealth,6,11,1.0597684695,1.0005024563
+Round of 64,1,14,Illinois,Pennsylvania,3,14,1.0676835694,0.7501764671
+Round of 64,1,15,Saint Mary's,Texas A&M,7,10,1.0606357728,0.8931005727
+Round of 64,1,16,Houston,Idaho,2,15,1.1397836337,0.6550724805
+Round of 64,1,17,Arizona,Long Island University,1,16,1.2696037184,0.6986888778
+Round of 64,1,18,Villanova,Utah State,8,9,1.0223896121,1.0546633476
+Round of 64,1,19,Wisconsin,High Point,5,12,1.0176667765,0.8783941681
+Round of 64,1,20,Arkansas,Hawaii,4,13,1.0820529575,0.8326110038
+Round of 64,1,21,Brigham Young,Texas,6,11,1.0168127672,0.825093007
+Round of 64,1,22,Gonzaga,Kennesaw State,3,14,1.1232741569,0.7302789426
+Round of 64,1,23,Miami (FL),Missouri,7,10,0.9878166429,0.8794552021
+Round of 64,1,24,Purdue,Queens (NC),2,15,1.1153082805,0.699352334
 Round of 64,1,25,Michigan,Howard,1,16,1.2662944403,0.660432988
 Round of 64,1,26,Georgia,Saint Louis,8,9,0.9389611665,1.0116057323
 Round of 64,1,27,Texas Tech,Akron,5,12,1.050290028,0.9455730161
@@ -31,35 +31,35 @@ Round of 64,1,29,Tennessee,Miami (OH),6,11,0.9751935756,1.0002953584
 Round of 64,1,30,Virginia,Wright State,3,14,1.1178078478,0.7597602931
 Round of 64,1,31,Kentucky,Santa Clara,7,10,0.9416011942,0.9943959992
 Round of 64,1,32,Iowa State,Tennessee State,2,15,1.084037034,0.7335161456
-Round of 32,2,1,Florida,Clemson,1,8,1.104257528,0.9802673723
-Round of 32,2,2,Vanderbilt,Nebraska,5,4,1.0658102303,1.0837555484
-Round of 32,2,3,North Carolina,Illinois,6,3,1.0597684695,1.0676835694
-Round of 32,2,4,Saint Mary's,Houston,7,2,1.0606357728,1.1397836337
-Round of 32,2,5,Arizona,Utah State,1,9,1.2696037184,1.0546633476
-Round of 32,2,6,Wisconsin,Arkansas,5,4,1.0176667765,1.0820529575
-Round of 32,2,7,Brigham Young,Gonzaga,6,3,1.0168127672,1.1232741569
-Round of 32,2,8,Miami (FL),Purdue,7,2,0.9878166429,1.1153082805
-Round of 32,2,9,Duke,Ohio State,1,8,1.2604542252,0.9553494116
-Round of 32,2,10,St. John's (NY),Kansas,5,4,1.1066693162,1.0696438432
-Round of 32,2,11,Louisville,Michigan State,6,3,0.9974194104,1.1054513046
-Round of 32,2,12,UCLA,Connecticut,7,2,0.9790803177,1.132377589
+Round of 32,2,1,Duke,Ohio State,1,8,1.2604542252,0.9553494116
+Round of 32,2,2,St. John's (NY),Kansas,5,4,1.1066693162,1.0696438432
+Round of 32,2,3,Louisville,Michigan State,6,3,0.9974194104,1.1054513046
+Round of 32,2,4,UCLA,Connecticut,7,2,0.9790803177,1.132377589
+Round of 32,2,5,Florida,Clemson,1,8,1.104257528,0.9802673723
+Round of 32,2,6,Vanderbilt,Nebraska,5,4,1.0658102303,1.0837555484
+Round of 32,2,7,North Carolina,Illinois,6,3,1.0597684695,1.0676835694
+Round of 32,2,8,Saint Mary's,Houston,7,2,1.0606357728,1.1397836337
+Round of 32,2,9,Arizona,Utah State,1,9,1.2696037184,1.0546633476
+Round of 32,2,10,Wisconsin,Arkansas,5,4,1.0176667765,1.0820529575
+Round of 32,2,11,Brigham Young,Gonzaga,6,3,1.0168127672,1.1232741569
+Round of 32,2,12,Miami (FL),Purdue,7,2,0.9878166429,1.1153082805
 Round of 32,2,13,Michigan,Saint Louis,1,9,1.2662944403,1.0116057323
 Round of 32,2,14,Texas Tech,Alabama,5,4,1.050290028,1.0633428639
 Round of 32,2,15,Miami (OH),Virginia,11,3,1.0002953584,1.1178078478
 Round of 32,2,16,Santa Clara,Iowa State,10,2,0.9943959992,1.084037034
-Sweet 16,3,1,Florida,Nebraska,1,4,1.104257528,1.0837555484
-Sweet 16,3,2,Illinois,Houston,3,2,1.0676835694,1.1397836337
-Sweet 16,3,3,Arizona,Arkansas,1,4,1.2696037184,1.0820529575
-Sweet 16,3,4,Gonzaga,Purdue,3,2,1.1232741569,1.1153082805
-Sweet 16,3,5,Duke,St. John's (NY),1,5,1.2604542252,1.1066693162
-Sweet 16,3,6,Michigan State,Connecticut,3,2,1.1054513046,1.132377589
+Sweet 16,3,1,Duke,St. John's (NY),1,5,1.2604542252,1.1066693162
+Sweet 16,3,2,Michigan State,Connecticut,3,2,1.1054513046,1.132377589
+Sweet 16,3,3,Florida,Nebraska,1,4,1.104257528,1.0837555484
+Sweet 16,3,4,Illinois,Houston,3,2,1.0676835694,1.1397836337
+Sweet 16,3,5,Arizona,Arkansas,1,4,1.2696037184,1.0820529575
+Sweet 16,3,6,Gonzaga,Purdue,3,2,1.1232741569,1.1153082805
 Sweet 16,3,7,Michigan,Alabama,1,4,1.2662944403,1.0633428639
 Sweet 16,3,8,Virginia,Iowa State,3,2,1.1178078478,1.084037034
-Elite 8,4,1,Florida,Houston,1,2,1.104257528,1.1397836337
-Elite 8,4,2,Arizona,Gonzaga,1,3,1.2696037184,1.1232741569
-Elite 8,4,3,Duke,Connecticut,1,2,1.2604542252,1.132377589
+Elite 8,4,1,Duke,Connecticut,1,2,1.2604542252,1.132377589
+Elite 8,4,2,Florida,Houston,1,2,1.104257528,1.1397836337
+Elite 8,4,3,Arizona,Gonzaga,1,3,1.2696037184,1.1232741569
 Elite 8,4,4,Michigan,Virginia,1,3,1.2662944403,1.1178078478
-Final 4,5,1,Houston,Arizona,2,1,1.1397836337,1.2696037184
-Final 4,5,2,Duke,Michigan,1,1,1.2604542252,1.2662944403
-Championship,6,1,Arizona,Michigan,1,1,1.2696037184,1.2662944403
+Final 4,5,1,Duke,Houston,1,2,1.2604542252,1.1397836337
+Final 4,5,2,Arizona,Michigan,1,1,1.2696037184,1.2662944403
+Championship,6,1,Duke,Arizona,1,1,1.2604542252,1.2696037184
 Champion,7,1,Arizona,---,1,---,1.2696037184,---
