@@ -1343,7 +1343,7 @@ def apply_custom_weights(massey_ratings: dict, colley_ratings: dict, adj_elo_rat
         combined_ratings[key] += v
 
     total_correct_picks, total_points, tourney_dict, tourney_results = simulate_tournament(
-        filename=tournament_filename, ratings=combined_ratings, debug=debug)
+        filename=tournament_filename, ratings=combined_ratings)
 
     return total_correct_picks, total_points, tourney_dict, tourney_results
 
