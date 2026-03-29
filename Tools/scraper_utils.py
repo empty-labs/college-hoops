@@ -1,7 +1,6 @@
 # Third party libraries
 from bs4 import BeautifulSoup
 from io import StringIO
-import json
 import os
 import pandas as pd
 import requests
@@ -9,7 +8,6 @@ import time
 
 # Local libraries
 import Classes.Team as Team
-import Tools.system_utils as sys
 
 URL_PREFIX = "https://www.sports-reference.com"
 AMP = "&amp;"
@@ -26,15 +24,9 @@ def skip_table_breaks(df: pd.DataFrame, header: str):
     Return:
         df (pd.DataFrame): team schedule data frame
     """
-
     # Need to skip break in table
-    drop_idxs = []
-    for i in range(len(df[header])):
-        if df[header][i] == header:
-            drop_idxs.append(i)
-
-    df = df.drop(drop_idxs)
-    df.reset_index(drop=True, inplace=True)
+    df = df[df[header] != header]
+    df = df.reset_index(drop=True)
 
     return df
 
@@ -104,6 +96,7 @@ def scrape_team_schedule(url: str, debug: bool=False):
         print(tables)
 
     table = str(soup.find("table", {"id": "schedule"}))
+
     # Wrap the HTML string in StringIO
     html_io = StringIO(table)
 
@@ -118,8 +111,9 @@ def scrape_team_schedule(url: str, debug: bool=False):
         # Rename unnamed keys
         df.rename(columns={'Unnamed: 4': 'Site'}, inplace=True)
         df.rename(columns={'Unnamed: 8': 'Outcome'}, inplace=True)
+
     except ValueError as e:
-        print('Value Error')
+        print('--> No games recorded for this team')
 
     return df
 
@@ -171,61 +165,61 @@ def scrape_team_list(url: str, debug: bool=False):
     return df
 
 
-def add_team_to_dictionary(team_url: str, school: str, filename: str):
-    """Add data if file doesn't exist already
-
-    Args:
-        team_url (str): URL for team matchup data
-        school (str): team involved in matchup
-        filename (str): Name of JSON team file
-    """
-
-    team = Team.Team(url=team_url)
-
-    if team.df is not None:
-        dct = {}
-        dct[school] = team.df.to_dict(orient="list")
-        sys.add_dictionary_to_json(dct=dct,
-                                   filename=filename)
-        print(f"{school} added to JSON successfully.")
-    else:
-        print(f"{school} has no records.")
-
-
-def add_teams_to_json(team_list, filename: str, url_suffix: str):
+def add_team_matchups_to_games_table(spark, team_list, filename: str, url_suffix: str, year: int):
     """Add all teams to the JSON file if they don't already exist
 
     Args:
+        spark: PySpark object
         team_list: class holding data frame of all teams
-        filename (str): Name of JSON team file
+        filename (str): Name of Parquet matchup file
         url_suffix (str): suffix for URLs
+        year (int): year of team data
     """
 
-    for i in range(len(team_list.df["URL"])):
-        team_url = team_list.df["URL"][i] + url_suffix
-        school = team_list.df["School"][i]
-        print(f"{i}. {school}")
+    team_matchups = []
+    n = len(team_list.df)
 
-        existing_data = None
+    for i in range(n):
 
-        # Check if file exists already
-        if os.path.exists(filename) and os.path.getsize(filename) > 0:
-            with open(filename, "r") as file:
-                existing_data = json.load(file)
+        # Grab team URL
+        team_url = team_list.df['URL'][i] + url_suffix
+        school = team_list.df['School'][i]
+        print(f'{i + 1}. {school}')
 
-        if existing_data:
+        # Grab team matchup table
+        team = Team.Team(url=team_url)
 
-            existing_teams = list(existing_data.keys())
+        if team.df is not None:
 
-            # Add data if it doesn't exist already
-            if school not in existing_teams:
-                add_team_to_dictionary(team_url=team_url,
-                                       school=school,
-                                       filename=filename)
-            else:
-                print(f"{school} already exists in current JSON.")
+            # Add school name + year to matchup table
+            team.df['School'] = school
+            team.df['year'] = year
 
-        else:
-            add_team_to_dictionary(team_url=team_url,
-                                   school=school,
-                                   filename=filename)
+            # Add to team matchup list
+            team_matchups.append(team.df)
+
+    # Concat all DataFrames
+    team_matchups_df = pd.concat(team_matchups)
+
+    # Create DataFrame
+    spark_df = spark.createDataFrame(team_matchups_df)
+
+    # Write to Parquet
+    if os.path.exists(filename):
+        # File exists → read existing data, append, and remove duplicates
+        df_existing = spark.read.parquet(filename)
+
+        # Combine old + new
+        df_combined = df_existing.union(spark_df)
+
+        # Drop duplicates (based on date + teams)
+        df_final = df_combined.dropDuplicates()
+
+        # Overwrite with updated data
+        df_final.write.mode('overwrite').parquet(filename)
+
+        print('Data successfully updated.')
+    else:
+        # Write file with new data
+        spark_df.write.mode('overwrite').parquet(filename)
+        print('Data successfully created.')
