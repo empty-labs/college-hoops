@@ -60,7 +60,7 @@ def create_filenames(years):
     if years[0] == tournament_year:
         filename_years = years[0]
     else:
-        filename_years = f'{years[0]}-{tournament_year}"
+        filename_years = f'{years[0]}-{tournament_year}'
 
     filename = f'Data/Seasons/data_{tournament_year}.json'
     tournament_filename = f'Data/Tournaments/tournament_{tournament_year}.csv'

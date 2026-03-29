@@ -115,52 +115,46 @@ def set_rating_data_frame(table_name: str):
     # Read the table into a Pandas DataFrame
     df = pd.read_sql(f'SELECT * FROM {table_name}', conn)
     conn.close()
-    
-    all_teams = df['Team'].unique().tolist()
 
-    for team in all_teams:
+    for _, row in df.iterrows():
 
-        team_df = df[df['Team'] == team]
+        # Non Tournament games
+        if row['Type'] != 'NCAA' and row['Type'] != 'CIT' and row['Tm'] is not None and row['Opp'] is not None:
 
-        for i, row in team_df.iterrows():
-
-            # Non Tournament games
-            if row['Type'] != 'NCAA' and row['Type'] != 'CIT' and row['Tm'] is not None and row['Opp'] is not None:
-
-                # Find which team is home/away (None = home, @ = away, N = neutral/assign home to winner?)
-                if row['Site'] is None:
+            # Find which team is home/away (None = home, @ = away, N = neutral/assign home to winner?)
+            if row['Site'] is None:
+                # Current team is home team
+                score_dict = set_score_entry(
+                    dct=score_dict, home_team=row['Team'], away_team=row['Opponent'],
+                    home_team_score=int(float(row['Tm'])),
+                    away_team_score=int(float(row['Opp'])),
+                    date=row['Date'], time=row['Time']
+                )
+            elif row['Site'] == '@':
+                # Opponent team is away team
+                score_dict = set_score_entry(
+                    dct=score_dict, home_team=row['Opponent'], away_team=row['Team'],
+                    home_team_score=int(float(row['Opp'])),
+                    away_team_score=int(float(row['Tm'])),
+                    date=row['Date'], time=row['Time']
+                )
+            else:  # Neutral site home team advantage goes to winner
+                if row['Outcome'] == 'W':
                     # Current team is home team
                     score_dict = set_score_entry(
-                        dct=score_dict, home_team=team, away_team=row['Opponent'],
+                        dct=score_dict, home_team=row['Team'], away_team=row['Opponent'],
                         home_team_score=int(float(row['Tm'])),
                         away_team_score=int(float(row['Opp'])),
                         date=row['Date'], time=row['Time']
                     )
-                elif row['Site'] == '@':
+                else:
                     # Opponent team is away team
                     score_dict = set_score_entry(
-                        dct=score_dict, home_team=row['Opponent'], away_team=team,
+                        dct=score_dict, home_team=row['Opponent'], away_team=row['Team'],
                         home_team_score=int(float(row['Opp'])),
                         away_team_score=int(float(row['Tm'])),
                         date=row['Date'], time=row['Time']
                     )
-                else:  # Neutral site home team advantage goes to winner
-                    if row['Outcome'] == 'W':
-                        # Current team is home team
-                        score_dict = set_score_entry(
-                            dct=score_dict, home_team=team, away_team=row['Opponent'],
-                            home_team_score=int(float(row['Tm'])),
-                            away_team_score=int(float(row['Opp'])),
-                            date=row['Date'], time=row['Time']
-                        )
-                    else:
-                        # Opponent team is away team
-                        score_dict = set_score_entry(
-                            dct=score_dict, home_team=row['Opponent'], away_team=team,
-                            home_team_score=int(float(row['Opp'])),
-                            away_team_score=int(float(row['Tm'])),
-                            date=row['Date'], time=row['Time']
-                        )
 
     # Convert to data frame
     score_df = pd.DataFrame(score_dict)
