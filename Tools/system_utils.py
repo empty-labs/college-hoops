@@ -6,25 +6,25 @@ import sqlite3
 MATCHUPS_DB_FILENAME = 'Data/Databases/matchups.db'
 
 
-def write_to_sql(df: pd.DataFrame, table_name: str):
+def write_to_sql(df: pd.DataFrame, season_table_name: str):
     """Save matchups to SQL table
 
     Args:
         df (pd.DataFrame): Matchup dataframe for all teams in this season
-        table_name (str): Name of table for matchups in this season
+        season_table_name (str): Name of table for matchups in this season
     """
 
     conn = sqlite3.connect(MATCHUPS_DB_FILENAME)
 
     df.to_sql(
-        table_name,
+        season_table_name,
         conn,
         if_exists='replace',
         index=False
     )
 
     conn.close()
-    print(f'Finished writing to SQL table: {table_name}')
+    print(f'Finished writing to SQL table: {season_table_name}')
 
 
 def write_tournament_to_csv(tourney_dict: dict, filename: str, rating_type: str):

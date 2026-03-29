@@ -89,11 +89,11 @@ def set_score_entry(dct: dict, home_team: str, away_team: str, home_team_score: 
     return dct
 
 
-def set_rating_data_frame(table_name: str):
+def set_rating_data_frame(season_table_name: str):
     """Set score data frame prior to rating calculation
 
     Args:
-        table_name (str): Name of table for matchups in this season
+        season_table_name (str): Name of table for matchups in this season
 
     Returns:
         score_df (pd.DataFrame): score data frame
@@ -113,7 +113,7 @@ def set_rating_data_frame(table_name: str):
     conn = sqlite3.connect(sys.MATCHUPS_DB_FILENAME)
 
     # Read the table into a Pandas DataFrame
-    df = pd.read_sql(f'SELECT * FROM {table_name}', conn)
+    df = pd.read_sql(f'SELECT * FROM {season_table_name}', conn)
     conn.close()
 
     for _, row in df.iterrows():
@@ -316,34 +316,33 @@ def calculate_colley_ratings(score_df: pd.DataFrame, final_ratings_filename: str
     return colley_ratings
 
 
-def compile_srs_ratings(filename: str, debug: bool=False):
+def compile_srs_ratings(season_table_name: str, debug: bool=False):
     """Compile SRS rankings given a game results DataFrame.
 
     Args:
-        filename (str): matchup data filename
+        season_table_name (str): Name of table for matchups in this season
         debug (bool): flag to print debug statements
 
     Returns:
         srs_ratings (dict): dictionary of SRS ratings
     """
 
-    # Read Stats
-    teams_df = pd.read_json(filename)
-    teams = list(teams_df.keys())
+    # Connect to your database
+    conn = sqlite3.connect(sys.MATCHUPS_DB_FILENAME)
+
+    # Read the table into a Pandas DataFrame
+    df = pd.read_sql(f'SELECT * FROM {season_table_name}', conn)
+    conn.close()
+
+    teams = df['Team'].unique().tolist()
 
     ratings = []
 
     for team in teams:
 
-        team_df = teams_df[team]
-        final_srs = -999
-
-        for i in range(len(team_df['Type'])):
-
-            # Non Tournament games
-            if team_df['Type'][i] != 'NCAA' and team_df['Type'][i] != 'CIT' and team_df['Tm'][i] is not None and \
-                    team_df['Opp'][i] is not None:
-                final_srs = team_df['SRS'][i]
+        team_df = df[df['Team'] == team]
+        team_df = team_df[(team_df['Type'] != 'NCAA') & (team_df['Type'] != 'CIT') & (team_df['Tm'] is not None) & (team_df['Opp'] != None)]
+        final_srs = team_df['SRS'].iloc[-1] if team_df is not None else -999
 
         ratings.append(float(final_srs))
 
@@ -1358,14 +1357,14 @@ def create_score_df(years: list):
 
     for year in years:
         
-        table_name = f'season_{year}'
+        season_table_name = f'season_{year}'
 
         if year is years[0]:
             # Create data frame for valid teams in the current season that can be used for tournament simulation
-            score_df = set_rating_data_frame(table_name=table_name)
+            score_df = set_rating_data_frame(season_table_name=season_table_name)
         else:
             # Concatenate
-            new_season_score_df = set_rating_data_frame(table_name=table_name)
+            new_season_score_df = set_rating_data_frame(season_table_name=season_table_name)
             score_df = pd.concat([score_df, new_season_score_df], ignore_index=True)
 
     return score_df

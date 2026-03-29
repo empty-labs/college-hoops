@@ -179,12 +179,12 @@ def scrape_team_schedule(url: str, debug: bool=False):
     return df
 
 
-def parse_team_matchups(team_list_df: pd.DataFrame, table_name: str, url_suffix: str):
+def parse_team_matchups(team_list_df: pd.DataFrame, season_table_name: str, url_suffix: str):
     """Parse all team matchups and save to SQL file
 
     Args:
         team_list_df (pd.DataFrame): Team list data frame
-        table_name (str): Name of table for matchups in this season
+        season_table_name (str): Name of table for matchups in this season
         url_suffix (str): suffix for URLs
     """
 
@@ -219,7 +219,7 @@ def parse_team_matchups(team_list_df: pd.DataFrame, table_name: str, url_suffix:
     team_matchups_df = pd.concat(team_matchups)
 
     # Write matchups to SQL table
-    sys.write_to_sql(df=team_matchups_df, table_name=table_name)
+    sys.write_to_sql(df=team_matchups_df, season_table_name=season_table_name)
 
 
 def batch_parse_team_matchups(team_list_df: pd.DataFrame, table_name: str, url_suffix: str, batch_size: int=3):
