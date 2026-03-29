@@ -3,6 +3,8 @@ import csv
 import pandas as pd
 import sqlite3
 
+MATCHUPS_DB_FILENAME = 'Data/Databases/matchups.db'
+
 
 def write_to_sql(df: pd.DataFrame, table_name: str):
     """Save matchups to SQL table
@@ -12,12 +14,12 @@ def write_to_sql(df: pd.DataFrame, table_name: str):
         table_name (str): Name of table for matchups in this season
     """
 
-    conn = sqlite3.connect('Data/Databases/matchups.db')
+    conn = sqlite3.connect(MATCHUPS_DB_FILENAME)
 
     df.to_sql(
         table_name,
         conn,
-        if_exists="replace",
+        if_exists='replace',
         index=False
     )
 
@@ -33,10 +35,10 @@ def write_tournament_to_csv(tourney_dict: dict, filename: str, rating_type: str)
         filename (str): Name of CSV tournament team file
         rating_type (str): name of rating system
     """
-    csv_filename = filename.replace(".csv", f"_{rating_type}.csv")
+    csv_filename = filename.replace('.csv', f'_{rating_type}.csv')
 
     # Convert dictionary to a CSV-friendly format
-    with open(csv_filename, mode="w", newline="") as file:
+    with open(csv_filename, mode='w', newline='') as file:
         writer = csv.writer(file)
 
         keys = list(tourney_dict.keys())
@@ -48,4 +50,4 @@ def write_tournament_to_csv(tourney_dict: dict, filename: str, rating_type: str)
                 row.append(tourney_dict[key][i])
             writer.writerow(row)  # Combine team name with stats
 
-        print(f"\nCSV written to {csv_filename}")
+        print(f'\nCSV written to {csv_filename}')

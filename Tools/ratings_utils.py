@@ -1,23 +1,25 @@
 # Local libraries
 import Tools.season_utils as su
+import Tools.system_utils as sys
 
 # Third party libraries
 from datetime import datetime as dt
 import json
 import numpy as np
 import pandas as pd
+import sqlite3
 
-ROUND_NAMES = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8", "Final 4", "Championship", "Champion"]
+ROUND_NAMES = ['Round of 64', 'Round of 32', 'Sweet 16', 'Elite 8', 'Final 4', 'Championship', 'Champion']
 ROUND_POINTS = [10, 20, 40, 80, 160, 320]
 FIRST_ROUND_SEEDING = [1, 16, 8, 9, 5, 12, 4, 13, 6, 11, 3, 14, 7, 10, 2, 15]
 ML_FEATURES = [
-    "Massey_diff",
-    "Colley_diff",
-    "Elo_diff",
-    "Adj_Elo_diff",
-    "Avg_Pts_For_diff",
-    "Avg_Pts_Against_diff",
-    "Avg_Net_Pts_diff"
+    'Massey_diff',
+    'Colley_diff',
+    'Elo_diff',
+    'Adj_Elo_diff',
+    'Avg_Pts_For_diff',
+    'Avg_Pts_Against_diff',
+    'Avg_Net_Pts_diff'
 ]
 MASSEY_INITIAL = 0
 COLLEY_INITIAL = 0
@@ -25,11 +27,12 @@ ELO_INITIAL = 1500
 
 
 def fix_time_format(time_str: str):
-    """Function to fix "a"/"p" to "AM"/"PM"""
-    if time_str.endswith("a"):
-        return time_str.replace("a", "AM")
-    elif time_str.endswith("p"):
-        return time_str.replace("p", "PM")
+    """Function to fix 'a'/'p' to 'AM'/'PM'
+    """
+    if time_str.endswith('a'):
+        return time_str.replace('a', 'AM')
+    elif time_str.endswith('p'):
+        return time_str.replace('p', 'PM')
     return time_str  # If already correct
 
 
@@ -38,15 +41,15 @@ def set_datetime_object(date: str, time: str):
 
     # Fix time format
     if time is None:
-        time = "12:00p"  # Generic time if none provided
+        time = '12:00p'  # Generic time if none provided
     time_str_fixed = fix_time_format(time)
 
     # Add date time
     # Convert date string to datetime object
-    date_obj = dt.strptime(date, "%a, %b %d, %Y")
+    date_obj = dt.strptime(date, '%a, %b %d, %Y')
 
     # Convert time string to 24-hour format
-    time_obj = dt.strptime(time_str_fixed, "%I:%M%p").time()
+    time_obj = dt.strptime(time_str_fixed, '%I:%M%p').time()
 
     # Combine date and time into one datetime object
     datetime_obj = dt.combine(date_obj, time_obj)
@@ -70,27 +73,27 @@ def set_score_entry(dct: dict, home_team: str, away_team: str, home_team_score: 
         dct (dict): Massey score dictionary
     """
 
-    dct["Home"].append(home_team)
-    dct["Away"].append(away_team)
-    dct["Home_Score"].append(home_team_score)
-    dct["Away_Score"].append(away_team_score)
+    dct['Home'].append(home_team)
+    dct['Away'].append(away_team)
+    dct['Home_Score'].append(home_team_score)
+    dct['Away_Score'].append(away_team_score)
 
     if home_team_score > away_team_score:
-        dct["Winner"].append(home_team)
+        dct['Winner'].append(home_team)
     else:
-        dct["Winner"].append(away_team)
+        dct['Winner'].append(away_team)
 
     datetime_obj = set_datetime_object(date=date, time=time)
-    dct["Date"].append(datetime_obj)
+    dct['Date'].append(datetime_obj)
 
     return dct
 
 
-def set_rating_data_frame(filename: str):
+def set_rating_data_frame(table_name: str):
     """Set score data frame prior to rating calculation
 
     Args:
-        filename (str): Name of JSON team file
+        table_name (str): Name of table for matchups in this season
 
     Returns:
         score_df (pd.DataFrame): score data frame
@@ -98,78 +101,70 @@ def set_rating_data_frame(filename: str):
 
     # Initialize score dictionary
     score_dict = {
-        "Date": [],
-        "Home": [],
-        "Home_Score": [],
-        "Away": [],
-        "Away_Score": [],
-        "Winner": []
+        'Date': [],
+        'Home': [],
+        'Home_Score': [],
+        'Away': [],
+        'Away_Score': [],
+        'Winner': []
     }
 
-    # Read Stats
-    teams_df = pd.read_json(filename)
-    all_teams = list(teams_df.keys())
+    # Connect to your database
+    conn = sqlite3.connect(sys.MATCHUPS_DB_FILENAME)
+
+    # Read the table into a Pandas DataFrame
+    df = pd.read_sql(f'SELECT * FROM {table_name}', conn)
+    conn.close()
+    
+    all_teams = df['Team'].unique().tolist()
 
     for team in all_teams:
 
-        team_df = teams_df[team]
+        team_df = df[df['Team'] == team]
 
-        for i in range(len(team_df["Type"])):
+        for i, row in team_df.iterrows():
 
             # Non Tournament games
-            if team_df["Type"][i] != "NCAA" and team_df["Type"][i] != "CIT" and team_df["Tm"][i] is not None and \
-                    team_df["Opp"][i] is not None:
+            if row['Type'] != 'NCAA' and row['Type'] != 'CIT' and row['Tm'] is not None and row['Opp'] is not None:
 
                 # Find which team is home/away (None = home, @ = away, N = neutral/assign home to winner?)
-                if team_df["Site"][i] is None:
+                if row['Site'] is None:
                     # Current team is home team
-                    score_dict = set_score_entry(dct=score_dict, home_team=team, away_team=team_df["Opponent"][i],
-                                                 home_team_score=int(team_df["Tm"][i]),
-                                                 away_team_score=int(team_df["Opp"][i]),
-                                                 date=team_df["Date"][i], time=team_df["Time"][i])
-                elif team_df["Site"][i] == "@":
+                    score_dict = set_score_entry(
+                        dct=score_dict, home_team=team, away_team=row['Opponent'],
+                        home_team_score=int(float(row['Tm'])),
+                        away_team_score=int(float(row['Opp'])),
+                        date=row['Date'], time=row['Time']
+                    )
+                elif row['Site'] == '@':
                     # Opponent team is away team
-                    score_dict = set_score_entry(dct=score_dict, home_team=team_df["Opponent"][i], away_team=team,
-                                                 home_team_score=int(team_df["Opp"][i]),
-                                                 away_team_score=int(team_df["Tm"][i]),
-                                                 date=team_df["Date"][i], time=team_df["Time"][i])
+                    score_dict = set_score_entry(
+                        dct=score_dict, home_team=row['Opponent'], away_team=team,
+                        home_team_score=int(float(row['Opp'])),
+                        away_team_score=int(float(row['Tm'])),
+                        date=row['Date'], time=row['Time']
+                    )
                 else:  # Neutral site home team advantage goes to winner
-                    if team_df["Outcome"][i] == "W":
+                    if row['Outcome'] == 'W':
                         # Current team is home team
-                        score_dict = set_score_entry(dct=score_dict, home_team=team, away_team=team_df["Opponent"][i],
-                                                     home_team_score=int(team_df["Tm"][i]),
-                                                     away_team_score=int(team_df["Opp"][i]),
-                                                     date=team_df["Date"][i], time=team_df["Time"][i])
+                        score_dict = set_score_entry(
+                            dct=score_dict, home_team=team, away_team=row['Opponent'],
+                            home_team_score=int(float(row['Tm'])),
+                            away_team_score=int(float(row['Opp'])),
+                            date=row['Date'], time=row['Time']
+                        )
                     else:
                         # Opponent team is away team
-                        score_dict = set_score_entry(dct=score_dict, home_team=team_df["Opponent"][i], away_team=team,
-                                                     home_team_score=int(team_df["Opp"][i]),
-                                                     away_team_score=int(team_df["Tm"][i]),
-                                                     date=team_df["Date"][i], time=team_df["Time"][i])
-
-    # Zip all lists together and sort by date
-    data_tuples = list(zip(score_dict["Date"],
-                           score_dict["Home"],
-                           score_dict["Home_Score"],
-                           score_dict["Away"],
-                           score_dict["Away_Score"],
-                           score_dict["Winner"]))
-
-    # Remove duplicates using set() and convert back to list
-    unique_data = list(set(data_tuples))
-
-    # Keep duplicates
-    # unique_data = data_tuples
-
-    # ✅ Sort the unique data by Date
-    unique_data_sorted = sorted(unique_data, key=lambda x: x[0])
-
-    # Unzip the sorted, unique data back into separate lists
-    score_dict["Date"], score_dict["Home"], score_dict["Home_Score"], score_dict["Away"], score_dict["Away_Score"], \
-    score_dict["Winner"] = map(list, zip(*unique_data_sorted))
+                        score_dict = set_score_entry(
+                            dct=score_dict, home_team=row['Opponent'], away_team=team,
+                            home_team_score=int(float(row['Opp'])),
+                            away_team_score=int(float(row['Tm'])),
+                            date=row['Date'], time=row['Time']
+                        )
 
     # Convert to data frame
     score_df = pd.DataFrame(score_dict)
+    score_df = score_df.drop_duplicates().reset_index(drop=True)
 
     return score_df
 
@@ -197,7 +192,7 @@ def collect_final_ratings(final_ratings_filename: str, teams: list, ratings_str:
     """
 
     # Collect ratings from final data set (using simpler dictionary style)
-    with open(final_ratings_filename, "r") as f:
+    with open(final_ratings_filename, 'r') as f:
         final_ratings = json.load(f)
 
     ratings = {team: final_ratings[team][ratings_str] for team in teams}
@@ -217,7 +212,7 @@ def calculate_massey_ratings(score_df: pd.DataFrame, final_ratings_filename: str
         massey_ratings (dict): dictionary of Massey ratings
     """
 
-    teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
+    teams = list(set(score_df['Home']).union(set(score_df['Away'])))
 
     if final_ratings_filename is None:
         # Get unique teams and index them
@@ -230,9 +225,9 @@ def calculate_massey_ratings(score_df: pd.DataFrame, final_ratings_filename: str
 
         # Fill the matrix and score vector
         for _, row in score_df.iterrows():
-            h, a = row["Home"], row["Away"]
+            h, a = row['Home'], row['Away']
             i, j = team_index[h], team_index[a]
-            home_margin = row["Home_Score"] - row["Away_Score"]
+            home_margin = row['Home_Score'] - row['Away_Score']
 
             M = update_rating_matrix(mtx=M, i=i, j=j)
 
@@ -253,14 +248,14 @@ def calculate_massey_ratings(score_df: pd.DataFrame, final_ratings_filename: str
 
         if debug:
             for rank, (team, rating) in enumerate(massey_rankings, 1):
-                print(f"{rank}. {team}: {rating:.2f}")
+                print(f'{rank}. {team}: {rating:.2f}')
 
     else:
 
         massey_ratings = collect_final_ratings(
             final_ratings_filename=final_ratings_filename,
             teams=teams,
-            ratings_str="Massey")
+            ratings_str='Massey')
 
     return massey_ratings
 
@@ -277,7 +272,7 @@ def calculate_colley_ratings(score_df: pd.DataFrame, final_ratings_filename: str
         colley_ratings (dict): dictionary of Colley ratings
     """
 
-    teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
+    teams = list(set(score_df['Home']).union(set(score_df['Away'])))
 
     if final_ratings_filename is None:
 
@@ -290,7 +285,7 @@ def calculate_colley_ratings(score_df: pd.DataFrame, final_ratings_filename: str
 
         # Populate matrix and vector using game results
         for _, row in score_df.iterrows():
-            h, a, winner = row["Home"], row["Away"], row["Winner"]
+            h, a, winner = row['Home'], row['Away'], row['Winner']
             i, j = team_index[h], team_index[a]
 
             # Update matrix
@@ -315,14 +310,14 @@ def calculate_colley_ratings(score_df: pd.DataFrame, final_ratings_filename: str
 
         if debug:
             for rank, (team, rating) in enumerate(colley_rankings, 1):
-                print(f"{rank}. {team}: {rating:.2f}")
+                print(f'{rank}. {team}: {rating:.2f}')
 
     else:
 
         colley_ratings = collect_final_ratings(
             final_ratings_filename=final_ratings_filename,
             teams=teams,
-            ratings_str="Colley")
+            ratings_str='Colley')
 
     return colley_ratings
 
@@ -349,12 +344,12 @@ def compile_srs_ratings(filename: str, debug: bool=False):
         team_df = teams_df[team]
         final_srs = -999
 
-        for i in range(len(team_df["Type"])):
+        for i in range(len(team_df['Type'])):
 
             # Non Tournament games
-            if team_df["Type"][i] != "NCAA" and team_df["Type"][i] != "CIT" and team_df["Tm"][i] is not None and \
-                    team_df["Opp"][i] is not None:
-                final_srs = team_df["SRS"][i]
+            if team_df['Type'][i] != 'NCAA' and team_df['Type'][i] != 'CIT' and team_df['Tm'][i] is not None and \
+                    team_df['Opp'][i] is not None:
+                final_srs = team_df['SRS'][i]
 
         ratings.append(float(final_srs))
 
@@ -366,7 +361,7 @@ def compile_srs_ratings(filename: str, debug: bool=False):
 
     if debug:
         for rank, (team, rating) in enumerate(srs_rankings, 1):
-            print(f"{rank}. {team}: {rating:.2f}")
+            print(f'{rank}. {team}: {rating:.2f}')
 
     return srs_ratings
 
@@ -426,14 +421,14 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
         elo_ratings (dict): dictionary of Elo ratings
     """
 
-    teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
+    teams = list(set(score_df['Home']).union(set(score_df['Away'])))
 
     if final_ratings_filename is None:
 
         elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
 
         for _, row in score_df.iterrows():
-            h, a, winner, mov = row["Home"], row["Away"], row["Winner"], row["Home_Score"] - row["Away_Score"]
+            h, a, winner, mov = row['Home'], row['Away'], row['Winner'], row['Home_Score'] - row['Away_Score']
 
             # Assign outcome (1 if h wins, 0 if a wins)
             outcome = 1 if winner == h else 0
@@ -446,7 +441,7 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
 
         if debug:
             for rank, (team, rating) in enumerate(elo_rankings, 1):
-                print(f"{rank}. {team}: {rating:.2f}")
+                print(f'{rank}. {team}: {rating:.2f}')
 
     else:
 
@@ -474,7 +469,7 @@ def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, net_
         avg_points (dict): dictionary of points features
     """
 
-    teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
+    teams = list(set(score_df['Home']).union(set(score_df['Away'])))
 
     if final_ratings_filename is None:
 
@@ -483,12 +478,12 @@ def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, net_
 
         for team in teams:
 
-            team_rows = score_df[(score_df["Home"] == team) | (score_df["Away"] == team)]
+            team_rows = score_df[(score_df['Home'] == team) | (score_df['Away'] == team)]
 
-            team_home_scores = list(team_rows["Home_Score"])
-            team_away_scores = list(team_rows["Away_Score"])
-            home_teams = list(team_rows["Home"])
-            away_teams = list(team_rows["Away"])
+            team_home_scores = list(team_rows['Home_Score'])
+            team_away_scores = list(team_rows['Away_Score'])
+            home_teams = list(team_rows['Home'])
+            away_teams = list(team_rows['Away'])
 
             team_pts = []
 
@@ -523,12 +518,12 @@ def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, net_
 
         if debug:
             for rank, (team, rating) in enumerate(points_rankings, 1):
-                print(f"{rank}. {team}: {rating:.2f}")
+                print(f'{rank}. {team}: {rating:.2f}')
 
     else:
 
-        ratings_str = "Avg_Pts_For" if points_for is True else "Avg_Pts_Against"
-        ratings_str = "Avg_Net_Pts" if net_points is True else ratings_str
+        ratings_str = 'Avg_Pts_For' if points_for is True else 'Avg_Pts_Against'
+        ratings_str = 'Avg_Net_Pts' if net_points is True else ratings_str
         avg_points = collect_final_ratings(
             final_ratings_filename=final_ratings_filename,
             teams=teams,
@@ -553,7 +548,7 @@ def add_ratings_per_game(score_df: pd.DataFrame, ratings_filename: str, final_ra
     """
 
     # Get unique teams and index them
-    teams = list(set(score_df["Home"]).union(set(score_df["Away"])))
+    teams = list(set(score_df['Home']).union(set(score_df['Away'])))
     teams.sort()
     team_index = {team: i for i, team in enumerate(teams)}
     N = len(teams)
@@ -581,19 +576,19 @@ def add_ratings_per_game(score_df: pd.DataFrame, ratings_filename: str, final_ra
     for _, row in score_df.iterrows():
 
         # Team Prep
-        h, a, winner = row["Home"], row["Away"], row["Winner"]
+        h, a, winner = row['Home'], row['Away'], row['Winner']
         i, j = team_index[h], team_index[a]
-        hPts, aPts = row["Home_Score"], row["Away_Score"]
+        hPts, aPts = row['Home_Score'], row['Away_Score']
         home_margin = hPts - aPts
 
         # Append to current pregame rating data
         rating_scores.append({
-            "Date": row["Date"],
-            "Home": h,
-            "Home_Score": hPts,
-            "Away": a,
-            "Away_Score": aPts,
-            "Winner": winner,
+            'Date': row['Date'],
+            'Home': h,
+            'Home_Score': hPts,
+            'Away': a,
+            'Away_Score': aPts,
+            'Winner': winner,
             "Home_Massey": massey_ratings[i],
             "Away_Massey": massey_ratings[j],
             "Home_Colley": colley_ratings[i],
@@ -652,7 +647,7 @@ def add_ratings_per_game(score_df: pd.DataFrame, ratings_filename: str, final_ra
         curr += 1
         pct = round(100 * (curr / len(score_df)), 3)
         if pct >= curr_pct:  # Print every % instead of every update
-            print(f"Complete: {curr} / {len(score_df)} or {pct}%")
+            print(f'Complete: {curr} / {len(score_df)} or {pct}%')
             curr_pct += 1
 
     # Convert to DataFrame
@@ -700,14 +695,14 @@ def set_tournament_team_rating(i: int, tourney_dict: dict, team: str, seed: int,
 
     if i % 2 == 0:
         # Assign 1st team if even index
-        tourney_dict["Team1"].append(team)
-        tourney_dict["Seed1"].append(seed)
-        tourney_dict["Rating1"].append(rating)
+        tourney_dict['Team1'].append(team)
+        tourney_dict['Seed1'].append(seed)
+        tourney_dict['Rating1'].append(rating)
     else:
         # Assign 2nd team if odd index
-        tourney_dict["Team2"].append(team)
-        tourney_dict["Seed2"].append(seed)
-        tourney_dict["Rating2"].append(rating)
+        tourney_dict['Team2'].append(team)
+        tourney_dict['Seed2'].append(seed)
+        tourney_dict['Rating2'].append(rating)
 
     return tourney_dict
 
@@ -727,16 +722,16 @@ def simulate_next_round(tourney_dict: dict, rd: int, ratings: dict=None):
 
     # Convert dictionary to DataFrame, find indices matching current round
     df = pd.DataFrame(tourney_dict)
-    matching_indices = df[df["Round"] == rd].index.tolist()
+    matching_indices = df[df['Round'] == rd].index.tolist()
 
     for i in matching_indices:
 
-        team1 = tourney_dict["Team1"][i]
-        team2 = tourney_dict["Team2"][i]
-        seed1 = tourney_dict["Seed1"][i]
-        seed2 = tourney_dict["Seed2"][i]
-        rating1 = tourney_dict["Rating1"][i]
-        rating2 = tourney_dict["Rating2"][i]
+        team1 = tourney_dict['Team1'][i]
+        team2 = tourney_dict['Team2'][i]
+        seed1 = tourney_dict['Seed1'][i]
+        seed2 = tourney_dict['Seed2'][i]
+        rating1 = tourney_dict['Rating1'][i]
+        rating2 = tourney_dict['Rating2'][i]
 
         # Rating system provided
         if ratings is not None:
@@ -765,23 +760,23 @@ def simulate_next_round(tourney_dict: dict, rd: int, ratings: dict=None):
         if i % 2 == 0:
             game += 1
 
-            tourney_dict["Round Name"].append(ROUND_NAMES[rd])
-            tourney_dict["Round"].append(rd + 1)
-            tourney_dict["Game"].append(game)
+            tourney_dict['Round Name'].append(ROUND_NAMES[rd])
+            tourney_dict['Round'].append(rd + 1)
+            tourney_dict['Game'].append(game)
 
     # Apply final round corrections
     if rd == 6:
 
         placeholder = "---"
 
-        if len(tourney_dict["Team1"]) > len(tourney_dict["Team2"]):
-            tourney_dict["Team2"].append(placeholder)
-            tourney_dict["Seed2"].append(placeholder)
-            tourney_dict["Rating2"].append(placeholder)
+        if len(tourney_dict['Team1']) > len(tourney_dict['Team2']):
+            tourney_dict['Team2'].append(placeholder)
+            tourney_dict['Seed2'].append(placeholder)
+            tourney_dict['Rating2'].append(placeholder)
         else:
-            tourney_dict["Team1"].append(placeholder)
-            tourney_dict["Seed1"].append(placeholder)
-            tourney_dict["Rating1"].append(placeholder)
+            tourney_dict['Team1'].append(placeholder)
+            tourney_dict['Seed1'].append(placeholder)
+            tourney_dict['Rating1'].append(placeholder)
 
     return tourney_dict
 
@@ -806,22 +801,22 @@ def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: in
 
     # Convert dictionary to DataFrame, find indices matching current round
     df = pd.DataFrame(tourney_dict)
-    matching_indices = df[df["Round"] == (rd + 1)].index.tolist()
-    num_teams = len(df[df["Round"] == rd].index.tolist())
+    matching_indices = df[df['Round'] == (rd + 1)].index.tolist()
+    num_teams = len(df[df['Round'] == rd].index.tolist())
 
     for i in matching_indices:
 
         # Compare 1st round scores by checking 2nd round participants
-        if tourney_df["Team1"][i] == tourney_dict["Team1"][i]:
+        if tourney_df['Team1'][i] == tourney_dict['Team1'][i]:
             correct_picks += 1
-        if tourney_df["Team2"][i] == tourney_dict["Team2"][i]:
+        if tourney_df['Team2'][i] == tourney_dict['Team2'][i]:
             correct_picks += 1
 
     # Map correct picks to total points
     total_points = correct_picks * ROUND_POINTS[rd - 1]
     total_possible_points = num_teams * ROUND_POINTS[rd - 1]
 
-    tourney_results = f"Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams} - Total Points: {total_points} out of {total_possible_points}"
+    tourney_results = f'Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams} - Total Points: {total_points} out of {total_possible_points}'
 
     return correct_picks, total_points, num_teams, tourney_results
 
@@ -837,33 +832,33 @@ def setup_first_round_dictionary(tourney_df: pd.DataFrame):
     """
 
     tourney_dict = {
-        "Round Name": [],
-        "Round": [],
-        "Game": [],
-        "Team1": [],
-        "Team2": [],
-        "Seed1": [],
-        "Seed2": [],
-        "Rating1": [],
-        "Rating2": []
+       'Round Name': [],
+       'Round': [],
+       'Game': [],
+       'Team1': [],
+       'Team2': [],
+       'Seed1': [],
+       'Seed2': [],
+       'Rating1': [],
+       'Rating2': []
     }
 
     # Add ratings to 1st round
     for i in range(32):
-        team1 = tourney_df["Team1"][i]
-        team2 = tourney_df["Team2"][i]
+        team1 = tourney_df['Team1'][i]
+        team2 = tourney_df['Team2'][i]
 
         team1_seed = FIRST_ROUND_SEEDING[(2 * i) % 16]
         team2_seed = FIRST_ROUND_SEEDING[(2 * i + 1) % 16]
 
-        rd = tourney_df["Round"][i]
-        tourney_dict["Round Name"].append(ROUND_NAMES[rd - 1])
-        tourney_dict["Round"].append(rd)
-        tourney_dict["Game"].append(tourney_df["Game"][i])
-        tourney_dict["Team1"].append(team1)
-        tourney_dict["Team2"].append(team2)
-        tourney_dict["Seed1"].append(team1_seed)
-        tourney_dict["Seed2"].append(team2_seed)
+        rd = tourney_df['Round'][i]
+        tourney_dict['Round Name'].append(ROUND_NAMES[rd - 1])
+        tourney_dict['Round'].append(rd)
+        tourney_dict['Game'].append(tourney_df['Game'][i])
+        tourney_dict['Team1'].append(team1)
+        tourney_dict['Team2'].append(team2)
+        tourney_dict['Seed1'].append(team1_seed)
+        tourney_dict['Seed2'].append(team2_seed)
 
     return tourney_dict
 
@@ -890,8 +885,8 @@ def simulate_tournament(filename: str, ratings: dict=None):
 
     # Add ratings to 1st round
     for i in range(32):
-        team1 = tourney_df["Team1"][i]
-        team2 = tourney_df["Team2"][i]
+        team1 = tourney_df['Team1'][i]
+        team2 = tourney_df['Team2'][i]
 
         # Rating system provided
         if ratings is not None:
@@ -902,13 +897,13 @@ def simulate_tournament(filename: str, ratings: dict=None):
             if team2 not in list(ratings.keys()):
                 ratings[team2] = -999
 
-            tourney_dict["Rating1"].append(ratings[team1])
-            tourney_dict["Rating2"].append(ratings[team2])
+            tourney_dict['Rating1'].append(ratings[team1])
+            tourney_dict['Rating2'].append(ratings[team2])
 
         else:  # Chalk method
 
-            tourney_dict["Rating1"].append(tourney_dict["Seed1"][i])
-            tourney_dict["Rating2"].append(tourney_dict["Seed2"][i])
+            tourney_dict['Rating1'].append(tourney_dict['Seed1'][i])
+            tourney_dict['Rating2'].append(tourney_dict['Seed2'][i])
 
     total_correct_picks, total_points, tourney_dict, tourney_results = calculate_tournament_results(
         tourney_dict=tourney_dict,
@@ -927,7 +922,7 @@ def compile_ratings_dict(final_ratings_filename: str):
     Returns:
         ratings_dict (dict): dictionary of all final ratings
     """
-    with open(final_ratings_filename, "r") as f:
+    with open(final_ratings_filename, 'r') as f:
         final_ratings = json.load(f)
 
     return final_ratings
@@ -948,12 +943,12 @@ def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: dict):
 
     # Re-wire ratings dict based on tournament
     for i in range(32):
-        team1 = tourney_df["Team1"][i]
-        team2 = tourney_df["Team2"][i]
+        team1 = tourney_df['Team1'][i]
+        team2 = tourney_df['Team2'][i]
 
         rating_scores.append({
-            "Home": team1,
-            "Away": team2,
+            'Home': team1,
+            'Away': team2,
             "Home_Massey": ratings[team1]['Massey'],
             "Away_Massey": ratings[team2]['Massey'],
             "Home_Colley": ratings[team1]['Colley'],
@@ -962,12 +957,12 @@ def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: dict):
             "Away_Elo": ratings[team2]['Elo'],
             "Home_Adj_Elo": ratings[team1]['Adj_Elo'],
             "Away_Adj_Elo": ratings[team2]['Adj_Elo'],
-            "Home_Avg_Pts_For": ratings[team1]['Avg_Pts_For'],
-            "Away_Avg_Pts_For": ratings[team2]['Avg_Pts_For'],
-            "Home_Avg_Pts_Against": ratings[team1]['Avg_Pts_Against'],
-            "Away_Avg_Pts_Against": ratings[team2]['Avg_Pts_Against'],
-            "Home_Avg_Net_Pts": ratings[team1]['Avg_Net_Pts'],
-            "Away_Avg_Net_Pts": ratings[team2]['Avg_Net_Pts'],
+            'Home_Avg_Pts_For': ratings[team1]['Avg_Pts_For'],
+            'Away_Avg_Pts_For': ratings[team2]['Avg_Pts_For'],
+            'Home_Avg_Pts_Against': ratings[team1]['Avg_Pts_Against'],
+            'Away_Avg_Pts_Against': ratings[team2]['Avg_Pts_Against'],
+            'Home_Avg_Net_Pts': ratings[team1]['Avg_Net_Pts'],
+            'Away_Avg_Net_Pts': ratings[team2]['Avg_Net_Pts'],
         })
 
     rating_score_df = pd.DataFrame(rating_scores)
@@ -982,22 +977,22 @@ def compute_score_features(df: pd.DataFrame, final_ratings_filename: str):
         final_ratings_filename (str): final ratings filename string
     """
 
-    default_home_score = df["Home_Score"].mean()
-    default_away_score = df["Away_Score"].mean()
+    default_home_score = df['Home_Score'].mean()
+    default_away_score = df['Away_Score'].mean()
     default_score = (default_home_score + default_away_score) * 0.5
 
-    all_teams = list(df["Home"]) + list(df["Away"])
+    all_teams = list(df['Home']) + list(df['Away'])
     teams = list(set(all_teams))
 
     ratings = {}
 
     for team in teams:
 
-        team_rows = df[(df["Home"] == team) | (df["Away"] == team)]
+        team_rows = df[(df['Home'] == team) | (df['Away'] == team)]
 
-        team_home_scores = list(team_rows["Home_Score"])
-        team_away_scores = list(team_rows["Away_Score"])
-        home_teams = list(team_rows["Home"])
+        team_home_scores = list(team_rows['Home_Score'])
+        team_away_scores = list(team_rows['Away_Score'])
+        home_teams = list(team_rows['Home'])
 
         curr_team_scores = []
         opponent_team_scores = []
@@ -1025,21 +1020,21 @@ def compute_score_features(df: pd.DataFrame, final_ratings_filename: str):
                 lagged_against.append(np.mean(opponent_team_scores[0:i]))
                 lagged_net_for_vs_against.append(np.mean(curr_team_scores[0:i]) - np.mean(opponent_team_scores[0:i]))
 
-        is_home = team_rows["Home"] == team
-        is_away = team_rows["Away"] == team
+        is_home = team_rows['Home'] == team
+        is_away = team_rows['Away'] == team
 
         lagged_for_arr = np.asarray(lagged_for)
         lagged_against_arr = np.asarray(lagged_against)
         lagged_net_for_vs_against_arr = np.asarray(lagged_net_for_vs_against)
 
-        df.loc[team_rows.index[is_home], "Home_Avg_Pts_For"] = lagged_for_arr[is_home]
-        df.loc[team_rows.index[is_away], "Away_Avg_Pts_For"] = lagged_for_arr[is_away]
+        df.loc[team_rows.index[is_home], 'Home_Avg_Pts_For'] = lagged_for_arr[is_home]
+        df.loc[team_rows.index[is_away], 'Away_Avg_Pts_For'] = lagged_for_arr[is_away]
 
-        df.loc[team_rows.index[is_home], "Home_Avg_Pts_Against"] = lagged_against_arr[is_home]
-        df.loc[team_rows.index[is_away], "Away_Avg_Pts_Against"] = lagged_against_arr[is_away]
+        df.loc[team_rows.index[is_home], 'Home_Avg_Pts_Against'] = lagged_against_arr[is_home]
+        df.loc[team_rows.index[is_away], 'Away_Avg_Pts_Against'] = lagged_against_arr[is_away]
 
-        df.loc[team_rows.index[is_home], "Home_Avg_Net_Pts"] = lagged_net_for_vs_against_arr[is_home]
-        df.loc[team_rows.index[is_away], "Away_Avg_Net_Pts"] = lagged_net_for_vs_against_arr[is_away]
+        df.loc[team_rows.index[is_home], 'Home_Avg_Net_Pts'] = lagged_net_for_vs_against_arr[is_home]
+        df.loc[team_rows.index[is_away], 'Away_Avg_Net_Pts'] = lagged_net_for_vs_against_arr[is_away]
 
         # Final points values
         ratings[team] = {}
@@ -1048,20 +1043,20 @@ def compute_score_features(df: pd.DataFrame, final_ratings_filename: str):
         lagged_against.append(np.mean(opponent_team_scores))
         lagged_net_for_vs_against.append(np.mean(curr_team_scores) - np.mean(opponent_team_scores))
 
-        ratings[team]["Avg_Pts_For"] = lagged_for[-1]
-        ratings[team]["Avg_Pts_Against"] = lagged_against[-1]
-        ratings[team]["Avg_Net_Pts"] = lagged_net_for_vs_against[-1]
+        ratings[team]['Avg_Pts_For'] = lagged_for[-1]
+        ratings[team]['Avg_Pts_Against'] = lagged_against[-1]
+        ratings[team]['Avg_Net_Pts'] = lagged_net_for_vs_against[-1]
 
     # Write ratings back to final data set (using simpler dictionary style)
-    with open(final_ratings_filename, "r") as f:
+    with open(final_ratings_filename, 'r') as f:
         final_ratings = json.load(f)
 
     for team in teams:
-        final_ratings[team]["Avg_Pts_For"] = ratings[team]["Avg_Pts_For"]
-        final_ratings[team]["Avg_Pts_Against"] = ratings[team]["Avg_Pts_Against"]
-        final_ratings[team]["Avg_Net_Pts"] = ratings[team]["Avg_Net_Pts"]
+        final_ratings[team]['Avg_Pts_For'] = ratings[team]['Avg_Pts_For']
+        final_ratings[team]['Avg_Pts_Against'] = ratings[team]['Avg_Pts_Against']
+        final_ratings[team]['Avg_Net_Pts'] = ratings[team]['Avg_Net_Pts']
 
-    with open(final_ratings_filename, "w") as f:
+    with open(final_ratings_filename, 'w') as f:
         json.dump(final_ratings, f, indent=4)
 
     return df
@@ -1085,12 +1080,12 @@ def derive_features(df: pd.DataFrame, final_ratings_filename: str=None, need_sco
 
     # Add feature columns
     for feature in ML_FEATURES:
-        if "Home" not in feature and "Away" not in feature:
-            home_feature = "Home_" + feature.split("_diff")[0]
-            away_feature = "Away_" + feature.split("_diff")[0]
+        if 'Home' not in feature and 'Away' not in feature:
+            home_feature = 'Home_' + feature.split('_diff')[0]
+            away_feature = 'Away_' + feature.split('_diff')[0]
         else:
-            home_feature = feature.split("_diff")[0]
-            away_feature = feature.split("_diff")[0]
+            home_feature = feature.split('_diff')[0]
+            away_feature = feature.split('_diff')[0]
         df[feature] = df[home_feature] - df[away_feature]
 
     return df
@@ -1114,7 +1109,7 @@ def calculate_tournament_results(tourney_dict: dict, tourney_df: pd.DataFrame, r
     total_correct_picks = 0
     total_points = 0
     total_num_teams = 0
-    tourney_results = ""
+    tourney_results = ''
 
     for rd in range(1, 7):
         tourney_dict = simulate_next_round(tourney_dict=tourney_dict,
@@ -1126,14 +1121,14 @@ def calculate_tournament_results(tourney_dict: dict, tourney_df: pd.DataFrame, r
             tourney_df=tourney_df,
             rd=rd)
 
-        tourney_results += results + "\n"
+        tourney_results += results + '\n'
 
         total_correct_picks += correct_picks
         total_points += points
         total_num_teams += num_teams
 
-    tourney_results += f"\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}"
-    tourney_results += f"\nTotal points in tournament: {total_points} out of 1920"
+    tourney_results += f'\nTotal correct picks in tournament: {total_correct_picks} out of {total_num_teams}'
+    tourney_results += f'\nTotal points in tournament: {total_points} out of 1920'
 
     return total_correct_picks, total_points, tourney_dict, tourney_results
 
@@ -1166,8 +1161,8 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
 
     # Add ratings to 1st round
     for i in range(32):
-        team1 = tourney_df["Team1"][i]
-        team2 = tourney_df["Team2"][i]
+        team1 = tourney_df['Team1'][i]
+        team2 = tourney_df['Team2'][i]
 
         # Set up ML model dictionary
         x1_dict = {}
@@ -1179,8 +1174,8 @@ def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=Non
         model_ratings[team1] = model.predict_proba(x1)[:, 1][0]
         model_ratings[team2] = 1 - model_ratings[team1]
 
-        tourney_dict["Rating1"].append(model_ratings[team1])
-        tourney_dict["Rating2"].append(model_ratings[team2])
+        tourney_dict['Rating1'].append(model_ratings[team1])
+        tourney_dict['Rating2'].append(model_ratings[team2])
 
     total_correct_picks, total_points, tourney_dict, tourney_results = calculate_tournament_results(
         tourney_dict=tourney_dict,
@@ -1238,7 +1233,7 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
     # Loop through all possible iterations for each rating system
     total = len(iterations) ** 5  # 5 represents all rating systems
     passed_integer = 1
-    print(f"Total iterations: {total}")
+    print(f'Total iterations: {total}')
 
     for w1 in iterations:
         for w2 in iterations:
@@ -1263,12 +1258,12 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
                         weight_dict['Points'].append(total_points)
 
                         if (100 * total_iterations / total) > passed_integer:
-                            print(f"{passed_integer} percent complete")
+                            print(f'{passed_integer} percent complete')
                             passed_integer += 1
 
     # Print max correct picks
     max_correct = max(weight_dict['Correct'])
-    tourney_results += f"\nMax correct picks: {max_correct} in {total_iterations} iterations"
+    tourney_results += f'\nMax correct picks: {max_correct} in {total_iterations} iterations'
 
     # Print which combinations result in max correct picks
     num_max = 0
@@ -1281,7 +1276,7 @@ def apply_ratings_weights_to_maximize_correct_picks(massey_ratings: dict, colley
 
     # Print max points total
     max_points = max(weight_dict['Points'])
-    tourney_results += f"\nMax total points: {max_points} in {total_iterations} iterations"
+    tourney_results += f'\nMax total points: {max_points} in {total_iterations} iterations'
 
     # Print which combinations result in max points
     num_max = 0
@@ -1360,14 +1355,15 @@ def create_score_df(years: list):
     years = su.create_year_list(years)
 
     for year in years:
-        filename = f"Data/Seasons/data_{year}.json"
+        
+        table_name = f'season_{year}'
 
         if year is years[0]:
             # Create data frame for valid teams in the current season that can be used for tournament simulation
-            score_df = set_rating_data_frame(filename=filename)
+            score_df = set_rating_data_frame(table_name=table_name)
         else:
             # Concatenate
-            new_season_score_df = set_rating_data_frame(filename=filename)
+            new_season_score_df = set_rating_data_frame(table_name=table_name)
             score_df = pd.concat([score_df, new_season_score_df], ignore_index=True)
 
     return score_df

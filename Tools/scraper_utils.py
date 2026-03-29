@@ -13,13 +13,13 @@ import Tools.system_utils as sys
 session = requests.Session()
 
 headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-    "Accept-Language": "en-US,en;q=0.9",
-    "Connection": "keep-alive"
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Connection': 'keep-alive'
 }
 
-URL_PREFIX = "https://www.sports-reference.com"
-AMP = "&amp;"
+URL_PREFIX = 'https://www.sports-reference.com'
+AMP = '&amp;'
 
 
 def skip_table_breaks(df: pd.DataFrame, header: str):
@@ -51,10 +51,10 @@ def clean_school_name(df: pd.DataFrame):
 
     # Need to skip break in table
     school_names = []
-    for i in range(len(df["Opponent"])):
-        school_names.append(df["Opponent"][i].split('\xa0')[0])
+    for i in range(len(df['Opponent'])):
+        school_names.append(df['Opponent'][i].split('\xa0')[0])
 
-    df["Opponent"] = school_names
+    df['Opponent'] = school_names
 
     return df
 
@@ -94,36 +94,36 @@ def scrape_team_list(url: str, debug: bool=False):
     """
 
     response = session.get(url, headers=headers, timeout=10)
-    soup = BeautifulSoup(response.content, "html.parser")
+    soup = BeautifulSoup(response.content, 'html.parser')
 
     # Check for rate limit error code
     if response.status_code == 429:
-        retry_after = response.headers.get("Retry-After")
+        retry_after = response.headers.get('Retry-After')
         if retry_after:
-            print(f"Retry after {retry_after} seconds.")
+            print(f'Retry after {retry_after} seconds.')
             return
 
-    # Review table for "id="
+    # Review table for 'id='
     if debug:
         tables = soup.find_all('table')
         print(tables)
 
     # Search for school name table
-    table = str(soup.find("table", {"id": "NCAAM_schools"}))
+    table = str(soup.find('table', {'id': 'NCAAM_schools'}))
 
     # Wrap the HTML string in StringIO
     html_io = StringIO(table)
 
     # Convert the table to a DataFrame
     df = pd.read_html(html_io)[0]
-    df = skip_table_breaks(df=df, header="School")
+    df = skip_table_breaks(df=df, header='School')
 
     # Add URLs to data frame
-    df["URL"] = add_urls(table=table)
+    df['URL'] = add_urls(table=table)
 
     if debug:
-        for i in range(len(df["School"])):
-            print(i, df["School"][i], df["URL"][i])
+        for i in range(len(df['School'])):
+            print(i, df['School'][i], df['URL'][i])
 
     return df
 
@@ -142,21 +142,21 @@ def scrape_team_schedule(url: str, debug: bool=False):
     """
 
     response = session.get(url, headers=headers, timeout=10)
-    soup = BeautifulSoup(response.content, "html.parser")
+    soup = BeautifulSoup(response.content, 'html.parser')
 
     # Check for rate limit error code
     if response.status_code == 429:
-        retry_after = response.headers.get("Retry-After")
+        retry_after = response.headers.get('Retry-After')
         if retry_after:
-            print(f"Retry after {retry_after} seconds.")
+            print(f'Retry after {retry_after} seconds.')
             return
 
-    # Review table for "id="
+    # Review table for 'id='
     if debug:
         tables = soup.find_all('table')
         print(tables)
 
-    table = str(soup.find("table", {"id": "schedule"}))
+    table = str(soup.find('table', {'id': 'schedule'}))
 
     # Wrap the HTML string in StringIO
     html_io = StringIO(table)
@@ -166,7 +166,7 @@ def scrape_team_schedule(url: str, debug: bool=False):
     try:
 
         df = pd.read_html(html_io)[0]  # Convert the table to a DataFrame
-        df = skip_table_breaks(df=df, header="Opponent")
+        df = skip_table_breaks(df=df, header='Opponent')
         df = clean_school_name(df=df)
 
         # Rename unnamed keys
