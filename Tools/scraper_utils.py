@@ -1,17 +1,25 @@
 # Third party libraries
 from bs4 import BeautifulSoup
+from concurrent.futures import ThreadPoolExecutor
 from io import StringIO
-import os
 import pandas as pd
+import random
 import requests
 import time
 
 # Local libraries
-import Classes.Team as Team
+import Tools.system_utils as sys
+
+session = requests.Session()
+
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Connection": "keep-alive"
+}
 
 URL_PREFIX = "https://www.sports-reference.com"
 AMP = "&amp;"
-WAIT_TIME_SEC = 5
 
 
 def skip_table_breaks(df: pd.DataFrame, header: str):
@@ -74,6 +82,54 @@ def add_urls(table: str):
     return urls
 
 
+def scrape_team_list(url: str, debug: bool=False):
+    """Scrape Sports-Reference site for list of all teams
+
+    Args:
+        url (str): site for all teams
+        debug (bool): flag to print debug statements
+
+    Returns:
+        df (pd.DataFrame): team list data frame
+    """
+
+    response = session.get(url, headers=headers, timeout=10)
+    soup = BeautifulSoup(response.content, "html.parser")
+
+    # Check for rate limit error code
+    if response.status_code == 429:
+        retry_after = response.headers.get("Retry-After")
+        if retry_after:
+            print(f"Retry after {retry_after} seconds.")
+            return
+
+    # Review table for "id="
+    if debug:
+        tables = soup.find_all('table')
+        print(tables)
+
+    # Search for school name table
+    table = str(soup.find("table", {"id": "NCAAM_schools"}))
+
+    # Wrap the HTML string in StringIO
+    html_io = StringIO(table)
+
+    # Convert the table to a DataFrame
+    df = pd.read_html(html_io)[0]
+    df = skip_table_breaks(df=df, header="School")
+
+    # Add URLs to data frame
+    df["URL"] = add_urls(table=table)
+
+    if debug:
+        for i in range(len(df["School"])):
+            print(i, df["School"][i], df["URL"][i])
+
+    return df
+
+
+
+
 def scrape_team_schedule(url: str, debug: bool=False):
     """Scrape Sports-Reference site and apply correction for empty keys
 
@@ -85,10 +141,15 @@ def scrape_team_schedule(url: str, debug: bool=False):
         df (pd.DataFrame): team schedule data frame
     """
 
-    time.sleep(WAIT_TIME_SEC) # Mimic human behavior
-    response = requests.get(url)
+    response = session.get(url, headers=headers, timeout=10)
     soup = BeautifulSoup(response.content, "html.parser")
-    time.sleep(WAIT_TIME_SEC) # Mimic human behavior
+
+    # Check for rate limit error code
+    if response.status_code == 429:
+        retry_after = response.headers.get("Retry-After")
+        if retry_after:
+            print(f"Retry after {retry_after} seconds.")
+            return
 
     # Review table for "id="
     if debug:
@@ -113,113 +174,108 @@ def scrape_team_schedule(url: str, debug: bool=False):
         df.rename(columns={'Unnamed: 8': 'Outcome'}, inplace=True)
 
     except ValueError as e:
-        print('--> No games recorded for this team')
+        pass
 
     return df
 
 
-def scrape_team_list(url: str, debug: bool=False):
-    """Scrape Sports-Reference site for list of all teams
-
-    Args:
-        url (str): site for all teams
-        debug (bool): flag to print debug statements
-
-    Returns:
-        df (pd.DataFrame): team list data frame
-    """
-
-    time.sleep(WAIT_TIME_SEC) # Mimic human behavior
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-    }
-    response = requests.get(url, headers=headers)
-    if response.status_code == 429:
-        retry_after = response.headers.get("Retry-After")
-        if retry_after:
-            print(f"Retry after {retry_after} seconds.")
-            return
-
-    soup = BeautifulSoup(response.content, "html.parser")
-    time.sleep(WAIT_TIME_SEC) # Mimic human behavior
-
-    # Review table for "id="
-    if debug:
-        tables = soup.find_all('table')
-        print(tables)
-
-    table = str(soup.find("table", {"id": "NCAAM_schools"}))
-    # Wrap the HTML string in StringIO
-    html_io = StringIO(table)
-
-    df = pd.read_html(html_io)[0]  # Convert the table to a DataFrame
-    df = skip_table_breaks(df=df, header="School")
-
-    # Add URLs to data frame
-    df["URL"] = add_urls(table=table)
-
-    if debug:
-        for i in range(len(df["School"])):
-            print(i, df["School"][i], df["URL"][i])
-
-    return df
-
-
-def add_team_matchups_to_games_table(spark, team_list, filename: str, url_suffix: str, year: int):
-    """Add all teams to the JSON file if they don't already exist
+def parse_team_matchups(spark, team_list_df: pd.DataFrame, filename: str, url_suffix: str, year: int, batch_size: int=3):
+    """Parse all team matchups and save to Parquet file
 
     Args:
         spark: PySpark object
-        team_list: class holding data frame of all teams
+        team_list_df (pd.DataFrame): Team list data frame
         filename (str): Name of Parquet matchup file
         url_suffix (str): suffix for URLs
         year (int): year of team data
+        batch_size (int): number of teams to scrape
     """
 
     team_matchups = []
-    n = len(team_list.df)
+    urls = team_list_df.loc[:, 'URL'] + url_suffix
+    schools = team_list_df.loc[:, 'School']
 
-    for i in range(n):
+    for i in range(len(team_list_df)):
 
-        # Grab team URL
-        team_url = team_list.df['URL'][i] + url_suffix
-        school = team_list.df['School'][i]
+        # Grab school name
+        school = schools[i]
         print(f'{i + 1}. {school}')
 
-        # Grab team matchup table
-        team = Team.Team(url=team_url)
+        # Pull data for one team
+        df = scrape_team_schedule(url=urls[i])
 
-        if team.df is not None:
+        if df is not None:
 
             # Add school name + year to matchup table
-            team.df['School'] = school
-            team.df['year'] = year
+            df['School'] = school
+            df['year'] = year
 
             # Add to team matchup list
-            team_matchups.append(team.df)
+            team_matchups.append(df)
+
+        else:
+
+            print('--> No games recorded for this team')
+
+        time.sleep(random.uniform(3.5, 5.5))
 
     # Concat all DataFrames
     team_matchups_df = pd.concat(team_matchups)
 
-    # Create DataFrame
-    spark_df = spark.createDataFrame(team_matchups_df)
+    # Write matchups to Parquet file
+    sys.write_to_parquet(spark=spark, df=team_matchups_df, filename=filename)
 
-    # Write to Parquet
-    if os.path.exists(filename):
-        # File exists → read existing data, append, and remove duplicates
-        df_existing = spark.read.parquet(filename)
 
-        # Combine old + new
-        df_combined = df_existing.union(spark_df)
+def batch_parse_team_matchups(spark, team_list_df: pd.DataFrame, filename: str, url_suffix: str, year: int, batch_size: int=3):
+    """Parse all team matchups and save to Parquet file
 
-        # Drop duplicates (based on date + teams)
-        df_final = df_combined.dropDuplicates()
+    STATUS: Trips rate limit, forces 1-hr (3600 sec) pause
 
-        # Overwrite with updated data
-        df_final.write.mode('overwrite').parquet(filename)
+    Args:
+        spark: PySpark object
+        team_list_df (pd.DataFrame): Team list data frame
+        filename (str): Name of Parquet matchup file
+        url_suffix (str): suffix for URLs
+        year (int): year of team data
+        batch_size (int): number of teams to scrape
+    """
 
-        print('Data successfully updated.')
-    else:
-        # Write file with new data
-        spark_df.write.mode('overwrite').parquet(filename)
-        print('Data successfully created.')
+    team_matchups = []
+    urls = team_list_df.loc[:, 'URL'] + url_suffix
+    schools = team_list_df.loc[:, 'School']
+
+    for i in range(0, len(team_list_df), batch_size):
+
+        # Set batch of team URL's
+        batch_urls = urls[i:i+batch_size]
+
+        with ThreadPoolExecutor(max_workers=batch_size) as executor:
+            # Grab team matchup tables in batch
+            results = list(executor.map(scrape_team_schedule, batch_urls))
+
+        for j, df in enumerate(results):
+
+            # Grab school name
+            school = schools[i + j]
+            print(f'{i + j + 1}. {school}')
+
+            if df is not None:
+
+                # Add school name + year to matchup table
+                df['School'] = school
+                df['year'] = year
+
+                # Add to team matchup list
+                team_matchups.append(df)
+
+            else:
+
+                print('--> No games recorded for this team')
+
+        time.sleep(random.uniform(3.5, 5.5))
+
+    # Concat all DataFrames
+    team_matchups_df = pd.concat(team_matchups)
+
+    # Write matchups to Parquet file
+    sys.write_to_parquet(spark=spark, df=team_matchups_df, filename=filename)
