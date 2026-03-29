@@ -334,20 +334,18 @@ def compile_srs_ratings(season_table_name: str, debug: bool=False):
     df = pd.read_sql(f'SELECT * FROM {season_table_name}', conn)
     conn.close()
 
-    teams = df['Team'].unique().tolist()
-
-    ratings = []
-
-    for team in teams:
-
-        team_df = df[df['Team'] == team]
-        team_df = team_df[(team_df['Type'] != 'NCAA') & (team_df['Type'] != 'CIT') & (team_df['Tm'] is not None) & (team_df['Opp'] != None)]
-        final_srs = team_df['SRS'].iloc[-1] if team_df is not None else -999
-
-        ratings.append(float(final_srs))
+    ## TEST
+    df = df[(df['Type'] != 'NCAA') & (df['Type'] != 'CIT') & (df['Tm'] is not None) & (df['Opp'] is not None)]
+    srs_ratings_df = (
+        df
+        .groupby('Team')
+        .agg({'SRS': 'last'})
+        .reset_index()
+    )
+    srs_ratings_df['SRS'] = srs_ratings_df['SRS'].astype(float)
 
     # Convert ratings to a dictionary
-    srs_ratings = {team: rating for team, rating in zip(teams, ratings)}
+    srs_ratings = {team: float(rating) for team, rating in zip(srs_ratings_df['Team'], srs_ratings_df['SRS'])}
 
     # Sort and display rankings
     srs_rankings = sorted(srs_ratings.items(), key=lambda x: x[1], reverse=True)
