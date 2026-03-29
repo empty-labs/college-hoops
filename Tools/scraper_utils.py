@@ -222,13 +222,12 @@ def parse_team_matchups(team_list_df: pd.DataFrame, table_name: str, url_suffix:
     sys.write_to_sql(df=team_matchups_df, table_name=table_name)
 
 
-def batch_parse_team_matchups(spark, team_list_df: pd.DataFrame, table_name: str, url_suffix: str, batch_size: int=3):
+def batch_parse_team_matchups(team_list_df: pd.DataFrame, table_name: str, url_suffix: str, batch_size: int=3):
     """Parse all team matchups and save to Parquet file
 
     STATUS: Trips rate limit, forces 1-hr (3600 sec) pause
 
     Args:
-        spark: PySpark object
         team_list_df (pd.DataFrame): Team list data frame
         table_name (str): Name of table for matchups in this season
         url_suffix (str): suffix for URLs
@@ -257,7 +256,7 @@ def batch_parse_team_matchups(spark, team_list_df: pd.DataFrame, table_name: str
             if df is not None:
 
                 # Add school name + year to matchup table
-                df['School'] = school
+                df['Team'] = school
 
                 # Add to team matchup list
                 team_matchups.append(df)
