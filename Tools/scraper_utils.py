@@ -179,16 +179,13 @@ def scrape_team_schedule(url: str, debug: bool=False):
     return df
 
 
-def parse_team_matchups(spark, team_list_df: pd.DataFrame, filename: str, url_suffix: str, year: int, batch_size: int=3):
-    """Parse all team matchups and save to Parquet file
+def parse_team_matchups(team_list_df: pd.DataFrame, table_name: str, url_suffix: str):
+    """Parse all team matchups and save to SQL file
 
     Args:
-        spark: PySpark object
         team_list_df (pd.DataFrame): Team list data frame
-        filename (str): Name of Parquet matchup file
+        table_name (str): Name of table for matchups in this season
         url_suffix (str): suffix for URLs
-        year (int): year of team data
-        batch_size (int): number of teams to scrape
     """
 
     team_matchups = []
@@ -206,9 +203,8 @@ def parse_team_matchups(spark, team_list_df: pd.DataFrame, filename: str, url_su
 
         if df is not None:
 
-            # Add school name + year to matchup table
+            # Add school name to matchup table
             df['School'] = school
-            df['year'] = year
 
             # Add to team matchup list
             team_matchups.append(df)
@@ -222,11 +218,11 @@ def parse_team_matchups(spark, team_list_df: pd.DataFrame, filename: str, url_su
     # Concat all DataFrames
     team_matchups_df = pd.concat(team_matchups)
 
-    # Write matchups to Parquet file
-    sys.write_to_parquet(spark=spark, df=team_matchups_df, filename=filename)
+    # Write matchups to SQL table
+    sys.write_to_sql(df=team_matchups_df, table_name=table_name)
 
 
-def batch_parse_team_matchups(spark, team_list_df: pd.DataFrame, filename: str, url_suffix: str, year: int, batch_size: int=3):
+def batch_parse_team_matchups(spark, team_list_df: pd.DataFrame, table_name: str, url_suffix: str, batch_size: int=3):
     """Parse all team matchups and save to Parquet file
 
     STATUS: Trips rate limit, forces 1-hr (3600 sec) pause
@@ -234,9 +230,8 @@ def batch_parse_team_matchups(spark, team_list_df: pd.DataFrame, filename: str, 
     Args:
         spark: PySpark object
         team_list_df (pd.DataFrame): Team list data frame
-        filename (str): Name of Parquet matchup file
+        table_name (str): Name of table for matchups in this season
         url_suffix (str): suffix for URLs
-        year (int): year of team data
         batch_size (int): number of teams to scrape
     """
 
@@ -263,7 +258,6 @@ def batch_parse_team_matchups(spark, team_list_df: pd.DataFrame, filename: str, 
 
                 # Add school name + year to matchup table
                 df['School'] = school
-                df['year'] = year
 
                 # Add to team matchup list
                 team_matchups.append(df)
@@ -277,5 +271,5 @@ def batch_parse_team_matchups(spark, team_list_df: pd.DataFrame, filename: str, 
     # Concat all DataFrames
     team_matchups_df = pd.concat(team_matchups)
 
-    # Write matchups to Parquet file
-    sys.write_to_parquet(spark=spark, df=team_matchups_df, filename=filename)
+    # Write matchups to SQL table
+    sys.write_to_sql(df=team_matchups_df, table_name=table_name)
