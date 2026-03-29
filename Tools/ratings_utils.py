@@ -716,16 +716,18 @@ def simulate_next_round(tourney_dict: dict, rd: int, ratings: dict=None):
 
     # Convert dictionary to DataFrame, find indices matching current round
     df = pd.DataFrame(tourney_dict)
-    matching_indices = df[df['Round'] == rd].index.tolist()
 
-    for i in matching_indices:
+    # Isolate current round
+    curr_round = df[df['Round'] == rd]
 
-        team1 = tourney_dict['Team1'][i]
-        team2 = tourney_dict['Team2'][i]
-        seed1 = tourney_dict['Seed1'][i]
-        seed2 = tourney_dict['Seed2'][i]
-        rating1 = tourney_dict['Rating1'][i]
-        rating2 = tourney_dict['Rating2'][i]
+    for i, row in curr_round.iterrows():
+
+        team1 = row['Team1']
+        team2 = row['Team2']
+        seed1 = row['Seed1']
+        seed2 = row['Seed2']
+        rating1 = row['Rating1']
+        rating2 = row['Rating2']
 
         # Rating system provided
         if ratings is not None:
@@ -795,24 +797,28 @@ def calculate_correct_picks(tourney_dict: dict, tourney_df: pd.DataFrame, rd: in
 
     # Convert dictionary to DataFrame, find indices matching current round
     df = pd.DataFrame(tourney_dict)
-    matching_indices = df[df['Round'] == (rd + 1)].index.tolist()
-    num_teams = len(df[df['Round'] == rd].index.tolist())
 
-    for i in matching_indices:
+    # Get current round team count
+    curr_round_num_teams = len(df[df['Round'] == rd])
+
+    # Isolate next round
+    next_round = df[df['Round'] == (rd + 1)]
+
+    for i, row in next_round.iterrows():
 
         # Compare 1st round scores by checking 2nd round participants
-        if tourney_df['Team1'][i] == tourney_dict['Team1'][i]:
+        if tourney_df['Team1'][i] == row['Team1']:
             correct_picks += 1
-        if tourney_df['Team2'][i] == tourney_dict['Team2'][i]:
+        if tourney_df['Team2'][i] == row['Team2']:
             correct_picks += 1
 
     # Map correct picks to total points
     total_points = correct_picks * ROUND_POINTS[rd - 1]
-    total_possible_points = num_teams * ROUND_POINTS[rd - 1]
+    total_possible_points = curr_round_num_teams * ROUND_POINTS[rd - 1]
 
-    tourney_results = f'Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {num_teams} - Total Points: {total_points} out of {total_possible_points}'
+    tourney_results = f'Round: {rd} / {ROUND_NAMES[rd - 1]} - Correct picks: {correct_picks} out of {curr_round_num_teams} - Total Points: {total_points} out of {total_possible_points}'
 
-    return correct_picks, total_points, num_teams, tourney_results
+    return correct_picks, total_points, curr_round_num_teams, tourney_results
 
 
 def setup_first_round_dictionary(tourney_df: pd.DataFrame):
@@ -879,6 +885,7 @@ def simulate_tournament(filename: str, ratings: dict=None):
 
     # Add ratings to 1st round
     for i in range(32):
+
         team1 = tourney_df['Team1'][i]
         team2 = tourney_df['Team2'][i]
 
@@ -1106,9 +1113,10 @@ def calculate_tournament_results(tourney_dict: dict, tourney_df: pd.DataFrame, r
     tourney_results = ''
 
     for rd in range(1, 7):
-        tourney_dict = simulate_next_round(tourney_dict=tourney_dict,
-                                           ratings=ratings,
-                                           rd=rd)
+        tourney_dict = simulate_next_round(
+            tourney_dict=tourney_dict,
+            ratings=ratings,
+            rd=rd)
 
         correct_picks, points, num_teams, results = calculate_correct_picks(
             tourney_dict=tourney_dict,
