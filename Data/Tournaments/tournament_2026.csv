@@ -55,11 +55,11 @@
 3,West,6,Texas,Purdue,77,79
 3,Midwest,7,Michigan,Alabama,90,77
 3,Midwest,8,Tennessee,Iowa State,76,62
-4,East,1,,,,
-4,South,2,,,,
-4,West,3,,,,
-4,Midwest,4,,,,
-5,Final Four,1,,,,
-5,Final Four,2,,,,
-6,Championship,1,,,,
-7,Champion,1,,,,
+4,East,1,Duke,Connecticut,72,73
+4,South,2,Iowa,Illinois,59,71
+4,West,3,Arizona,Purdue,79,64
+4,Midwest,4,Michigan,Tennessee,95,62
+5,Final Four,1,Connecticut,Illinois,71,62
+5,Final Four,2,Arizona,Michigan,73,91
+6,Championship,1,Connecticut,Michigan,63,69
+7,Champion,1,Michigan,,,
