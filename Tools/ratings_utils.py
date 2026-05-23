@@ -679,8 +679,8 @@ def add_ratings_per_game(score_df: pd.DataFrame, ratings_table_name: str, final_
     # Write ratings to SQL table
     sys.write_ratings_to_sql(df=rating_score_df, season_table_name=ratings_table_name)
 
-    # Write ratings to SQL table
-    sys.write_ratings_to_sql(df=final_ratings_df, season_table_name=final_ratings_table_name)
+    # # Write ratings to SQL table (Redundant with one in compute_score_features())
+    # sys.write_ratings_to_sql(df=final_ratings_df, season_table_name=final_ratings_table_name)
 
     # Set up final ratings for tournament
     compute_score_features(df=rating_score_df, final_ratings_table_name=final_ratings_table_name)
