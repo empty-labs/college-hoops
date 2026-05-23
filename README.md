@@ -92,3 +92,7 @@ streamlit run streamlit_app.py
 deactivate
 rm -rf test_env
 ```
+4. Run Streamlit
+```commandline
+streamlit run streamlit_app.py
+```

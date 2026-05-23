@@ -1,65 +1,65 @@
-Round,Game,Team1,Team2,Rating1,Rating2
-1,1,Auburn,Alabama State,0.92,0.07999999999999996
-1,2,Louisville,Creighton,0.726,0.274
-1,3,Michigan,UC San Diego,0.728,0.272
-1,4,Texas A&M,Yale,0.678,0.32199999999999995
-1,5,Mississippi,North Carolina,0.388,0.612
-1,6,Iowa State,Lipscomb,0.772,0.22799999999999998
-1,7,Marquette,New Mexico,0.784,0.21599999999999997
-1,8,Michigan State,Bryant,0.984,0.016000000000000014
-1,9,Florida,Norfolk State,0.956,0.04400000000000004
-1,10,Connecticut,Oklahoma,0.6,0.4
-1,11,Memphis,Colorado State,0.576,0.42400000000000004
-1,12,Maryland,Grand Canyon,0.858,0.14200000000000002
-1,13,Missouri,Drake,0.43,0.5700000000000001
-1,14,Texas Tech,UNC Wilmington,0.74,0.26
-1,15,Kansas,Arkansas,0.778,0.22199999999999998
-1,16,St. John's (NY),Omaha,0.862,0.138
-1,17,Duke,Mount Saint Mary (NY),1.0,0.0
-1,18,Mississippi State,Baylor,0.556,0.44399999999999995
-1,19,Oregon,Liberty,0.618,0.382
-1,20,Arizona,Akron,0.684,0.31599999999999995
-1,21,Brigham Young,Virginia Commonwealth,0.612,0.388
-1,22,Wisconsin,Montana,0.706,0.29400000000000004
-1,23,Saint Mary's (CA),Vanderbilt,0.956,0.04400000000000004
-1,24,Alabama,Robert Morris,0.81,0.18999999999999995
-1,25,Houston,Southern Illinois-Edwardsville,0.95,0.050000000000000044
-1,26,Gonzaga,Georgia,0.744,0.256
-1,27,Clemson,McNeese State,0.59,0.41000000000000003
-1,28,Purdue,High Point,0.432,0.5680000000000001
-1,29,Illinois,Xavier,0.72,0.28
-1,30,Kentucky,Troy,0.684,0.31599999999999995
-1,31,UCLA,Utah State,0.64,0.36
-1,32,Tennessee,Wofford,0.482,0.518
-2,1,Auburn,Louisville,0.92,0.726
-2,2,Michigan,Texas A&M,0.728,0.678
-2,3,North Carolina,Iowa State,0.612,0.772
-2,4,Marquette,Michigan State,0.784,0.984
-2,5,Florida,Connecticut,0.956,0.6
-2,6,Memphis,Maryland,0.576,0.858
-2,7,Drake,Texas Tech,0.5700000000000001,0.74
-2,8,Kansas,St. John's (NY),0.778,0.862
-2,9,Duke,Mississippi State,1.0,0.556
-2,10,Oregon,Arizona,0.618,0.684
-2,11,Brigham Young,Wisconsin,0.612,0.706
-2,12,Saint Mary's (CA),Alabama,0.956,0.81
-2,13,Houston,Gonzaga,0.95,0.744
-2,14,Clemson,High Point,0.59,0.5680000000000001
-2,15,Illinois,Kentucky,0.72,0.684
-2,16,UCLA,Wofford,0.64,0.518
-3,1,Auburn,Michigan,0.92,0.728
-3,2,Iowa State,Michigan State,0.772,0.984
-3,3,Florida,Maryland,0.956,0.858
-3,4,Texas Tech,St. John's (NY),0.74,0.862
-3,5,Duke,Arizona,1.0,0.684
-3,6,Wisconsin,Saint Mary's (CA),0.706,0.956
-3,7,Houston,Clemson,0.95,0.59
-3,8,Illinois,UCLA,0.72,0.64
-4,1,Auburn,Michigan State,0.92,0.984
-4,2,Florida,St. John's (NY),0.956,0.862
-4,3,Duke,Saint Mary's (CA),1.0,0.956
-4,4,Houston,Illinois,0.95,0.72
-5,1,Michigan State,Florida,0.984,0.956
-5,2,Duke,Houston,1.0,0.95
-6,1,Michigan State,Duke,0.984,1.0
-7,1,Duke,No Value,1.0,No Value
+Round Name,Round,Game,Team1,Team2,Seed1,Seed2,Rating1,Rating2
+Round of 64,1,1,Auburn,Alabama State,1,16,0.966,0.03400000000000003
+Round of 64,1,2,Louisville,Creighton,8,9,0.622,0.378
+Round of 64,1,3,Michigan,UC San Diego,5,12,0.928,0.07199999999999995
+Round of 64,1,4,Texas A&M,Yale,4,13,0.952,0.04800000000000004
+Round of 64,1,5,Mississippi,North Carolina,6,11,0.8334181818181817,0.16658181818181828
+Round of 64,1,6,Iowa State,Lipscomb,3,14,0.93,0.06999999999999995
+Round of 64,1,7,Marquette,New Mexico,7,10,0.882,0.118
+Round of 64,1,8,Michigan State,Bryant,2,15,0.978,0.02200000000000002
+Round of 64,1,9,Florida,Norfolk State,1,16,0.98,0.020000000000000018
+Round of 64,1,10,Connecticut,Oklahoma,8,9,0.562,0.43799999999999994
+Round of 64,1,11,Memphis,Colorado State,5,12,0.706,0.29400000000000004
+Round of 64,1,12,Maryland,Grand Canyon,4,13,0.91,0.08999999999999997
+Round of 64,1,13,Missouri,Drake,6,11,0.878,0.122
+Round of 64,1,14,Texas Tech,UNC Wilmington,3,14,0.944,0.05600000000000005
+Round of 64,1,15,Kansas,Arkansas,7,10,0.802,0.19799999999999995
+Round of 64,1,16,St. John's (NY),Omaha,2,15,0.982,0.018000000000000016
+Round of 64,1,17,Duke,Mount Saint Mary (NY),1,16,0.996,0.0040000000000000036
+Round of 64,1,18,Mississippi State,Baylor,8,9,0.806,0.19399999999999995
+Round of 64,1,19,Oregon,Liberty,5,12,0.876,0.124
+Round of 64,1,20,Arizona,Akron,4,13,0.89,0.10999999999999999
+Round of 64,1,21,Brigham Young,Virginia Commonwealth,6,11,0.792,0.20799999999999996
+Round of 64,1,22,Wisconsin,Montana,3,14,0.984,0.016000000000000014
+Round of 64,1,23,Saint Mary's (CA),Vanderbilt,7,10,0.716,0.28400000000000003
+Round of 64,1,24,Alabama,Robert Morris,2,15,0.762,0.238
+Round of 64,1,25,Houston,Southern Illinois-Edwardsville,1,16,0.988,0.01200000000000001
+Round of 64,1,26,Gonzaga,Georgia,8,9,0.718,0.28200000000000003
+Round of 64,1,27,Clemson,McNeese State,5,12,0.944,0.05600000000000005
+Round of 64,1,28,Purdue,High Point,4,13,0.916,0.08399999999999996
+Round of 64,1,29,Illinois,Xavier,6,11,0.924,0.07599999999999996
+Round of 64,1,30,Kentucky,Troy,3,14,0.918,0.08199999999999996
+Round of 64,1,31,UCLA,Utah State,7,10,0.834,0.16600000000000004
+Round of 64,1,32,Tennessee,Wofford,2,15,0.992,0.008000000000000007
+Round of 32,2,1,Auburn,Louisville,1,8,0.966,0.622
+Round of 32,2,2,Michigan,Texas A&M,5,4,0.928,0.952
+Round of 32,2,3,Mississippi,Iowa State,6,3,0.8334181818181817,0.93
+Round of 32,2,4,Marquette,Michigan State,7,2,0.882,0.978
+Round of 32,2,5,Florida,Connecticut,1,8,0.98,0.562
+Round of 32,2,6,Memphis,Maryland,5,4,0.706,0.91
+Round of 32,2,7,Missouri,Texas Tech,6,3,0.878,0.944
+Round of 32,2,8,Kansas,St. John's (NY),7,2,0.802,0.982
+Round of 32,2,9,Duke,Mississippi State,1,8,0.996,0.806
+Round of 32,2,10,Oregon,Arizona,5,4,0.876,0.89
+Round of 32,2,11,Brigham Young,Wisconsin,6,3,0.792,0.984
+Round of 32,2,12,Saint Mary's (CA),Alabama,7,2,0.716,0.762
+Round of 32,2,13,Houston,Gonzaga,1,8,0.988,0.718
+Round of 32,2,14,Clemson,Purdue,5,4,0.944,0.916
+Round of 32,2,15,Illinois,Kentucky,6,3,0.924,0.918
+Round of 32,2,16,UCLA,Tennessee,7,2,0.834,0.992
+Sweet 16,3,1,Auburn,Texas A&M,1,4,0.966,0.952
+Sweet 16,3,2,Iowa State,Michigan State,3,2,0.93,0.978
+Sweet 16,3,3,Florida,Maryland,1,4,0.98,0.91
+Sweet 16,3,4,Texas Tech,St. John's (NY),3,2,0.944,0.982
+Sweet 16,3,5,Duke,Arizona,1,4,0.996,0.89
+Sweet 16,3,6,Wisconsin,Alabama,3,2,0.984,0.762
+Sweet 16,3,7,Houston,Clemson,1,5,0.988,0.944
+Sweet 16,3,8,Illinois,Tennessee,6,2,0.924,0.992
+Elite 8,4,1,Auburn,Michigan State,1,2,0.966,0.978
+Elite 8,4,2,Florida,St. John's (NY),1,2,0.98,0.982
+Elite 8,4,3,Duke,Wisconsin,1,3,0.996,0.984
+Elite 8,4,4,Houston,Tennessee,1,2,0.988,0.992
+Final 4,5,1,Michigan State,St. John's (NY),2,2,0.978,0.982
+Final 4,5,2,Duke,Tennessee,1,2,0.996,0.992
+Championship,6,1,St. John's (NY),Duke,2,1,0.982,0.996
+Champion,7,1,Duke,---,1,---,0.996,---

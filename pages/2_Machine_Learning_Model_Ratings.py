@@ -1,6 +1,7 @@
 # Local libraries
 import Tools.ratings_utils as ru
 import Tools.season_utils as su
+import Tools.system_utils as sys
 
 
 # Third party packages
@@ -8,6 +9,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
+import sqlite3
 import streamlit as st
 import xgboost as xgb
 
@@ -61,7 +63,7 @@ simulation_method = st.selectbox(
 start_year = su.convert_season_to_year(season_start)
 end_year = su.convert_season_to_year(season_end)
 years = su.year_range(start_year, end_year)
-_, tournament_filename, picks_filename, ratings_filename, final_ratings_filename = su.create_filenames(years=years)
+_, tournament_filename, picks_filename, ratings_table_name, final_ratings_table_name = su.create_filenames(years=years)
 #
 
 # Run simulation
@@ -72,15 +74,20 @@ if run_button:
 
     with st.spinner("Simulating tournament..."):
 
-        # Read data from JSON
-        rating_score_df = pd.read_json(ratings_filename)
+        # Connect to your database
+        conn = sqlite3.connect(sys.RATINGS_DB_FILENAME)
+
+        # Read the table into a Pandas DataFrame
+        rating_score_df = pd.read_sql(f'SELECT * FROM {ratings_table_name}', conn)
+        conn.close()
+
         # Set data frame and target variable
         df = rating_score_df.copy()
         df["y"] = (df["Winner"] == df["Home"]).astype(int)
 
         # Add feature columns
         # TODO Move this to mid-season ratings_per_game function
-        df = ru.derive_features(df=df, final_ratings_filename=final_ratings_filename)
+        df = ru.derive_features(df=df, final_ratings_table_name=final_ratings_table_name)
 
         # Set features
         features = ru.ML_FEATURES
@@ -94,7 +101,7 @@ if run_button:
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
         # Set up final ratings for tournament
-        ratings_dict = ru.compile_ratings_dict(final_ratings_filename=final_ratings_filename)
+        ratings_dict = ru.compile_ratings_dict(final_ratings_table_name=final_ratings_table_name)
 
         model = None
 

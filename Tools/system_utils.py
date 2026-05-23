@@ -1,66 +1,52 @@
 # Third party libraries
 import csv
-import json
-import os
 import pandas as pd
+import sqlite3
+
+MATCHUPS_DB_FILENAME = 'Data/Databases/matchups.db'
+RATINGS_DB_FILENAME = 'Data/Databases/ratings.db'
 
 
-def add_dictionary_to_json(dct: dict, filename: str):
-    """Create/Append json team data
-
-    Args:
-        dct (dict): dictionary of new team data
-        filename (str): Name of JSON team file
-    """
-
-    existing_data = None
-
-    if os.path.exists(filename) and os.path.getsize(filename) > 0:
-        with open(filename, "r") as file:
-            existing_data = json.load(file)
-
-    with open(filename, "w") as file:
-        # Find current teams
-        new_teams = list(dct.keys())
-
-        # Compare against current list of teams
-        if existing_data:
-            existing_teams = list(existing_data.keys())
-
-            # Add team if it doesn't already exist
-            for t in new_teams:
-                if t not in existing_teams:
-                    existing_data[t] = dct[t]
-                    print(f"Adding new data set for {t}.")
-                print(f"Data set already exists for {t}.")
-
-        else:  # Add new team data if JSON is empty
-            existing_data = {}
-
-            for t in new_teams:
-                existing_data[t] = dct[t]
-                print(f"Adding new data set for {t}.")
-
-        if existing_data:
-            json.dump(existing_data, file, indent=4)  # `indent=4` makes it more readable
-            print("JSON updated")
-
-
-def print_season_end_team_win_loss(filename: str):
-    """Print team win-loss records
+def write_matchups_to_sql(df: pd.DataFrame, season_table_name: str):
+    """Save matchups to SQL table
 
     Args:
-        filename (str): Name of JSON team file
+        df (pd.DataFrame): Matchup dataframe for all teams in this season
+        season_table_name (str): Name of table for matchups in this season
     """
 
-    if os.path.exists(filename):
-        # Read Stats
-        df = pd.read_json(filename)
+    conn = sqlite3.connect(MATCHUPS_DB_FILENAME)
 
-        for t in list(df.keys()):
-            win = df[t]["W"][-1]
-            loss = df[t]["L"][-1]
-            print(f"{t}: {win}-{loss}")
+    df.to_sql(
+        season_table_name,
+        conn,
+        if_exists='replace',
+        index=False
+    )
+
+    conn.close()
+    print(f'Finished writing matchups to SQL table: {season_table_name}')
+
+
+def write_ratings_to_sql(df: pd.DataFrame, season_table_name: str):
+    """Save ratings to SQL table
+
+    Args:
+        df (pd.DataFrame): Matchup dataframe for all teams in this season
+        season_table_name (str): Name of table for ratings in this season
+    """
+
+    conn = sqlite3.connect(RATINGS_DB_FILENAME)
+
+    df.to_sql(
+        season_table_name,
+        conn,
+        if_exists='replace',
+        index=False
+    )
+
+    conn.close()
+    print(f'Finished writing ratings to SQL table: {season_table_name}')
 
 
 def write_tournament_to_csv(tourney_dict: dict, filename: str, rating_type: str):
@@ -71,10 +57,10 @@ def write_tournament_to_csv(tourney_dict: dict, filename: str, rating_type: str)
         filename (str): Name of CSV tournament team file
         rating_type (str): name of rating system
     """
-    csv_filename = filename.replace(".csv", f"_{rating_type}.csv")
+    csv_filename = filename.replace('.csv', f'_{rating_type}.csv')
 
     # Convert dictionary to a CSV-friendly format
-    with open(csv_filename, mode="w", newline="") as file:
+    with open(csv_filename, mode='w', newline='') as file:
         writer = csv.writer(file)
 
         keys = list(tourney_dict.keys())
@@ -86,4 +72,4 @@ def write_tournament_to_csv(tourney_dict: dict, filename: str, rating_type: str)
                 row.append(tourney_dict[key][i])
             writer.writerow(row)  # Combine team name with stats
 
-        print(f"\nCSV written to {csv_filename}")
+        print(f'\nCSV written to {csv_filename}')
