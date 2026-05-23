@@ -438,7 +438,7 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
 
     else:
 
-        ratings_str = "Adj Elo" if adjust_K is True else "Elo"
+        ratings_str = "Adj_Elo" if adjust_K is True else "Elo"
         elo_ratings = collect_final_ratings(
             final_ratings_table_name=final_ratings_table_name,
             teams=teams,
