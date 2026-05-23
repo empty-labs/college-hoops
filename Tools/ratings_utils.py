@@ -582,14 +582,14 @@ def add_ratings_per_game(score_df: pd.DataFrame, ratings_table_name: str, final_
             'Away': a,
             'Away_Score': aPts,
             'Winner': winner,
-            "Home_Massey": massey_ratings[i],
-            "Away_Massey": massey_ratings[j],
-            "Home_Colley": colley_ratings[i],
-            "Away_Colley": colley_ratings[j],
-            "Home_Elo": elo_ratings[h],
-            "Away_Elo": elo_ratings[a],
-            "Home_Adj_Elo": adj_elo_ratings[h],
-            "Away_Adj_Elo": adj_elo_ratings[a]
+            'Home_Massey': massey_ratings[i],
+            'Away_Massey': massey_ratings[j],
+            'Home_Colley': colley_ratings[i],
+            'Away_Colley': colley_ratings[j],
+            'Home_Elo': elo_ratings[h],
+            'Away_Elo': elo_ratings[a],
+            'Home_Adj_Elo': adj_elo_ratings[h],
+            'Away_Adj_Elo': adj_elo_ratings[a]
         })
 
         # Update Massey matrix
@@ -654,7 +654,7 @@ def add_ratings_per_game(score_df: pd.DataFrame, ratings_table_name: str, final_
         'Massey',
         'Colley',
         'Elo',
-        'Adj Elo',
+        'Adj_Elo',
         'Avg_Pts_For',
         'Avg_Pts_Against',
         'Avg_Net_Pts'
@@ -949,12 +949,12 @@ def compile_ratings_dict(final_ratings_table_name: str):
     return final_ratings
 
 
-def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: dict):
+def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: pd.DataFrame):
     """Mimic ML model rating_score_df except for date, winner, score
 
     Args:
-        tourney_df (pd.DataFrame): dataframe containing tournament data
-        ratings (dict): dictionary of ratings
+        tourney_df (pd.DataFrame): DataFrame containing tournament data
+        ratings (pd.DataFrame): DataFrame of ratings
 
     Returns:
         rating_score_df (pd.DataFrame): dataframe containing ratings in ML model format
@@ -967,23 +967,42 @@ def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: dict):
         team1 = tourney_df['Team1'][i]
         team2 = tourney_df['Team2'][i]
 
+        # rating_scores.append({
+        #     'Home': team1,
+        #     'Away': team2,
+        #     'Home_Massey': ratings[team1]['Massey'],
+        #     'Away_Massey': ratings[team2]['Massey'],
+        #     'Home_Colley': ratings[team1]['Colley'],
+        #     'Away_Colley': ratings[team2]['Colley'],
+        #     'Home_Elo': ratings[team1]['Elo'],
+        #     'Away_Elo': ratings[team2]['Elo'],
+        #     'Home_Adj_Elo': ratings[team1]['Adj_Elo'],
+        #     'Away_Adj_Elo': ratings[team2]['Adj_Elo'],
+        #     'Home_Avg_Pts_For': ratings[team1]['Avg_Pts_For'],
+        #     'Away_Avg_Pts_For': ratings[team2]['Avg_Pts_For'],
+        #     'Home_Avg_Pts_Against': ratings[team1]['Avg_Pts_Against'],
+        #     'Away_Avg_Pts_Against': ratings[team2]['Avg_Pts_Against'],
+        #     'Home_Avg_Net_Pts': ratings[team1]['Avg_Net_Pts'],
+        #     'Away_Avg_Net_Pts': ratings[team2]['Avg_Net_Pts'],
+        # })
+
         rating_scores.append({
             'Home': team1,
             'Away': team2,
-            "Home_Massey": ratings[team1]['Massey'],
-            "Away_Massey": ratings[team2]['Massey'],
-            "Home_Colley": ratings[team1]['Colley'],
-            "Away_Colley": ratings[team2]['Colley'],
-            "Home_Elo": ratings[team1]['Elo'],
-            "Away_Elo": ratings[team2]['Elo'],
-            "Home_Adj_Elo": ratings[team1]['Adj_Elo'],
-            "Away_Adj_Elo": ratings[team2]['Adj_Elo'],
-            'Home_Avg_Pts_For': ratings[team1]['Avg_Pts_For'],
-            'Away_Avg_Pts_For': ratings[team2]['Avg_Pts_For'],
-            'Home_Avg_Pts_Against': ratings[team1]['Avg_Pts_Against'],
-            'Away_Avg_Pts_Against': ratings[team2]['Avg_Pts_Against'],
-            'Home_Avg_Net_Pts': ratings[team1]['Avg_Net_Pts'],
-            'Away_Avg_Net_Pts': ratings[team2]['Avg_Net_Pts'],
+            'Home_Massey': float(ratings.loc[ratings['Rating'] == 'Massey', team1]),
+            'Away_Massey': float(ratings.loc[ratings['Rating'] == 'Massey', team2]),
+            'Home_Colley': float(ratings.loc[ratings['Rating'] == 'Colley', team1]),
+            'Away_Colley': float(ratings.loc[ratings['Rating'] == 'Colley', team2]),
+            'Home_Elo': float(ratings.loc[ratings['Rating'] == 'Elo', team1]),
+            'Away_Elo': float(ratings.loc[ratings['Rating'] == 'Elo', team2]),
+            'Home_Adj_Elo': float(ratings.loc[ratings['Rating'] == 'Adj_Elo', team1]),
+            'Away_Adj_Elo': float(ratings.loc[ratings['Rating'] == 'Adj_Elo', team2]),
+            'Home_Avg_Pts_For': float(ratings.loc[ratings['Rating'] == 'Avg_Pts_For', team1]),
+            'Away_Avg_Pts_For': float(ratings.loc[ratings['Rating'] == 'Avg_Pts_For', team2]),
+            'Home_Avg_Pts_Against': float(ratings.loc[ratings['Rating'] == 'Avg_Pts_Against', team1]),
+            'Away_Avg_Pts_Against': float(ratings.loc[ratings['Rating'] == 'Avg_Pts_Against', team2]),
+            'Home_Avg_Net_Pts': float(ratings.loc[ratings['Rating'] == 'Avg_Net_Pts', team1]),
+            'Away_Avg_Net_Pts': float(ratings.loc[ratings['Rating'] == 'Avg_Net_Pts', team2]),
         })
 
     rating_score_df = pd.DataFrame(rating_scores)
@@ -1064,9 +1083,9 @@ def compute_score_features(df: pd.DataFrame, final_ratings_table_name: str):
         lagged_against.append(np.mean(opponent_team_scores))
         lagged_net_for_vs_against.append(np.mean(curr_team_scores) - np.mean(opponent_team_scores))
 
-        ratings[team][4] = lagged_for[-1]
-        ratings[team][5] = lagged_against[-1]
-        ratings[team][6] = lagged_net_for_vs_against[-1]
+        ratings[team][0] = lagged_for[-1]
+        ratings[team][1] = lagged_against[-1]
+        ratings[team][2] = lagged_net_for_vs_against[-1]
 
     # Connect to your database
     conn = sqlite3.connect(sys.RATINGS_DB_FILENAME)
@@ -1077,9 +1096,9 @@ def compute_score_features(df: pd.DataFrame, final_ratings_table_name: str):
 
     for team in teams:
 
-        final_ratings.loc[final_ratings['Rating'] == 'Avg_Pts_For', team] = ratings[team][4]
-        final_ratings.loc[final_ratings['Rating'] == 'Avg_Pts_Against', team] = ratings[team][5]
-        final_ratings.loc[final_ratings['Rating'] == 'Avg_Net_Pts', team] = ratings[team][6]
+        final_ratings.loc[final_ratings['Rating'] == 'Avg_Pts_For', team] = ratings[team][0]
+        final_ratings.loc[final_ratings['Rating'] == 'Avg_Pts_Against', team] = ratings[team][1]
+        final_ratings.loc[final_ratings['Rating'] == 'Avg_Net_Pts', team] = ratings[team][2]
 
     # Write ratings to SQL table
     sys.write_ratings_to_sql(df=final_ratings, season_table_name=final_ratings_table_name)
@@ -1159,12 +1178,12 @@ def calculate_tournament_results(tourney_dict: dict, tourney_df: pd.DataFrame, r
     return total_correct_picks, total_points, tourney_dict, tourney_results
 
 
-def simulate_tournament_with_all_ratings(filename: str, ratings: dict, model=None):
+def simulate_tournament_with_all_ratings(filename: str, ratings: pd.DataFrame, model=None):
     """Simulate tournament outcomes based on given rating system
 
     Args:
         filename (str): Name of CSV tournament team file
-        ratings (dict): dictionary of ratings
+        ratings (pd.DataFrame): DataFrame of ratings
         model: classification model to predict results
 
     Returns:
