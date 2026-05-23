@@ -4,7 +4,6 @@ import Tools.system_utils as sys
 
 # Third party libraries
 from datetime import datetime as dt
-import json
 import numpy as np
 import pandas as pd
 import sqlite3
@@ -173,11 +172,11 @@ def update_rating_matrix(mtx, i: int, j: int):
     return mtx
 
 
-def collect_final_ratings(final_ratings_filename: str, teams: list, ratings_str: str):
+def collect_final_ratings(final_ratings_table_name: str, teams: list, ratings_str: str):
     """Collect final ratings
 
     Args:
-        final_ratings_filename (str): Name of JSON team ratings file
+        final_ratings_table_name (str): Name of table for final ratings in this season
         teams (list): List of teams
         ratings_str (str): Name of team ratings type
 
@@ -185,21 +184,24 @@ def collect_final_ratings(final_ratings_filename: str, teams: list, ratings_str:
         final_ratings (dict): final ratings dictionary
     """
 
-    # Collect ratings from final data set (using simpler dictionary style)
-    with open(final_ratings_filename, 'r') as f:
-        final_ratings = json.load(f)
+    # Connect to your database
+    conn = sqlite3.connect(sys.RATINGS_DB_FILENAME)
 
-    ratings = {team: final_ratings[team][ratings_str] for team in teams}
+    # Read the table into a Pandas DataFrame
+    final_ratings = pd.read_sql(f'SELECT * FROM {final_ratings_table_name}', conn)
+    conn.close()
+
+    ratings = {team: float(final_ratings.loc[final_ratings['Rating'] == ratings_str, team]) for team in teams}
 
     return ratings
 
 
-def calculate_massey_ratings(score_df: pd.DataFrame, final_ratings_filename: str=None, debug: bool=False):
+def calculate_massey_ratings(score_df: pd.DataFrame, final_ratings_table_name: str=None, debug: bool=False):
     """Calculate Massey ratings for each team and sort in ranked order
 
     Args:
         score_df (pd.DataFrame): matchup score data frame
-        final_ratings_filename (str): Name of JSON team ratings file
+        final_ratings_table_name (str): Name of table for final ratings in this season
         debug (bool): flag to print debug statements
 
     Returns:
@@ -208,7 +210,7 @@ def calculate_massey_ratings(score_df: pd.DataFrame, final_ratings_filename: str
 
     teams = list(set(score_df['Home']).union(set(score_df['Away'])))
 
-    if final_ratings_filename is None:
+    if final_ratings_table_name is None:
         # Get unique teams and index them
         team_index = {team: i for i, team in enumerate(teams)}  # Map teams to indices
         N = len(teams)
@@ -247,19 +249,19 @@ def calculate_massey_ratings(score_df: pd.DataFrame, final_ratings_filename: str
     else:
 
         massey_ratings = collect_final_ratings(
-            final_ratings_filename=final_ratings_filename,
+            final_ratings_table_name=final_ratings_table_name,
             teams=teams,
             ratings_str='Massey')
 
     return massey_ratings
 
 
-def calculate_colley_ratings(score_df: pd.DataFrame, final_ratings_filename: str=None, debug: bool=False):
+def calculate_colley_ratings(score_df: pd.DataFrame, final_ratings_table_name: str=None, debug: bool=False):
     """Calculates Colley rankings given a game results DataFrame.
 
     Args:
         score_df (pd.DataFrame): matchup score data frame
-        final_ratings_filename (str): Name of JSON team ratings file
+        final_ratings_table_name (str): Name of table for final ratings in this season
         debug (bool): flag to print debug statements
 
     Returns:
@@ -268,7 +270,7 @@ def calculate_colley_ratings(score_df: pd.DataFrame, final_ratings_filename: str
 
     teams = list(set(score_df['Home']).union(set(score_df['Away'])))
 
-    if final_ratings_filename is None:
+    if final_ratings_table_name is None:
 
         team_index = {team: i for i, team in enumerate(teams)}  # Map teams to indices
         N = len(teams)
@@ -309,7 +311,7 @@ def calculate_colley_ratings(score_df: pd.DataFrame, final_ratings_filename: str
     else:
 
         colley_ratings = collect_final_ratings(
-            final_ratings_filename=final_ratings_filename,
+            final_ratings_table_name=final_ratings_table_name,
             teams=teams,
             ratings_str='Colley')
 
@@ -396,7 +398,7 @@ def update_elo(r1: float, r2: float, outcome: int, mov: int, K: int=40, adjust_K
     return r1_new, r2_new
 
 
-def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: int=40, final_ratings_filename: str=None,
+def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: int=40, final_ratings_table_name: str=None,
                           debug: bool=False, adjust_K: bool=True):
     """Calculates Elo rankings given a game results DataFrame.
 
@@ -404,7 +406,7 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
         score_df (pd.DataFrame): matchup data frame
         initial_ratings (int): starting rating for all teams (default 1500)
         K (int): rating adjustment factor (default 30)
-        final_ratings_filename (str): filename for final ratings
+        final_ratings_table_name (str): Name of table for final ratings in this season
         debug (bool): flag to print debug statements
         adjust_K (bool): use adjusted K value based on MOV
 
@@ -414,7 +416,7 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
 
     teams = list(set(score_df['Home']).union(set(score_df['Away'])))
 
-    if final_ratings_filename is None:
+    if final_ratings_table_name is None:
 
         elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
 
@@ -436,9 +438,9 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
 
     else:
 
-        ratings_str = "Adj_Elo" if adjust_K is True else "Elo"
+        ratings_str = "Adj Elo" if adjust_K is True else "Elo"
         elo_ratings = collect_final_ratings(
-            final_ratings_filename=final_ratings_filename,
+            final_ratings_table_name=final_ratings_table_name,
             teams=teams,
             ratings_str=ratings_str)
 
@@ -446,14 +448,14 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
 
 
 def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, net_points: bool=False,
-                             final_ratings_filename: str=None, debug: bool=False):
+                             final_ratings_table_name: str=None, debug: bool=False):
     """Calculates average points forced or against using total or net score for full season (not in during season)
 
     Args:
         score_df (pd.DataFrame): matchup data frame
         points_for (bool): whether to calculate points for (True) instead of points against (False)
         net_points (bool): whether to calculate net points (True) instead of points total (False)
-        final_ratings_filename (str): filename for final ratings
+        final_ratings_table_name (str): Name of table for final ratings in this season
         debug (bool): flag to print debug statements
 
     Returns:
@@ -462,7 +464,7 @@ def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, net_
 
     teams = list(set(score_df['Home']).union(set(score_df['Away'])))
 
-    if final_ratings_filename is None:
+    if final_ratings_table_name is None:
 
         default_points = 70
         avg_points = {team: default_points for team in teams}
@@ -516,22 +518,22 @@ def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, net_
         ratings_str = 'Avg_Pts_For' if points_for is True else 'Avg_Pts_Against'
         ratings_str = 'Avg_Net_Pts' if net_points is True else ratings_str
         avg_points = collect_final_ratings(
-            final_ratings_filename=final_ratings_filename,
+            final_ratings_table_name=final_ratings_table_name,
             teams=teams,
             ratings_str=ratings_str)
 
     return avg_points
 
 
-def add_ratings_per_game(score_df: pd.DataFrame, ratings_filename: str, final_ratings_filename: str,
+def add_ratings_per_game(score_df: pd.DataFrame, ratings_table_name: str, final_ratings_table_name: str,
                          initial_ratings: int=None):
     """Calculate Massey, Colley, Elo ratings for each team for each game
 
     Args:
         score_df (pd.DataFrame): matchup score data frame
+        ratings_table_name (str): Name of table for ratings in this season
+        final_ratings_table_name (str): Name of table for final ratings in this season
         initial_ratings (int): starting rating for all teams
-        ratings_filename (str): filename for ratings
-        final_ratings_filename (str): filename for final ratings
 
     Returns:
         rating_score_df (pd.DataFrame): data frame with mid-season ratings and scores
@@ -646,26 +648,42 @@ def add_ratings_per_game(score_df: pd.DataFrame, ratings_filename: str, final_ra
 
     # Final ratings
     ratings = {}
+
+    # Initialize Rating column with rating types
+    ratings['Rating'] = [
+        'Massey',
+        'Colley',
+        'Elo',
+        'Adj Elo',
+        'Avg_Pts_For',
+        'Avg_Pts_Against',
+        'Avg_Net_Pts'
+    ]
+
     for team in teams:
 
-        ratings[team] = {}
         i = team_index[team]
 
+        # Assign default values
+        ratings[team] = [0] * len(ratings['Rating'])
+
         # Assign values to entry
-        ratings[team]['Massey'] = massey_ratings[i]
-        ratings[team]['Colley'] = colley_ratings[i]
-        ratings[team]['Elo'] = elo_ratings[team]
-        ratings[team]['Adj_Elo'] = adj_elo_ratings[team]
+        ratings[team][0] = massey_ratings[i]
+        ratings[team][1] = colley_ratings[i]
+        ratings[team][2] = elo_ratings[team]
+        ratings[team][3] = adj_elo_ratings[team]
 
     # Convert to DataFrame
     final_ratings_df = pd.DataFrame(ratings)
 
-    # Write to JSON
-    rating_score_df.to_json(ratings_filename, orient='records', indent=4)
-    final_ratings_df.to_json(final_ratings_filename, indent=4)
+    # Write ratings to SQL table
+    sys.write_ratings_to_sql(df=rating_score_df, season_table_name=ratings_table_name)
+
+    # Write ratings to SQL table
+    sys.write_ratings_to_sql(df=final_ratings_df, season_table_name=final_ratings_table_name)
 
     # Set up final ratings for tournament
-    compute_score_features(df=rating_score_df, final_ratings_filename=final_ratings_filename)
+    compute_score_features(df=rating_score_df, final_ratings_table_name=final_ratings_table_name)
 
     return rating_score_df, final_ratings_df
 
@@ -911,17 +929,22 @@ def simulate_tournament(filename: str, ratings: dict=None):
     return total_correct_picks, total_points, tourney_dict, tourney_results
 
 
-def compile_ratings_dict(final_ratings_filename: str):
+def compile_ratings_dict(final_ratings_table_name: str):
     """Compile all rating systems together into one dictionary
 
     Args:
-        final_ratings_filename (str): name of final ratings file
+        final_ratings_table_name (str): Name of table for final ratings in this season
 
     Returns:
         ratings_dict (dict): dictionary of all final ratings
     """
-    with open(final_ratings_filename, 'r') as f:
-        final_ratings = json.load(f)
+
+    # Connect to your database
+    conn = sqlite3.connect(sys.RATINGS_DB_FILENAME)
+
+    # Read the table into a Pandas DataFrame
+    final_ratings = pd.read_sql(f'SELECT * FROM {final_ratings_table_name}', conn)
+    conn.close()
 
     return final_ratings
 
@@ -967,12 +990,12 @@ def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: dict):
     return rating_score_df
 
 
-def compute_score_features(df: pd.DataFrame, final_ratings_filename: str):
+def compute_score_features(df: pd.DataFrame, final_ratings_table_name: str):
     """Compute score features
 
     Args:
         df (pd.DataFrame): dataframe containing ratings in ML model format
-        final_ratings_filename (str): final ratings filename string
+        final_ratings_table_name (str): Name of table for final ratings in this season
     """
 
     default_home_score = df['Home_Score'].mean()
@@ -1041,31 +1064,35 @@ def compute_score_features(df: pd.DataFrame, final_ratings_filename: str):
         lagged_against.append(np.mean(opponent_team_scores))
         lagged_net_for_vs_against.append(np.mean(curr_team_scores) - np.mean(opponent_team_scores))
 
-        ratings[team]['Avg_Pts_For'] = lagged_for[-1]
-        ratings[team]['Avg_Pts_Against'] = lagged_against[-1]
-        ratings[team]['Avg_Net_Pts'] = lagged_net_for_vs_against[-1]
+        ratings[team][4] = lagged_for[-1]
+        ratings[team][5] = lagged_against[-1]
+        ratings[team][6] = lagged_net_for_vs_against[-1]
 
-    # Write ratings back to final data set (using simpler dictionary style)
-    with open(final_ratings_filename, 'r') as f:
-        final_ratings = json.load(f)
+    # Connect to your database
+    conn = sqlite3.connect(sys.RATINGS_DB_FILENAME)
+
+    # Read the table into a Pandas DataFrame
+    final_ratings = pd.read_sql(f'SELECT * FROM {final_ratings_table_name}', conn)
+    conn.close()
 
     for team in teams:
-        final_ratings[team]['Avg_Pts_For'] = ratings[team]['Avg_Pts_For']
-        final_ratings[team]['Avg_Pts_Against'] = ratings[team]['Avg_Pts_Against']
-        final_ratings[team]['Avg_Net_Pts'] = ratings[team]['Avg_Net_Pts']
 
-    with open(final_ratings_filename, 'w') as f:
-        json.dump(final_ratings, f, indent=4)
+        final_ratings.loc[final_ratings['Rating'] == 'Avg_Pts_For', team] = ratings[team][4]
+        final_ratings.loc[final_ratings['Rating'] == 'Avg_Pts_Against', team] = ratings[team][5]
+        final_ratings.loc[final_ratings['Rating'] == 'Avg_Net_Pts', team] = ratings[team][6]
+
+    # Write ratings to SQL table
+    sys.write_ratings_to_sql(df=final_ratings, season_table_name=final_ratings_table_name)
 
     return df
 
 
-def derive_features(df: pd.DataFrame, final_ratings_filename: str=None, need_score_computation: bool=True):
+def derive_features(df: pd.DataFrame, final_ratings_table_name: str=None, need_score_computation: bool=True):
     """Derive ML model features from rating/score dataframe
 
     Args:
         df (pd.DataFrame): dataframe containing ratings in ML model format
-        final_ratings_filename (str): final ratings filename string
+        final_ratings_table_name (str): Name of table for final ratings in this season
         need_score_computation (bool): whether to compute score features
 
     Returns:
@@ -1074,7 +1101,7 @@ def derive_features(df: pd.DataFrame, final_ratings_filename: str=None, need_sco
 
     if need_score_computation:
         # TODO: Move to mid-season and pull last game for compile_ratings_dict?
-        df = compute_score_features(df=df, final_ratings_filename=final_ratings_filename)
+        df = compute_score_features(df=df, final_ratings_table_name=final_ratings_table_name)
 
     # Add feature columns
     for feature in ML_FEATURES:
@@ -1350,6 +1377,7 @@ def create_score_df(years: list):
     Returns:
         score_df (pd.DataFrame): score dataframe
     """
+
     score_df = None
     years = su.create_year_list(years)
 

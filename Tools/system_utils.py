@@ -4,9 +4,10 @@ import pandas as pd
 import sqlite3
 
 MATCHUPS_DB_FILENAME = 'Data/Databases/matchups.db'
+RATINGS_DB_FILENAME = 'Data/Databases/ratings.db'
 
 
-def write_to_sql(df: pd.DataFrame, season_table_name: str):
+def write_matchups_to_sql(df: pd.DataFrame, season_table_name: str):
     """Save matchups to SQL table
 
     Args:
@@ -24,7 +25,28 @@ def write_to_sql(df: pd.DataFrame, season_table_name: str):
     )
 
     conn.close()
-    print(f'Finished writing to SQL table: {season_table_name}')
+    print(f'Finished writing matchups to SQL table: {season_table_name}')
+
+
+def write_ratings_to_sql(df: pd.DataFrame, season_table_name: str):
+    """Save ratings to SQL table
+
+    Args:
+        df (pd.DataFrame): Matchup dataframe for all teams in this season
+        season_table_name (str): Name of table for ratings in this season
+    """
+
+    conn = sqlite3.connect(RATINGS_DB_FILENAME)
+
+    df.to_sql(
+        season_table_name,
+        conn,
+        if_exists='replace',
+        index=False
+    )
+
+    conn.close()
+    print(f'Finished writing ratings to SQL table: {season_table_name}')
 
 
 def write_tournament_to_csv(tourney_dict: dict, filename: str, rating_type: str):

@@ -219,17 +219,17 @@ def parse_team_matchups(team_list_df: pd.DataFrame, season_table_name: str, url_
     team_matchups_df = pd.concat(team_matchups)
 
     # Write matchups to SQL table
-    sys.write_to_sql(df=team_matchups_df, season_table_name=season_table_name)
+    sys.write_matchups_to_sql(df=team_matchups_df, season_table_name=season_table_name)
 
 
-def batch_parse_team_matchups(team_list_df: pd.DataFrame, table_name: str, url_suffix: str, batch_size: int=3):
+def batch_parse_team_matchups(team_list_df: pd.DataFrame, season_table_name: str, url_suffix: str, batch_size: int=3):
     """Parse all team matchups and save to Parquet file
 
     STATUS: Trips rate limit, forces 1-hr (3600 sec) pause
 
     Args:
         team_list_df (pd.DataFrame): Team list data frame
-        table_name (str): Name of table for matchups in this season
+        season_table_name (str): Name of table for matchups in this season
         url_suffix (str): suffix for URLs
         batch_size (int): number of teams to scrape
     """
@@ -271,4 +271,4 @@ def batch_parse_team_matchups(team_list_df: pd.DataFrame, table_name: str, url_s
     team_matchups_df = pd.concat(team_matchups)
 
     # Write matchups to SQL table
-    sys.write_to_sql(df=team_matchups_df, table_name=table_name)
+    sys.write_matchups_to_sql(df=team_matchups_df, season_table_name=season_table_name)
