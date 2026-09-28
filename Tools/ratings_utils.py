@@ -1047,12 +1047,12 @@ def compute_score_features(df: pd.DataFrame, final_ratings_table_name: str):
 
     if 'Home_Avg_Pts_For' not in df.columns:
         N = len(df)
-        df['Home_Avg_Pts_For'] = [0] * N
-        df['Home_Avg_Pts_Against'] = [0] * N
-        df['Homw_Avg_Net_Pts'] = [0] * N
-        df['Away_Avg_Pts_For'] = [0] * N
-        df['Away_Avg_Pts_Against'] = [0] * N
-        df['Away_Avg_Net_Pts'] = [0] * N
+        df['Home_Avg_Pts_For'] = [0.0] * N
+        df['Home_Avg_Pts_Against'] = [0.0] * N
+        df['Homw_Avg_Net_Pts'] = [0.0] * N
+        df['Away_Avg_Pts_For'] = [0.0] * N
+        df['Away_Avg_Pts_Against'] = [0.0] * N
+        df['Away_Avg_Net_Pts'] = [0.0] * N
 
     default_home_score = df['Home_Score'].mean()
     default_away_score = df['Away_Score'].mean()

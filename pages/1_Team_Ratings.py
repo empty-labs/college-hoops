@@ -106,6 +106,7 @@ if run_button:
 
         st.write("Shape:", df.shape)
         st.write("Columns:", df.columns.tolist())
+        st.write('DTYPES', df.dtypes)
         st.write("NaN counts:")
         st.write(df.isna().sum()[df.isna().sum() > 0])
         conn.close()
