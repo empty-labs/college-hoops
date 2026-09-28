@@ -90,7 +90,6 @@ if run_button:
         # Set data frame and target variable
         df = rating_score_df.copy()
         df["y"] = (df["Winner"] == df["Home"]).astype(int)
-        st.write('DTYPES', df.dtypes)
 
         # Add feature columns
         # TODO Move this to mid-season ratings_per_game function

@@ -1,7 +1,6 @@
 # Local libraries
 import Tools.ratings_utils as ru
 import Tools.season_utils as su
-import Tools.system_utils as syu
 
 # Third party packages
 import pandas as pd
@@ -74,42 +73,6 @@ if run_button:
     with st.spinner("Simulating tournament..."):
 
         ratings = None
-
-        from pathlib import Path
-        import os
-        import sqlite3
-        import sys
-
-        # Connect to your database
-        conn = sqlite3.connect(syu.MATCHUPS_DB_FILENAME)
-
-        # Read the table into a Pandas DataFrame
-        sql_str = ''
-        for i, x in enumerate(season_table_name_list):
-            if i == 0:
-                sql_str = f'SELECT * FROM {x}'
-            else:
-                sql_str += f' UNION SELECT * FROM {x}'
-        df = pd.read_sql(sql_str, conn)
-        db_path = Path(syu.MATCHUPS_DB_FILENAME)
-
-        st.write("Working directory:", os.getcwd())
-        st.write("Database path:", db_path.resolve())
-        st.write("Database exists:", db_path.exists())
-
-        if db_path.exists():
-            st.write("Database modified:", pd.Timestamp.fromtimestamp(db_path.stat().st_mtime))
-            st.write("Database size:", db_path.stat().st_size)
-
-        st.write("Python:", sys.version)
-        st.write("Pandas:", pd.__version__)
-
-        st.write("Shape:", df.shape)
-        st.write("Columns:", df.columns.tolist())
-        st.write('DTYPES', df.dtypes)
-        st.write("NaN counts:")
-        st.write(df.isna().sum()[df.isna().sum() > 0])
-        conn.close()
 
         if simulation_method != "Seed (Chalk)":
             # Create data frame for valid teams in the current season that can be used for tournament simulation
