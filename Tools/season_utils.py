@@ -47,28 +47,36 @@ def create_filenames(years):
         years (list): list of years
 
     Returns:
-        season_table_name (str): Name of table for matchups in this season
+        season_table_name_list (list): List of table names for matchups in this season
         tournament_filename (str): tournament filename string
         picks_filename (str): picks filename string
-        ratings_table_name (str): Name of table for ratings in this season
-        final_ratings_table_name (str): Name of table for final ratings in this season
+        ratings_table_name_list (list): List of table names for ratings in this season
+        final_ratings_table_name_list (list): List of table names for final ratings in this season
     """
 
     years = create_year_list(years)
 
+    # Set file name for single/multiple season(s)
     tournament_year = years[-1]
     if years[0] == tournament_year:
         filename_years = years[0]
     else:
         filename_years = f'{years[0]}-{tournament_year}'
 
-    season_table_name = f'season_{tournament_year}'
     tournament_filename = f'Data/Tournaments/tournament_{tournament_year}.csv'
     picks_filename = f'Data/Tournament Picks/picks_{filename_years}.csv'
-    ratings_table_name = f'ratings_{tournament_year}'
-    final_ratings_table_name = f'final_ratings_{tournament_year}'
 
-    return season_table_name, tournament_filename, picks_filename, ratings_table_name, final_ratings_table_name
+    # Grab list of all table names by year
+    season_table_name_list = []
+    ratings_table_name_list = []
+    final_ratings_table_name_list = []
+
+    for y in years:
+        season_table_name_list.append(f'season_{y}')
+        ratings_table_name_list.append(f'ratings_{y}')
+        final_ratings_table_name_list.append(f'final_ratings_{y}')
+
+    return season_table_name_list, tournament_filename, picks_filename, ratings_table_name_list, final_ratings_table_name_list
 
 
 SEASONS_STR = [convert_season_to_string(season) for season in SEASONS]

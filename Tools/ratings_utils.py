@@ -88,11 +88,11 @@ def set_score_entry(dct: dict, home_team: str, away_team: str, home_team_score: 
     return dct
 
 
-def set_rating_data_frame(season_table_name: str):
+def set_rating_data_frame(season_table_name_list: list):
     """Set score data frame prior to rating calculation
 
     Args:
-        season_table_name (str): Name of table for matchups in this season
+        season_table_name_list (list): List of table names for matchups in this season
 
     Returns:
         score_df (pd.DataFrame): score data frame
@@ -112,7 +112,13 @@ def set_rating_data_frame(season_table_name: str):
     conn = sqlite3.connect(sys.MATCHUPS_DB_FILENAME)
 
     # Read the table into a Pandas DataFrame
-    df = pd.read_sql(f'SELECT * FROM {season_table_name}', conn)
+    sql_str = ''
+    for i, x in enumerate(season_table_name_list):
+        if i == 0:
+            sql_str = f'SELECT * FROM {x}'
+        else:
+            sql_str += f' UNION SELECT * FROM {x}'
+    df = pd.read_sql(sql_str, conn)
     conn.close()
 
     for _, row in df.iterrows():
@@ -172,11 +178,11 @@ def update_rating_matrix(mtx, i: int, j: int):
     return mtx
 
 
-def collect_final_ratings(final_ratings_table_name: str, teams: list, ratings_str: str):
+def collect_final_ratings(final_ratings_table_name_list: list, teams: list, ratings_str: str):
     """Collect final ratings
 
     Args:
-        final_ratings_table_name (str): Name of table for final ratings in this season
+        final_ratings_table_name_list (list): List of table names for final ratings in this season
         teams (list): List of teams
         ratings_str (str): Name of team ratings type
 
@@ -188,7 +194,13 @@ def collect_final_ratings(final_ratings_table_name: str, teams: list, ratings_st
     conn = sqlite3.connect(sys.RATINGS_DB_FILENAME)
 
     # Read the table into a Pandas DataFrame
-    final_ratings = pd.read_sql(f'SELECT * FROM {final_ratings_table_name}', conn)
+    sql_str = ''
+    for i, x in enumerate(final_ratings_table_name_list):
+        if i == 0:
+            sql_str = f'SELECT * FROM {x}'
+        else:
+            sql_str += f' UNION SELECT * FROM {x}'
+    final_ratings = pd.read_sql(sql_str, conn)
     conn.close()
 
     ratings = {team: float(final_ratings.loc[final_ratings['Rating'] == ratings_str, team]) for team in teams}
@@ -196,12 +208,12 @@ def collect_final_ratings(final_ratings_table_name: str, teams: list, ratings_st
     return ratings
 
 
-def calculate_massey_ratings(score_df: pd.DataFrame, final_ratings_table_name: str=None, debug: bool=False):
+def calculate_massey_ratings(score_df: pd.DataFrame, final_ratings_table_name_list: list=None, debug: bool=False):
     """Calculate Massey ratings for each team and sort in ranked order
 
     Args:
         score_df (pd.DataFrame): matchup score data frame
-        final_ratings_table_name (str): Name of table for final ratings in this season
+        final_ratings_table_name_list (list): List of table names for final ratings in this season
         debug (bool): flag to print debug statements
 
     Returns:
@@ -210,7 +222,7 @@ def calculate_massey_ratings(score_df: pd.DataFrame, final_ratings_table_name: s
 
     teams = list(set(score_df['Home']).union(set(score_df['Away'])))
 
-    if final_ratings_table_name is None:
+    if final_ratings_table_name_list is None:
         # Get unique teams and index them
         team_index = {team: i for i, team in enumerate(teams)}  # Map teams to indices
         N = len(teams)
@@ -249,19 +261,19 @@ def calculate_massey_ratings(score_df: pd.DataFrame, final_ratings_table_name: s
     else:
 
         massey_ratings = collect_final_ratings(
-            final_ratings_table_name=final_ratings_table_name,
+            final_ratings_table_name_list=final_ratings_table_name_list,
             teams=teams,
             ratings_str='Massey')
 
     return massey_ratings
 
 
-def calculate_colley_ratings(score_df: pd.DataFrame, final_ratings_table_name: str=None, debug: bool=False):
+def calculate_colley_ratings(score_df: pd.DataFrame, final_ratings_table_name_list: list=None, debug: bool=False):
     """Calculates Colley rankings given a game results DataFrame.
 
     Args:
         score_df (pd.DataFrame): matchup score data frame
-        final_ratings_table_name (str): Name of table for final ratings in this season
+        final_ratings_table_name_list (list): List of table names for final ratings in this season
         debug (bool): flag to print debug statements
 
     Returns:
@@ -270,7 +282,7 @@ def calculate_colley_ratings(score_df: pd.DataFrame, final_ratings_table_name: s
 
     teams = list(set(score_df['Home']).union(set(score_df['Away'])))
 
-    if final_ratings_table_name is None:
+    if final_ratings_table_name_list is None:
 
         team_index = {team: i for i, team in enumerate(teams)}  # Map teams to indices
         N = len(teams)
@@ -311,18 +323,18 @@ def calculate_colley_ratings(score_df: pd.DataFrame, final_ratings_table_name: s
     else:
 
         colley_ratings = collect_final_ratings(
-            final_ratings_table_name=final_ratings_table_name,
+            final_ratings_table_name_list=final_ratings_table_name_list,
             teams=teams,
             ratings_str='Colley')
 
     return colley_ratings
 
 
-def compile_srs_ratings(season_table_name: str, debug: bool=False):
+def compile_srs_ratings(season_table_name_list: list, debug: bool=False):
     """Compile SRS rankings given a game results DataFrame.
 
     Args:
-        season_table_name (str): Name of table for matchups in this season
+        season_table_name_list (list): List of table names for matchups in this season
         debug (bool): flag to print debug statements
 
     Returns:
@@ -333,7 +345,13 @@ def compile_srs_ratings(season_table_name: str, debug: bool=False):
     conn = sqlite3.connect(sys.MATCHUPS_DB_FILENAME)
 
     # Read the table into a Pandas DataFrame
-    df = pd.read_sql(f'SELECT * FROM {season_table_name}', conn)
+    sql_str = ''
+    for i, x in enumerate(season_table_name_list):
+        if i == 0:
+            sql_str = f'SELECT * FROM {x}'
+        else:
+            sql_str += f' UNION SELECT * FROM {x}'
+    df = pd.read_sql(sql_str, conn)
     conn.close()
 
     ## TEST
@@ -398,7 +416,7 @@ def update_elo(r1: float, r2: float, outcome: int, mov: int, K: int=40, adjust_K
     return r1_new, r2_new
 
 
-def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: int=40, final_ratings_table_name: str=None,
+def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: int=40, final_ratings_table_name_list: list=None,
                           debug: bool=False, adjust_K: bool=True):
     """Calculates Elo rankings given a game results DataFrame.
 
@@ -406,7 +424,7 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
         score_df (pd.DataFrame): matchup data frame
         initial_ratings (int): starting rating for all teams (default 1500)
         K (int): rating adjustment factor (default 30)
-        final_ratings_table_name (str): Name of table for final ratings in this season
+        final_ratings_table_name_list (list): List of table names for final ratings in this season
         debug (bool): flag to print debug statements
         adjust_K (bool): use adjusted K value based on MOV
 
@@ -416,7 +434,7 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
 
     teams = list(set(score_df['Home']).union(set(score_df['Away'])))
 
-    if final_ratings_table_name is None:
+    if final_ratings_table_name_list is None:
 
         elo_ratings = {team: initial_ratings.get(team, 1500) if initial_ratings else 1500 for team in teams}
 
@@ -440,7 +458,7 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
 
         ratings_str = "Adj_Elo" if adjust_K is True else "Elo"
         elo_ratings = collect_final_ratings(
-            final_ratings_table_name=final_ratings_table_name,
+            final_ratings_table_name_list=final_ratings_table_name_list,
             teams=teams,
             ratings_str=ratings_str)
 
@@ -448,14 +466,14 @@ def calculate_elo_ratings(score_df: pd.DataFrame, initial_ratings: int=None, K: 
 
 
 def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, net_points: bool=False,
-                             final_ratings_table_name: str=None, debug: bool=False):
+                             final_ratings_table_name_list: list=None, debug: bool=False):
     """Calculates average points forced or against using total or net score for full season (not in during season)
 
     Args:
         score_df (pd.DataFrame): matchup data frame
         points_for (bool): whether to calculate points for (True) instead of points against (False)
         net_points (bool): whether to calculate net points (True) instead of points total (False)
-        final_ratings_table_name (str): Name of table for final ratings in this season
+        final_ratings_table_name_list (list): List of table names for final ratings in this season
         debug (bool): flag to print debug statements
 
     Returns:
@@ -464,7 +482,7 @@ def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, net_
 
     teams = list(set(score_df['Home']).union(set(score_df['Away'])))
 
-    if final_ratings_table_name is None:
+    if final_ratings_table_name_list is None:
 
         default_points = 70
         avg_points = {team: default_points for team in teams}
@@ -518,7 +536,7 @@ def calculate_average_points(score_df: pd.DataFrame, points_for: bool=True, net_
         ratings_str = 'Avg_Pts_For' if points_for is True else 'Avg_Pts_Against'
         ratings_str = 'Avg_Net_Pts' if net_points is True else ratings_str
         avg_points = collect_final_ratings(
-            final_ratings_table_name=final_ratings_table_name,
+            final_ratings_table_name_list=final_ratings_table_name_list,
             teams=teams,
             ratings_str=ratings_str)
 
@@ -532,7 +550,7 @@ def add_ratings_per_game(score_df: pd.DataFrame, ratings_table_name: str, final_
     Args:
         score_df (pd.DataFrame): matchup score data frame
         ratings_table_name (str): Name of table for ratings in this season
-        final_ratings_table_name (str): Name of table for final ratings in this season
+        final_ratings_table_name (str): Table name for final ratings in this season
         initial_ratings (int): starting rating for all teams
 
     Returns:
@@ -679,8 +697,8 @@ def add_ratings_per_game(score_df: pd.DataFrame, ratings_table_name: str, final_
     # Write ratings to SQL table
     sys.write_ratings_to_sql(df=rating_score_df, season_table_name=ratings_table_name)
 
-    # # Write ratings to SQL table (Redundant with one in compute_score_features())
-    # sys.write_ratings_to_sql(df=final_ratings_df, season_table_name=final_ratings_table_name)
+    # Write ratings to SQL table (Redundant with one in compute_score_features())
+    sys.write_ratings_to_sql(df=final_ratings_df, season_table_name=final_ratings_table_name)
 
     # Set up final ratings for tournament
     compute_score_features(df=rating_score_df, final_ratings_table_name=final_ratings_table_name)
@@ -929,11 +947,11 @@ def simulate_tournament(filename: str, ratings: dict=None):
     return total_correct_picks, total_points, tourney_dict, tourney_results
 
 
-def compile_ratings_dict(final_ratings_table_name: str):
+def compile_ratings_dict(final_ratings_table_name_list: list):
     """Compile all rating systems together into one dictionary
 
     Args:
-        final_ratings_table_name (str): Name of table for final ratings in this season
+        final_ratings_table_name_list (list): List of table names for final ratings in this season
 
     Returns:
         ratings_dict (dict): dictionary of all final ratings
@@ -943,7 +961,13 @@ def compile_ratings_dict(final_ratings_table_name: str):
     conn = sqlite3.connect(sys.RATINGS_DB_FILENAME)
 
     # Read the table into a Pandas DataFrame
-    final_ratings = pd.read_sql(f'SELECT * FROM {final_ratings_table_name}', conn)
+    sql_str = ''
+    for i, x in enumerate(final_ratings_table_name_list):
+        if i == 0:
+            sql_str = f'SELECT * FROM {x}'
+        else:
+            sql_str += f' UNION SELECT * FROM {x}'
+    final_ratings = pd.read_sql(sql_str, conn)
     conn.close()
 
     return final_ratings
@@ -966,25 +990,6 @@ def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: pd.Data
     for i in range(32):
         team1 = tourney_df['Team1'][i]
         team2 = tourney_df['Team2'][i]
-
-        # rating_scores.append({
-        #     'Home': team1,
-        #     'Away': team2,
-        #     'Home_Massey': ratings[team1]['Massey'],
-        #     'Away_Massey': ratings[team2]['Massey'],
-        #     'Home_Colley': ratings[team1]['Colley'],
-        #     'Away_Colley': ratings[team2]['Colley'],
-        #     'Home_Elo': ratings[team1]['Elo'],
-        #     'Away_Elo': ratings[team2]['Elo'],
-        #     'Home_Adj_Elo': ratings[team1]['Adj_Elo'],
-        #     'Away_Adj_Elo': ratings[team2]['Adj_Elo'],
-        #     'Home_Avg_Pts_For': ratings[team1]['Avg_Pts_For'],
-        #     'Away_Avg_Pts_For': ratings[team2]['Avg_Pts_For'],
-        #     'Home_Avg_Pts_Against': ratings[team1]['Avg_Pts_Against'],
-        #     'Away_Avg_Pts_Against': ratings[team2]['Avg_Pts_Against'],
-        #     'Home_Avg_Net_Pts': ratings[team1]['Avg_Net_Pts'],
-        #     'Away_Avg_Net_Pts': ratings[team2]['Avg_Net_Pts'],
-        # })
 
         rating_scores.append({
             'Home': team1,
@@ -1014,7 +1019,7 @@ def compute_score_features(df: pd.DataFrame, final_ratings_table_name: str):
 
     Args:
         df (pd.DataFrame): dataframe containing ratings in ML model format
-        final_ratings_table_name (str): Name of table for final ratings in this season
+        final_ratings_table_name (str): Table name for final ratings in this season
     """
 
     default_home_score = df['Home_Score'].mean()
@@ -1111,7 +1116,7 @@ def derive_features(df: pd.DataFrame, final_ratings_table_name: str=None, need_s
 
     Args:
         df (pd.DataFrame): dataframe containing ratings in ML model format
-        final_ratings_table_name (str): Name of table for final ratings in this season
+        final_ratings_table_name (str): Table name for final ratings in this season
         need_score_computation (bool): whether to compute score features
 
     Returns:
@@ -1120,7 +1125,9 @@ def derive_features(df: pd.DataFrame, final_ratings_table_name: str=None, need_s
 
     if need_score_computation:
         # TODO: Move to mid-season and pull last game for compile_ratings_dict?
-        df = compute_score_features(df=df, final_ratings_table_name=final_ratings_table_name)
+        df = compute_score_features(
+            df=df,
+            final_ratings_table_name=final_ratings_table_name)
 
     # Add feature columns
     for feature in ML_FEATURES:
@@ -1387,29 +1394,16 @@ def apply_custom_weights(massey_ratings: dict, colley_ratings: dict, adj_elo_rat
 
     return total_correct_picks, total_points, tourney_dict, tourney_results
 
-def create_score_df(years: list):
+def create_score_df(season_table_name_list: list):
     """Create score data frame based on seasons of interest
 
     Args:
-        years (list): list of years
+        season_table_name_list (list): List of table names for matchups in this season
 
     Returns:
         score_df (pd.DataFrame): score dataframe
     """
 
-    score_df = None
-    years = su.create_year_list(years)
-
-    for year in years:
-        
-        season_table_name = f'season_{year}'
-
-        if year is years[0]:
-            # Create data frame for valid teams in the current season that can be used for tournament simulation
-            score_df = set_rating_data_frame(season_table_name=season_table_name)
-        else:
-            # Concatenate
-            new_season_score_df = set_rating_data_frame(season_table_name=season_table_name)
-            score_df = pd.concat([score_df, new_season_score_df], ignore_index=True)
+    score_df = set_rating_data_frame(season_table_name_list=season_table_name_list)
 
     return score_df
