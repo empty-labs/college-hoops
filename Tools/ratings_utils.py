@@ -120,14 +120,23 @@ def set_rating_data_frame(season_table_name_list: list):
     df = pd.read_sql(sql_str, conn)
     conn.close()
 
-    # Handle NaN
-    df['Tm'] = pd.to_numeric(df['Tm'], errors='coerce').fillna(0).astype(int)
-    df['Opp'] = pd.to_numeric(df['Opp'], errors='coerce').fillna(0).astype(int)
+    # # Handle NaN
+    # df['Tm'] = pd.to_numeric(df['Tm'], errors='coerce').fillna(0).astype(int)
+    # df['Opp'] = pd.to_numeric(df['Opp'], errors='coerce').fillna(0).astype(int)
 
     for _, row in df.iterrows():
 
+        condition = (
+            row['Type'] != 'NCAA' and
+            row['Type'] != 'CIT' and
+            row['Tm'] is not None and
+            row['Opp'] is not None and
+            pd.notna(row['Tm']) and
+            pd.notna(row['Opp'])
+        )
+
         # Non Tournament games
-        if row['Type'] != 'NCAA' and row['Type'] != 'CIT' and row['Tm'] is not None and row['Opp'] is not None:
+        if condition:
 
             # Find which team is home/away (None = home, @ = away, N = neutral/assign home to winner?)
             if row['Site'] is None:
