@@ -8,7 +8,7 @@ import requests
 import time
 
 # Local libraries
-import Tools.system_utils as sys
+import Tools.system_utils as syu
 
 session = requests.Session()
 
@@ -219,7 +219,7 @@ def parse_team_matchups(team_list_df: pd.DataFrame, season_table_name: str, url_
     team_matchups_df = pd.concat(team_matchups)
 
     # Write matchups to SQL table
-    sys.write_matchups_to_sql(df=team_matchups_df, season_table_name=season_table_name)
+    syu.write_matchups_to_sql(df=team_matchups_df, season_table_name=season_table_name)
 
 
 def batch_parse_team_matchups(team_list_df: pd.DataFrame, season_table_name: str, url_suffix: str, batch_size: int=3):
@@ -271,4 +271,4 @@ def batch_parse_team_matchups(team_list_df: pd.DataFrame, season_table_name: str
     team_matchups_df = pd.concat(team_matchups)
 
     # Write matchups to SQL table
-    sys.write_matchups_to_sql(df=team_matchups_df, season_table_name=season_table_name)
+    syu.write_matchups_to_sql(df=team_matchups_df, season_table_name=season_table_name)

@@ -1,7 +1,7 @@
 # Local libraries
 import Tools.ratings_utils as ru
 import Tools.season_utils as su
-import Tools.system_utils as sys
+import Tools.system_utils as syu
 
 
 # Third party packages
@@ -75,7 +75,7 @@ if run_button:
     with st.spinner("Simulating tournament..."):
 
         # Connect to your database
-        conn = sqlite3.connect(sys.RATINGS_DB_FILENAME)
+        conn = sqlite3.connect(syu.RATINGS_DB_FILENAME)
 
         # Read the table into a Pandas DataFrame
         sql_str = ''

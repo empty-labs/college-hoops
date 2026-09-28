@@ -1,6 +1,5 @@
 # Local libraries
-import Tools.season_utils as su
-import Tools.system_utils as sys
+import Tools.system_utils as syu
 
 # Third party libraries
 from datetime import datetime as dt
@@ -109,7 +108,7 @@ def set_rating_data_frame(season_table_name_list: list):
     }
 
     # Connect to your database
-    conn = sqlite3.connect(sys.MATCHUPS_DB_FILENAME)
+    conn = sqlite3.connect(syu.MATCHUPS_DB_FILENAME)
 
     # Read the table into a Pandas DataFrame
     sql_str = ''
@@ -191,7 +190,7 @@ def collect_final_ratings(final_ratings_table_name_list: list, teams: list, rati
     """
 
     # Connect to your database
-    conn = sqlite3.connect(sys.RATINGS_DB_FILENAME)
+    conn = sqlite3.connect(syu.RATINGS_DB_FILENAME)
 
     # Read the table into a Pandas DataFrame
     sql_str = ''
@@ -346,7 +345,7 @@ def compile_srs_ratings(season_table_name_list: list, debug: bool=False):
     """
 
     # Connect to your database
-    conn = sqlite3.connect(sys.MATCHUPS_DB_FILENAME)
+    conn = sqlite3.connect(syu.MATCHUPS_DB_FILENAME)
 
     # Read the table into a Pandas DataFrame
     sql_str = ''
@@ -699,10 +698,10 @@ def add_ratings_per_game(score_df: pd.DataFrame, ratings_table_name: str, final_
 
 
     # Write ratings to SQL table
-    sys.write_ratings_to_sql(df=rating_score_df, season_table_name=ratings_table_name)
+    syu.write_ratings_to_sql(df=rating_score_df, season_table_name=ratings_table_name)
 
     # Write ratings to SQL table (Redundant with one in compute_score_features())
-    sys.write_ratings_to_sql(df=final_ratings_df, season_table_name=final_ratings_table_name)
+    syu.write_ratings_to_sql(df=final_ratings_df, season_table_name=final_ratings_table_name)
 
     # Set up final ratings for tournament
     compute_score_features(df=rating_score_df, final_ratings_table_name=final_ratings_table_name)
@@ -962,7 +961,7 @@ def compile_ratings_dict(final_ratings_table_name_list: list):
     """
 
     # Connect to your database
-    conn = sqlite3.connect(sys.RATINGS_DB_FILENAME)
+    conn = sqlite3.connect(syu.RATINGS_DB_FILENAME)
 
     # Read the table into a Pandas DataFrame
     sql_str = ''
@@ -1114,7 +1113,7 @@ def compute_score_features(df: pd.DataFrame, final_ratings_table_name: str):
         ratings[team][2] = lagged_net_for_vs_against[-1]
 
     # Connect to your database
-    conn = sqlite3.connect(sys.RATINGS_DB_FILENAME)
+    conn = sqlite3.connect(syu.RATINGS_DB_FILENAME)
 
     # Read the table into a Pandas DataFrame
     final_ratings = pd.read_sql(f'SELECT * FROM {final_ratings_table_name}', conn)
@@ -1126,7 +1125,7 @@ def compute_score_features(df: pd.DataFrame, final_ratings_table_name: str):
         final_ratings.loc[i, 'Avg_Net_Pts'] = ratings[team][2]
 
     # Write ratings to SQL table
-    sys.write_ratings_to_sql(df=final_ratings, season_table_name=final_ratings_table_name)
+    syu.write_ratings_to_sql(df=final_ratings, season_table_name=final_ratings_table_name)
 
     return df
 
