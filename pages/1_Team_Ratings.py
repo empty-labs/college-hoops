@@ -26,7 +26,7 @@ st.set_page_config(
 )
 
 # Title & description
-st.title("🏀 March Madness Bracketology Simulator")
+st.title("🏀 March Madness Bracketology Simulator!!")
 st.markdown("""
 Simulate NCAA tournament brackets using team ratings, seeding, and point differentials.
 """)
