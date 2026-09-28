@@ -203,7 +203,11 @@ def collect_final_ratings(final_ratings_table_name_list: list, teams: list, rati
     final_ratings = pd.read_sql(sql_str, conn)
     conn.close()
 
-    ratings = {team: float(final_ratings.loc[final_ratings['Rating'] == ratings_str, team]) for team in teams}
+    ratings = {}
+    for team in teams:
+        team_ratings = final_ratings[final_ratings['Team'] == team].reset_index(drop=True)
+        i = team_ratings['Year'].idxmax()
+        ratings[team] = team_ratings[ratings_str][i]
 
     return ratings
 
@@ -667,32 +671,32 @@ def add_ratings_per_game(score_df: pd.DataFrame, ratings_table_name: str, final_
     # Final ratings
     ratings = {}
 
-    # Initialize Rating column with rating types
-    ratings['Rating'] = [
-        'Massey',
-        'Colley',
-        'Elo',
-        'Adj_Elo',
-        'Avg_Pts_For',
-        'Avg_Pts_Against',
-        'Avg_Net_Pts'
-    ]
-
-    for team in teams:
-
-        i = team_index[team]
-
-        # Assign default values
-        ratings[team] = [0] * len(ratings['Rating'])
-
-        # Assign values to entry
-        ratings[team][0] = massey_ratings[i]
-        ratings[team][1] = colley_ratings[i]
-        ratings[team][2] = elo_ratings[team]
-        ratings[team][3] = adj_elo_ratings[team]
+    # Initialize values
+    ratings['Year'] = [int(ratings_table_name[-4:])] * N
+    ratings['Team'] = [''] * N
+    ratings['Massey'] = [0] * N
+    ratings['Colley'] = [0] * N
+    ratings['Elo'] = [0] * N
+    ratings['Adj_Elo'] = [0] * N
+    ratings['Avg_Pts_For'] = [0] * N
+    ratings['Avg_Pts_Against'] = [0] * N
+    ratings['Avg_Net_Pts'] = [0] * N
 
     # Convert to DataFrame
     final_ratings_df = pd.DataFrame(ratings)
+
+    # TODO There's a better way to do this
+    for i, team in enumerate(teams):
+
+        j = team_index[team]
+
+        # Assign values to entry
+        final_ratings_df.loc[i, 'Team'] = team
+        final_ratings_df.loc[i, 'Massey'] = massey_ratings[j]
+        final_ratings_df.loc[i, 'Colley'] = colley_ratings[j]
+        final_ratings_df.loc[i, 'Elo'] = elo_ratings[team]
+        final_ratings_df.loc[i, 'Adj_Elo'] = adj_elo_ratings[team]
+
 
     # Write ratings to SQL table
     sys.write_ratings_to_sql(df=rating_score_df, season_table_name=ratings_table_name)
@@ -991,23 +995,28 @@ def mimic_tournament_rating_scores_df(tourney_df: pd.DataFrame, ratings: pd.Data
         team1 = tourney_df['Team1'][i]
         team2 = tourney_df['Team2'][i]
 
+        team1_ratings = ratings[ratings['Team'] == team1].reset_index(drop=True)
+        team2_ratings = ratings[ratings['Team'] == team2].reset_index(drop=True)
+        i1 = team1_ratings['Year'].idxmax()
+        i2 = team2_ratings['Year'].idxmax()
+
         rating_scores.append({
             'Home': team1,
             'Away': team2,
-            'Home_Massey': float(ratings.loc[ratings['Rating'] == 'Massey', team1]),
-            'Away_Massey': float(ratings.loc[ratings['Rating'] == 'Massey', team2]),
-            'Home_Colley': float(ratings.loc[ratings['Rating'] == 'Colley', team1]),
-            'Away_Colley': float(ratings.loc[ratings['Rating'] == 'Colley', team2]),
-            'Home_Elo': float(ratings.loc[ratings['Rating'] == 'Elo', team1]),
-            'Away_Elo': float(ratings.loc[ratings['Rating'] == 'Elo', team2]),
-            'Home_Adj_Elo': float(ratings.loc[ratings['Rating'] == 'Adj_Elo', team1]),
-            'Away_Adj_Elo': float(ratings.loc[ratings['Rating'] == 'Adj_Elo', team2]),
-            'Home_Avg_Pts_For': float(ratings.loc[ratings['Rating'] == 'Avg_Pts_For', team1]),
-            'Away_Avg_Pts_For': float(ratings.loc[ratings['Rating'] == 'Avg_Pts_For', team2]),
-            'Home_Avg_Pts_Against': float(ratings.loc[ratings['Rating'] == 'Avg_Pts_Against', team1]),
-            'Away_Avg_Pts_Against': float(ratings.loc[ratings['Rating'] == 'Avg_Pts_Against', team2]),
-            'Home_Avg_Net_Pts': float(ratings.loc[ratings['Rating'] == 'Avg_Net_Pts', team1]),
-            'Away_Avg_Net_Pts': float(ratings.loc[ratings['Rating'] == 'Avg_Net_Pts', team2]),
+            'Home_Massey': float(team1_ratings.loc[i1, 'Massey']),
+            'Away_Massey': float(team2_ratings.loc[i2, 'Massey']),
+            'Home_Colley': float(team1_ratings.loc[i1, 'Colley']),
+            'Away_Colley': float(team2_ratings.loc[i2, 'Colley']),
+            'Home_Elo': float(team1_ratings.loc[i1, 'Elo']),
+            'Away_Elo': float(team2_ratings.loc[i2, 'Elo']),
+            'Home_Adj_Elo': float(team1_ratings.loc[i1, 'Adj_Elo']),
+            'Away_Adj_Elo': float(team2_ratings.loc[i2, 'Adj_Elo']),
+            'Home_Avg_Pts_For': float(team1_ratings.loc[i1, 'Avg_Pts_For']),
+            'Away_Avg_Pts_For': float(team2_ratings.loc[i2, 'Avg_Pts_For']),
+            'Home_Avg_Pts_Against': float(team1_ratings.loc[i1, 'Avg_Pts_Against']),
+            'Away_Avg_Pts_Against': float(team2_ratings.loc[i2, 'Avg_Pts_Against']),
+            'Home_Avg_Net_Pts': float(team1_ratings.loc[i1, 'Avg_Net_Pts']),
+            'Away_Avg_Net_Pts': float(team2_ratings.loc[i2, 'Avg_Net_Pts'])
         })
 
     rating_score_df = pd.DataFrame(rating_scores)
@@ -1021,6 +1030,17 @@ def compute_score_features(df: pd.DataFrame, final_ratings_table_name: str):
         df (pd.DataFrame): dataframe containing ratings in ML model format
         final_ratings_table_name (str): Table name for final ratings in this season
     """
+
+    df = df.reset_index(drop=True)
+
+    if 'Home_Avg_Pts_For' not in df.columns:
+        N = len(df)
+        df['Home_Avg_Pts_For'] = [0] * N
+        df['Home_Avg_Pts_Against'] = [0] * N
+        df['Homw_Avg_Net_Pts'] = [0] * N
+        df['Away_Avg_Pts_For'] = [0] * N
+        df['Away_Avg_Pts_Against'] = [0] * N
+        df['Away_Avg_Net_Pts'] = [0] * N
 
     default_home_score = df['Home_Score'].mean()
     default_away_score = df['Away_Score'].mean()
@@ -1072,14 +1092,15 @@ def compute_score_features(df: pd.DataFrame, final_ratings_table_name: str):
         lagged_against_arr = np.asarray(lagged_against)
         lagged_net_for_vs_against_arr = np.asarray(lagged_net_for_vs_against)
 
-        df.loc[team_rows.index[is_home], 'Home_Avg_Pts_For'] = lagged_for_arr[is_home]
-        df.loc[team_rows.index[is_away], 'Away_Avg_Pts_For'] = lagged_for_arr[is_away]
+        if len(team_rows.index[is_home]) > 0:
+            df.loc[team_rows.index[is_home], 'Home_Avg_Pts_For'] = lagged_for_arr[is_home]
+            df.loc[team_rows.index[is_home], 'Home_Avg_Pts_Against'] = lagged_against_arr[is_home]
+            df.loc[team_rows.index[is_home], 'Home_Avg_Net_Pts'] = lagged_net_for_vs_against_arr[is_home]
 
-        df.loc[team_rows.index[is_home], 'Home_Avg_Pts_Against'] = lagged_against_arr[is_home]
-        df.loc[team_rows.index[is_away], 'Away_Avg_Pts_Against'] = lagged_against_arr[is_away]
-
-        df.loc[team_rows.index[is_home], 'Home_Avg_Net_Pts'] = lagged_net_for_vs_against_arr[is_home]
-        df.loc[team_rows.index[is_away], 'Away_Avg_Net_Pts'] = lagged_net_for_vs_against_arr[is_away]
+        if len(team_rows.index[is_away]) > 0:
+            df.loc[team_rows.index[is_away], 'Away_Avg_Pts_For'] = lagged_for_arr[is_away]
+            df.loc[team_rows.index[is_away], 'Away_Avg_Pts_Against'] = lagged_against_arr[is_away]
+            df.loc[team_rows.index[is_away], 'Away_Avg_Net_Pts'] = lagged_net_for_vs_against_arr[is_away]
 
         # Final points values
         ratings[team] = {}
@@ -1099,11 +1120,10 @@ def compute_score_features(df: pd.DataFrame, final_ratings_table_name: str):
     final_ratings = pd.read_sql(f'SELECT * FROM {final_ratings_table_name}', conn)
     conn.close()
 
-    for team in teams:
-
-        final_ratings.loc[final_ratings['Rating'] == 'Avg_Pts_For', team] = ratings[team][0]
-        final_ratings.loc[final_ratings['Rating'] == 'Avg_Pts_Against', team] = ratings[team][1]
-        final_ratings.loc[final_ratings['Rating'] == 'Avg_Net_Pts', team] = ratings[team][2]
+    for i, team in enumerate(teams):
+        final_ratings.loc[i, 'Avg_Pts_For'] = ratings[team][0]
+        final_ratings.loc[i, 'Avg_Pts_Against'] =  ratings[team][1]
+        final_ratings.loc[i, 'Avg_Net_Pts'] = ratings[team][2]
 
     # Write ratings to SQL table
     sys.write_ratings_to_sql(df=final_ratings, season_table_name=final_ratings_table_name)

@@ -83,7 +83,7 @@ if run_button:
             if i == 0:
                 sql_str = f'SELECT * FROM {x}'
             else:
-                sql_str += f'UNION SELECT * FROM {x}'
+                sql_str += f' UNION SELECT * FROM {x}'
         rating_score_df = pd.read_sql(sql_str, conn)
         conn.close()
 
