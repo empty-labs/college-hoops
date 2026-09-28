@@ -6,7 +6,7 @@ sync_to_github:
   script:
     - git remote remove github || true
     - git remote add github https://x-access-token:$GITHUB_TOKEN@github.com/empty-labs/college-hoops.git
-    - git push github HEAD:$CI_COMMIT_REF_NAME
-    - git push github --tags
+    - git push --force github HEAD:$CI_COMMIT_REF_NAME
+    - git push --force github --tags
   only:
     - main
