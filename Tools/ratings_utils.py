@@ -120,6 +120,10 @@ def set_rating_data_frame(season_table_name_list: list):
     df = pd.read_sql(sql_str, conn)
     conn.close()
 
+    # Handle NaN
+    df['Tm'] = pd.to_numeric(df['Tm'], errors='coerce').fillna(0).astype(int)
+    df['Opp'] = pd.to_numeric(df['Opp'], errors='coerce').fillna(0).astype(int)
+
     for _, row in df.iterrows():
 
         # Non Tournament games
